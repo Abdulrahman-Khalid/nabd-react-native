@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Scene, Router } from 'react-native-router-flux';
-import WelcomeScreen from './WelcomeScreen';
+import WelcomeScreen from './app/welcome/WelcomeScreen';
+
 class RouterComponent extends Component {
   onAddEmployeeClicked() {
     this.props.employeeFormReset();

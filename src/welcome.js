@@ -28,7 +28,7 @@ function cacheImages(images) {
   });
 }
 
-export default class WelcomeScreen extends React.Component {
+export default class Welcome extends React.Component {
   state = {
     isLoadingComplete: false
   };
