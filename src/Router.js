@@ -5,7 +5,7 @@ import IamDoctor from './app/welcome/IamDoctor';
 import IamAmbulance from './app/welcome/IamAmbulance';
 import IamUser from './app/welcome/IamUser';
 import IamParamedic from './app/welcome/IamParamedic';
-
+import Register from './app/welcome/Register';
 class RouterComponent extends Component {
   onAddEmployeeClicked() {
     this.props.employeeFormReset();
@@ -22,6 +22,7 @@ class RouterComponent extends Component {
           fontWeight: 'bold',
           color: '#000'
         }}
+        tintColor="#EF171D"
       >
         {/* <Scene key="root"> */}
         <Scene key="welcome" intial headerLayoutPreset="center">
@@ -30,6 +31,7 @@ class RouterComponent extends Component {
           <Scene key="iDoctor" component={IamDoctor} title="Doctor" />
           <Scene key="iParamedic" component={IamParamedic} title="Paramedic" />
           <Scene key="iAmbulance" component={IamAmbulance} title="Ambulance" />
+          <Scene key="signup" component={Register} title="Sign up" />
         </Scene>
         {/* </Scene> */}
       </Router>

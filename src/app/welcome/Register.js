@@ -8,8 +8,8 @@ import {
 } from 'react-native';
 import { Block, Checkbox, Text, theme } from 'galio-framework';
 
-import { Button, Icon, Input } from '../components';
-import { Images, argonTheme } from '../constants';
+import { Button, Icon, Input } from '../../components';
+import { Images, argonTheme } from '../../constants';
 
 const { width, height } = Dimensions.get('screen');
 

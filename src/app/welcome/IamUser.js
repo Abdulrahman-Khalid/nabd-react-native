@@ -3,6 +3,7 @@ import { Image, View } from 'react-native';
 import { Button } from '../../components';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
 import { Dimensions } from 'react-native';
+import { Actions } from 'react-native-router-flux';
 const { width } = Dimensions.get('screen');
 const { height } = Dimensions.get('screen');
 
@@ -26,6 +27,7 @@ class IamUser extends Component {
             <Button
               color="warning"
               style={{ ...styles.button, ...styles.appColor }}
+              onPress={() => Actions.signup()}
               textStyle={styles.buttonTextNew}
             >
               I am new
