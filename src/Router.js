@@ -1,6 +1,10 @@
 import React, { Component } from 'react';
 import { Scene, Router } from 'react-native-router-flux';
-import WelcomeScreen from './app/welcome/WelcomeScreen';
+import WhoAmI from './app/welcome/WhoAmI';
+import IamDoctor from './app/welcome/IamDoctor';
+import IamAmbulance from './app/welcome/IamAmbulance';
+import IamUser from './app/welcome/IamUser';
+import IamParamedic from './app/welcome/IamParamedic';
 
 class RouterComponent extends Component {
   onAddEmployeeClicked() {
@@ -11,14 +15,23 @@ class RouterComponent extends Component {
   render() {
     return (
       <Router
-        navigationBarStyle={{
-          backgroundColor: '#EF171D'
+        // navigationBarStyle={{
+        //   bacIamDoctorkgroundColor: '#EF171D'
+        // }}
+        titleStyle={{
+          fontWeight: 'bold',
+          color: '#000'
         }}
-        titleStyle={{ fontWeight: 'bold', color: '#fff' }}
       >
-        <Scene key="root">
-          <Scene key="welcome" component={WelcomeScreen} title="Nabd" initial />
+        {/* <Scene key="root"> */}
+        <Scene key="welcome" intial headerLayoutPreset="center">
+          <Scene key="whoRU" component={WhoAmI} title="Nabd" initial />
+          <Scene key="iUser" component={IamUser} title="User" />
+          <Scene key="iDoctor" component={IamDoctor} title="Doctor" />
+          <Scene key="iParamedic" component={IamParamedic} title="Paramedic" />
+          <Scene key="iAmbulance" component={IamAmbulance} title="Ambulance" />
         </Scene>
+        {/* </Scene> */}
       </Router>
     );
   }
