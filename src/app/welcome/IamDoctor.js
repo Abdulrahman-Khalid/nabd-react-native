@@ -27,6 +27,7 @@ class IamDoctor extends Component {
               color="warning"
               style={{ ...styles.button, ...styles.appColor }}
               textStyle={styles.buttonTextNew}
+              onPress={() => Actions.signup()}
             >
               I am new
             </Button>
