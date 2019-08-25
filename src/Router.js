@@ -6,6 +6,9 @@ import IamAmbulance from './app/welcome/IamAmbulance';
 import IamUser from './app/welcome/IamUser';
 import IamParamedic from './app/welcome/IamParamedic';
 import Register from './app/welcome/Register';
+import VerifySignup from './app/welcome/PhoneVerification/Animated';
+import SignIn from './app/welcome/SignIn';
+
 class RouterComponent extends Component {
   onAddEmployeeClicked() {
     this.props.employeeFormReset();
@@ -32,6 +35,8 @@ class RouterComponent extends Component {
           <Scene key="iParamedic" component={IamParamedic} title="Paramedic" />
           <Scene key="iAmbulance" component={IamAmbulance} title="Ambulance" />
           <Scene key="signup" component={Register} title="Sign up" />
+          <Scene key="signin" component={SignIn} title="Sign in" />
+          <Scene key="verifySignup" component={VerifySignup} title="Verify" />
         </Scene>
         {/* </Scene> */}
       </Router>

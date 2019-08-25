@@ -4,11 +4,37 @@ import { Button } from '../../components';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
 import { Actions } from 'react-native-router-flux';
 import { StyleSheet, Dimensions } from 'react-native';
+import { argonTheme } from '../../constants';
+import { connect } from 'react-redux';
+import { setUserType, getWelcomeInfo } from '../../actions';
 
-const { width } = Dimensions.get('screen');
-const { height } = Dimensions.get('screen');
+const { width, height } = Dimensions.get('screen');
 
-export default class WhoAmI extends Component {
+class WhoAmI extends Component {
+  componentDidMount() {
+    this.props.getWelcomeInfo();
+  }
+
+  ambulance() {
+    this.props.setUserType('ambulance');
+    Actions.iAmbulance();
+  }
+
+  doctor() {
+    this.props.setUserType('doctor');
+    Actions.iDoctor();
+  }
+
+  user() {
+    this.props.setUserType('user');
+    Actions.iUser();
+  }
+
+  paramedic() {
+    this.props.setUserType('paramedic');
+    Actions.iParamedic();
+  }
+
   render() {
     return (
       <Block flex style={{ backgroundColor: '#ffffff' }}>
@@ -23,13 +49,17 @@ export default class WhoAmI extends Component {
             >
               <Block>
                 <Block center style={{ marginBottom: 4 }}>
-                  <Text style={styles.numberText}>300,413</Text>
+                  <Text style={styles.numberText}>
+                    {this.props.numberUsers}
+                  </Text>
                   <Text style={styles.textStyle}>Users</Text>
                 </Block>
               </Block>
               <Block>
                 <Block center>
-                  <Text style={styles.numberText}>100,314</Text>
+                  <Text style={styles.numberText}>
+                    {this.props.numberDoctors}
+                  </Text>
                   <Text style={styles.textStyle}>Doctors</Text>
                 </Block>
               </Block>
@@ -37,13 +67,17 @@ export default class WhoAmI extends Component {
             <Block style={{ position: 'absolute', right: 15, top: 15 }}>
               <Block>
                 <Block center tyle={{ marginBottom: 4 }}>
-                  <Text style={styles.numberText}>2,041</Text>
+                  <Text style={styles.numberText}>
+                    {this.props.numberParamedics}
+                  </Text>
                   <Text style={styles.textStyle}>paramedic</Text>
                 </Block>
               </Block>
               <Block>
                 <Block center>
-                  <Text style={styles.numberText}>1,301</Text>
+                  <Text style={styles.numberText}>
+                    {this.props.numberAmbulance}
+                  </Text>
                   <Text style={styles.textStyle}>Ambulance</Text>
                 </Block>
               </Block>
@@ -66,7 +100,7 @@ export default class WhoAmI extends Component {
             color="warning"
             style={styles.button}
             textStyle={styles.buttonText}
-            onPress={() => Actions.iUser()}
+            onPress={this.user.bind(this)}
           >
             I am a user
           </Button>
@@ -74,7 +108,7 @@ export default class WhoAmI extends Component {
             color="warning"
             style={styles.button}
             textStyle={styles.buttonText}
-            onPress={() => Actions.iDoctor()}
+            onPress={this.doctor.bind(this)}
           >
             I am a doctor
           </Button>
@@ -82,7 +116,7 @@ export default class WhoAmI extends Component {
             color="warning"
             style={styles.button}
             textStyle={styles.buttonText}
-            onPress={() => Actions.iParamedic()}
+            onPress={this.paramedic.bind(this)}
           >
             I am a paramedic
           </Button>
@@ -90,7 +124,7 @@ export default class WhoAmI extends Component {
             color="warning"
             style={styles.button}
             textStyle={styles.buttonText}
-            onPress={() => Actions.iAmbulance()}
+            onPress={this.ambulance.bind(this)}
           >
             Ambulance
           </Button>
@@ -105,7 +139,7 @@ const styles = StyleSheet.create({
     marginBottom: theme.SIZES.BASE,
     width: width - theme.SIZES.BASE * 2,
     height: height / 15,
-    backgroundColor: '#EF171D',
+    backgroundColor: argonTheme.COLORS.APP,
     borderRadius: 5
   },
   buttonText: { fontSize: 20, fontWeight: '700' },
@@ -121,3 +155,16 @@ const styles = StyleSheet.create({
     color: '#484848'
   }
 });
+
+const mapStateToProps = state => {
+  return ({
+    numberUsers,
+    numberParamedics,
+    numberAmbulance,
+    numberDoctors
+  } = state.openApp);
+};
+export default connect(
+  mapStateToProps,
+  { setUserType, getWelcomeInfo }
+)(WhoAmI);

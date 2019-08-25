@@ -3,8 +3,9 @@ import { Image, View } from 'react-native';
 import { Button } from '../../components';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
 import { Dimensions } from 'react-native';
-const { width } = Dimensions.get('screen');
-const { height } = Dimensions.get('screen');
+import { Actions } from 'react-native-router-flux';
+
+const { width, height } = Dimensions.get('screen');
 
 class IamAmbulance extends Component {
   render() {
@@ -30,6 +31,7 @@ class IamAmbulance extends Component {
                 ...{ borderColor: '#7a7a7a', borderWidth: 1 }
               }}
               textStyle={styles.buttonTextSignup}
+              onPress={() => Actions.signin()}
             >
               Sign in
             </Button>
@@ -52,9 +54,6 @@ const styles = {
     width: width - theme.SIZES.BASE * 2,
     height: height / 15,
     borderRadius: 5
-  },
-  appColor: {
-    backgroundColor: '#EF171D'
   },
   buttonTextNew: { color: '#fff', fontSize: 20, fontWeight: '700' },
   buttonTextSignup: {

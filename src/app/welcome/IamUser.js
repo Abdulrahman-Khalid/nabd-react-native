@@ -1,11 +1,7 @@
 import React, { Component } from 'react';
-import { Image, View } from 'react-native';
-import { Button } from '../../components';
+import { Image } from 'react-native';
+import CommonButtons from './CommonButtons';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
-import { Dimensions } from 'react-native';
-import { Actions } from 'react-native-router-flux';
-const { width } = Dimensions.get('screen');
-const { height } = Dimensions.get('screen');
 
 class IamUser extends Component {
   render() {
@@ -23,26 +19,7 @@ class IamUser extends Component {
           </Text>
         </Block>
         <Block center style={{ position: 'absolute', bottom: 10 }}>
-          <Block center>
-            <Button
-              color="warning"
-              style={{ ...styles.button, ...styles.appColor }}
-              onPress={() => Actions.signup()}
-              textStyle={styles.buttonTextNew}
-            >
-              I am new
-            </Button>
-            <Button
-              color="secondary"
-              style={{
-                ...styles.button,
-                ...{ borderColor: '#7a7a7a', borderWidth: 1 }
-              }}
-              textStyle={styles.buttonTextSignup}
-            >
-              Sign in
-            </Button>
-          </Block>
+          <CommonButtons />
         </Block>
       </Block>
     );
@@ -55,21 +32,6 @@ const styles = {
     height: 200,
     borderRadius: 200 / 2,
     marginBottom: 30
-  },
-  button: {
-    marginBottom: theme.SIZES.BASE,
-    width: width - theme.SIZES.BASE * 2,
-    height: height / 15,
-    borderRadius: 5
-  },
-  appColor: {
-    backgroundColor: '#EF171D'
-  },
-  buttonTextNew: { color: '#fff', fontSize: 20, fontWeight: '700' },
-  buttonTextSignup: {
-    color: '#7a7a7a',
-    fontSize: 20,
-    fontWeight: '700'
   },
   descriptionText: {
     fontSize: 16,

@@ -1,5 +1,6 @@
 export default {
   COLORS: {
+    APP: '#EF171D',
     DEFAULT: '#172B4D',
     PRIMARY: '#5E72E4',
     SECONDARY: '#F7FAFC',

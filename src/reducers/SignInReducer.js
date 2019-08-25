@@ -1,33 +1,29 @@
 import {
-  FILL_SIGNUP_FORM,
-  SIGNUP_ATTEMPT,
-  SIGNUP_SUCCESS,
-  SIGNUP_FAIL
+  FILL_SIGNIN_FORM,
+  SIGNIN_ATTEMPT,
+  SIGNIN_SUCCESS,
+  SIGNIN_FAIL
 } from '../actions/types';
 
 const INTIAL_STATE = {
-  name: '',
   phone: '',
   password: '',
-  confirmPassword: '',
-  gender: '',
-  birthday: '',
   loading: false
 };
 
 export default (state = INTIAL_STATE, action) => {
   switch (action.type) {
-    case FILL_SIGNUP_FORM:
-      return { ...state, [action.payload.key]: action.payload.value };
-    case SIGNUP_ATTEMPT:
+    case FILL_SIGNIN_FORM:
+      const { key, value } = action.payload;
+      return { ...state, [key]: value };
+    case SIGNIN_ATTEMPT:
       return {
         ...state,
-        phone: action.payload,
         loading: true
       };
-    case SIGNUP_SUCCESS:
+    case SIGNIN_SUCCESS:
       return { ...state, loading: false };
-    case SIGNUP_FAIL:
+    case SIGNIN_FAIL:
       return { ...state, error: action.payload };
     default:
       return state;
