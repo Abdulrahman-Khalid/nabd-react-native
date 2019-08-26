@@ -19,7 +19,6 @@ import PhoneInput from 'react-native-phone-input';
 import ModalPickerImage from './ModalPickerImage';
 import { signInAttempt, fillSignInForm } from '../../actions';
 import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -93,6 +92,12 @@ class SignIn extends Component {
                       }}
                       initialCountry="eg"
                       offset={22}
+                      onChangePhoneNumber={value => {
+                        this.props.fillSignInForm({
+                          key: 'phone',
+                          value
+                        });
+                      }}
                       onPressFlag={this.onPressFlag}
                       style={{ paddingLeft: 13 }}
                       textProps={{
@@ -124,7 +129,12 @@ class SignIn extends Component {
                       placeholder="Password"
                       secureTextEntry={true}
                       underlineColorAndroid="transparent"
-                      onChangeText={password => this.setState({ password })}
+                      onChangeText={value =>
+                        this.props.fillSignInForm({
+                          key: 'password',
+                          value
+                        })
+                      }
                     />
                   </View>
                 </KeyboardAvoidingView>
@@ -231,7 +241,7 @@ const styles = StyleSheet.create({
 });
 
 const mapSateToProps = state => {
-  console.log(state);
+  console.log('state', state);
   const { userType } = state.openApp;
   const { phone, password, loading } = state.signin;
   return { phone, password, loading, userType };

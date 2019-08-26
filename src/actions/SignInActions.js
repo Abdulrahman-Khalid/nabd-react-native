@@ -22,7 +22,7 @@ export const signInAttempt = signInInfo => {
       type: SIGNIN_ATTEMPT,
       payload: phone
     });
-    console.log(signInInfo);
+    console.log('signInInfo', signInInfo);
     axios
       .post(`login/${userType}`, {
         phoneNo: phone.substring(1),

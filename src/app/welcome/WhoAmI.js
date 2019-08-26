@@ -8,6 +8,7 @@ import { argonTheme } from '../../constants';
 import { connect } from 'react-redux';
 import { setUserType, getWelcomeInfo } from '../../actions';
 import AsyncStorage from '@react-native-community/async-storage';
+import axios from 'axios';
 
 const { width, height } = Dimensions.get('screen');
 

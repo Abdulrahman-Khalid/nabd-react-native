@@ -5,7 +5,7 @@ import reducers from './reducers';
 import ReduxThunk from 'redux-thunk';
 import RouterComponent from './Router';
 import { Block } from 'galio-framework';
-
+import Screens from './navigation/Screens';
 class App extends Component {
   componentDidMount() {}
 
@@ -15,7 +15,7 @@ class App extends Component {
       <Provider store={store}>
         <Block flex>
           <RouterComponent />
-          <Screen />
+          {/* <Screens /> */}
         </Block>
       </Provider>
     );
