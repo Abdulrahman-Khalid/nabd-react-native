@@ -2,9 +2,8 @@ import React, { Component, createRef } from 'react';
 import { Alert, Animated, Image, Text, View } from 'react-native';
 import { Block } from 'galio-framework';
 import { Button } from '../../../../components';
-
+import axios from 'axios';
 import CodeInput from 'react-native-confirmation-code-field';
-
 import styles, {
   ACTIVE_CELL_BG_COLOR,
   CELL_BORDER_RADIUS,
@@ -12,6 +11,7 @@ import styles, {
   DEFAULT_CELL_BG_COLOR,
   NOT_EMPTY_CELL_BG_COLOR
 } from './styles';
+import { Actions } from 'react-native-router-flux';
 
 const codeLength = 4;
 
@@ -42,23 +42,39 @@ export default class AnimatedExample extends Component {
   }
 
   handlerOnFulfill = code => {
-    if (code === '1234') {
-      console.log('true');
-      return Alert.alert('Confirmation Code', 'Successful!', [{ text: 'OK' }], {
-        cancelable: false
+    axios
+      .post('confirmation', {
+        phoneNo: this.props.phoneNum.substring(1),
+        randomCode: code
+      })
+      .then(() => {
+        return Alert.alert(
+          'Confirmation Code',
+          'Successful!',
+          [{ text: 'OK', onPress: () => Actions.signin() }],
+          {
+            cancelable: false
+          }
+        );
+      })
+      .catch(error => {
+        console.log(error);
+        return Alert.alert(
+          'Confirmation Code',
+          'Failed!',
+          [
+            {
+              text: 'OK',
+              onPress: () => {
+                this.clearCode();
+              }
+            }
+          ],
+          {
+            cancelable: false
+          }
+        );
       });
-    } else {
-      this.clearCode();
-      console.log('false');
-      return Alert.alert(
-        'Wrong verification Code',
-        'Failed!',
-        [{ text: 'OK' }],
-        {
-          cancelable: false
-        }
-      );
-    }
   };
 
   field = createRef();

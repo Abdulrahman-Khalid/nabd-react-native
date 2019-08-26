@@ -7,12 +7,30 @@ import { StyleSheet, Dimensions } from 'react-native';
 import { argonTheme } from '../../constants';
 import { connect } from 'react-redux';
 import { setUserType, getWelcomeInfo } from '../../actions';
+import AsyncStorage from '@react-native-community/async-storage';
 
 const { width, height } = Dimensions.get('screen');
 
 class WhoAmI extends Component {
   componentDidMount() {
-    this.props.getWelcomeInfo();
+    (async () => {
+      await AsyncStorage.getItem('@app:session')
+        .then(token => {
+          console.log('check token');
+          if (token) {
+            console.log('token:', token);
+            axios.defaults.headers.common['TOKEN'] = token;
+            Actions.home();
+          } else {
+            console.log('No token');
+            this.props.getWelcomeInfo();
+          }
+        })
+        .catch(error => {
+          console.log(error);
+          this.props.getWelcomeInfo();
+        });
+    })();
   }
 
   ambulance() {

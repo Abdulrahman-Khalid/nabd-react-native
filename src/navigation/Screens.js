@@ -1,27 +1,27 @@
-import React from "react";
-import { Easing, Animated } from "react-native";
+import React from 'react';
+import { Easing, Animated } from 'react-native';
 import {
   createStackNavigator,
   createDrawerNavigator,
   createAppContainer
-} from "react-navigation";
+} from 'react-navigation';
 
-import { Block } from "galio-framework";
+import { Block } from 'galio-framework';
 
 // screens
-import Home from "../screens/Home";
-import Onboarding from "../screens/Onboarding";
-import Pro from "../screens/Pro";
-import Profile from "../screens/Profile";
-import Register from "../screens/Register";
-import Elements from "../screens/Elements";
-import Articles from "../screens/Articles";
+import Home from '../screens/Home';
+import Onboarding from '../screens/Onboarding';
+import Pro from '../screens/Pro';
+import Profile from '../screens/Profile';
+import Register from '../screens/Register';
+import Elements from '../screens/Elements';
+import Articles from '../screens/Articles';
 // drawer
-import Menu from "./Menu";
-import DrawerItem from "../components/DrawerItem";
+import Menu from './Menu';
+import DrawerItem from '../components/DrawerItem';
 
 // header for screens
-import Header from "../components/Header";
+import Header from '../components/Header';
 
 const transitionConfig = (transitionProps, prevTransitionProps) => ({
   transitionSpec: {
@@ -48,7 +48,7 @@ const transitionConfig = (transitionProps, prevTransitionProps) => ({
     });
 
     const scaleWithOpacity = { opacity };
-    const screenName = "Search";
+    const screenName = 'Search';
 
     if (
       screenName === transitionProps.scene.route.routeName ||
@@ -61,33 +61,39 @@ const transitionConfig = (transitionProps, prevTransitionProps) => ({
   }
 });
 
-const ElementsStack = createStackNavigator({
-  Elements: {
-    screen: Elements,
-    navigationOptions: ({ navigation }) => ({
-      header: <Header title="Elements" navigation={navigation} />
-    })
-  }
-},{
-  cardStyle: {
-    backgroundColor: "#F8F9FE"
+const ElementsStack = createStackNavigator(
+  {
+    Elements: {
+      screen: Elements,
+      navigationOptions: ({ navigation }) => ({
+        header: <Header title="Elements" navigation={navigation} />
+      })
+    }
   },
-  transitionConfig
-});
+  {
+    cardStyle: {
+      backgroundColor: '#F8F9FE'
+    },
+    transitionConfig
+  }
+);
 
-const ArticlesStack = createStackNavigator({
-  Articles: {
-    screen: Articles,
-    navigationOptions: ({ navigation }) => ({
-      header: <Header title="Articles" navigation={navigation} />
-    })
-  }
-},{
-  cardStyle: {
-    backgroundColor: "#F8F9FE"
+const ArticlesStack = createStackNavigator(
+  {
+    Articles: {
+      screen: Articles,
+      navigationOptions: ({ navigation }) => ({
+        header: <Header title="Articles" navigation={navigation} />
+      })
+    }
   },
-  transitionConfig
-});
+  {
+    cardStyle: {
+      backgroundColor: '#F8F9FE'
+    },
+    transitionConfig
+  }
+);
 
 const ProfileStack = createStackNavigator(
   {
@@ -95,14 +101,20 @@ const ProfileStack = createStackNavigator(
       screen: Profile,
       navigationOptions: ({ navigation }) => ({
         header: (
-          <Header white transparent title="Profile" iconColor={'#FFF'} navigation={navigation} />
+          <Header
+            white
+            transparent
+            title="Profile"
+            iconColor={'#FFF'}
+            navigation={navigation}
+          />
         ),
         headerTransparent: true
       })
     }
   },
   {
-    cardStyle: { backgroundColor: "#FFFFFF" },
+    cardStyle: { backgroundColor: '#FFFFFF' },
     transitionConfig
   }
 );
@@ -119,7 +131,13 @@ const HomeStack = createStackNavigator(
       screen: Pro,
       navigationOptions: ({ navigation }) => ({
         header: (
-          <Header left={<Block />} white transparent title="" navigation={navigation} />
+          <Header
+            left={<Block />}
+            white
+            transparent
+            title=""
+            navigation={navigation}
+          />
         ),
         headerTransparent: true
       })
@@ -127,7 +145,7 @@ const HomeStack = createStackNavigator(
   },
   {
     cardStyle: {
-      backgroundColor: "#F8F9FE"
+      backgroundColor: '#F8F9FE'
     },
     transitionConfig
   }

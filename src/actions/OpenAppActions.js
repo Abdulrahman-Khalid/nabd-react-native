@@ -13,10 +13,10 @@ export const getWelcomeInfo = () => {
     console.log('here');
     axios
       .get('welcome/info')
-      .then(response => {
+      .then(({ data }) => {
         console.log('success');
-        console.log(response);
-        dispatch({ type: SET_WELCOME_INFO });
+        console.log(data);
+        dispatch({ type: SET_WELCOME_INFO, payload: data });
       })
       .catch(error => {
         console.log('failed');

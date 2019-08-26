@@ -27,6 +27,7 @@
     "android": "react-native run-android"
   },
   "dependencies": {
+    "@react-native-community/async-storage": "^1.6.1",
     "axios": "^0.19.0",
     "galio-framework": "^0.5.4",
     "jetifier": "^1.6.4",

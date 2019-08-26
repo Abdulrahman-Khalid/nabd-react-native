@@ -24,7 +24,7 @@ export default (state = INTIAL_STATE, action) => {
     case SIGNIN_SUCCESS:
       return { ...state, loading: false };
     case SIGNIN_FAIL:
-      return { ...state, error: action.payload };
+      return { ...state, loading: false, error: action.payload };
     default:
       return state;
   }

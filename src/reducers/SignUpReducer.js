@@ -26,9 +26,15 @@ export default (state = INTIAL_STATE, action) => {
         loading: true
       };
     case SIGNUP_SUCCESS:
-      return { ...state, loading: false };
+      return { ...state, password: '', confirmPassword: '', loading: false };
     case SIGNUP_FAIL:
-      return { ...state, error: action.payload };
+      return {
+        ...state,
+        password: '',
+        confirmPassword: '',
+        loading: false,
+        error: action.payload
+      };
     default:
       return state;
   }

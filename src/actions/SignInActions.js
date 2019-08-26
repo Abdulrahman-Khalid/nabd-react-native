@@ -6,6 +6,7 @@ import {
 } from './types';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
+import AsyncStorage from '@react-native-community/async-storage';
 
 export const fillSignInForm = keyAndValue => {
   return {
@@ -15,23 +16,38 @@ export const fillSignInForm = keyAndValue => {
 };
 
 export const signInAttempt = signInInfo => {
+  const { password, phone, userType } = signInInfo;
   return dispatch => {
     dispatch({
       type: SIGNIN_ATTEMPT,
-      payload: signInInfo.phone
+      payload: phone
     });
     console.log(signInInfo);
     axios
-      .post(`login/${signInInfo.userType}`, {
-        phoneNo: signInInfo.phone.substring(1),
-        password: signInInfo.password
+      .post(`login/${userType}`, {
+        phoneNo: phone.substring(1),
+        password: password
       })
       .then(response => {
+        AsyncStorage.multiSet([
+          ['@app:session', response.data.token],
+          ['@app:id', phone]
+        ])
+          .then(() => {
+            AsyncStorage.getItem('@app:session')
+              .then(token => {
+                axios.defaults.headers.common['TOKEN'] = token;
+              })
+              .catch(error => {})
+              .then(() => {
+                if (userType) Actions.home();
+              });
+          })
+          .catch(error => {});
         console.log(response);
         dispatch({
           type: SIGNIN_SUCCESS
         });
-        Actions.home();
       })
       .catch(error => {
         console.log(error);

@@ -19,6 +19,7 @@ import PhoneInput from 'react-native-phone-input';
 import ModalPickerImage from './ModalPickerImage';
 import { signInAttempt, fillSignInForm } from '../../actions';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 
 const { width, height } = Dimensions.get('screen');
 
