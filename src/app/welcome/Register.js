@@ -16,7 +16,15 @@ import { Images, argonTheme } from '../../constants';
 import DatePicker from 'react-native-datepicker';
 import { connect } from 'react-redux';
 import { Spinner } from '../../components/Spinner';
-import { signUpAttempt, fillSignUpForm } from '../../actions';
+import {
+  signUpAttempt,
+  fillSignUpForm,
+  validateName,
+  validateConfirmPassword,
+  validateBirthday,
+  validatePhone
+} from '../../actions';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -34,7 +42,8 @@ class Register extends React.Component {
       pickerData: null,
       todayDate: year + '-' + month + '-' + date,
       birthday: year + '-' + month + '-' + date,
-      gender: 'male'
+      gender: 'male',
+      showAlert: false
     };
   }
 
@@ -67,17 +76,47 @@ class Register extends React.Component {
       <Block middle>
         <Button
           color="primary"
-          onPress={() =>
-            this.props.signUpAttempt({
-              name: this.props.name,
-              phone: this.phone.getValue(),
-              birthday: new Date(`${this.state.birthday}T00:00:00`),
-              gender: this.state.gender,
-              password: this.props.password,
-              confirmPassword: this.props.confirmPassword,
-              userType: this.props.userType
-            })
-          }
+          onPress={() => {
+            const {
+              password,
+              nameError,
+              phoneError,
+              passError,
+              passMatchError,
+              birthdayError,
+              fillSignUpForm,
+              validateBirthday
+            } = this.props;
+
+            fillSignUpForm({
+              key: 'password',
+              value: password
+            });
+            this.loseNameFocus();
+            this.losePhoneFocus();
+            validateBirthday(this.state.birthday);
+            this.loseConfirmPasswordFocus();
+
+            if (
+              nameError ||
+              phoneError ||
+              passError ||
+              passMatchError ||
+              birthdayError
+            ) {
+              this.showAlert();
+            } else {
+              this.props.signUpAttempt({
+                name: this.props.name,
+                phone: this.phone.getValue(),
+                birthday: new Date(this.state.birthday),
+                gender: this.state.gender,
+                password: this.props.password,
+                confirmPassword: this.props.confirmPassword,
+                userType: this.props.userType
+              });
+            }
+          }}
           // console.log(
           //   this.phone.isValidNumber(),
           //   this.phone.getValue()
@@ -91,6 +130,103 @@ class Register extends React.Component {
       </Block>
     );
   }
+
+  loseNameFocus() {
+    this.props.validateName(this.props.name);
+  }
+
+  loseConfirmPasswordFocus() {
+    const { password, confirmPassword } = this.props;
+    this.props.validateConfirmPassword(password, confirmPassword);
+  }
+
+  losePhoneFocus() {
+    this.props.validatePhone(this.phone.isValidNumber());
+  }
+
+  onChangePassword(password) {
+    this.props.fillSignUpForm({ key: 'password', value: password });
+
+    if (this.props.confirmPassword) {
+      this.props.validateConfirmPassword(password, this.props.confirmPassword);
+    }
+  }
+
+  phoneInputBorderColor() {
+    const { isSuccessPhone, isErrorPhone } = this.props;
+    const shadow = {
+      shadowColor: argonTheme.COLORS.BLACK,
+      shadowOffset: { width: 0, height: 1 },
+      shadowRadius: 2,
+      shadowOpacity: 0.05,
+      elevation: 2,
+      borderRadius: 4,
+      borderColor: argonTheme.COLORS.BORDER,
+      height: 44,
+      backgroundColor: '#FFFFFF',
+      borderWidth: 1
+    };
+
+    if (isSuccessPhone) {
+      return {
+        ...shadow,
+        borderColor: argonTheme.COLORS.INPUT_SUCCESS
+      };
+    } else if (isErrorPhone) {
+      return {
+        ...shadow,
+        borderColor: argonTheme.COLORS.INPUT_ERROR
+      };
+    }
+    return shadow;
+  }
+
+  errorMessage() {
+    var message = '';
+    const {
+      nameError,
+      phoneError,
+      passError,
+      passMatchError,
+      birthdayError
+    } = this.props;
+    var num = 1;
+    if (nameError) {
+      message += `${num}) ${nameError}\n`;
+      num++;
+    }
+    if (phoneError) {
+      message += `${num}) ${phoneError}\n`;
+      num++;
+    }
+    if (passError) {
+      message += `${num}) ${passError}\n`;
+      num++;
+    }
+    if (passMatchError) {
+      message += `${num}) ${passMatchError}\n`;
+      num++;
+    }
+    if (birthdayError) {
+      message += `${num}) ${birthdayError}`;
+      num++;
+    }
+    return message;
+  }
+
+  showAlert = () => {
+    this.setState({
+      ...this.state,
+      showAlert: true
+    });
+  };
+
+  hideAlert = () => {
+    this.setState({
+      ...this.state,
+      showAlert: false
+    });
+  };
 
   render() {
     return (
@@ -108,8 +244,11 @@ class Register extends React.Component {
                 >
                   <Block width={width * 0.75} style={{ marginBottom: 15 }}>
                     <Input
-                      borderless
                       placeholder="Name"
+                      error={this.props.isErrorName}
+                      success={this.props.isSuccessName}
+                      autoFocus={true}
+                      onBlur={this.loseNameFocus.bind(this)}
                       iconContent={
                         <Icon
                           size={16}
@@ -126,7 +265,12 @@ class Register extends React.Component {
                     />
                   </Block>
                   <Block width={width * 0.75} style={{ marginBottom: 15 }}>
-                    <View style={styles.phoneContainer}>
+                    <View
+                      style={{
+                        ...styles.phoneContainer,
+                        ...this.phoneInputBorderColor()
+                      }}
+                    >
                       <PhoneInput
                         ref={ref => {
                           this.phone = ref;
@@ -134,6 +278,7 @@ class Register extends React.Component {
                         initialCountry="eg"
                         onPressFlag={this.onPressFlag}
                         textProps={{
+                          onBlur: this.losePhoneFocus.bind(this),
                           placeholder: 'Phone'
                         }}
                       />
@@ -153,8 +298,15 @@ class Register extends React.Component {
                   <Block width={width * 0.75} style={{ marginBottom: 7 }}>
                     <Input
                       password
-                      borderless
+                      error={this.props.isErrorPass}
+                      success={this.props.isSuccessPass}
                       placeholder="Password"
+                      onBlur={() =>
+                        this.props.fillSignUpForm({
+                          key: 'password',
+                          value: this.props.password
+                        })
+                      }
                       iconContent={
                         <Icon
                           size={16}
@@ -164,17 +316,17 @@ class Register extends React.Component {
                           style={styles.inputIcons}
                         />
                       }
-                      onChangeText={value =>
-                        this.props.fillSignUpForm({ key: 'password', value })
-                      }
+                      onChangeText={this.onChangePassword.bind(this)}
                       value={this.props.password}
                     />
                   </Block>
                   <Block width={width * 0.75}>
                     <Input
                       password
-                      borderless
+                      error={this.props.isErrorPassMatch}
+                      success={this.props.isSuccessPassMatch}
                       placeholder="Confirm Password"
+                      onBlur={this.loseConfirmPasswordFocus.bind(this)}
                       iconContent={
                         <Icon
                           size={16}
@@ -201,9 +353,9 @@ class Register extends React.Component {
                         bold
                         size={12}
                         style={{ paddingLeft: 2 }}
-                        color={argonTheme.COLORS.SUCCESS}
+                        color={this.props.passStrengthColor}
                       >
-                        strong
+                        {this.props.passStrengthText}
                       </Text>
                     </Block>
                   </Block>
@@ -248,7 +400,7 @@ class Register extends React.Component {
                           // ... You can check the source to find the other keys.
                         }}
                         onDateChange={date => {
-                          this.setState({ birthday: date });
+                          this.setState({ ...this.state, birthday: date });
                         }}
                       />
                     </Block>
@@ -307,7 +459,7 @@ class Register extends React.Component {
                       style={{ width: 100 }}
                       color="transparent"
                       textStyle={{
-                        color: argonTheme.COLORS.PRIMARY,
+                        color: argonTheme.COLORS.APP,
                         fontSize: 14
                       }}
                     >
@@ -318,6 +470,21 @@ class Register extends React.Component {
                 </KeyboardAvoidingView>
               </Block>
             </Block>
+            <AwesomeAlert
+              show={this.state.showAlert}
+              showProgress={false}
+              title="Sign up failed"
+              message={this.errorMessage()}
+              closeOnTouchOutside={true}
+              closeOnHardwareBackPress={false}
+              showCancelButton={false}
+              showConfirmButton={true}
+              confirmText="OK"
+              confirmButtonColor={argonTheme.COLORS.APP}
+              onConfirmPressed={() => {
+                this.hideAlert();
+              }}
+            />
           </Block>
         </Block>
       </Block>
@@ -401,13 +568,62 @@ const styles = StyleSheet.create({
 });
 
 const mapSateToProps = state => {
-  console.log(state);
+  console.log('Register State: ', state);
   const { userType } = state.openApp;
-  const { name, password, confirmPassword, loading } = state.signup;
-  return { name, password, confirmPassword, loading, userType };
+  //add in the reducer signup (birthday)
+  const {
+    name,
+    password,
+    confirmPassword,
+    loading,
+    nameError,
+    passError,
+    phoneError,
+    passMatchError,
+    birthdayError,
+    passStrengthText,
+    passStrengthColor,
+    isSuccessName,
+    isErrorName,
+    isSuccessPhone,
+    isErrorPhone,
+    isSuccessPass,
+    isErrorPass,
+    isSuccessPassMatch,
+    isErrorPassMatch
+  } = state.signup;
+  return {
+    name,
+    password,
+    confirmPassword,
+    loading,
+    userType,
+    nameError,
+    phoneError,
+    passError,
+    passMatchError,
+    birthdayError,
+    passStrengthText,
+    passStrengthColor,
+    isSuccessName,
+    isErrorName,
+    isSuccessPhone,
+    isErrorPhone,
+    isSuccessPass,
+    isErrorPass,
+    isSuccessPassMatch,
+    isErrorPassMatch
+  };
 };
 
 export default connect(
   mapSateToProps,
-  { signUpAttempt, fillSignUpForm }
+  {
+    signUpAttempt,
+    fillSignUpForm,
+    validateName,
+    validateConfirmPassword,
+    validateBirthday,
+    validatePhone
+  }
 )(Register);

@@ -34,6 +34,7 @@
     "lodash": "^4.17.15",
     "react": "16.8.6",
     "react-native": "0.60.5",
+    "react-native-awesome-alerts": "^1.2.0",
     "react-native-confirmation-code-field": "^3.9.0",
     "react-native-country-picker-modal": "^0.8.0",
     "react-native-datepicker": "^1.7.2",
