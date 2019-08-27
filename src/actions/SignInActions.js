@@ -31,7 +31,7 @@ export const signInAttempt = signInInfo => {
       .then(response => {
         AsyncStorage.multiSet([
           ['@app:session', response.data.token],
-          ['@app:id', phone]
+          ['@app:userType', userType]
         ])
           .then(() => {
             AsyncStorage.getItem('@app:session')
