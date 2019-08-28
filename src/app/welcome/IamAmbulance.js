@@ -1,0 +1,72 @@
+import React, { Component } from 'react';
+import { Image, View } from 'react-native';
+import { Button } from '../../components';
+import { Block, Text, Button as GaButton, theme } from 'galio-framework';
+import { Dimensions } from 'react-native';
+import { Actions } from 'react-native-router-flux';
+
+const { width, height } = Dimensions.get('screen');
+
+class IamAmbulance extends Component {
+  render() {
+    return (
+      <Block flex style={{ backgroundColor: 'white' }}>
+        <Block center style={{ position: 'absolute', top: 30 }}>
+          <Image
+            style={styles.image}
+            source={require('../../assets/imgs/ancient_egypt.jpg')}
+          />
+          <Text style={{ fontSize: 20, fontWeight: '700' }}>Ambulance</Text>
+          <Text style={styles.descriptionText}>
+            Lorem Ipsum is simply dummy text of the printing and type setting
+            industry Lorem Ipsum
+          </Text>
+        </Block>
+        <Block center style={{ position: 'absolute', bottom: 10 }}>
+          <Block center>
+            <Button
+              color="secondary"
+              style={{
+                ...styles.button,
+                ...{ borderColor: '#7a7a7a', borderWidth: 1 }
+              }}
+              textStyle={styles.buttonTextSignup}
+              onPress={() => Actions.signin()}
+            >
+              Sign in
+            </Button>
+          </Block>
+        </Block>
+      </Block>
+    );
+  }
+}
+
+const styles = {
+  image: {
+    width: 200,
+    height: 200,
+    borderRadius: 200 / 2,
+    marginBottom: 30
+  },
+  button: {
+    marginBottom: theme.SIZES.BASE,
+    width: width - theme.SIZES.BASE * 2,
+    height: height / 15,
+    borderRadius: 5
+  },
+  buttonTextNew: { color: '#fff', fontSize: 20, fontWeight: '700' },
+  buttonTextSignup: {
+    color: '#7a7a7a',
+    fontSize: 20,
+    fontWeight: '700'
+  },
+  descriptionText: {
+    fontSize: 16,
+    lineHeight: 22,
+    marginLeft: 30,
+    marginRight: 30
+  }
+};
+
+export default IamAmbulance;

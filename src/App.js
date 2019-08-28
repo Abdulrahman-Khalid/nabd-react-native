@@ -4,7 +4,8 @@ import { createStore, applyMiddleware } from 'redux';
 import reducers from './reducers';
 import ReduxThunk from 'redux-thunk';
 import RouterComponent from './Router';
-
+import { Block } from 'galio-framework';
+import Screens from './navigation/Screens';
 class App extends Component {
   componentDidMount() {}
 
@@ -12,7 +13,10 @@ class App extends Component {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     return (
       <Provider store={store}>
-        <RouterComponent />
+        <Block flex>
+          <RouterComponent />
+          {/* <Screens /> */}
+        </Block>
       </Provider>
     );
   }

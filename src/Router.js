@@ -1,17 +1,51 @@
 import React, { Component } from 'react';
 import { Scene, Router } from 'react-native-router-flux';
-import WelcomeScreen from './components/app/welcome/WelcomeScreen';
+import WhoAmI from './app/welcome/WhoAmI';
+import IamDoctor from './app/welcome/IamDoctor';
+import IamAmbulance from './app/welcome/IamAmbulance';
+import IamUser from './app/welcome/IamUser';
+import IamParamedic from './app/welcome/IamParamedic';
+import Register from './app/welcome/Register';
+import VerifySignup from './app/welcome/PhoneVerification/Animated';
+import SignIn from './app/welcome/SignIn';
+import UserHome from './app/home/UserHome';
+import { argonTheme } from './constants';
 class RouterComponent extends Component {
-  onAddEmployeeClicked() {
-    this.props.employeeFormReset();
-    Actions.employeeCreate();
-  }
-
   render() {
     return (
-      <Router>
-        <Scene key="root">
-          <Scene key="welcome" component={WelcomeScreen} title="Nabd" initial />
+      <Router
+        // navigationBarStyle={{
+        //   bacIamDoctorkgroundColor: '#EF171D'
+        // }}
+        titleStyle={{
+          fontWeight: 'bold',
+          color: '#000'
+        }}
+        tintColor={argonTheme.COLORS.APP}
+      >
+        <Scene key="root" hideNavBar>
+          <Scene key="welcome" intial headerLayoutPreset="center">
+            <Scene key="whoRU" component={WhoAmI} title="Nabd" initial />
+            <Scene key="iUser" component={IamUser} title="User" />
+            <Scene key="iDoctor" component={IamDoctor} title="Doctor" />
+            <Scene
+              key="iParamedic"
+              component={IamParamedic}
+              title="Paramedic"
+            />
+            <Scene
+              key="iAmbulance"
+              component={IamAmbulance}
+              title="Ambulance"
+            />
+            <Scene key="signup" component={Register} title="Sign up" />
+            <Scene key="signin" component={SignIn} title="Sign in" />
+            <Scene key="verifySignup" component={VerifySignup} title="Verify" />
+          </Scene>
+
+          <Scene key="home">
+            <Scene key="userHome" component={UserHome} title="Home" />
+          </Scene>
         </Scene>
       </Router>
     );
