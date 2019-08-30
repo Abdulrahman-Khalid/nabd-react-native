@@ -10,6 +10,8 @@ import VerifySignup from './app/welcome/PhoneVerification/Animated';
 import SignIn from './app/welcome/SignIn';
 import UserHome from './app/home/UserHome';
 import { argonTheme } from './constants';
+import InjuriesList from './app/firstAid/InjuriesList';
+import FirstAidDetails from './app/firstAid/FirstAidDetails';
 class RouterComponent extends Component {
   render() {
     return (
@@ -45,6 +47,20 @@ class RouterComponent extends Component {
 
           <Scene key="home">
             <Scene key="userHome" component={UserHome} title="Home" />
+          </Scene>
+
+          <Scene key="FirstAid">
+            <Scene
+              key="InjuriesList"
+              component={InjuriesList}
+              // title="First Aid Instructions"
+              initial
+            />
+            <Scene
+              // type="reset"
+              key="FirstAidDetails"
+              component={FirstAidDetails}
+            />
           </Scene>
         </Scene>
       </Router>

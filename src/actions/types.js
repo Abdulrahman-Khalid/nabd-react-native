@@ -16,3 +16,5 @@ export const FILL_SIGNIN_FORM = 'fill_signin_form';
 export const SIGNIN_ATTEMPT = 'signin_attempt';
 export const SIGNIN_SUCCESS = 'signin_success';
 export const SIGNIN_FAIL = 'signin_fail';
+// first aid
+export const INJURY_BUTTON_PRESSED = 'injury_button_pressed';
