@@ -40,7 +40,7 @@ export default class StepIndicator extends Component {
         <View style={styles.stepIndicator}>
           <Steps
             configs={stepIndicatorStyles}
-            count={6}
+            count={5}
             direction="vertical"
             current={this.state.currentPage}
             //labels={dummyData.data.map(item => item.title)}
@@ -61,7 +61,7 @@ export default class StepIndicator extends Component {
     const item = rowData.item;
     return (
       <View style={styles.rowItem}>
-        <Text style={styles.title}>{item.title}</Text>
+        {/* <Text style={styles.title}>{item.title}</Text> */}
         <Text style={styles.body}>{item.body}</Text>
       </View>
     );
@@ -84,11 +84,13 @@ const styles = StyleSheet.create({
     backgroundColor: '#ffffff'
   },
   stepIndicator: {
-    marginVertical: 50,
+    marginVertical: 20, // 50
     paddingHorizontal: 20
   },
   rowItem: {
-    flex: 3,
+    //marginVertical: 100,
+    // alignContent: 'center',
+    flex: 1,
     paddingVertical: 20
   },
   title: {
@@ -101,9 +103,10 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
-    fontSize: 15,
+    fontSize: 40,
     color: '#606060',
-    lineHeight: 24,
-    marginRight: 8
+    lineHeight: 35, //here
+    marginRight: 8,
+    padding: 20 //here
   }
 });
