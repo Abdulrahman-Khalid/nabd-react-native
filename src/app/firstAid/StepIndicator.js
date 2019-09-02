@@ -4,24 +4,24 @@ import Steps from 'react-native-steps';
 import dummyData from './data';
 
 const stepIndicatorStyles = {
-  stepIndicatorSize: 30,
+  stepIndicatorSize: 50,
   currentStepIndicatorSize: 40,
   separatorStrokeWidth: 3,
   currentStepStrokeWidth: 5,
-  stepStrokeCurrentColor: '#fe7013',
-  separatorFinishedColor: '#fe7013',
+  stepStrokeCurrentColor: '#ff5768',
+  separatorFinishedColor: '#ff5768',
   separatorUnFinishedColor: '#aaaaaa',
-  stepIndicatorFinishedColor: '#fe7013',
+  stepIndicatorFinishedColor: '#ff5768',
   stepIndicatorUnFinishedColor: '#aaaaaa',
   stepIndicatorCurrentColor: '#ffffff',
-  stepIndicatorLabelFontSize: 15,
-  currentStepIndicatorLabelFontSize: 15,
+  stepIndicatorLabelFontSize: 25,
+  currentStepIndicatorLabelFontSize: 25,
   stepIndicatorLabelCurrentColor: '#000000',
   stepIndicatorLabelFinishedColor: '#ffffff',
   stepIndicatorLabelUnFinishedColor: 'rgba(255,255,255,0.5)',
   labelColor: '#666666',
   labelSize: 15,
-  currentStepLabelColor: '#fe7013'
+  currentStepLabelColor: '#ff5768'
 };
 
 export default class StepIndicator extends Component {
@@ -48,7 +48,7 @@ export default class StepIndicator extends Component {
         </View>
         <FlatList
           style={{ flexGrow: 1 }}
-          data={dummyData.data}
+          data={dummyData.tooth_injury}
           renderItem={this.renderPage}
           onViewableItemsChanged={this.onViewableItemsChanged}
           viewabilityConfig={this.viewabilityConfig}

@@ -1,10 +1,10 @@
 export default {
-  data: [
+  tooth_injury: [
     {
       title: 'Step one',
       body:
         'العثور على السن، وإمساكه من الجزء المستخدم في المضغ (التاج)، ولا يجب أبدًا لمس جذور السن.',
-      image: require('./images/tooth_injury/step1.jpg')
+      image: require('./images/tooth_injury/step1.png')
     },
     {
       title: 'Step two',
@@ -16,18 +16,20 @@ export default {
       title: 'Step three',
       body:
         'محاولة إعادة السن إلى موضعه في اللثة على الفور، وذلك بالقيام بوضعه برفق، والقيام بالعض عليه بلطف حتى يستقر في مكانه.',
-      image: require('./images/tooth_injury/step3.jpg')
+      image: require('./images/tooth_injury/step3.png')
     },
     {
       title: 'Step four',
       body:
         'عند عدم القدرة على إعادة السن لمكانه، يجب وضعه في كوب لبن، أو وضعه بالفم بجوار الخد، لكن لا يجب حفظ السن في الماء.',
-      image: require('./images/tooth_injury/step4.jpg')
+      image: require('./images/tooth_injury/step4.png')
     },
     {
       title: 'Step five',
       body: 'الذهاب للطبيب في خلال ثلاثين دقيقة للتدخل السريع.',
       image: require('./images/tooth_injury/step5.jpg')
     }
-  ]
+  ],
+
+  back_injury: []
 };
