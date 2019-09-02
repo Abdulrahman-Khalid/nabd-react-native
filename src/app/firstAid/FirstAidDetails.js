@@ -3,7 +3,7 @@ import { Platform, StyleSheet, Text, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { InjuryButtonPressed } from '../../actions';
-import data from './FirstAidData.json';
+import data from './metadata.json';
 import StepIndicator from './StepIndicator';
 class FirstAidDetails extends Component {
   extractValue(key) {

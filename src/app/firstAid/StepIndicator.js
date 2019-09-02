@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
 import Steps from 'react-native-steps';
-import dummyData from './data';
+import data from './FirstAidData';
+import metadata from './metadata.json';
 
 const stepIndicatorStyles = {
   stepIndicatorSize: 50,
@@ -40,15 +41,15 @@ export default class StepIndicator extends Component {
         <View style={styles.stepIndicator}>
           <Steps
             configs={stepIndicatorStyles}
-            count={5}
+            count={metadata[this.props.injury].count}
             direction="vertical"
             current={this.state.currentPage}
-            //labels={dummyData.data.map(item => item.title)}
+            //labels={data.data.map(item => item.title)}
           />
         </View>
         <FlatList
           style={{ flexGrow: 1 }}
-          data={dummyData[this.props.injury]}
+          data={data[this.props.injury]}
           renderItem={this.renderPage}
           onViewableItemsChanged={this.onViewableItemsChanged}
           viewabilityConfig={this.viewabilityConfig}

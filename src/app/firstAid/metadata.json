@@ -1,5 +1,5 @@
 {
-  backInjury: {"value":"backInjury"},
+  backInjury: {"value":"backInjury", "count": "6"},
   bleeding: {"value":"bleeding"},
   Burns: {"value":"Burns"},
   chemicalPoisoning: {"value":"chemicalPoisoning"},
@@ -12,7 +12,7 @@
   nosebleeding: {"value":"nosebleeding"},
   splinting: {"value":"splinting"},
   sunStroke:{"value":"sunStroke"},
-  toothInjury: {"value":"toothInjury"}
+  toothInjury: {"value":"toothInjury", "count": "5"}
 
 };
 
