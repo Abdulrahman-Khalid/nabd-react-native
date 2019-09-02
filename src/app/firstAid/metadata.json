@@ -1,19 +1,14 @@
 {
-  backInjury: {"value":"backInjury", "count": "6"},
-  bleeding: {"value":"bleeding"},
-  Burns: {"value":"Burns"},
-  chemicalPoisoning: {"value":"chemicalPoisoning"},
-  cpr: {"value":"cpr"},
-  seizure: {"value":"seizure"},
-  cuts: {"value":"cuts", "count":"8"},
-  eyeInjury: {"value":"eyeInjury"},
-  fractures: {"value":"fractures", "count":"5"},
-  headInjury: {"value":"headInjury"},
-  nosebleeding: {"value":"nosebleeding", "count": "5"},
-  splinting: {"value":"splinting"},
-  sunStroke:{"value":"sunStroke"},
-  toothInjury: {"value":"toothInjury", "count": "5"}
-
-};
-
-
+  "bleeding": { "value": "bleeding", "buttons": "true" },
+  "Burns": { "value": "Burns", "buttons": "false", "count": "10" },
+  "chemicalPoisoning": { "value": "chemicalPoisoning", "buttons": "false" },
+  "cpr": { "value": "cpr" },
+  "seizure": { "value": "seizure", "buttons": "true" },
+  "cuts": { "value": "cuts", "count": "8", "buttons": "true" },
+  "eyeInjury": { "value": "eyeInjury" },
+  "buttons": "true",
+  "fractures": { "value": "fractures", "count": "5", "buttons": "true" },
+  "headInjury": { "value": "headInjury", "buttons": "true", "count": "7" },
+  "nosebleeding": { "value": "nosebleeding", "count": "5", "buttons": "true" },
+  "toothInjury": { "value": "toothInjury", "count": "5", "buttons": "true" }
+}

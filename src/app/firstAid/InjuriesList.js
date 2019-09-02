@@ -12,6 +12,7 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { InjuryButtonPressed } from '../../actions';
 import InjuryButton from './InjuryButton';
+import data from './metadata.json';
 // import {argonTheme} from '../../constants';
 //'argonTheme.COLORS.whatever'
 
@@ -20,6 +21,11 @@ class InjuriesList extends Component {
     const { injury } = this.props;
     this.props.InjuryButtonPressed(text);
     Actions.FirstAidDetails();
+  }
+  onButtonPress_(text) {
+    const { injury } = this.props;
+    this.props.InjuryButtonPressed(text);
+    Actions.FirstAidDetailsWithButtons();
   }
   render() {
     return (
@@ -64,7 +70,7 @@ class InjuriesList extends Component {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={this.onButtonPress.bind(this, 'burns')}>
+        <TouchableOpacity onPress={this.onButtonPress_.bind(this, 'burns')}>
           <InjuryButton
             imageSource={'burns'}
             backgroundClr="#f0dab1"
@@ -125,7 +131,7 @@ class InjuriesList extends Component {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={this.onButtonPress.bind(this, 'chemicalPoisoning')}
+          onPress={this.onButtonPress_.bind(this, 'chemicalPoisoning')}
         >
           <InjuryButton
             imageSource={'chemicalPoisoning'}

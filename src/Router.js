@@ -74,6 +74,7 @@ import React, { Component } from 'react';
 import { Scene, Router } from 'react-native-router-flux';
 import InjuriesList from './app/firstAid/InjuriesList';
 import FirstAidDetails from './app/firstAid/FirstAidDetails';
+import FirstAidDetailsWithButtons from './app/firstAid/FirstAidDetailsWithButtons';
 
 class RouterComponent extends Component {
   render() {
@@ -95,6 +96,11 @@ class RouterComponent extends Component {
             //type="reset"
             key="FirstAidDetails"
             component={FirstAidDetails}
+          />
+          <Scene
+            //type="reset"
+            key="FirstAidDetailsWithButtons"
+            component={FirstAidDetailsWithButtons}
           />
         </Scene>
       </Router>
