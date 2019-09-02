@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
 import Steps from 'react-native-steps';
 import dummyData from './data';
 
@@ -63,6 +63,12 @@ export default class StepIndicator extends Component {
       <View style={styles.rowItem}>
         {/* <Text style={styles.title}>{item.title}</Text> */}
         <Text style={styles.body}>{item.body}</Text>
+        <View style={styles.imageContainer}>
+          <Image
+            style={styles.imageStyle}
+            source={require('./images/23982553.jpg')}
+          />
+        </View>
       </View>
     );
   };
@@ -88,7 +94,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20
   },
   rowItem: {
-    //marginVertical: 100,
+    marginVertical: 100, //space between list
     // alignContent: 'center',
     flex: 1,
     paddingVertical: 20
@@ -103,10 +109,29 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
-    fontSize: 40,
+    fontSize: 35,
     color: '#606060',
     lineHeight: 35, //here
-    marginRight: 8,
-    padding: 20 //here
+    // marginRight: 2,
+    padding: 20, //here
+    textAlign: 'center'
+  },
+  imageStyle: {
+    margin: 10,
+    borderWidth: 1,
+    //borderColor:'rgba(0,0,0,0.2)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: 150,
+    height: 150,
+    borderRadius: 50
+  },
+  imageContainer: {
+    overflow: 'hidden',
+    justifyContent: 'center',
+    alignItems: 'center',
+    //margin : 10,
+    borderWidth: 1.5,
+    borderColor: 'white'
   }
 });
