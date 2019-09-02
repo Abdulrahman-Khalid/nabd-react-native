@@ -64,10 +64,7 @@ export default class StepIndicator extends Component {
         {/* <Text style={styles.title}>{item.title}</Text> */}
         <Text style={styles.body}>{item.body}</Text>
         <View style={styles.imageContainer}>
-          <Image
-            style={styles.imageStyle}
-            source={require('./images/23982553.jpg')}
-          />
+          <Image style={styles.imageStyle} source={item.image} />
         </View>
       </View>
     );
