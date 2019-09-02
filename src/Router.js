@@ -69,3 +69,37 @@
 // }
 
 // export default RouterComponent;
+
+import React, { Component } from 'react';
+import { Scene, Router } from 'react-native-router-flux';
+import InjuriesList from './app/firstAid/InjuriesList';
+import FirstAidDetails from './app/firstAid/FirstAidDetails';
+
+class RouterComponent extends Component {
+  render() {
+    return (
+      <Router
+        navigationBarStyle={{
+          backgroundColor: '#EF171D'
+        }}
+        titleStyle={{ fontWeight: 'bold', color: '#fff' }}
+      >
+        <Scene key="root">
+          <Scene
+            key="InjuriesList"
+            component={InjuriesList}
+            title="First Aid Instructions"
+            initial
+          />
+          <Scene
+            //type="reset"
+            key="FirstAidDetails"
+            component={FirstAidDetails}
+          />
+        </Scene>
+      </Router>
+    );
+  }
+}
+
+export default RouterComponent;

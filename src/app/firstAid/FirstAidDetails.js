@@ -4,17 +4,16 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { InjuryButtonPressed } from '../../actions';
 import data from './FirstAidData.json';
-
+import StepIndicator from './StepIndicator';
 class FirstAidDetails extends Component {
   extractValue(key) {
-    return data[key].value;
+    return data[key].value; // change it
   }
 
   render() {
     return (
-      <View>
-        <Text>{this.extractValue(this.props.injury)}</Text>
-      </View>
+      // <View>{/* <Text>{this.extractValue(this.props.injury)}</Text> */}</View>
+      <StepIndicator injury={this.extractValue(this.props.injury)} />
     );
   }
 }

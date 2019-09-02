@@ -1,18 +1,18 @@
 {
-  backInjury: {"value":"backInjury data"},
-  bleeding: {"value":"bleeding data"},
-  Burns: {"value":"Burns data"},
-  chemicalPoisoning: {"value":"chemicalPoisoning data"},
-  cpr: {"value":"cpr data"},
-  seizure: {"value":"seizure data"},
-  cuts: {"value":"cuts data"},
-  eyeInjury: {"value":"eyeInjury data"},
-  fractures: {"value":"fractures data"},
-  headInjury: {"value":"headInjury data"},
-  nosebleeding: {"value":"nosebleeding data"},
-  splinting: {"value":"splinting data"},
-  sunStroke:{"value":"sunStroke data"},
-  toothInjury: {"value":"toothInjury data"}
+  backInjury: {"value":"backInjury"},
+  bleeding: {"value":"bleeding"},
+  Burns: {"value":"Burns"},
+  chemicalPoisoning: {"value":"chemicalPoisoning"},
+  cpr: {"value":"cpr"},
+  seizure: {"value":"seizure"},
+  cuts: {"value":"cuts"},
+  eyeInjury: {"value":"eyeInjury"},
+  fractures: {"value":"fractures"},
+  headInjury: {"value":"headInjury"},
+  nosebleeding: {"value":"nosebleeding"},
+  splinting: {"value":"splinting"},
+  sunStroke:{"value":"sunStroke"},
+  toothInjury: {"value":"toothInjury"}
 
 };
 

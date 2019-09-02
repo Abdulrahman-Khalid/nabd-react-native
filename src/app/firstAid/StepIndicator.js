@@ -48,7 +48,7 @@ export default class StepIndicator extends Component {
         </View>
         <FlatList
           style={{ flexGrow: 1 }}
-          data={dummyData.tooth_injury}
+          data={dummyData[this.props.injury]}
           renderItem={this.renderPage}
           onViewableItemsChanged={this.onViewableItemsChanged}
           viewabilityConfig={this.viewabilityConfig}

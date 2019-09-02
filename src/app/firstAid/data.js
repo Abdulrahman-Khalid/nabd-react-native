@@ -1,5 +1,5 @@
 export default {
-  tooth_injury: [
+  toothInjury: [
     {
       title: 'Step one',
       body:
@@ -31,5 +31,5 @@ export default {
     }
   ],
 
-  back_injury: []
+  backInjury: []
 };
