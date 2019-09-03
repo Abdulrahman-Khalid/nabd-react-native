@@ -30,6 +30,7 @@
     "@react-native-community/async-storage": "^1.6.1",
     "add": "^2.0.6",
     "axios": "^0.19.0",
+    "eslint-plugin-react": "^7.14.3",
     "galio-framework": "^0.5.4",
     "jetifier": "^1.6.4",
     "lodash": "^4.17.15",
