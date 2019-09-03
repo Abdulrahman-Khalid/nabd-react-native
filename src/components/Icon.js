@@ -1,6 +1,6 @@
 import React from 'react';
-import icoMoonConfigArgon from '../Config/ArgonFontConfig.json';
-import icoMoonConfigLinear from '../Config/LinearFontConfig.json';
+import icoMoonConfigArgon from '../config/ArgonFontConfig.json';
+import icoMoonConfigLinear from '../config/LinearFontConfig.json';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
 import { Icon } from 'galio-framework';
 
