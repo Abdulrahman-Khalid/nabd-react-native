@@ -9,11 +9,13 @@ import { connect } from 'react-redux';
 import { setUserType, getWelcomeInfo } from '../../actions';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
+import SplashScreen from 'react-native-splash-screen';
 
 const { width, height } = Dimensions.get('screen');
 
 class WhoAmI extends Component {
   componentDidMount() {
+    SplashScreen.hide();
     (async () => {
       await AsyncStorage.getItem('@app:session')
         .then(token => {
