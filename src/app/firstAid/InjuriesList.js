@@ -54,14 +54,6 @@ class InjuriesList extends Component {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={this.onButtonPress.bind(this, 'sunStroke')}>
-          <InjuryButton
-            imageSource={'sunStroke'}
-            backgroundClr="#a4d7e1"
-            imageText="sun stroke"
-          />
-        </TouchableOpacity>
-
         <TouchableOpacity onPress={this.onButtonPress.bind(this, 'headInjury')}>
           <InjuryButton
             imageSource={'headInjury'}
@@ -70,7 +62,7 @@ class InjuriesList extends Component {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={this.onButtonPress_.bind(this, 'burns')}>
+        <TouchableOpacity onPress={this.onButtonPress.bind(this, 'burns')}>
           <InjuryButton
             imageSource={'burns'}
             backgroundClr="#f0dab1"
@@ -78,19 +70,11 @@ class InjuriesList extends Component {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={this.onButtonPress.bind(this, 'eyeInjury')}>
+        <TouchableOpacity onPress={this.onButtonPress_.bind(this, 'eyeInjury')}>
           <InjuryButton
             imageSource={'eyeInjury'}
             backgroundClr="#daf1f9"
             imageText="eye injury"
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={this.onButtonPress.bind(this, 'splinting')}>
-          <InjuryButton
-            imageSource={'splinting'}
-            backgroundClr="#a4d7e1"
-            imageText="splinting"
           />
         </TouchableOpacity>
 
@@ -137,14 +121,6 @@ class InjuriesList extends Component {
             imageSource={'chemicalPoisoning'}
             backgroundClr="#f6edcf"
             imageText="chemical poisoning"
-          />
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={this.onButtonPress.bind(this, 'backInjury')}>
-          <InjuryButton
-            imageSource={'backInjury'}
-            backgroundClr="#f0dab1"
-            imageText="back injury"
           />
         </TouchableOpacity>
       </ScrollView>

@@ -6,9 +6,28 @@
   "seizure": { "value": "seizure", "buttons": "true" },
   "cuts": { "value": "cuts", "count": "8", "buttons": "true" },
   "eyeInjury": { "value": "eyeInjury" },
-  "buttons": "true",
   "fractures": { "value": "fractures", "count": "5", "buttons": "true" },
   "headInjury": { "value": "headInjury", "buttons": "true", "count": "7" },
   "nosebleeding": { "value": "nosebleeding", "count": "5", "buttons": "true" },
-  "toothInjury": { "value": "toothInjury", "count": "5", "buttons": "true" }
+  "toothInjury": { "value": "toothInjury", "count": "5", "buttons": "true" },
+  "eyeInjury_puncture": {
+    "value": "eyeInjury_puncture",
+    "count": "5",
+    "buttons": "true"
+  },
+  "eyeInjury_scratch": {
+    "value": "eyeInjury_scratch",
+    "count": "5",
+    "buttons": "true"
+  },
+  "chemicalPoisoning_inhaling": {
+    "value": "chemicalPoisoning_inhaling",
+    "count": "5",
+    "buttons": "true"
+  },
+  "chemicalPoisoning_swallowing": {
+    "value": "chemicalPoisoning_swallowing",
+    "count": "5",
+    "buttons": "true"
+  }
 }

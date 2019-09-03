@@ -1,5 +1,4 @@
 const injuriesImagesAssets = {
-  backInjury: require('./images/back_injury.png'),
   bleeding: require('./images/bleeding.png'),
   Burns: require('./images/burns.png'),
   chemicalPoisoning: require('./images/chemical_poisoning.png'),
@@ -10,8 +9,6 @@ const injuriesImagesAssets = {
   fractures: require('./images/fractures.png'),
   headInjury: require('./images/head_injury.png'),
   nosebleeding: require('./images/nosebleeding.png'),
-  splinting: require('./images/splinting.png'),
-  sunStroke: require('./images/sun_stroke.png'),
   toothInjury: require('./images/tooth_injury.png')
-}
-module.exports = injuriesImagesAssets
+};
+module.exports = injuriesImagesAssets;

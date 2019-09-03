@@ -7,7 +7,7 @@ import data from './metadata.json';
 import StepIndicator from './StepIndicator';
 class FirstAidDetails extends Component {
   extractValue(key) {
-    return data[key].value; // change it
+    return data[key].value;
   }
   // renderElement() {
   //   if (data[this.props.injury].buttons === 'true')

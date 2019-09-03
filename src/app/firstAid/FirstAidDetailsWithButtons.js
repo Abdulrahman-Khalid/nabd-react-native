@@ -1,43 +1,69 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, Button } from 'react-native';
+import {
+  Platform,
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity
+} from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { InjuryButtonPressed } from '../../actions';
 import data from './metadata.json';
 import StepIndicator from './StepIndicator';
-import data_ from './data';
 
 class FirstAidDetailsWithButtons extends Component {
-  renderSwitch(param) {
-    switch (param) {
-      case 'Burns':
-        return this.burnsButtons;
-      default:
-        return this.chemicalPoisoning;
-    }
+  onButtonPress(text) {
+    const { injury } = this.props;
+    this.props.InjuryButtonPressed(text);
+    Actions.FirstAidDetails();
   }
-
-  burnsButtons = data_.buttons.map(b => {
-    return <Button key={b.text} title={b.text} onPress={b.action} />;
-  });
-  chemicalPoisoning = data_.buttons_.map(b => {
-    return <Button key={b.text} title={b.text} onPress={b.action} />;
-  });
-  //   renderElement() {
-  //     if (data[this.props.injury].value === 'Burns') return this.burnsButtons;
-  //     else if (data[this.props.injury].value === 'chemicalPoisoning')
-  //       return this.chemicalPoisoning;
-  //   }
-
-  // if (data[this.props.injury].value === 'Burns') return <Text> Test 1</Text>;
-  // else if (data[this.props.injury].value === 'chemicalPoisoning')
-  //   return <Text> Test 2</Text>;
-  // else
-  //  }
+  isChemicalPoisoning = data[this.props.injury].value === 'chemicalPoisoning';
   render() {
-    return <View>{this.renderSwitch.bind(this, this.props.injury)}</View>;
+    return (
+      <View>
+        {this.isChemicalPoisoning ? (
+          <View>
+            <TouchableOpacity
+              //style={styles.button}
+              onPress={this.onButtonPress.bind(
+                this,
+                'chemicalPoisoning_swallowing'
+              )}
+            >
+              <Text> swallowing </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={this.onButtonPress.bind(
+                this,
+                'chemicalPoisoning_inhaling'
+              )}
+            >
+              <Text> inhaling </Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View>
+            <TouchableOpacity
+              //style={styles.button}
+              onPress={this.onButtonPress.bind(this, 'eyeInjury_puncture')}
+            >
+              <Text> puncture </Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity
+              onPress={this.onButtonPress.bind(this, 'eyeInjury_scratch')}
+            >
+              <Text> scratch </Text>
+            </TouchableOpacity>
+          </View>
+        )}
+      </View>
+    );
   }
 }
+
 const mapStateToProps = ({ firstAid }) => {
   const { injury } = firstAid;
   return {
