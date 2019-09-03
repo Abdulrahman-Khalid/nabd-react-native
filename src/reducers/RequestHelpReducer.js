@@ -1,15 +1,31 @@
-// import { INJURY_BUTTON_PRESSED } from '../actions/types';
+import {
+  REQUSET_DOCTOR,
+  REQUSET_PARAMEDIC,
+  REQUSET_AMBULANCE
+} from '../actions/types';
 
 const INTIAL_STATE = {
-  userType: null,
-  userName: null,
   helperType: null,
   helperName: null,
-  helperspecialization: null // in case the helper is a doctor
+  helperSpecialization: null // in case the helper is a doctor
 };
 
 export default (state = INTIAL_STATE, action) => {
   switch (action.type) {
+    case REQUSET_DOCTOR:
+      const { helperSpecialization, helperName } = action.payload;
+      return {
+        ...state,
+        helperType: 'doctor',
+        helperName,
+        helperSpecialization
+      };
+    case REQUSET_PARAMEDIC:
+      const { helperName } = action.payload;
+      return { ...state, helperType: 'Paramedic', helperName };
+    case REQUSET_AMBULANCE:
+      const { helperName } = action.payload;
+      return { ...state, helperType: 'ambu', helperName };
     default:
       return state;
   }
