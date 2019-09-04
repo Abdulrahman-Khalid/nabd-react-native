@@ -1,12 +1,12 @@
 {
-  "bleeding": { "value": "bleeding", "arValue": "النزيف" },
+  "bleeding": { "value": "bleeding", "arValue": "النزيف الحاد", "count": "6" },
   "burns": { "value": "burns", "arValue": "الحروق", "count": "10" },
   "chemicalPoisoning": {
     "value": "chemicalPoisoning",
     "arValue": "التسمم الكيميائي"
   },
-  "cpr": { "value": "cpr", "arValue": "الإنعاش القلبي الرئوي" },
-  "seizure": { "value": "seizure", "arValue": "التشنجات" },
+  "cpr": { "value": "cpr", "arValue": "الإنعاش القلبي الرئوي", "count": "8" },
+  "seizure": { "value": "seizure", "arValue": "التشنجات", "count": "6" },
   "cuts": { "value": "cuts", "arValue": "الجروح", "count": "8" },
   "eyeInjury": { "value": "eyeInjury", "arValue": "إصابات العين" },
   "fractures": { "value": "fractures", "arValue": "الكسور", "count": "5" },
@@ -33,7 +33,7 @@
   "eyeInjury_scratch": {
     "value": "eyeInjury_scratch",
     "arValue": "خدوش العين",
-    "count": "5"
+    "count": "6"
   },
   "chemicalPoisoning_inhaling": {
     "value": "chemicalPoisoning_inhaling",
