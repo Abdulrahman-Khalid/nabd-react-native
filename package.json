@@ -47,6 +47,7 @@
     "react-native-phone-input": "0.2.2",
     "react-native-restart": "^0.0.12",
     "react-native-router-flux": "^4.0.6",
+    "react-native-splash-screen": "^3.2.0",
     "react-native-vector-icons": "^6.6.0",
     "react-navigation": "^3.11.1",
     "react-redux": "^7.1.0",
