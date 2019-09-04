@@ -34,7 +34,7 @@ class InjuriesList extends Component {
           <InjuryButton
             imageSource={'cpr'}
             backgroundClr="#f6edcf"
-            imageText="cpr"
+            imageText={data.cpr.arValue}
           />
         </TouchableOpacity>
 
@@ -42,7 +42,7 @@ class InjuriesList extends Component {
           <InjuryButton
             imageSource={'bleeding'}
             backgroundClr="#f0dab1"
-            imageText="bleeding"
+            imageText={data.bleeding.arValue}
           />
         </TouchableOpacity>
 
@@ -50,7 +50,7 @@ class InjuriesList extends Component {
           <InjuryButton
             imageSource={'cuts'}
             backgroundClr="#daf1f9"
-            imageText="cuts"
+            imageText={data.cuts.arValue}
           />
         </TouchableOpacity>
 
@@ -58,7 +58,7 @@ class InjuriesList extends Component {
           <InjuryButton
             imageSource={'headInjury'}
             backgroundClr="#f6edcf"
-            imageText="head injury"
+            imageText={data.headInjury.arValue}
           />
         </TouchableOpacity>
 
@@ -66,7 +66,7 @@ class InjuriesList extends Component {
           <InjuryButton
             imageSource={'burns'}
             backgroundClr="#f0dab1"
-            imageText="burns"
+            imageText={data.burns.arValue}
           />
         </TouchableOpacity>
 
@@ -74,7 +74,7 @@ class InjuriesList extends Component {
           <InjuryButton
             imageSource={'eyeInjury'}
             backgroundClr="#daf1f9"
-            imageText="eye injury"
+            imageText={data.eyeInjury.arValue}
           />
         </TouchableOpacity>
 
@@ -82,7 +82,7 @@ class InjuriesList extends Component {
           <InjuryButton
             imageSource={'fractures'}
             backgroundClr="#f6edcf"
-            imageText="fractures"
+            imageText={data.fractures.arValue}
           />
         </TouchableOpacity>
 
@@ -92,7 +92,7 @@ class InjuriesList extends Component {
           <InjuryButton
             imageSource={'toothInjury'}
             backgroundClr="#f0dab1"
-            imageText="tooth injury"
+            imageText={data.toothInjury.arValue}
           />
         </TouchableOpacity>
 
@@ -102,7 +102,7 @@ class InjuriesList extends Component {
           <InjuryButton
             imageSource={'nosebleeding'}
             backgroundClr="#daf1f9"
-            imageText="nosebleeding"
+            imageText={data.nosebleeding.arValue}
           />
         </TouchableOpacity>
 
@@ -110,7 +110,7 @@ class InjuriesList extends Component {
           <InjuryButton
             imageSource={'seizure'}
             backgroundClr="#a4d7e1"
-            imageText="seizure"
+            imageText={data.seizure.arValue}
           />
         </TouchableOpacity>
 
@@ -120,7 +120,7 @@ class InjuriesList extends Component {
           <InjuryButton
             imageSource={'chemicalPoisoning'}
             backgroundClr="#f6edcf"
-            imageText="chemical poisoning"
+            imageText={data.chemicalPoisoning.arValue}
           />
         </TouchableOpacity>
       </ScrollView>

@@ -81,16 +81,17 @@ class RouterComponent extends Component {
     return (
       <Router
         navigationBarStyle={{
-          backgroundColor: '#EF171D'
+          backgroundColor: '#ff5768'
         }}
-        titleStyle={{ fontWeight: 'bold', color: '#fff' }}
+        titleStyle={{ fontWeight: 'bold', color: '#ff5768' }}
       >
         <Scene key="root">
           <Scene
             key="InjuriesList"
             component={InjuriesList}
-            title="First Aid Instructions"
+            //title="First Aid Instructions"
             initial
+            hideNavBar
           />
           <Scene
             //type="reset"

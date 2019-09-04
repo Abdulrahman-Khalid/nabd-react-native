@@ -1,33 +1,48 @@
 {
-  "bleeding": { "value": "bleeding", "buttons": "true" },
-  "Burns": { "value": "Burns", "buttons": "false", "count": "10" },
-  "chemicalPoisoning": { "value": "chemicalPoisoning", "buttons": "false" },
-  "cpr": { "value": "cpr" },
-  "seizure": { "value": "seizure", "buttons": "true" },
-  "cuts": { "value": "cuts", "count": "8", "buttons": "true" },
-  "eyeInjury": { "value": "eyeInjury" },
-  "fractures": { "value": "fractures", "count": "5", "buttons": "true" },
-  "headInjury": { "value": "headInjury", "buttons": "true", "count": "7" },
-  "nosebleeding": { "value": "nosebleeding", "count": "5", "buttons": "true" },
-  "toothInjury": { "value": "toothInjury", "count": "5", "buttons": "true" },
+  "bleeding": { "value": "bleeding", "arValue": "النزيف" },
+  "burns": { "value": "burns", "arValue": "الحروق", "count": "10" },
+  "chemicalPoisoning": {
+    "value": "chemicalPoisoning",
+    "arValue": "التسمم الكيميائي"
+  },
+  "cpr": { "value": "cpr", "arValue": "الإنعاش القلبي الرئوي" },
+  "seizure": { "value": "seizure", "arValue": "التشنجات" },
+  "cuts": { "value": "cuts", "arValue": "الجروح", "count": "8" },
+  "eyeInjury": { "value": "eyeInjury", "arValue": "إصابات العين" },
+  "fractures": { "value": "fractures", "arValue": "الكسور", "count": "5" },
+  "headInjury": {
+    "value": "headInjury",
+    "arValue": "إصابات الرأس",
+    "count": "7"
+  },
+  "nosebleeding": {
+    "value": "nosebleeding",
+    "arValue": "الرعاف",
+    "count": "5"
+  },
+  "toothInjury": {
+    "value": "toothInjury",
+    "arValue": "إصابات الأسنان",
+    "count": "5"
+  },
   "eyeInjury_puncture": {
     "value": "eyeInjury_puncture",
-    "count": "5",
-    "buttons": "true"
+    "arValue": "قطع/ثقب العين",
+    "count": "5"
   },
   "eyeInjury_scratch": {
     "value": "eyeInjury_scratch",
-    "count": "5",
-    "buttons": "true"
+    "arValue": "خدوش العين",
+    "count": "5"
   },
   "chemicalPoisoning_inhaling": {
     "value": "chemicalPoisoning_inhaling",
-    "count": "5",
-    "buttons": "true"
+    "arValue": "التسمم بالاستنشاق",
+    "count": "5"
   },
   "chemicalPoisoning_swallowing": {
     "value": "chemicalPoisoning_swallowing",
-    "count": "5",
-    "buttons": "true"
+    "arValue": "التسمم بالبلع",
+    "count": "5"
   }
 }

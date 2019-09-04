@@ -44,8 +44,7 @@ const styles = StyleSheet.create({
     fontSize: 50,
     textAlign: 'center',
     //margin: 10,
-    fontWeight: 'bold',
-    fontFamily: 'sans-serif-thin'
+    fontWeight: 'bold'
   },
   imageContainer: {
     overflow: 'hidden',
@@ -58,7 +57,6 @@ const styles = StyleSheet.create({
   imageStyle: {
     margin: 10,
     borderWidth: 1,
-    //borderColor:'rgba(0,0,0,0.2)',
     alignItems: 'center',
     justifyContent: 'center',
     width: 150,

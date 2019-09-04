@@ -1,6 +1,6 @@
 const injuriesImagesAssets = {
   bleeding: require('./images/bleeding.png'),
-  Burns: require('./images/burns.png'),
+  burns: require('./images/burns.png'),
   chemicalPoisoning: require('./images/chemical_poisoning.png'),
   cpr: require('./images/cpr.png'),
   seizure: require('./images/seizure.png'),

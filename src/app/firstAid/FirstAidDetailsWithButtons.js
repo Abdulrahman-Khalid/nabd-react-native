@@ -21,42 +21,55 @@ class FirstAidDetailsWithButtons extends Component {
   isChemicalPoisoning = data[this.props.injury].value === 'chemicalPoisoning';
   render() {
     return (
-      <View>
+      <View style={styles.container}>
         {this.isChemicalPoisoning ? (
           <View>
             <TouchableOpacity
-              //style={styles.button}
+              style={styles.button}
               onPress={this.onButtonPress.bind(
                 this,
                 'chemicalPoisoning_swallowing'
               )}
             >
-              <Text> swallowing </Text>
+              <Text style={styles.text}>
+                {data.chemicalPoisoning_swallowing.arValue}
+              </Text>
             </TouchableOpacity>
-
             <TouchableOpacity
+              style={styles.button}
               onPress={this.onButtonPress.bind(
                 this,
                 'chemicalPoisoning_inhaling'
               )}
             >
-              <Text> inhaling </Text>
+              <Text style={styles.text}>
+                {data.chemicalPoisoning_inhaling.arValue}
+              </Text>
             </TouchableOpacity>
           </View>
         ) : (
           <View>
-            <TouchableOpacity
-              //style={styles.button}
-              onPress={this.onButtonPress.bind(this, 'eyeInjury_puncture')}
-            >
-              <Text> puncture </Text>
-            </TouchableOpacity>
+            <View>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={this.onButtonPress.bind(this, 'eyeInjury_puncture')}
+              >
+                <Text style={styles.text}>
+                  {data.eyeInjury_puncture.arValue}
+                </Text>
+              </TouchableOpacity>
+            </View>
 
-            <TouchableOpacity
-              onPress={this.onButtonPress.bind(this, 'eyeInjury_scratch')}
-            >
-              <Text> scratch </Text>
-            </TouchableOpacity>
+            <View>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={this.onButtonPress.bind(this, 'eyeInjury_scratch')}
+              >
+                <Text style={styles.text}>
+                  {data.eyeInjury_scratch.arValue}
+                </Text>
+              </TouchableOpacity>
+            </View>
           </View>
         )}
       </View>
@@ -75,3 +88,24 @@ export default connect(
   mapStateToProps,
   { InjuryButtonPressed }
 )(FirstAidDetailsWithButtons);
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'space-around'
+  },
+  button: {
+    marginBottom: 30,
+    width: 260,
+    height: 70,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#ff5768',
+    borderRadius: 15
+  },
+  text: {
+    fontSize: 20,
+    color: 'white'
+  }
+});
