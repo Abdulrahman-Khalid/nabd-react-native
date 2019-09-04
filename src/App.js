@@ -23,3 +23,7 @@ class App extends Component {
 }
 
 export default App;
+
+// import StepIndicator from './app/firstAid/StepIndicator';
+
+// export default StepIndicator;

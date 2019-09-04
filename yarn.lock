@@ -5659,6 +5659,12 @@ react-native-splash-screen@^3.2.0:
   version "3.2.0"
   resolved "https://registry.yarnpkg.com/react-native-splash-screen/-/react-native-splash-screen-3.2.0.tgz#d47ec8557b1ba988ee3ea98d01463081b60fff45"
   integrity sha512-Ls9qiNZzW/OLFoI25wfjjAcrf2DZ975hn2vr6U9gyuxi2nooVbzQeFoQS5vQcbCt9QX5NY8ASEEAtlLdIa6KVg==
+react-native-steps@^1.3.0:
+  version "1.3.0"
+  resolved "https://registry.yarnpkg.com/react-native-steps/-/react-native-steps-1.3.0.tgz#e3ee4bc716538e523a0c150dc9a7275b8c575c42"
+  integrity sha512-Qoqbq03HZzTU2gVTa03JRHnrFdjYl+crqElcIJ77wEYjDTBHZN8DCrga7wVK31OZ7mLnJxG41hWbKss5Zv1WBg==
+  dependencies:
+    prop-types "^15.7.2"
 
 react-native-tab-view@^0.0.77:
   version "0.0.77"
@@ -6139,6 +6145,11 @@ rimraf@~2.2.6:
   version "2.2.8"
   resolved "https://registry.yarnpkg.com/rimraf/-/rimraf-2.2.8.tgz#e439be2aaee327321952730f99a8929e4fc50582"
   integrity sha1-5Dm+Kq7jJzIZUnMPmaiSnk/FBYI=
+
+rn-viewpager@^1.2.9:
+  version "1.2.9"
+  resolved "https://registry.yarnpkg.com/rn-viewpager/-/rn-viewpager-1.2.9.tgz#7f06f898e23b296f3b5be7c98bd9101d94427779"
+  integrity sha512-wN4HlNhjTkrg25qBeEHTJ6TzRGtLu8SpKSZ9/mWcgWHMNr3RT06Zzrky3Tg14PPgaPp//6h02FCcAaQ83VGdgQ==
 
 rsvp@^4.8.4:
   version "4.8.5"

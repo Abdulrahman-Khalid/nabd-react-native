@@ -12,6 +12,7 @@ import UserHome from './app/home/UserHome';
 import { argonTheme } from './constants';
 import InjuriesList from './app/firstAid/InjuriesList';
 import FirstAidDetails from './app/firstAid/FirstAidDetails';
+import FirstAidDetailsWithButtons from './app/firstAid/FirstAidDetailsWithButtons';
 class RouterComponent extends Component {
   render() {
     return (
@@ -49,17 +50,12 @@ class RouterComponent extends Component {
             <Scene key="userHome" component={UserHome} title="Home" />
           </Scene>
 
-          <Scene key="FirstAid">
+          <Scene key="FirstAid" initial>
+            <Scene key="InjuriesList" component={InjuriesList} hideNavBar />
+            <Scene key="FirstAidDetails" component={FirstAidDetails} />
             <Scene
-              key="InjuriesList"
-              component={InjuriesList}
-              // title="First Aid Instructions"
-              initial
-            />
-            <Scene
-              // type="reset"
-              key="FirstAidDetails"
-              component={FirstAidDetails}
+              key="FirstAidDetailsWithButtons"
+              component={FirstAidDetailsWithButtons}
             />
           </Scene>
         </Scene>
