@@ -1,5 +1,5 @@
 {
-  "name": "NABD",
+  "name": "nabd",
   "version": "0.0.1",
   "private": true,
   "scripts": {
@@ -30,6 +30,7 @@
     "@react-native-community/async-storage": "^1.6.1",
     "add": "^2.0.6",
     "axios": "^0.19.0",
+    "eslint-plugin-react": "^7.14.3",
     "galio-framework": "^0.5.4",
     "jetifier": "^1.6.4",
     "lodash": "^4.17.15",
@@ -46,6 +47,7 @@
     "react-native-phone-input": "0.2.2",
     "react-native-restart": "^0.0.12",
     "react-native-router-flux": "^4.0.6",
+    "react-native-splash-screen": "^3.2.0",
     "react-native-vector-icons": "^6.6.0",
     "react-navigation": "^3.11.1",
     "react-redux": "^7.1.0",
@@ -67,10 +69,5 @@
   },
   "jest": {
     "preset": "react-native"
-  },
-  "rnpm": {
-    "assets": [
-      "./src/assets/font"
-    ]
   }
 }
