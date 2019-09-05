@@ -9,21 +9,27 @@ import Screens from './navigation/Screens';
 import SplashScreen from 'react-native-splash-screen';
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/es/integration/react";
+import I18n from 'react-native-i18n';
+import NativeModules from 'react-native';
+
+const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
 
 class App extends Component {
+  constructor(props) {
+    super(props);
+
+    const language = store.getState().language;
+    // // set default Language for App
+    I18n.locale = language.lang;
+    // // Enable for mode RTL
+    NativeModules.I18nManager.forceRTL(language.rtl);
+  }
+  
   componentDidMount() {
     SplashScreen.hide();
-
-    // const language = store.getState().language;
-    // // set default Language for App
-    // Languages.setLanguage(language.lang);
-
-    // // Enable for mode RTL
-    // I18nManager.forceRTL(language.lang === "ar");
   }
 
   render() {
-    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
     const persistor = persistStore(store);
     return (
       <Provider store={store}>
