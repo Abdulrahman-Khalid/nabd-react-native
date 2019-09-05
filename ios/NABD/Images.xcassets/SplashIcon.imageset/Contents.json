@@ -22,6 +22,7 @@
   },
   "properties" : {
     "compression-type" : "lossless",
-    "template-rendering-intent" : "original"
+    "template-rendering-intent" : "original",
+    "preserves-vector-representation" : true
   }
 }
