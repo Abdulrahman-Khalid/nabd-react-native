@@ -6,8 +6,12 @@ import ReduxThunk from 'redux-thunk';
 import RouterComponent from './Router';
 import { Block } from 'galio-framework';
 import Screens from './navigation/Screens';
+import SplashScreen from 'react-native-splash-screen';
+
 class App extends Component {
-  componentDidMount() {}
+  componentDidMount() {
+    SplashScreen.hide();
+  }
 
   render() {
     const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
