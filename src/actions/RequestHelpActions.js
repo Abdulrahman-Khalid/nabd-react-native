@@ -6,9 +6,9 @@ export const requestHelp = helperType => {
     axios
       .get(`request/${helperType}`)
       .then(({ data }) => {
+        dispatch({ type: `request_${helperType}`, payload: data });
         console.log('success');
         console.log(data);
-        dispatch({ type: `request_${helperType}`, payload: data });
       })
       .catch(error => {
         console.log('failed');

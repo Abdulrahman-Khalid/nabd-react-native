@@ -5,7 +5,6 @@ import reducers from './reducers';
 import ReduxThunk from 'redux-thunk';
 import RouterComponent from './Router';
 import { Block } from 'galio-framework';
-import Screens from './navigation/Screens';
 import SplashScreen from 'react-native-splash-screen';
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/es/integration/react";
