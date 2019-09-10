@@ -15,6 +15,9 @@ import { argonTheme } from './constants';
 import InjuriesList from './app/firstAid/InjuriesList';
 import FirstAidDetails from './app/firstAid/FirstAidDetails';
 import FirstAidDetailsWithButtons from './app/firstAid/FirstAidDetailsWithButtons';
+import { connect } from 'react-redux';
+import { resetSignInReducerState, resetSignUpReducerState } from './actions';
+
 class RouterComponent extends Component {
   render() {
     return (
@@ -43,8 +46,24 @@ class RouterComponent extends Component {
               component={IamAmbulance}
               title="Ambulance"
             />
-            <Scene key="signup" component={Register} title="Sign up" />
-            <Scene key="signin" component={SignIn} title="Sign in" />
+            <Scene
+              key="signup"
+              component={Register}
+              onExit={() => {
+                console.log('hhhhhhhhhhhhhhhhh');
+                this.props.resetSignUpReducerState();
+              }}
+              title="Sign up"
+            />
+            <Scene
+              key="signin"
+              component={SignIn}
+              onExit={() => {
+                console.log('hhhhhhhhhhhhhhhhh');
+                this.props.resetSignInReducerState();
+              }}
+              title="Sign in"
+            />
             <Scene key="verifySignup" component={VerifySignup} title="Verify" />
           </Scene>
 
@@ -72,4 +91,7 @@ class RouterComponent extends Component {
   }
 }
 
-export default RouterComponent;
+export default connect(
+  null,
+  { resetSignUpReducerState, resetSignInReducerState }
+)(RouterComponent);

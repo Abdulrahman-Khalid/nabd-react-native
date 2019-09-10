@@ -2,11 +2,19 @@ import {
   FILL_SIGNIN_FORM,
   SIGNIN_ATTEMPT,
   SIGNIN_SUCCESS,
-  SIGNIN_FAIL
+  SIGNIN_FAIL,
+  RESET_SIGNIN_REDUCER_STATE
 } from './types';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 import AsyncStorage from '@react-native-community/async-storage';
+
+export const resetSignInReducerState = () => {
+  console.log('haaaaaaaaaaaaa');
+  return {
+    type: RESET_SIGNIN_REDUCER_STATE
+  };
+};
 
 export const fillSignInForm = keyAndValue => {
   return {

@@ -7,10 +7,17 @@ import {
   CHECK_NAME,
   CHECK_BIRTHDAY,
   CHECK_PHONE,
-  CHECK_PASSWORD_MATCH
+  CHECK_PASSWORD_MATCH,
+  RESET_SIGNUP_REDUCER_STATE
 } from './types';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
+
+export const resetSignUpReducerState = () => {
+  return {
+    type: RESET_SIGNUP_REDUCER_STATE
+  };
+};
 
 export const fillSignUpForm = keyAndValue => {
   return dispatch => {
