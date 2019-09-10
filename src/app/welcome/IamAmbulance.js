@@ -11,7 +11,7 @@ const { width, height } = Dimensions.get('screen');
 class IamAmbulance extends Component {
   render() {
     return (
-      <Block flex style={{ backgroundColor: 'white' }}>
+      <Block flex style={{ backgroundColor: argonTheme.COLORS.BACKGROUND }}>
         <Block center style={{ position: 'absolute', top: 30 }}>
           <Image
             style={styles.image}

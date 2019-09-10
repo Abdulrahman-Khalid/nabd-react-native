@@ -56,7 +56,7 @@ class WhoAmI extends Component {
 
   render() {
     return (
-      <Block flex style={{ backgroundColor: '#ffffff' }}>
+      <Block flex style={{ backgroundColor: argonTheme.COLORS.BACKGROUND }}>
         <Block>
           <Block>
             <Block

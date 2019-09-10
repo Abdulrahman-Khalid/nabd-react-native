@@ -7,7 +7,7 @@ import { argonTheme } from '../../constants';
 class IamDoctor extends Component {
   render() {
     return (
-      <Block flex style={{ backgroundColor: 'white' }}>
+      <Block flex style={{ backgroundColor: argonTheme.COLORS.BACKGROUND }}>
         <Block center style={{ position: 'absolute', top: 30 }}>
           <Image
             style={styles.image}

@@ -2,11 +2,12 @@ import React, { Component } from 'react';
 import { Image } from 'react-native';
 import CommonButtons from './CommonButtons';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
+import { argonTheme } from '../../constants';
 
 class IamUser extends Component {
   render() {
     return (
-      <Block flex style={{ backgroundColor: 'white' }}>
+      <Block flex style={{ backgroundColor: argonTheme.COLORS.BACKGROUND }}>
         <Block center style={{ position: 'absolute', top: 30 }}>
           <Image
             style={styles.image}
