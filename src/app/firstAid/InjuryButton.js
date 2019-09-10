@@ -8,7 +8,7 @@ import {
   ScrollView
 } from 'react-native';
 const assets = require('./assets.js');
-import { argonTheme } from '../../constants';
+import { argonTheme, Images } from '../../constants';
 
 const InjuryButton = props => {
   return (
@@ -19,7 +19,7 @@ const InjuryButton = props => {
           { backgroundColor: props.backgroundClr }
         ]}
       >
-        <Image style={styles.imageStyle} source={assets[props.imageSource]} />
+        <Image style={styles.imageStyle} source={Images[props.imageSource]} />
         <View style={styles.textContainer}>
           <Text style={styles.imageText}>{props.imageText}</Text>
         </View>
