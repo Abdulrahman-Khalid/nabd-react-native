@@ -20,11 +20,12 @@ class ParamedicHome extends Component {
     this.state = {
       type: [
         { label: 'Doctor', value: 'doctor' },
-        { label: 'Ambulance', value: 'amulance' }
+        { label: 'Paramedic', value: 'paramedic' },
+        { label: 'Ambulance', value: 'ambulance' }
       ],
-      value: 'doctor',
       valueIndex: 0
     };
+    props.selectHelperType('doctor');
     // Init PubNub. Use your subscribe key here.
     this.pubnub = new PubNubReact({
       subscribeKey: 'sub-key'
@@ -40,7 +41,6 @@ class ParamedicHome extends Component {
   }
 
   render() {
-    const { hidden } = this.state;
     return (
       <Block
         flex
@@ -76,6 +76,7 @@ class ParamedicHome extends Component {
                     onPress={(value, index) => {
                       this.setState({ value: value });
                       this.setState({ valueIndex: index });
+                      this.props.selectHelperType(value);
                     }}
                   />
                 </View>
