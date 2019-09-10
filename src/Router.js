@@ -8,11 +8,16 @@ import IamParamedic from './app/welcome/IamParamedic';
 import Register from './app/welcome/Register';
 import VerifySignup from './app/welcome/PhoneVerification/Animated';
 import SignIn from './app/welcome/SignIn';
-import UserHome from './app/home/UserHome';
+import UserAndDoctorHome from './app/home/UserAndDoctorHome';
+import ParamedicHome from './app/home/ParamedicHome';
+import AmbulanceHome from './app/home/AmbulanceHome';
 import { argonTheme } from './constants';
 import InjuriesList from './app/firstAid/InjuriesList';
 import FirstAidDetails from './app/firstAid/FirstAidDetails';
 import FirstAidDetailsWithButtons from './app/firstAid/FirstAidDetailsWithButtons';
+import { connect } from 'react-redux';
+import { resetSignInReducerState, resetSignUpReducerState } from './actions';
+
 class RouterComponent extends Component {
   render() {
     return (
@@ -26,8 +31,8 @@ class RouterComponent extends Component {
         }}
         tintColor={argonTheme.COLORS.APP}
       >
-        <Scene key="root" hideNavBar>
-          <Scene key="welcome" intial headerLayoutPreset="center">
+        <Scene key="root" hideNavBar initial>
+          <Scene key="welcome" headerLayoutPreset="center">
             <Scene key="whoRU" component={WhoAmI} title="Nabd" initial />
             <Scene key="iUser" component={IamUser} title="User" />
             <Scene key="iDoctor" component={IamDoctor} title="Doctor" />
@@ -41,16 +46,37 @@ class RouterComponent extends Component {
               component={IamAmbulance}
               title="Ambulance"
             />
-            <Scene key="signup" component={Register} title="Sign up" />
-            <Scene key="signin" component={SignIn} title="Sign in" />
+            <Scene
+              key="signup"
+              component={Register}
+              onExit={() => {
+                this.props.resetSignUpReducerState();
+              }}
+              title="Sign up"
+            />
+            <Scene
+              key="signin"
+              component={SignIn}
+              onExit={() => {
+                this.props.resetSignInReducerState();
+              }}
+              title="Sign in"
+            />
             <Scene key="verifySignup" component={VerifySignup} title="Verify" />
           </Scene>
 
-          <Scene key="home">
-            <Scene key="userHome" component={UserHome} title="Home" />
+          <Scene key="home" headerLayoutPreset="center" initial>
+            <Scene
+              key="userAndDoctorHome"
+              component={UserAndDoctorHome}
+              title="Home"
+              initial
+            />
+            <Scene key="paramedicHome" component={ParamedicHome} title="Home" />
+            <Scene key="ambulanceHome" component={AmbulanceHome} title="Home" />
           </Scene>
 
-          <Scene key="FirstAid" initial>
+          <Scene key="FirstAid" headerLayoutPreset="center">
             <Scene key="InjuriesList" component={InjuriesList} hideNavBar />
             <Scene key="FirstAidDetails" component={FirstAidDetails} />
             <Scene
@@ -64,4 +90,7 @@ class RouterComponent extends Component {
   }
 }
 
-export default RouterComponent;
+export default connect(
+  null,
+  { resetSignUpReducerState, resetSignInReducerState }
+)(RouterComponent);

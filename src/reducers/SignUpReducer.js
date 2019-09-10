@@ -7,7 +7,8 @@ import {
   CHECK_PASSWORD_MATCH,
   CHECK_NAME,
   CHECK_BIRTHDAY,
-  CHECK_PHONE
+  CHECK_PHONE,
+  RESET_SIGNUP_REDUCER_STATE
 } from '../actions/types';
 
 const INTIAL_STATE = {
@@ -38,6 +39,8 @@ const INTIAL_STATE = {
 export default (state = INTIAL_STATE, action) => {
   var isValid = false;
   switch (action.type) {
+    case RESET_SIGNUP_REDUCER_STATE:
+      return INTIAL_STATE;
     case FILL_SIGNUP_FORM:
       const { key, value } = action.payload;
       return { ...state, [key]: value };

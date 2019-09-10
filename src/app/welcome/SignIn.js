@@ -78,7 +78,11 @@ class SignIn extends Component {
   }
   render() {
     return (
-      <Block flex middle style={{ backgroundColor: '#fff' }}>
+      <Block
+        flex
+        middle
+        style={{ backgroundColor: argonTheme.COLORS.BACKGROUND }}
+      >
         <StatusBar hidden />
         <Block flex middle>
           <View>

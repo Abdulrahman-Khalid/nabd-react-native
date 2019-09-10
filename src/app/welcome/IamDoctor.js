@@ -2,16 +2,14 @@ import React, { Component } from 'react';
 import { Image } from 'react-native';
 import CommonButtons from './CommonButtons';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
+import { argonTheme, Images } from '../../constants';
 
 class IamDoctor extends Component {
   render() {
     return (
-      <Block flex style={{ backgroundColor: 'white' }}>
+      <Block flex style={{ backgroundColor: argonTheme.COLORS.BACKGROUND }}>
         <Block center style={{ position: 'absolute', top: 30 }}>
-          <Image
-            style={styles.image}
-            source={require('../../assets/imgs/ancient_egypt.jpg')}
-          />
+          <Image style={styles.image} source={Images.doctor} />
           <Text style={{ fontSize: 20, fontWeight: '700' }}>Doctor</Text>
           <Text style={styles.descriptionText}>
             Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -31,7 +29,12 @@ const styles = {
     width: 200,
     height: 200,
     borderRadius: 200 / 2,
-    marginBottom: 30
+    marginBottom: 30,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    shadowOpacity: 0.1,
+    elevation: 2
   },
   descriptionText: {
     fontSize: 16,
