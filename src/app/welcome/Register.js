@@ -230,7 +230,11 @@ class Register extends React.Component {
 
   render() {
     return (
-      <Block flex middle style={{ backgroundColor: 'white' }}>
+      <Block
+        flex
+        middle
+        style={{ backgroundColor: argonTheme.COLORS.BACKGROUND }}
+      >
         <StatusBar hidden />
         <Block flex middle>
           <Block style={styles.registerContainer}>
@@ -247,7 +251,7 @@ class Register extends React.Component {
                       placeholder="Name"
                       error={this.props.isErrorName}
                       success={this.props.isSuccessName}
-                      autoFocus={true}
+                      // autoFocus={true}
                       onBlur={this.loseNameFocus.bind(this)}
                       iconContent={
                         <Icon
