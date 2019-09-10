@@ -328,7 +328,10 @@ class Register extends React.Component {
                     <Input
                       password
                       error={this.props.isErrorPassMatch}
-                      success={this.props.isSuccessPassMatch}
+                      success={
+                        this.props.isSuccessPassMatch &&
+                        this.props.confirmPassword
+                      }
                       placeholder="Confirm Password"
                       onBlur={this.loseConfirmPasswordFocus.bind(this)}
                       iconContent={
