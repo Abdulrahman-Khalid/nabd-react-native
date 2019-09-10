@@ -1,6 +1,9 @@
 export default {
   COLORS: {
-    APP: '#EF171D',
+    BACKGROUND: '#F5FCFF',
+    // APP: '#EF171D',
+    // APP: '#E94F37',
+    APP: '#D02129',
     DEFAULT: '#172B4D',
     PRIMARY: '#5E72E4',
     SECONDARY: '#F7FAFC',

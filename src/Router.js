@@ -49,9 +49,13 @@ class RouterComponent extends Component {
           </Scene>
 
           <Scene key="home" headerLayoutPreset="center" initial>
-            <Scene key="userHome" component={UserAndDoctorHome} title="Home" />
-            <Scene key="userHome" component={ParamedicHome} title="Home" />
-            <Scene key="userHome" component={AmbulanceHome} title="Home" />
+            <Scene
+              key="userAndDoctorHome"
+              component={UserAndDoctorHome}
+              title="Home"
+            />
+            <Scene key="paramedicHome" component={ParamedicHome} title="Home" />
+            <Scene key="ambulanceHome" component={AmbulanceHome} title="Home" />
           </Scene>
 
           <Scene key="FirstAid" headerLayoutPreset="center">

@@ -19,6 +19,7 @@ export const SIGNIN_FAIL = 'signin_fail';
 // first aid
 export const INJURY_BUTTON_PRESSED = 'injury_button_pressed';
 //Request Help
+export const SELECT_HELPER_TYPE = 'select_helper_type';
 export const REQUSET_DOCTOR = 'request_doctor';
 export const REQUSET_PARAMEDIC = 'request_paramedic';
 export const REQUSET_AMBULANCE = 'request_ambulance';

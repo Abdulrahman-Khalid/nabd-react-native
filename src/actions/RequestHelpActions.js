@@ -1,4 +1,13 @@
+import { SELECT_HELPER_TYPE } from './types';
+
 import axios from 'axios';
+
+export const selectHelperType = helperType => {
+  return {
+    type: SELECT_HELPER_TYPE,
+    payload: helperType
+  };
+};
 
 export const requestHelp = helperType => {
   return dispatch => {
