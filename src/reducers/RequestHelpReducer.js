@@ -2,7 +2,8 @@ import {
   REQUSET_DOCTOR,
   REQUSET_PARAMEDIC,
   REQUSET_AMBULANCE,
-  SELECT_HELPER_TYPE
+  SELECT_HELPER_TYPE,
+  SELECT_HELPER_SPECIALIZATION
 } from '../actions/types';
 
 const INTIAL_STATE = {
@@ -15,6 +16,8 @@ export default (state = INTIAL_STATE, action) => {
   switch (action.type) {
     case SELECT_HELPER_TYPE:
       return { ...state, helperType: action.payload };
+    case SELECT_HELPER_SPECIALIZATION:
+      return { ...state, helperSpecialization: action.payload };
     case REQUSET_DOCTOR:
       // const { helperSpecialization, helperName } = action.payload;
       return {

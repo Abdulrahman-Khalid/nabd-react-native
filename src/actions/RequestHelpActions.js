@@ -1,4 +1,4 @@
-import { SELECT_HELPER_TYPE } from './types';
+import { SELECT_HELPER_TYPE, SELECT_HELPER_SPECIALIZATION } from './types';
 
 import axios from 'axios';
 
@@ -6,6 +6,13 @@ export const selectHelperType = helperType => {
   return {
     type: SELECT_HELPER_TYPE,
     payload: helperType
+  };
+};
+
+export const selectHelperSpecialization = specialization => {
+  return {
+    type: SELECT_HELPER_SPECIALIZATION,
+    payload: specialization
   };
 };
 
