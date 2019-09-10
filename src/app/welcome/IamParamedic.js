@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Image, View } from 'react-native';
 import CommonButtons from './CommonButtons';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
+import { Images } from '../../constants';
 
 class IamParamedic extends Component {
   render() {
@@ -11,7 +12,7 @@ class IamParamedic extends Component {
           <View style={styles.imageWrapper}>
             <Image
               style={styles.image}
-              source={require('../../assets/imgs/paramedic.png')}
+              source={Images.paramedic}
             />
           </View>
           <Text style={{ fontSize: 20, fontWeight: '700' }}>Paramedic</Text>

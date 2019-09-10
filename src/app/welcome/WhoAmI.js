@@ -4,7 +4,7 @@ import { Button } from '../../components';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
 import { Actions } from 'react-native-router-flux';
 import { View, StyleSheet, Dimensions } from 'react-native';
-import { argonTheme } from '../../constants';
+import { argonTheme, Images } from '../../constants';
 import { connect } from 'react-redux';
 import { setUserType, getWelcomeInfo } from '../../actions';
 import AsyncStorage from '@react-native-community/async-storage';
@@ -106,10 +106,7 @@ class WhoAmI extends Component {
         <Block style={{ alignIems: 'center', justifyContent: 'flex-end' }}>
           <Block center>
             <View>
-              <Image
-                style={styles.image}
-                source={require('../../assets/imgs/heart.png')}
-              />
+              <Image style={styles.image} source={Images.welcome} />
             </View>
           </Block>
           {/* <Block center style={{ marginBottom: 10 }}>

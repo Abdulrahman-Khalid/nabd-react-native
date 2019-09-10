@@ -2,17 +2,14 @@ import React, { Component } from 'react';
 import { Image } from 'react-native';
 import CommonButtons from './CommonButtons';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
-import { argonTheme } from '../../constants';
+import { argonTheme, Images } from '../../constants';
 
 class IamUser extends Component {
   render() {
     return (
       <Block flex style={{ backgroundColor: argonTheme.COLORS.BACKGROUND }}>
         <Block center style={{ position: 'absolute', top: 30 }}>
-          <Image
-            style={styles.image}
-            source={require('../../assets/imgs/user.png')}
-          />
+          <Image style={styles.image} source={Images.user} />
           <Text style={{ fontSize: 20, fontWeight: '700' }}>User</Text>
           <Text style={styles.descriptionText}>
             Lorem Ipsum is simply dummy text of the printing and typesetting

@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
 import { Actions } from 'react-native-router-flux';
-import { argonTheme } from '../../constants';
+import { argonTheme, Images } from '../../constants';
 import { connect } from 'react-redux';
 import { selectHelperType, requestHelp } from '../../actions';
 import {
@@ -11,7 +11,8 @@ import {
   StyleSheet,
   TouchableOpacity,
   View,
-  Dimensions
+  Dimensions,
+  Image
 } from 'react-native';
 import { Icon } from '../../components';
 import RadioForm, { RadioButton } from 'react-native-simple-radio-button';
@@ -50,7 +51,7 @@ class UserAndDoctorHome extends Component {
   renderHeader() {
     return (
       <View style={styles.headerFooterContainer}>
-        <Text>Doctor specialization</Text>
+        <Text style={{ fontSize: 20 }}>Doctor specialization</Text>
       </View>
     );
   }
@@ -78,9 +79,16 @@ class UserAndDoctorHome extends Component {
           )}
           {selectedItem && (
             <View style={styles.innerContainer}>
-              <TouchableOpacity style={styles.clearButton} onPress={clear}>
-                <Text style={{ color: '#fff' }}>مسح</Text>
+              <TouchableOpacity onPress={clear}>
+                <Image
+                  style={{ width: 12, height: 12, margin: 12 }}
+                  source={Images.clearIcon}
+                />
               </TouchableOpacity>
+              <Image
+                style={styles.imageIconWrapper}
+                source={selectedItem.img}
+              />
               <Text style={[styles.text, { color: selectedItem.color }]}>
                 {getLabel(selectedItem)}
               </Text>
@@ -96,8 +104,16 @@ class UserAndDoctorHome extends Component {
     return (
       <View style={styles.optionContainer}>
         <View style={styles.innerContainer}>
-          <View style={[styles.box, { backgroundColor: item.color }]} />
-          <Text style={{ color: item.color, alignSelf: 'flex-start' }}>
+          {/* <View style={[styles.box, { backgroundColor: item.color }]} /> */}
+          <Image style={styles.imageIconWrapper} source={item.img} />
+          <Text
+            style={{
+              fontSize: 18,
+              padding: 8,
+              color: item.color,
+              alignSelf: 'flex-start'
+            }}
+          >
             {getLabel(item)}
           </Text>
         </View>
@@ -110,44 +126,64 @@ class UserAndDoctorHome extends Component {
     if (this.props.helperType === 'doctor') {
       const options = [
         {
-          color: '#2660A4',
+          color: '#051C2B',
           label: 'الباطنة والأمراض الصدرية',
+          img: Images.lungIcon,
           value: 1
         },
         {
-          color: '#FF6B35',
+          color: '#051C2B',
           label: 'أمراض القلب والأوعية الدموية',
+          img: Images.heartIcon,
           value: 2
         },
         {
-          color: '#FFBC42',
-          label: 'العظام',
+          color: '#051C2B',
+          label: 'مخ و أعصاب',
+          img: Images.brainIcon,
           value: 3
         },
         {
-          color: '#AD343E',
-          label: 'المسالك البولية',
+          color: '#051C2B',
+          label: 'العظام',
+          img: Images.boneIcon,
           value: 4
         },
         {
           color: '#051C2B',
-          label: 'النساء والتوليد',
+          label: 'المسالك بولية و التناسلية',
+          img: Images.bladderIcon,
           value: 5
         },
         {
           color: '#051C2B',
-          label: 'الجلدية',
+          label: 'النساء والتوليد',
+          img: Images.pregnantIcon,
           value: 6
         },
         {
           color: '#051C2B',
-          label: 'طب وجراحةالعيون',
+          label: 'الجلدية',
+          img: Images.skinIcon,
           value: 7
         },
         {
           color: '#051C2B',
+          label: 'طب وجراحةالعيون',
+          img: Images.eyeIcon,
+          value: 8
+        },
+        {
+          color: '#051C2B',
           label: 'أطفال',
-          value: 7
+          img: Images.childIcon,
+          value: 9
+        },
+        {
+          color: '#051C2B',
+          label: 'أنف و أذن و حنجرة',
+          img: Images.throatIcon,
+          value: 9
         }
       ];
       return (
@@ -283,11 +319,13 @@ const styles = StyleSheet.create({
     alignItems: 'stretch'
   },
   text: {
-    fontSize: 18
+    fontSize: 18,
+    padding: 8
   },
   headerFooterContainer: {
     padding: 10,
-    alignItems: 'center'
+    alignItems: 'center',
+    fontSize: 20
   },
   clearButton: {
     backgroundColor: 'grey',
@@ -308,6 +346,14 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     marginRight: 10
+  },
+  imageIcon: {},
+  imageIconWrapper: {
+    backgroundColor: '#E8E6E3',
+    width: 32,
+    height: 32,
+    borderRadius: 32 / 2,
+    margin: 5
   }
 });
 
