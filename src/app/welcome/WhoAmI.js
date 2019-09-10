@@ -3,7 +3,7 @@ import { Image, TouchableOpacity } from 'react-native';
 import { Button } from '../../components';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
 import { Actions } from 'react-native-router-flux';
-import { StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet, Dimensions } from 'react-native';
 import { argonTheme } from '../../constants';
 import { connect } from 'react-redux';
 import { setUserType, getWelcomeInfo } from '../../actions';
@@ -105,10 +105,12 @@ class WhoAmI extends Component {
         </Block>
         <Block style={{ alignIems: 'center', justifyContent: 'flex-end' }}>
           <Block center>
-            <Image
-              style={styles.image}
-              source={require('../../assets/imgs/team.png')}
-            />
+            <View>
+              <Image
+                style={styles.image}
+                source={require('../../assets/imgs/heart.png')}
+              />
+            </View>
           </Block>
           {/* <Block center style={{ marginBottom: 10 }}>
             <Text style={{ fontSize: 20, fontWeight: '700' }}>Nabd Egypt</Text>
@@ -167,8 +169,6 @@ const styles = StyleSheet.create({
   image: {
     width: 200,
     height: 200,
-    borderRadius: 200 / 2,
-    marginBottom: 10,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 4,
