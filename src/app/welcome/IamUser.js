@@ -10,7 +10,7 @@ class IamUser extends Component {
         <Block center style={{ position: 'absolute', top: 30 }}>
           <Image
             style={styles.image}
-            source={require('../../assets/imgs/ancient_egypt.jpg')}
+            source={require('../../assets/imgs/user.png')}
           />
           <Text style={{ fontSize: 20, fontWeight: '700' }}>User</Text>
           <Text style={styles.descriptionText}>

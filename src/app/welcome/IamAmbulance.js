@@ -1,9 +1,10 @@
 import React, { Component } from 'react';
-import { Image, View } from 'react-native';
+import { Image } from 'react-native';
 import { Button } from '../../components';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
 import { Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
+import { argonTheme } from '../../constants';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -14,7 +15,7 @@ class IamAmbulance extends Component {
         <Block center style={{ position: 'absolute', top: 30 }}>
           <Image
             style={styles.image}
-            source={require('../../assets/imgs/ancient_egypt.jpg')}
+            source={require('../../assets/imgs/ambulance.png')}
           />
           <Text style={{ fontSize: 20, fontWeight: '700' }}>Ambulance</Text>
           <Text style={styles.descriptionText}>
@@ -44,10 +45,16 @@ class IamAmbulance extends Component {
 
 const styles = {
   image: {
-    width: 200,
-    height: 200,
-    borderRadius: 200 / 2,
-    marginBottom: 30
+    width: 300,
+    height: 300,
+    marginTop: 30,
+    marginLeft: 30,
+    marginRight: 30,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5
   },
   button: {
     marginBottom: theme.SIZES.BASE,

@@ -28,7 +28,7 @@ class RouterComponent extends Component {
         }}
         tintColor={argonTheme.COLORS.APP}
       >
-        <Scene key="root" hideNavBar>
+        <Scene key="root" hideNavBar initial>
           <Scene key="welcome" headerLayoutPreset="center">
             <Scene key="whoRU" component={WhoAmI} title="Nabd" initial />
             <Scene key="iUser" component={IamUser} title="User" />
@@ -48,7 +48,7 @@ class RouterComponent extends Component {
             <Scene key="verifySignup" component={VerifySignup} title="Verify" />
           </Scene>
 
-          <Scene key="home" headerLayoutPreset="center" initial>
+          <Scene key="home" headerLayoutPreset="center">
             <Scene
               key="userAndDoctorHome"
               component={UserAndDoctorHome}

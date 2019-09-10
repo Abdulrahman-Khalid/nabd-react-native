@@ -107,7 +107,7 @@ class WhoAmI extends Component {
           <Block center>
             <Image
               style={styles.image}
-              source={require('../../assets/imgs/ancient_egypt.jpg')}
+              source={require('../../assets/imgs/team.png')}
             />
           </Block>
           {/* <Block center style={{ marginBottom: 10 }}>

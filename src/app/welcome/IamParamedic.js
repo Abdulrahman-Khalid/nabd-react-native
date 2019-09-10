@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Image } from 'react-native';
+import { Image, View } from 'react-native';
 import CommonButtons from './CommonButtons';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
 
@@ -8,10 +8,12 @@ class IamParamedic extends Component {
     return (
       <Block flex style={{ backgroundColor: 'white' }}>
         <Block center style={{ position: 'absolute', top: 30 }}>
-          <Image
-            style={styles.image}
-            source={require('../../assets/imgs/ancient_egypt.jpg')}
-          />
+          <View style={styles.imageWrapper}>
+            <Image
+              style={styles.image}
+              source={require('../../assets/imgs/paramedic.png')}
+            />
+          </View>
           <Text style={{ fontSize: 20, fontWeight: '700' }}>Paramedic</Text>
           <Text style={styles.descriptionText}>
             Lorem Ipsum is simply dummy text of the printing and typesetting
@@ -28,10 +30,22 @@ class IamParamedic extends Component {
 
 const styles = {
   image: {
+    width: 170,
+    height: 170,
+    marginTop: 30,
+    marginLeft: 30,
+    marginRight: 30
+  },
+  imageWrapper: {
+    backgroundColor: '#FF5B62',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.8,
+    shadowRadius: 2,
+    elevation: 5,
     width: 200,
     height: 200,
-    borderRadius: 200 / 2,
-    marginBottom: 30
+    borderRadius: 200 / 2
   },
   descriptionText: {
     fontSize: 16,

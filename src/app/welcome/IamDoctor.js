@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Image } from 'react-native';
 import CommonButtons from './CommonButtons';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
+import { argonTheme } from '../../constants';
 
 class IamDoctor extends Component {
   render() {
@@ -10,7 +11,7 @@ class IamDoctor extends Component {
         <Block center style={{ position: 'absolute', top: 30 }}>
           <Image
             style={styles.image}
-            source={require('../../assets/imgs/ancient_egypt.jpg')}
+            source={require('../../assets/imgs/doctor.png')}
           />
           <Text style={{ fontSize: 20, fontWeight: '700' }}>Doctor</Text>
           <Text style={styles.descriptionText}>
