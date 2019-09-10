@@ -10,7 +10,6 @@ import { Actions } from 'react-native-router-flux';
 import AsyncStorage from '@react-native-community/async-storage';
 
 export const resetSignInReducerState = () => {
-  console.log('haaaaaaaaaaaaa');
   return {
     type: RESET_SIGNIN_REDUCER_STATE
   };

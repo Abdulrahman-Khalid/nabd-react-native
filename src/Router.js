@@ -50,7 +50,6 @@ class RouterComponent extends Component {
               key="signup"
               component={Register}
               onExit={() => {
-                console.log('hhhhhhhhhhhhhhhhh');
                 this.props.resetSignUpReducerState();
               }}
               title="Sign up"
@@ -59,7 +58,6 @@ class RouterComponent extends Component {
               key="signin"
               component={SignIn}
               onExit={() => {
-                console.log('hhhhhhhhhhhhhhhhh');
                 this.props.resetSignInReducerState();
               }}
               title="Sign in"
