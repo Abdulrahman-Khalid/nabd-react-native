@@ -10,7 +10,7 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { InjuryButtonPressed } from '../../actions';
 import data from './metadata.json';
-import StepIndicator from './StepIndicator';
+import { argonTheme } from '../../constants';
 
 class FirstAidDetailsWithButtons extends Component {
   onButtonPress(text) {
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     height: 70,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ff5768',
+    backgroundColor: argonTheme.COLORS.APP,
     borderRadius: 15
   },
   text: {
