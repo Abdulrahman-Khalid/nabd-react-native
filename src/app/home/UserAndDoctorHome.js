@@ -81,12 +81,19 @@ class UserAndDoctorHome extends Component {
             <View style={styles.innerContainer}>
               <TouchableOpacity onPress={clear}>
                 <Image
-                  style={{ width: 12, height: 12, margin: 12 }}
+                  style={[
+                    {
+                      width: 12,
+                      height: 12,
+                      margin: 12
+                    },
+                    styles.shadow
+                  ]}
                   source={Images.clearIcon}
                 />
               </TouchableOpacity>
               <Image
-                style={styles.imageIconWrapper}
+                style={[styles.imageIconWrapper, styles.shadow]}
                 source={selectedItem.img}
               />
               <Text style={[styles.text, { color: selectedItem.color }]}>
@@ -354,6 +361,13 @@ const styles = StyleSheet.create({
     height: 32,
     borderRadius: 32 / 2,
     margin: 5
+  },
+  shadow: {
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    shadowOpacity: 0.1,
+    elevation: 2
   }
 });
 
