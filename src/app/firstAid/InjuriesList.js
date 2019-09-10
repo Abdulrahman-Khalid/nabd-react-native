@@ -54,11 +54,13 @@ class InjuriesList extends Component {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={this.onButtonPress.bind(this, 'headInjury')}>
+        <TouchableOpacity
+          onPress={this.onButtonPress.bind(this, 'head_injury')}
+        >
           <InjuryButton
-            imageSource={'headInjury'}
+            imageSource={'head_injury'}
             backgroundClr="#f6edcf"
-            imageText={data.headInjury.arValue}
+            imageText={data.head_injury.arValue}
           />
         </TouchableOpacity>
 
@@ -70,11 +72,13 @@ class InjuriesList extends Component {
           />
         </TouchableOpacity>
 
-        <TouchableOpacity onPress={this.onButtonPress_.bind(this, 'eyeInjury')}>
+        <TouchableOpacity
+          onPress={this.onButtonPress_.bind(this, 'eye_injury')}
+        >
           <InjuryButton
-            imageSource={'eyeInjury'}
+            imageSource={'eye_injury'}
             backgroundClr="#daf1f9"
-            imageText={data.eyeInjury.arValue}
+            imageText={data.eye_injury.arValue}
           />
         </TouchableOpacity>
 
@@ -87,12 +91,12 @@ class InjuriesList extends Component {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={this.onButtonPress.bind(this, 'toothInjury')}
+          onPress={this.onButtonPress.bind(this, 'tooth_injury')}
         >
           <InjuryButton
-            imageSource={'toothInjury'}
+            imageSource={'tooth_injury'}
             backgroundClr="#f0dab1"
-            imageText={data.toothInjury.arValue}
+            imageText={data.tooth_injury.arValue}
           />
         </TouchableOpacity>
 
@@ -115,12 +119,12 @@ class InjuriesList extends Component {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={this.onButtonPress_.bind(this, 'chemicalPoisoning')}
+          onPress={this.onButtonPress_.bind(this, 'chemical_poisoning')}
         >
           <InjuryButton
-            imageSource={'chemicalPoisoning'}
+            imageSource={'chemical_poisoning'}
             backgroundClr="#f6edcf"
-            imageText={data.chemicalPoisoning.arValue}
+            imageText={data.chemical_poisoning.arValue}
           />
         </TouchableOpacity>
       </ScrollView>
