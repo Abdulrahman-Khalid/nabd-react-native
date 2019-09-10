@@ -10,7 +10,7 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { InjuryButtonPressed } from '../../actions';
 import data from './metadata.json';
-import StepIndicator from './StepIndicator';
+import { argonTheme } from '../../constants';
 
 class FirstAidDetailsWithButtons extends Component {
   onButtonPress(text) {
@@ -18,7 +18,7 @@ class FirstAidDetailsWithButtons extends Component {
     this.props.InjuryButtonPressed(text);
     Actions.FirstAidDetails();
   }
-  isChemicalPoisoning = data[this.props.injury].value === 'chemicalPoisoning';
+  isChemicalPoisoning = data[this.props.injury].value === 'chemical_poisoning';
   render() {
     return (
       <View style={styles.container}>
@@ -28,22 +28,22 @@ class FirstAidDetailsWithButtons extends Component {
               style={styles.button}
               onPress={this.onButtonPress.bind(
                 this,
-                'chemicalPoisoning_swallowing'
+                'chemical_poisoning_swallowing'
               )}
             >
               <Text style={styles.text}>
-                {data.chemicalPoisoning_swallowing.arValue}
+                {data.chemical_poisoning_swallowing.arValue}
               </Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
               onPress={this.onButtonPress.bind(
                 this,
-                'chemicalPoisoning_inhaling'
+                'chemical_poisoning_inhaling'
               )}
             >
               <Text style={styles.text}>
-                {data.chemicalPoisoning_inhaling.arValue}
+                {data.chemical_poisoning_inhaling.arValue}
               </Text>
             </TouchableOpacity>
           </View>
@@ -52,10 +52,10 @@ class FirstAidDetailsWithButtons extends Component {
             <View>
               <TouchableOpacity
                 style={styles.button}
-                onPress={this.onButtonPress.bind(this, 'eyeInjury_puncture')}
+                onPress={this.onButtonPress.bind(this, 'eye_injury_puncture')}
               >
                 <Text style={styles.text}>
-                  {data.eyeInjury_puncture.arValue}
+                  {data.eye_injury_puncture.arValue}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -63,10 +63,10 @@ class FirstAidDetailsWithButtons extends Component {
             <View>
               <TouchableOpacity
                 style={styles.button}
-                onPress={this.onButtonPress.bind(this, 'eyeInjury_scratch')}
+                onPress={this.onButtonPress.bind(this, 'eye_injury_scratch')}
               >
                 <Text style={styles.text}>
-                  {data.eyeInjury_scratch.arValue}
+                  {data.eye_injury_scratch.arValue}
                 </Text>
               </TouchableOpacity>
             </View>
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     height: 70,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#ff5768',
+    backgroundColor: argonTheme.COLORS.APP,
     borderRadius: 15
   },
   text: {

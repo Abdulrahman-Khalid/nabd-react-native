@@ -28,6 +28,8 @@ export default {
     HEADER: '#525F7F',
     BORDER: '#CAD1D7',
     WHITE: '#FFFFFF',
-    BLACK: '#000000'
+    BLACK: '#000000',
+    INJURY_BUTTON: '#fab9bb',
+    INJURY_BUTTON_TWO: '#fde7e8'
   }
 };

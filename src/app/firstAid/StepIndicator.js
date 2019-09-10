@@ -3,16 +3,18 @@ import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
 import Steps from 'react-native-steps';
 import data from './FirstAidData';
 import metadata from './metadata.json';
+import { argonTheme } from '../../constants';
 
+const { APP } = argonTheme.COLORS;
 const stepIndicatorStyles = {
   stepIndicatorSize: 50,
   currentStepIndicatorSize: 40,
   separatorStrokeWidth: 3,
   currentStepStrokeWidth: 5,
-  stepStrokeCurrentColor: '#ff5768',
-  separatorFinishedColor: '#ff5768',
+  stepStrokeCurrentColor: APP,
+  separatorFinishedColor: APP,
   separatorUnFinishedColor: '#aaaaaa',
-  stepIndicatorFinishedColor: '#ff5768',
+  stepIndicatorFinishedColor: APP,
   stepIndicatorUnFinishedColor: '#aaaaaa',
   stepIndicatorCurrentColor: '#ffffff',
   stepIndicatorLabelFontSize: 25,
@@ -22,7 +24,7 @@ const stepIndicatorStyles = {
   stepIndicatorLabelUnFinishedColor: 'rgba(255,255,255,0.5)',
   labelColor: '#666666',
   labelSize: 15,
-  currentStepLabelColor: '#ff5768'
+  currentStepLabelColor: APP
 };
 
 export default class StepIndicator extends Component {
