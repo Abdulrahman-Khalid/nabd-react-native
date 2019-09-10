@@ -26,6 +26,18 @@ const bladderIcon = require('../assets/imgs/doctor/bladder.png');
 const eyeIcon = require('../assets/imgs/doctor/eye.png');
 const throatIcon = require('../assets/imgs/doctor/throat.png');
 const clearIcon = require('../assets/imgs/doctor/clear.png');
+
+const bleeding = require('../assets/imgs/first_aid/bleeding.png');
+const burns = require('../assets/imgs/first_aid/burns.png');
+const chemical_poisoning = require('../assets/imgs/first_aid/chemical_poisoning.png');
+const cpr = require('../assets/imgs/first_aid/cpr.png');
+const seizure = require('../assets/imgs/first_aid/seizure.png');
+const cuts = require('../assets/imgs/first_aid/cuts.png');
+const eye_injury = require('../assets/imgs/first_aid/eye_injury.png');
+const fractures = require('../assets/imgs/first_aid/fractures.png');
+const head_injury = require('../assets/imgs/first_aid/head_injury.png');
+const nosebleeding = require('../assets/imgs/first_aid/nosebleeding.png');
+const tooth_injury = require('../assets/imgs/first_aid/tooth_injury.png');
 // internet imgs
 
 const ProfilePicture =
@@ -73,5 +85,16 @@ export default {
   bladderIcon,
   eyeIcon,
   throatIcon,
-  clearIcon
+  clearIcon,
+  bleeding,
+  burns,
+  chemical_poisoning,
+  cpr,
+  seizure,
+  cuts,
+  eye_injury,
+  fractures,
+  head_injury,
+  nosebleeding,
+  tooth_injury
 };
