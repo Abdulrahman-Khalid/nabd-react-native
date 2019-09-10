@@ -9,25 +9,8 @@ class FirstAidDetails extends Component {
   extractValue(key) {
     return data[key].value;
   }
-  // renderElement() {
-  //   if (data[this.props.injury].buttons === 'true')
-  //     return <StepIndicator injury={this.extractValue(this.props.injury)} />;
-  // }
-
-  // isButton = data[this.props.injury].buttons === 'true';
-
   render() {
-    return (
-      // <View>
-      //   {this.isButton ? (
-      //     <StepIndicator injury={this.extractValue(this.props.injury)} />
-      //   ) : (
-      //     <Text>test</Text>
-      //   )}
-      // </View>
-      // <View>{this.renderElement()}</View>
-      <StepIndicator injury={this.extractValue(this.props.injury)} />
-    );
+    return <StepIndicator injury={this.extractValue(this.props.injury)} />;
   }
 }
 const mapStateToProps = ({ firstAid }) => {
