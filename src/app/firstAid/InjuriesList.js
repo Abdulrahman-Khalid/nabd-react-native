@@ -13,7 +13,7 @@ import { connect } from 'react-redux';
 import { InjuryButtonPressed } from '../../actions';
 import InjuryButton from './InjuryButton';
 import data from './metadata.json';
-import { argonTheme } from '../../constants';
+import { argonTheme, Images } from '../../constants';
 
 class InjuriesList extends Component {
   onButtonPress(text) {

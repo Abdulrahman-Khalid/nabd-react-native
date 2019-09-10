@@ -7,7 +7,7 @@ import {
   Image,
   ScrollView
 } from 'react-native';
-const assets = require('./assets.js');
+// const assets = require('./assets.js');
 import { argonTheme, Images } from '../../constants';
 
 const InjuryButton = props => {
@@ -79,11 +79,11 @@ const styles = StyleSheet.create({
     width: 150,
     height: 150,
     borderRadius: 50,
-    elevation: 4,
-    shadowOffset: { width: 5, height: 5 },
-    shadowColor: 'grey',
-    shadowOpacity: 0.5,
-    shadowRadius: 10
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    shadowOpacity: 0.1,
+    elevation: 2
   }
 });
 
