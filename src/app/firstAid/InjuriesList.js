@@ -1,19 +1,11 @@
 import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ScrollView,
-  TouchableOpacity
-} from 'react-native';
+import { ScrollView, TouchableOpacity } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { InjuryButtonPressed } from '../../actions';
 import InjuryButton from './InjuryButton';
 import data from './metadata.json';
-import { argonTheme, Images } from '../../constants';
+import { argonTheme } from '../../constants';
 
 class InjuriesList extends Component {
   onButtonPress(text) {
@@ -32,25 +24,25 @@ class InjuriesList extends Component {
       <ScrollView>
         <TouchableOpacity onPress={this.onButtonPress.bind(this, 'cpr')}>
           <InjuryButton
-            imageSource={'cpr'}
+            src={'cpr'}
             backgroundClr={INJURY_BUTTON}
-            imageText={data.cpr.arValue}
+            txt={data.cpr.arValue}
           />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={this.onButtonPress.bind(this, 'bleeding')}>
           <InjuryButton
-            imageSource={'bleeding'}
+            src={'bleeding'}
             backgroundClr={INJURY_BUTTON_TWO}
-            imageText={data.bleeding.arValue}
+            txt={data.bleeding.arValue}
           />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={this.onButtonPress.bind(this, 'cuts')}>
           <InjuryButton
-            imageSource={'cuts'}
+            src={'cuts'}
             backgroundClr={INJURY_BUTTON}
-            imageText={data.cuts.arValue}
+            txt={data.cuts.arValue}
           />
         </TouchableOpacity>
 
@@ -58,17 +50,17 @@ class InjuriesList extends Component {
           onPress={this.onButtonPress.bind(this, 'head_injury')}
         >
           <InjuryButton
-            imageSource={'head_injury'}
+            src={'head_injury'}
             backgroundClr={INJURY_BUTTON_TWO}
-            imageText={data.head_injury.arValue}
+            txt={data.head_injury.arValue}
           />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={this.onButtonPress.bind(this, 'burns')}>
           <InjuryButton
-            imageSource={'burns'}
+            src={'burns'}
             backgroundClr={INJURY_BUTTON}
-            imageText={data.burns.arValue}
+            txt={data.burns.arValue}
           />
         </TouchableOpacity>
 
@@ -76,17 +68,17 @@ class InjuriesList extends Component {
           onPress={this.onButtonPress_.bind(this, 'eye_injury')}
         >
           <InjuryButton
-            imageSource={'eye_injury'}
+            src={'eye_injury'}
             backgroundClr={INJURY_BUTTON_TWO}
-            imageText={data.eye_injury.arValue}
+            txt={data.eye_injury.arValue}
           />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={this.onButtonPress.bind(this, 'fractures')}>
           <InjuryButton
-            imageSource={'fractures'}
+            src={'fractures'}
             backgroundClr={INJURY_BUTTON}
-            imageText={data.fractures.arValue}
+            txt={data.fractures.arValue}
           />
         </TouchableOpacity>
 
@@ -94,9 +86,9 @@ class InjuriesList extends Component {
           onPress={this.onButtonPress.bind(this, 'tooth_injury')}
         >
           <InjuryButton
-            imageSource={'tooth_injury'}
+            src={'tooth_injury'}
             backgroundClr={INJURY_BUTTON_TWO}
-            imageText={data.tooth_injury.arValue}
+            txt={data.tooth_injury.arValue}
           />
         </TouchableOpacity>
 
@@ -104,17 +96,17 @@ class InjuriesList extends Component {
           onPress={this.onButtonPress.bind(this, 'nosebleeding')}
         >
           <InjuryButton
-            imageSource={'nosebleeding'}
+            src={'nosebleeding'}
             backgroundClr={INJURY_BUTTON}
-            imageText={data.nosebleeding.arValue}
+            txt={data.nosebleeding.arValue}
           />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={this.onButtonPress.bind(this, 'seizure')}>
           <InjuryButton
-            imageSource={'seizure'}
+            src={'seizure'}
             backgroundClr={INJURY_BUTTON_TWO}
-            imageText={data.seizure.arValue}
+            txt={data.seizure.arValue}
           />
         </TouchableOpacity>
 
@@ -122,9 +114,9 @@ class InjuriesList extends Component {
           onPress={this.onButtonPress_.bind(this, 'chemical_poisoning')}
         >
           <InjuryButton
-            imageSource={'chemical_poisoning'}
+            src={'chemical_poisoning'}
             backgroundClr={INJURY_BUTTON}
-            imageText={data.chemical_poisoning.arValue}
+            txt={data.chemical_poisoning.arValue}
           />
         </TouchableOpacity>
       </ScrollView>

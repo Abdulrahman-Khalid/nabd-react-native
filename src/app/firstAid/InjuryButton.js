@@ -1,27 +1,16 @@
-import React, { Component } from 'react';
-import {
-  Platform,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-  ScrollView
-} from 'react-native';
-// const assets = require('./assets.js');
+import React from 'react';
+import { StyleSheet, Text, View, Image } from 'react-native';
 import { argonTheme, Images } from '../../constants';
 
 const InjuryButton = props => {
   return (
     <View style={styles.container}>
-      <View
-        style={[
-          styles.imageContainer,
-          { backgroundColor: props.backgroundClr }
-        ]}
-      >
-        <Image style={styles.imageStyle} source={Images[props.imageSource]} />
+      <View style={[styles.button, { backgroundColor: props.backgroundClr }]}>
+        <View style={styles.shadow}>
+          <Image style={styles.image} source={Images[props.src]} />
+        </View>
         <View style={styles.textContainer}>
-          <Text style={styles.imageText}>{props.imageText}</Text>
+          <Text style={styles.text}>{props.txt}</Text>
         </View>
       </View>
     </View>
@@ -32,14 +21,15 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    flexDirection: 'row'
+    flexDirection: 'row',
+    backgroundColor: argonTheme.COLORS.BACKGROUND
   },
   textContainer: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   },
-  imageText: {
+  text: {
     fontSize: 40,
     color: argonTheme.COLORS.BLACK,
     textAlign: 'center',
@@ -47,9 +37,9 @@ const styles = StyleSheet.create({
     margin: 10,
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 1,
-    textShadowColor: 'white'
+    textShadowColor: argonTheme.COLORS.WHITE
   },
-  imageContainer: {
+  button: {
     marginLeft: 16,
     marginRight: 16,
     marginBottom: 8,
@@ -60,9 +50,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
-    // borderWidth: 20,
-    borderColor: 'white',
-    shadowColor: '#000',
+    shadowColor: argonTheme.COLORS.WHITE,
     shadowOffset: {
       width: 0,
       height: 2
@@ -71,19 +59,25 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5
   },
-  imageStyle: {
+  image: {
     margin: 10,
-    borderWidth: 3,
     alignItems: 'center',
     justifyContent: 'center',
     width: 150,
     height: 150,
-    borderRadius: 50,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    shadowOpacity: 0.1,
-    elevation: 2
+    borderRadius: 100
+  },
+  shadow: {
+    margin: 20,
+    borderRadius: 100,
+    width: 150,
+    height: 150,
+    justifyContent: 'center',
+    textShadowOffset: { width: 2, height: 2 },
+    textShadowRadius: 1,
+    textShadowColor: argonTheme.COLORS.WHITE,
+    shadowOpacity: 0.25,
+    elevation: 5
   }
 });
 

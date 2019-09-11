@@ -1,16 +1,11 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View } from 'react-native';
-import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { InjuryButtonPressed } from '../../actions';
 import data from './metadata.json';
 import StepIndicator from './StepIndicator';
 class FirstAidDetails extends Component {
-  extractValue(key) {
-    return data[key].value;
-  }
   render() {
-    return <StepIndicator injury={this.extractValue(this.props.injury)} />;
+    return <StepIndicator injury={data[this.props.injury].value} />;
   }
 }
 const mapStateToProps = ({ firstAid }) => {

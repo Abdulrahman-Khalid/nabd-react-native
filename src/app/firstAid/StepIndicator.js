@@ -5,7 +5,7 @@ import data from './FirstAidData';
 import metadata from './metadata.json';
 import { argonTheme } from '../../constants';
 
-const { APP } = argonTheme.COLORS;
+const { APP, BACKGROUND } = argonTheme.COLORS;
 const stepIndicatorStyles = {
   stepIndicatorSize: 50,
   currentStepIndicatorSize: 40,
@@ -46,7 +46,6 @@ export default class StepIndicator extends Component {
             count={metadata[this.props.injury].count}
             direction="vertical"
             current={this.state.currentPage}
-            //labels={data.data.map(item => item.title)}
           />
         </View>
         <FlatList
@@ -64,10 +63,9 @@ export default class StepIndicator extends Component {
     const item = rowData.item;
     return (
       <View style={styles.rowItem}>
-        {/* <Text style={styles.title}>{item.title}</Text> */}
         <Text style={styles.body}>{item.body}</Text>
         <View style={styles.imageContainer}>
-          <Image style={styles.imageStyle} source={item.image} />
+          <Image style={styles.image} source={item.image} />
         </View>
       </View>
     );
@@ -87,51 +85,35 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row-reverse',
-    backgroundColor: '#ffffff'
+    backgroundColor: BACKGROUND
   },
   stepIndicator: {
     marginVertical: 20, // 50
     paddingHorizontal: 20
   },
   rowItem: {
-    marginVertical: 100, //space between list
-    // alignContent: 'center',
+    marginVertical: 30, // space between list items
     flex: 1,
     paddingVertical: 20
-  },
-  title: {
-    flex: 1,
-    fontSize: 20,
-    color: '#333333',
-    paddingVertical: 16,
-    fontWeight: '600',
-    alignItems: 'center'
   },
   body: {
     flex: 1,
     fontSize: 35,
     color: '#606060',
-    lineHeight: 35, //here
-    // marginRight: 2,
-    padding: 20, //here
+    lineHeight: 35, // edit with fontSize
+    padding: 20, // edit with fontSize
     textAlign: 'center'
   },
-  imageStyle: {
+  image: {
     margin: 10,
-    borderWidth: 1,
-    //borderColor:'rgba(0,0,0,0.2)',
     alignItems: 'center',
     justifyContent: 'center',
     width: 150,
-    height: 150,
-    borderRadius: 50
+    height: 150
   },
   imageContainer: {
     overflow: 'hidden',
     justifyContent: 'center',
-    alignItems: 'center',
-    //margin : 10,
-    borderWidth: 1.5,
-    borderColor: 'white'
+    alignItems: 'center'
   }
 });

@@ -14,7 +14,6 @@ import { argonTheme } from '../../constants';
 
 class FirstAidDetailsWithButtons extends Component {
   onButtonPress(text) {
-    const { injury } = this.props;
     this.props.InjuryButtonPressed(text);
     Actions.FirstAidDetails();
   }
@@ -93,7 +92,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-around'
+    justifyContent: 'space-around',
+    backgroundColor: argonTheme.COLORS.BACKGROUND
   },
   button: {
     marginBottom: 30,
@@ -106,6 +106,6 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 20,
-    color: 'white'
+    color: argonTheme.COLORS.WHITE
   }
 });
