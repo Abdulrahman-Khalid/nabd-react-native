@@ -277,11 +277,6 @@ class UserAndDoctorHome extends Component {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    backgroundColor: '#F5FCFF'
-  },
   welcome: {
     fontSize: 20,
     marginTop: 20,

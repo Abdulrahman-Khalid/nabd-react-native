@@ -65,7 +65,7 @@ class RouterComponent extends Component {
             <Scene key="verifySignup" component={VerifySignup} title="Verify" />
           </Scene>
 
-          <Scene key="home" headerLayoutPreset="center" initial>
+          <Scene key="home" headerLayoutPreset="center">
             <Scene
               key="userAndDoctorHome"
               component={UserAndDoctorHome}
@@ -76,7 +76,7 @@ class RouterComponent extends Component {
             <Scene key="ambulanceHome" component={AmbulanceHome} title="Home" />
           </Scene>
 
-          <Scene key="FirstAid" headerLayoutPreset="center">
+          <Scene key="FirstAid" headerLayoutPreset="center" initial>
             <Scene key="InjuriesList" component={InjuriesList} hideNavBar />
             <Scene key="FirstAidDetails" component={FirstAidDetails} />
             <Scene
