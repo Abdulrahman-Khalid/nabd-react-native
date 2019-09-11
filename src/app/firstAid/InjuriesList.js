@@ -32,7 +32,7 @@ class InjuriesList extends Component {
       <ScrollView>
         <TouchableOpacity onPress={this.onButtonPress.bind(this, 'cpr')}>
           <InjuryButton
-            imageSource={Images.cpr}
+            imageSource={cpr}
             backgroundClr={INJURY_BUTTON}
             imageText={data.cpr.arValue}
           />
@@ -40,7 +40,7 @@ class InjuriesList extends Component {
 
         <TouchableOpacity onPress={this.onButtonPress.bind(this, 'bleeding')}>
           <InjuryButton
-            imageSource={Images.bleeding}
+            imageSource={bleeding}
             backgroundClr={INJURY_BUTTON_TWO}
             imageText={data.bleeding.arValue}
           />
@@ -48,7 +48,7 @@ class InjuriesList extends Component {
 
         <TouchableOpacity onPress={this.onButtonPress.bind(this, 'cuts')}>
           <InjuryButton
-            imageSource={Images.cuts}
+            imageSource={cuts}
             backgroundClr={INJURY_BUTTON}
             imageText={data.cuts.arValue}
           />
@@ -58,7 +58,7 @@ class InjuriesList extends Component {
           onPress={this.onButtonPress.bind(this, 'head_injury')}
         >
           <InjuryButton
-            imageSource={Images.head_injury}
+            imageSource={head_injury}
             backgroundClr={INJURY_BUTTON_TWO}
             imageText={data.head_injury.arValue}
           />
@@ -66,7 +66,7 @@ class InjuriesList extends Component {
 
         <TouchableOpacity onPress={this.onButtonPress.bind(this, 'burns')}>
           <InjuryButton
-            imageSource={Images.burns}
+            imageSource={burns}
             backgroundClr={INJURY_BUTTON}
             imageText={data.burns.arValue}
           />
@@ -76,7 +76,7 @@ class InjuriesList extends Component {
           onPress={this.onButtonPress_.bind(this, 'eye_injury')}
         >
           <InjuryButton
-            imageSource={Images.eye_injury}
+            imageSource={eye_injury}
             backgroundClr={INJURY_BUTTON_TWO}
             imageText={data.eye_injury.arValue}
           />
@@ -84,7 +84,7 @@ class InjuriesList extends Component {
 
         <TouchableOpacity onPress={this.onButtonPress.bind(this, 'fractures')}>
           <InjuryButton
-            imageSource={Images.fractures}
+            imageSource={fractures}
             backgroundClr={INJURY_BUTTON}
             imageText={data.fractures.arValue}
           />
@@ -94,7 +94,7 @@ class InjuriesList extends Component {
           onPress={this.onButtonPress.bind(this, 'tooth_injury')}
         >
           <InjuryButton
-            imageSource={Images.tooth_injury}
+            imageSource={tooth_injury}
             backgroundClr={INJURY_BUTTON_TWO}
             imageText={data.tooth_injury.arValue}
           />
@@ -104,7 +104,7 @@ class InjuriesList extends Component {
           onPress={this.onButtonPress.bind(this, 'nosebleeding')}
         >
           <InjuryButton
-            imageSource={Images.nosebleeding}
+            imageSource={nosebleeding}
             backgroundClr={INJURY_BUTTON}
             imageText={data.nosebleeding.arValue}
           />
@@ -112,7 +112,7 @@ class InjuriesList extends Component {
 
         <TouchableOpacity onPress={this.onButtonPress.bind(this, 'seizure')}>
           <InjuryButton
-            imageSource={Images.seizure}
+            imageSource={seizure}
             backgroundClr={INJURY_BUTTON_TWO}
             imageText={data.seizure.arValue}
           />
@@ -122,7 +122,7 @@ class InjuriesList extends Component {
           onPress={this.onButtonPress_.bind(this, 'chemical_poisoning')}
         >
           <InjuryButton
-            imageSource={Images.chemical_poisoning}
+            imageSource={chemical_poisoning}
             backgroundClr={INJURY_BUTTON}
             imageText={data.chemical_poisoning.arValue}
           />
