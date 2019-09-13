@@ -8,11 +8,13 @@ import IamParamedic from './app/welcome/IamParamedic';
 import Register from './app/welcome/Register';
 import VerifySignup from './app/welcome/PhoneVerification/Animated';
 import SignIn from './app/welcome/SignIn';
+import LanguageSelection from './app/welcome/LanguageSelection';
 import UserHome from './app/home/UserHome';
 import { argonTheme } from './constants';
 import InjuriesList from './app/firstAid/InjuriesList';
 import FirstAidDetails from './app/firstAid/FirstAidDetails';
 import FirstAidDetailsWithButtons from './app/firstAid/FirstAidDetailsWithButtons';
+
 class RouterComponent extends Component {
   render() {
     return (
@@ -26,9 +28,13 @@ class RouterComponent extends Component {
         }}
         tintColor={argonTheme.COLORS.APP}
       >
-        <Scene key="root" hideNavBar>
-          <Scene key="welcome" intial headerLayoutPreset="center">
-            <Scene key="whoRU" component={WhoAmI} title="Nabd" initial />
+        <Scene key="root" hideNavBar initial>
+          <Scene key="welcome" initial>
+            <Scene key="languageSelection" component={LanguageSelection} hideNavBar={true} />
+          </Scene>
+          
+          <Scene key="typeSelection" headerLayoutPreset="center">
+            <Scene key="whoRU" component={WhoAmI} hideNavBar={true} />
             <Scene key="iUser" component={IamUser} title="User" />
             <Scene key="iDoctor" component={IamDoctor} title="Doctor" />
             <Scene
@@ -50,7 +56,7 @@ class RouterComponent extends Component {
             <Scene key="userHome" component={UserHome} title="Home" />
           </Scene>
 
-          <Scene key="FirstAid" initial>
+          <Scene key="FirstAid">
             <Scene key="InjuriesList" component={InjuriesList} hideNavBar />
             <Scene key="FirstAidDetails" component={FirstAidDetails} />
             <Scene
