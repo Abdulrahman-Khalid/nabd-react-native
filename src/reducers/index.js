@@ -1,15 +1,16 @@
-import { persistCombineReducers } from "redux-persist";
+import { combineReducers } from 'redux';
 import SignUpReducer from './SignUpReducer';
 import OpenAppReducer from './OpenAppReducer';
 import SignInReducer from './SignInReducer';
 import FirstAidReducer from './FirstAidReducer';
-import RequestHelpReducer from './RequestHelpReducer';
-import persistConfig from "../config/ReduxPersist";
+// import RequestHelpReducer from './RequestHelpReducer';
+import LanguageReducer from './LanguageReducer';
 
-export default persistCombineReducers(persistConfig.storeConfig, {
+export default combineReducers({
   signup: SignUpReducer,
   signin: SignInReducer,
   openApp: OpenAppReducer,
   firstAid: FirstAidReducer,
-  requestHelp: RequestHelpReducer
+  // requestHelp: RequestHelpReducer,
+  language: LanguageReducer,
 });

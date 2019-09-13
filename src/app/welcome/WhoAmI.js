@@ -11,7 +11,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
 
 const { width, height } = Dimensions.get('screen');
-
 class WhoAmI extends Component {
   componentDidMount() {
     (async () => {
@@ -56,7 +55,18 @@ class WhoAmI extends Component {
 
   render() {
     return (
-      <Block flex style={{ backgroundColor: argonTheme.COLORS.BACKGROUND }}>
+      <Block flex style={{ backgroundColor: '#ffffff' }}>
+        <Block center>
+          <Block center>
+            <Image
+              style={styles.image}
+              source={require('../../assets/imgs/black-logo.png')}
+            />
+          </Block>
+          {/* <Block center style={{ marginBottom: 10 }}>
+            <Text style={{ fontSize: 20, fontWeight: '700' }}>Nabd Egypt</Text>
+          </Block> */}
+        </Block>
         <Block>
           <Block>
             <Block
@@ -102,16 +112,6 @@ class WhoAmI extends Component {
               </Block>
             </Block>
           </Block>
-        </Block>
-        <Block style={{ alignIems: 'center', justifyContent: 'flex-end' }}>
-          <Block center>
-            <View>
-              <Image style={styles.image} source={Images.welcome} />
-            </View>
-          </Block>
-          {/* <Block center style={{ marginBottom: 10 }}>
-            <Text style={{ fontSize: 20, fontWeight: '700' }}>Nabd Egypt</Text>
-          </Block> */}
         </Block>
         <Block center style={{ position: 'absolute', bottom: 10 }}>
           <Button
@@ -164,27 +164,23 @@ const styles = StyleSheet.create({
   numberText: { fontSize: 20, color: '#000' },
   typeText: { fontSize: 18, color: '#A9A9A9' },
   image: {
-    width: 200,
-    height: 200,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    shadowOpacity: 0.1,
-    elevation: 2
+    paddingTop: '5%',
+    width: 250,
+    height: 250,
+    resizeMode: 'center'
   },
   textStyle: {
     color: '#484848'
   }
 });
 
-const mapStateToProps = state => {
-  return ({
-    numberUsers,
-    numberParamedics,
-    numberAmbulance,
-    numberDoctors
-  } = state.openApp);
-};
+const mapStateToProps = (state) => ({
+  numberUsers: state.openApp.numberUsers,
+  numberParamedics: state.openApp.numberParamedics,
+  numberAmbulance: state.openApp.numberAmbulance,
+  numberDoctors: state.openApp.numberDoctors
+});
+
 export default connect(
   mapStateToProps,
   { setUserType, getWelcomeInfo }
