@@ -1,5 +1,8 @@
 import { SWITCH_LANGUAGE } from './types';
 
-export const switchLanguage = (dispatch, language) => {
-  dispatch({ type: types.SWITCH_LANGUAGE, ...language });
+export const switchLanguage = (language) => {
+  return {
+    type: SWITCH_LANGUAGE,
+    payload: language
+  };
 };
