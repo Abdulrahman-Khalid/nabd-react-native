@@ -10,7 +10,6 @@ const IconLinearExtra = createIconSetFromIcoMoon(icoMoonConfigLinear);
 class IconExtra extends React.Component {
   render() {
     const { name, family, ...rest } = this.props;
-    console.log(family);
     if (name && family) {
       switch (family) {
         case 'ArgonExtra':
