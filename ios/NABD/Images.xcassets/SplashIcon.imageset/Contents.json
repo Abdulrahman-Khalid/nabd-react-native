@@ -21,7 +21,7 @@
     "author" : "xcode"
   },
   "properties" : {
-    "compression-type" : "lossless",
+    "compression-type" : "gpu-optimized-best",
     "template-rendering-intent" : "original",
     "preserves-vector-representation" : true
   }
