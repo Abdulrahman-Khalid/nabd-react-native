@@ -1,18 +1,14 @@
 import { SWITCH_LANGUAGE } from '../actions/types';
 
-const initialState = {
+const INTIAL_STATE = {
   lang: 'ar',
-  rtl: true,
 };
 
-export default (state = initialState, action) => {
-  const { lang, rtl } = action;
+export default (state = INTIAL_STATE, action) => {
   switch (action.type) {
     case SWITCH_LANGUAGE:
-      return Object.assign({}, state, {
-        lang,
-        rtl,
-      });
+      const { lang } = action.payload;
+      return { ...state, lang }
     default:
       return state;
   }
