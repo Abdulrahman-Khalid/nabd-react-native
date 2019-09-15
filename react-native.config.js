@@ -3,7 +3,7 @@ module.exports = {
     ios: {},
     android: {}
   },
-  assets: ['./src/assets/font'],
+  assets: ['./src/assets/fonts'],
   dependencies: {
     'react-native-splash-screen': {
       platforms: {
