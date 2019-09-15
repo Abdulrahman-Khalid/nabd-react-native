@@ -73,6 +73,16 @@
 		<string>Zocial.ttf</string>
 		<string>argon.ttf</string>
 		<string>linearicons.ttf</string>
+		<string>Manjari-Bold.ttf</string>
+		<string>Manjari-Regular.ttf</string>
+		<string>Manjari-Thin.ttf</string>
+		<string>Tajawal-Black.ttf</string>
+		<string>Tajawal-Bold.ttf</string>
+		<string>Tajawal-ExtraBold.ttf</string>
+		<string>Tajawal-ExtraLight.ttf</string>
+		<string>Tajawal-Light.ttf</string>
+		<string>Tajawal-Medium.ttf</string>
+		<string>Tajawal-Regular.ttf</string>
 	</array>
 </dict>
 </plist>
