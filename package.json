@@ -45,6 +45,7 @@
     "react-native-datepicker": "^1.7.2",
     "react-native-flexi-radio-button": "^0.2.2",
     "react-native-gesture-handler": "^1.3.0",
+    "react-native-global-props": "^1.1.5",
     "react-native-localization": "^2.1.6",
     "react-native-modal-dropdown": "^0.6.2",
     "react-native-phone-input": "0.2.2",
