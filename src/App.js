@@ -9,6 +9,7 @@ import Languages from './I18n';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
 import CreateStore from './config/CreateStore';
 import { argonTheme } from './constants'
+import { setCustomText, setCustomTextInput, setCustomView } from 'react-native-global-props';
 
 const { store } = CreateStore();
 let persistor;
@@ -21,8 +22,33 @@ class App extends Component {
   componentWillMount() {
     persistor = persistStore(store, {}, () => {
       const language = store.getState().language;
+      let customProps;
       // // set default Language for App
       Languages.setLanguage(language.lang);
+      switch (language.lang) {
+        case 'en':
+          customProps = { 
+            style: { 
+              fontFamily: 'Manjari-Regular'
+            }
+          }
+          break;
+        case 'ar':
+          customProps = { 
+            style: { 
+              fontFamily: 'Tajawal-Regular'
+            }
+          }
+          break;
+        default:
+          customProps = { 
+            style: {}
+          }
+          break;
+      }
+      setCustomText(customProps);
+      setCustomTextInput(customProps);
+      setCustomView(customProps);
       this.setState({ rehydrated: true });
     });
   }
