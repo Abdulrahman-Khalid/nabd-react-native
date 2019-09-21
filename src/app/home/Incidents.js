@@ -22,23 +22,7 @@ import { CustomPicker } from 'react-native-custom-picker';
 
 const { width, height } = Dimensions.get('screen');
 
-const buttons = [
-  {
-    title: 'Request an Aide',
-    image: Images.aideCard
-  },
-  {
-    title: 'Request a Doctor',
-    image: Images.doctorCard
-  },
-  {
-    title: 'Request an Ambulance',
-    image: Images.ambulanceCard,
-    horizontal: true
-  }
-];
-
-class UserAndDoctorHome extends Component {
+class Incidents extends Component {
   constructor(props) {
     super();
     this.state = {
@@ -67,7 +51,7 @@ class UserAndDoctorHome extends Component {
   renderHeader() {
     return (
       <View style={styles.headerFooterContainer}>
-        <Text style={{ fontSize: 20 }}>Choose a Medical Speciality</Text>
+        <Text style={{ fontSize: 20 }}>Doctor specialization</Text>
       </View>
     );
   }
@@ -80,7 +64,7 @@ class UserAndDoctorHome extends Component {
           action.close();
         }}
       >
-        <Text style={{ fontSize: 20 }}>Close</Text>
+        <Text>close</Text>
       </TouchableOpacity>
     );
   }
@@ -233,122 +217,76 @@ class UserAndDoctorHome extends Component {
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.articles}
-      >
+        contentContainerStyle={styles.articles}>
         <Block flex>
           <Block flex row>
-            <Card
-              item={buttons[0]}
-              style={{ marginRight: theme.SIZES.BASE }}
-              imageStyle={{ backgroundColor: 'red', opacity: 0.6 }}
-              onPress={() => {
-                this.props.selectHelperType('aide');
-              }}
-              onPressInfo={() => {
-                Alert.alert(
-                  'Info',
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
-                );
-              }}
-            />
-            <Card
-              item={buttons[1]}
-              imageStyle={{ backgroundColor: 'green', opacity: 0.6 }}
-              onPress={() => {
-                this.props.selectHelperType('doctor');
-              }}
-              onPressInfo={() => {
-                Alert.alert(
-                  'Info',
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
-                );
-              }}
-            />
+            <Card item={buttons[0]} style={{ marginRight: theme.SIZES.BASE }} imageStyle={{ backgroundColor: 'red', opacity: 0.6 }}/>
+            <Card item={buttons[1]} imageStyle={{ backgroundColor: 'green', opacity: 0.6 }}/>
           </Block>
-          <Card
-            style={{ marginBottom: theme.SIZES.BASE }}
-            item={buttons[2]}
-            full
-            imageStyle={{ backgroundColor: 'blue', opacity: 0.6 }}
-            onPress={() => {
-              this.props.selectHelperType('ambulance');
-            }}
-            onPressInfo={() => {
-              Alert.alert(
-                'Info',
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
-              );
-            }}
-          />
+          <Card style={{ marginBottom: theme.SIZES.BASE }} item={buttons[2]} full imageStyle={{ backgroundColor: 'blue', opacity: 0.6 }}/>
         </Block>
       </ScrollView>
-    );
+    )
   }
 
   render() {
-    // return (
-    //   <Block
-    //     flex
-    //     style={{
-    //       justifyContent: 'center',
-    //       alignItems: 'center',
-    //       backgroundColor: argonTheme.COLORS.BACKGROUND
-    //     }}
-    //   >
-    //     {/* <Text style={styles.welcome}>Request</Text> */}
-    //     <View style={styles.component}>
-    //       <RadioForm
-    //         formHorizontal={true}
-    //         animation={true}
-    //         // style={{ paddingLeft: 20 }}
-    //       >
-    //         {this.state.type.map((obj, i) => {
-    //           var that = this;
-    //           var is_selected = this.state.valueIndex == i;
-    //           return (
-    //             <View key={i} style={styles.radioButtonWrap}>
-    //               <RadioButton
-    //                 labelStyle={{ fontSize: 18, paddingTop: 5 }}
-    //                 isSelected={is_selected}
-    //                 obj={obj}
-    //                 index={i}
-    //                 labelHorizontal={false}
-    //                 buttonColor={argonTheme.COLORS.APP}
-    //                 labelColor={'#000'}
-    //                 style={[
-    //                   i !== this.state.type.length - 1 && styles.radioStyle
-    //                 ]}
-    //                 onPress={(value, index) => {
-    //                   this.setState({ value: value });
-    //                   this.setState({ valueIndex: index });
-    //                   this.props.selectHelperType(value);
-    //                 }}
-    //               />
-    //             </View>
-    //           );
-    //         })}
-    //       </RadioForm>
-    //       {/* <Text>selected: {this.state.type[this.state.valueIndex].label}</Text> */}
-    //     </View>
-    //     <View>{this.isDoctorSelected()}</View>
-
-    //     <TouchableOpacity style={styles.circleStyle}>
-    //       <Icon
-    //         size={50}
-    //         color={argonTheme.COLORS.WHITE}
-    //         name="camera-video"
-    //         family="LinearIcon"
-    //         style={{
-    //           textAlign: 'center'
-    //         }}
-    //       />
-    //     </TouchableOpacity>
-    //   </Block>
-    // );
     return (
-      <Block flex center style={styles.home}>
-        {this.renderButtons()}
-        {/* <View>{this.isDoctorSelected()}</View> */}
+      <Block
+        flex
+        style={{
+          justifyContent: 'center',
+          alignItems: 'center',
+          backgroundColor: argonTheme.COLORS.BACKGROUND
+        }}
+      >
+        {/* <Text style={styles.welcome}>Request</Text> */}
+        <View style={styles.component}>
+          <RadioForm
+            formHorizontal={true}
+            animation={true}
+            // style={{ paddingLeft: 20 }}
+          >
+            {this.state.type.map((obj, i) => {
+              var that = this;
+              var is_selected = this.state.valueIndex == i;
+              return (
+                <View key={i} style={styles.radioButtonWrap}>
+                  <RadioButton
+                    labelStyle={{ fontSize: 18, paddingTop: 5 }}
+                    isSelected={is_selected}
+                    obj={obj}
+                    index={i}
+                    labelHorizontal={false}
+                    buttonColor={argonTheme.COLORS.APP}
+                    labelColor={'#000'}
+                    style={[
+                      i !== this.state.type.length - 1 && styles.radioStyle
+                    ]}
+                    onPress={(value, index) => {
+                      this.setState({ value: value });
+                      this.setState({ valueIndex: index });
+                      this.props.selectHelperType(value);
+                    }}
+                  />
+                </View>
+              );
+            })}
+          </RadioForm>
+          {/* <Text>selected: {this.state.type[this.state.valueIndex].label}</Text> */}
+        </View>
+        <View>{this.isDoctorSelected()}</View>
+
+        <TouchableOpacity style={styles.circleStyle}>
+          <Icon
+            size={50}
+            color={argonTheme.COLORS.WHITE}
+            name="camera-video"
+            family="LinearIcon"
+            style={{
+              textAlign: 'center'
+            }}
+          />
+        </TouchableOpacity>
       </Block>
     );
   }
@@ -361,7 +299,7 @@ const styles = StyleSheet.create({
     alignContent: 'center'
   },
   articles: {
-    width: width - theme.SIZES.BASE * 2
+    width: width - theme.SIZES.BASE * 2,
   },
   welcome: {
     fontSize: 20,
@@ -460,4 +398,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   { selectHelperType, requestHelp }
-)(UserAndDoctorHome);
+)(Incidents);
