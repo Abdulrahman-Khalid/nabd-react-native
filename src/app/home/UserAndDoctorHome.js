@@ -12,15 +12,32 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
-  Image
+  Image,
+  ScrollView
 } from 'react-native';
-import { Icon } from '../../components';
+import { Icon, Card } from '../../components';
 import RadioForm, { RadioButton } from 'react-native-simple-radio-button';
 import axios from 'axios';
 import PubNubReact from 'pubnub-react';
 import { CustomPicker } from 'react-native-custom-picker';
 
 const { width, height } = Dimensions.get('screen');
+
+const buttons = [
+  {
+    title: 'Request an Aide',
+    image: Images.aideCard,
+  },
+  {
+    title: 'Request a Doctor',
+    image: Images.doctorCard,
+  },
+  {
+    title: 'Request an Ambulance',
+    image: Images.ambulanceCard,
+    horizontal: true
+  },
+];
 
 class UserAndDoctorHome extends Component {
   constructor(props) {
@@ -213,70 +230,99 @@ class UserAndDoctorHome extends Component {
     }
   }
 
-  render() {
+  renderButtons() {
     return (
-      <Block
-        flex
-        style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: argonTheme.COLORS.BACKGROUND
-        }}
-      >
-        {/* <Text style={styles.welcome}>Request</Text> */}
-        <View style={styles.component}>
-          <RadioForm
-            formHorizontal={true}
-            animation={true}
-            // style={{ paddingLeft: 20 }}
-          >
-            {this.state.type.map((obj, i) => {
-              var that = this;
-              var is_selected = this.state.valueIndex == i;
-              return (
-                <View key={i} style={styles.radioButtonWrap}>
-                  <RadioButton
-                    labelStyle={{ fontSize: 18, paddingTop: 5 }}
-                    isSelected={is_selected}
-                    obj={obj}
-                    index={i}
-                    labelHorizontal={false}
-                    buttonColor={argonTheme.COLORS.APP}
-                    labelColor={'#000'}
-                    style={[
-                      i !== this.state.type.length - 1 && styles.radioStyle
-                    ]}
-                    onPress={(value, index) => {
-                      this.setState({ value: value });
-                      this.setState({ valueIndex: index });
-                      this.props.selectHelperType(value);
-                    }}
-                  />
-                </View>
-              );
-            })}
-          </RadioForm>
-          {/* <Text>selected: {this.state.type[this.state.valueIndex].label}</Text> */}
-        </View>
-        <View>{this.isDoctorSelected()}</View>
+      <ScrollView
+        showsVerticalScrollIndicator={false}
+        contentContainerStyle={styles.articles}>
+        <Block flex>
+          <Block flex row>
+            <Card item={buttons[0]} style={{ marginRight: theme.SIZES.BASE }} imageStyle={{ backgroundColor: 'red', opacity: 0.6 }}/>
+            <Card item={buttons[1]} imageStyle={{ backgroundColor: 'green', opacity: 0.6 }}/>
+          </Block>
+          <Card style={{ marginBottom: theme.SIZES.BASE }} item={buttons[2]} full imageStyle={{ backgroundColor: 'blue', opacity: 0.6 }}/>
+        </Block>
+      </ScrollView>
+    )
+  }
 
-        <TouchableOpacity style={styles.circleStyle}>
-          <Icon
-            size={50}
-            color={argonTheme.COLORS.WHITE}
-            name="camera-video"
-            family="LinearIcon"
-            style={{
-              textAlign: 'center'
-            }}
-          />
-        </TouchableOpacity>
+  render() {
+    // return (
+    //   <Block
+    //     flex
+    //     style={{
+    //       justifyContent: 'center',
+    //       alignItems: 'center',
+    //       backgroundColor: argonTheme.COLORS.BACKGROUND
+    //     }}
+    //   >
+    //     {/* <Text style={styles.welcome}>Request</Text> */}
+    //     <View style={styles.component}>
+    //       <RadioForm
+    //         formHorizontal={true}
+    //         animation={true}
+    //         // style={{ paddingLeft: 20 }}
+    //       >
+    //         {this.state.type.map((obj, i) => {
+    //           var that = this;
+    //           var is_selected = this.state.valueIndex == i;
+    //           return (
+    //             <View key={i} style={styles.radioButtonWrap}>
+    //               <RadioButton
+    //                 labelStyle={{ fontSize: 18, paddingTop: 5 }}
+    //                 isSelected={is_selected}
+    //                 obj={obj}
+    //                 index={i}
+    //                 labelHorizontal={false}
+    //                 buttonColor={argonTheme.COLORS.APP}
+    //                 labelColor={'#000'}
+    //                 style={[
+    //                   i !== this.state.type.length - 1 && styles.radioStyle
+    //                 ]}
+    //                 onPress={(value, index) => {
+    //                   this.setState({ value: value });
+    //                   this.setState({ valueIndex: index });
+    //                   this.props.selectHelperType(value);
+    //                 }}
+    //               />
+    //             </View>
+    //           );
+    //         })}
+    //       </RadioForm>
+    //       {/* <Text>selected: {this.state.type[this.state.valueIndex].label}</Text> */}
+    //     </View>
+    //     <View>{this.isDoctorSelected()}</View>
+
+    //     <TouchableOpacity style={styles.circleStyle}>
+    //       <Icon
+    //         size={50}
+    //         color={argonTheme.COLORS.WHITE}
+    //         name="camera-video"
+    //         family="LinearIcon"
+    //         style={{
+    //           textAlign: 'center'
+    //         }}
+    //       />
+    //     </TouchableOpacity>
+    //   </Block>
+    // );
+    return (
+      <Block flex center style={styles.home}>
+        {this.renderButtons()}
       </Block>
     );
   }
 }
 
 const styles = StyleSheet.create({
+  home: {
+    width: width,
+    height: height,
+    alignContent: 'center'
+  },
+  articles: {
+    width: width - theme.SIZES.BASE * 2,
+  },
   welcome: {
     fontSize: 20,
     marginTop: 20,

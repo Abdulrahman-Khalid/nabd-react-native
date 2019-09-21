@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Scene, Router } from 'react-native-router-flux';
+import { Scene, Router, Actions, Tabs } from 'react-native-router-flux';
 import WhoAmI from './app/welcome/WhoAmI';
 import IamDoctor from './app/welcome/IamDoctor';
 import IamAmbulance from './app/welcome/IamAmbulance';
@@ -18,14 +18,23 @@ import FirstAidDetails from './app/firstAid/FirstAidDetails';
 import FirstAidDetailsWithButtons from './app/firstAid/FirstAidDetailsWithButtons';
 import { connect } from 'react-redux';
 import { resetSignInReducerState, resetSignUpReducerState } from './actions';
+import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import { TouchableOpacity } from 'react-native';
 
 class RouterComponent extends Component {
+  _renderSettingsButton() {
+    return (
+      <TouchableOpacity
+        // onPress={() => Actions.settings()}
+        style={{ marginRight: 10 }}
+      >
+        <Icon name="settings" size={25} />
+      </TouchableOpacity>
+    );
+  }
   render() {
     return (
       <Router
-        // navigationBarStyle={{
-        //   bacIamDoctorkgroundColor: '#EF171D'
-        // }}
         titleStyle={{
           fontWeight: 'bold',
           color: '#000'
@@ -33,10 +42,14 @@ class RouterComponent extends Component {
         tintColor={argonTheme.COLORS.APP}
       >
         <Scene key="root" hideNavBar initial>
-          <Scene key="welcome" initial>
-            <Scene key="languageSelection" component={LanguageSelection} hideNavBar={true} />
+          <Scene key="welcome">
+            <Scene
+              key="languageSelection"
+              component={LanguageSelection}
+              hideNavBar={true}
+            />
           </Scene>
-          
+
           <Scene key="typeSelection" headerLayoutPreset="center">
             <Scene key="whoRU" component={WhoAmI} hideNavBar={true} />
             <Scene key="iUser" component={IamUser} title="User" />
@@ -69,26 +82,42 @@ class RouterComponent extends Component {
             />
             <Scene key="verifySignup" component={VerifySignup} title="Verify" />
           </Scene>
-
-          <Scene key="home" headerLayoutPreset="center">
+          <Tabs
+            key="home"
+            headerLayoutPreset="left"
+            initial
+            lazy={true}
+            swipeEnabled={true}
+            renderRightButton={this._renderSettingsButton}
+            titleStyle={{ color: '#000', fontFamily: 'Manjari-Bold' }}
+          >
             <Scene
               key="userAndDoctorHome"
               component={UserAndDoctorHome}
               title="Home"
-              initial
+              icon={() => <Icon name="home" size={25} />}
             />
-            <Scene key="paramedicHome" component={ParamedicHome} title="Home" />
-            <Scene key="ambulanceHome" component={AmbulanceHome} title="Home" />
-          </Scene>
-
-          <Scene key="FirstAid" headerLayoutPreset="center">
-            <Scene key="InjuriesList" component={InjuriesList} hideNavBar />
-            <Scene key="FirstAidDetails" component={FirstAidDetails} />
             <Scene
-              key="FirstAidDetailsWithButtons"
-              component={FirstAidDetailsWithButtons}
+              key="Incidents"
+              component={UserAndDoctorHome}
+              title="Incidents"
+              icon={() => <Icon name="lifebuoy" size={25} />}
             />
-          </Scene>
+            <Scene
+              key="FirstAid"
+              title="First Aid"
+              icon={() => <Icon name="hospital" size={25} />}
+            >
+              <Scene key="InjuriesList" component={InjuriesList} />
+              <Scene key="FirstAidDetails" component={FirstAidDetails} />
+              <Scene
+                key="FirstAidDetailsWithButtons"
+                component={FirstAidDetailsWithButtons}
+              />
+            </Scene>
+          </Tabs>
+          <Scene key="paramedicHome" component={ParamedicHome} title="Home" />
+          <Scene key="ambulanceHome" component={AmbulanceHome} title="Home" />
         </Scene>
       </Router>
     );

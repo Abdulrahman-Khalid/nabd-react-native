@@ -3,7 +3,7 @@ import SignUpReducer from './SignUpReducer';
 import OpenAppReducer from './OpenAppReducer';
 import SignInReducer from './SignInReducer';
 import FirstAidReducer from './FirstAidReducer';
-// import RequestHelpReducer from './RequestHelpReducer';
+import RequestHelpReducer from './RequestHelpReducer';
 import LanguageReducer from './LanguageReducer';
 
 export default combineReducers({
@@ -11,6 +11,6 @@ export default combineReducers({
   signin: SignInReducer,
   openApp: OpenAppReducer,
   firstAid: FirstAidReducer,
-  // requestHelp: RequestHelpReducer,
+  requestHelp: RequestHelpReducer,
   language: LanguageReducer,
 });

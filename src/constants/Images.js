@@ -38,6 +38,10 @@ const fractures = require('../assets/imgs/first_aid/fractures.png');
 const head_injury = require('../assets/imgs/first_aid/head_injury.png');
 const nosebleeding = require('../assets/imgs/first_aid/nosebleeding.png');
 const tooth_injury = require('../assets/imgs/first_aid/tooth_injury.png');
+
+const aideCard = require('../assets/imgs/aide-card.jpg');
+const doctorCard = require('../assets/imgs/doctor-card.jpg');
+const ambulanceCard = require('../assets/imgs/ambulance-card.jpg');
 // internet imgs
 
 const ProfilePicture =
@@ -96,5 +100,8 @@ export default {
   fractures,
   head_injury,
   nosebleeding,
-  tooth_injury
+  tooth_injury,
+  aideCard,
+  doctorCard,
+  ambulanceCard
 };
