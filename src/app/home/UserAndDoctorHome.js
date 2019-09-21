@@ -242,14 +242,26 @@ class UserAndDoctorHome extends Component {
               style={{ marginRight: theme.SIZES.BASE }}
               imageStyle={{ backgroundColor: 'red', opacity: 0.6 }}
               onPress={() => {
-                this.props.selectHelperType("aide");
+                this.props.selectHelperType('aide');
+              }}
+              onPressInfo={() => {
+                Alert.alert(
+                  'Info',
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
+                );
               }}
             />
             <Card
               item={buttons[1]}
               imageStyle={{ backgroundColor: 'green', opacity: 0.6 }}
               onPress={() => {
-                this.props.selectHelperType("doctor");
+                this.props.selectHelperType('doctor');
+              }}
+              onPressInfo={() => {
+                Alert.alert(
+                  'Info',
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
+                );
               }}
             />
           </Block>
@@ -259,8 +271,14 @@ class UserAndDoctorHome extends Component {
             full
             imageStyle={{ backgroundColor: 'blue', opacity: 0.6 }}
             onPress={() => {
-                this.props.selectHelperType("ambulance");
-              }}
+              this.props.selectHelperType('ambulance');
+            }}
+            onPressInfo={() => {
+              Alert.alert(
+                'Info',
+                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
+              );
+            }}
           />
         </Block>
       </ScrollView>

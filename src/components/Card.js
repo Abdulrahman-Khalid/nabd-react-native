@@ -5,10 +5,11 @@ import {
   Dimensions,
   Image,
   View,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
-
+import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { argonTheme } from '../constants';
 
 class Card extends React.Component {
@@ -29,7 +30,16 @@ class Card extends React.Component {
     }
   }
   render() {
-    const { item, horizontal, full, style, ctaColor, imageStyle } = this.props;
+    const {
+      item,
+      horizontal,
+      full,
+      style,
+      ctaColor,
+      imageStyle,
+      onPress,
+      onPressInfo
+    } = this.props;
 
     const imageStyles = [
       full ? styles.fullImage : styles.horizontalImage,
@@ -44,7 +54,20 @@ class Card extends React.Component {
 
     return (
       <Block row={horizontal} card flex style={cardContainer}>
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={onPressInfo}
+          style={{ position: 'absolute', margin: 7, right: -1, zIndex: 1 }}
+        >
+          <Icon
+            size={20}
+            color='white'
+            name="information-outline"
+            style={{
+              textAlign: 'center'
+            }}
+          />
+        </TouchableOpacity>
+        <TouchableOpacity onPress={onPress}>
           <View>
             <Block flex style={imgContainer}>
               <Image source={item.image} style={imageStyles} />
@@ -81,7 +104,7 @@ const styles = StyleSheet.create({
   },
   cardTitle: {
     flex: 1,
-    flexWrap: 'wrap',
+    flexWrap: 'wrap'
   },
   cardDescription: {
     padding: theme.SIZES.BASE / 2
@@ -95,7 +118,7 @@ const styles = StyleSheet.create({
     // borderRadius: 3,
   },
   horizontalImage: {
-    height: 176,
+    height: 204,
     width: 'auto'
   },
   horizontalStyles: {
@@ -107,7 +130,7 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 0
   },
   fullImage: {
-    height: 192,
+    height: 204,
     width: 'auto'
   },
   shadow: {
