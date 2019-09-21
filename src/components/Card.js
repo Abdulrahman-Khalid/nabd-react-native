@@ -1,27 +1,35 @@
 import React from 'react';
-import { withNavigation } from 'react-navigation';
 import PropTypes from 'prop-types';
 import {
   StyleSheet,
   Dimensions,
   Image,
-  TouchableWithoutFeedback
+  View,
+  TouchableOpacity
 } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 
 import { argonTheme } from '../constants';
 
 class Card extends React.Component {
+  _renderCTA() {
+    if (this.props.item.cta) {
+      return (
+        <Text
+          size={12}
+          muted={!ctaColor}
+          color={ctaColor || argonTheme.COLORS.ACTIVE}
+          bold
+        >
+          {item.cta}
+        </Text>
+      );
+    } else {
+      return null;
+    }
+  }
   render() {
-    const {
-      navigation,
-      item,
-      horizontal,
-      full,
-      style,
-      ctaColor,
-      imageStyle
-    } = this.props;
+    const { item, horizontal, full, style, ctaColor, imageStyle } = this.props;
 
     const imageStyles = [
       full ? styles.fullImage : styles.horizontalImage,
@@ -36,26 +44,21 @@ class Card extends React.Component {
 
     return (
       <Block row={horizontal} card flex style={cardContainer}>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('Pro')}>
-          <Block flex style={imgContainer}>
-            <Image source={{ uri: item.image }} style={imageStyles} />
-          </Block>
-        </TouchableWithoutFeedback>
-        <TouchableWithoutFeedback onPress={() => navigation.navigate('Pro')}>
-          <Block flex space="between" style={styles.cardDescription}>
-            <Text size={14} style={styles.cardTitle}>
-              {item.title}
-            </Text>
-            <Text
-              size={12}
-              muted={!ctaColor}
-              color={ctaColor || argonTheme.COLORS.ACTIVE}
-              bold
-            >
-              {item.cta}
-            </Text>
-          </Block>
-        </TouchableWithoutFeedback>
+        <TouchableOpacity>
+          <View>
+            <Block flex style={imgContainer}>
+              <Image source={item.image} style={imageStyles} />
+            </Block>
+          </View>
+          <View>
+            <Block flex space="between" style={styles.cardDescription}>
+              <Text size={20} style={styles.cardTitle}>
+                {item.title}
+              </Text>
+              {this._renderCTA}
+            </Block>
+          </View>
+        </TouchableOpacity>
       </Block>
     );
   }
@@ -72,21 +75,19 @@ Card.propTypes = {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: theme.COLORS.WHITE,
-    marginVertical: theme.SIZES.BASE,
+    marginTop: theme.SIZES.BASE,
     borderWidth: 0,
-    minHeight: 114,
-    marginBottom: 16
+    minHeight: 114
   },
   cardTitle: {
     flex: 1,
     flexWrap: 'wrap',
-    paddingBottom: 6
   },
   cardDescription: {
     padding: theme.SIZES.BASE / 2
   },
   imageContainer: {
-    borderRadius: 3,
+    borderRadius: 5,
     elevation: 1,
     overflow: 'hidden'
   },
@@ -94,7 +95,7 @@ const styles = StyleSheet.create({
     // borderRadius: 3,
   },
   horizontalImage: {
-    height: 122,
+    height: 176,
     width: 'auto'
   },
   horizontalStyles: {
@@ -106,7 +107,8 @@ const styles = StyleSheet.create({
     borderBottomLeftRadius: 0
   },
   fullImage: {
-    height: 215
+    height: 192,
+    width: 'auto'
   },
   shadow: {
     shadowColor: theme.COLORS.BLACK,
@@ -117,4 +119,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default withNavigation(Card);
+export default Card;
