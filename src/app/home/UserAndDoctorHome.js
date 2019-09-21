@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-// import { Button } from '../../components';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
 import { Actions } from 'react-native-router-flux';
@@ -26,17 +25,17 @@ const { width, height } = Dimensions.get('screen');
 const buttons = [
   {
     title: 'Request an Aide',
-    image: Images.aideCard,
+    image: Images.aideCard
   },
   {
     title: 'Request a Doctor',
-    image: Images.doctorCard,
+    image: Images.doctorCard
   },
   {
     title: 'Request an Ambulance',
     image: Images.ambulanceCard,
     horizontal: true
-  },
+  }
 ];
 
 class UserAndDoctorHome extends Component {
@@ -68,7 +67,7 @@ class UserAndDoctorHome extends Component {
   renderHeader() {
     return (
       <View style={styles.headerFooterContainer}>
-        <Text style={{ fontSize: 20 }}>Doctor specialization</Text>
+        <Text style={{ fontSize: 20 }}>Choose a Medical Speciality</Text>
       </View>
     );
   }
@@ -81,7 +80,7 @@ class UserAndDoctorHome extends Component {
           action.close();
         }}
       >
-        <Text>close</Text>
+        <Text style={{ fontSize: 20 }}>Close</Text>
       </TouchableOpacity>
     );
   }
@@ -234,16 +233,38 @@ class UserAndDoctorHome extends Component {
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.articles}>
+        contentContainerStyle={styles.articles}
+      >
         <Block flex>
           <Block flex row>
-            <Card item={buttons[0]} style={{ marginRight: theme.SIZES.BASE }} imageStyle={{ backgroundColor: 'red', opacity: 0.6 }}/>
-            <Card item={buttons[1]} imageStyle={{ backgroundColor: 'green', opacity: 0.6 }}/>
+            <Card
+              item={buttons[0]}
+              style={{ marginRight: theme.SIZES.BASE }}
+              imageStyle={{ backgroundColor: 'red', opacity: 0.6 }}
+              onPress={() => {
+                this.props.selectHelperType("aide");
+              }}
+            />
+            <Card
+              item={buttons[1]}
+              imageStyle={{ backgroundColor: 'green', opacity: 0.6 }}
+              onPress={() => {
+                this.props.selectHelperType("doctor");
+              }}
+            />
           </Block>
-          <Card style={{ marginBottom: theme.SIZES.BASE }} item={buttons[2]} full imageStyle={{ backgroundColor: 'blue', opacity: 0.6 }}/>
+          <Card
+            style={{ marginBottom: theme.SIZES.BASE }}
+            item={buttons[2]}
+            full
+            imageStyle={{ backgroundColor: 'blue', opacity: 0.6 }}
+            onPress={() => {
+                this.props.selectHelperType("ambulance");
+              }}
+          />
         </Block>
       </ScrollView>
-    )
+    );
   }
 
   render() {
@@ -309,6 +330,7 @@ class UserAndDoctorHome extends Component {
     return (
       <Block flex center style={styles.home}>
         {this.renderButtons()}
+        {/* <View>{this.isDoctorSelected()}</View> */}
       </Block>
     );
   }
@@ -321,7 +343,7 @@ const styles = StyleSheet.create({
     alignContent: 'center'
   },
   articles: {
-    width: width - theme.SIZES.BASE * 2,
+    width: width - theme.SIZES.BASE * 2
   },
   welcome: {
     fontSize: 20,
