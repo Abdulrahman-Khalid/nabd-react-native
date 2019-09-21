@@ -12,6 +12,7 @@ import LanguageSelection from './app/welcome/LanguageSelection';
 import UserAndDoctorHome from './app/home/UserAndDoctorHome';
 import ParamedicHome from './app/home/ParamedicHome';
 import AmbulanceHome from './app/home/AmbulanceHome';
+import Incidents from './app/home/Incidents';
 import { argonTheme } from './constants';
 import InjuriesList from './app/firstAid/InjuriesList';
 import FirstAidDetails from './app/firstAid/FirstAidDetails';
@@ -99,7 +100,7 @@ class RouterComponent extends Component {
             />
             <Scene
               key="Incidents"
-              component={UserAndDoctorHome}
+              component={Incidents}
               title="Incidents"
               icon={() => <Icon name="lifebuoy" size={25} />}
             />
