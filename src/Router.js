@@ -96,7 +96,11 @@ class RouterComponent extends Component {
           </Scene>
 
           <Scene key="UserSettings" headerLayoutPreset="center" initial>
-            <Scene key="UserSettings" component={UserSettings} hideNavBar />
+            <Scene
+              key="UserSettings"
+              component={UserSettings}
+              title="Settings"
+            />
           </Scene>
         </Scene>
       </Router>
