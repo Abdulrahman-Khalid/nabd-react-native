@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Linking } from 'react-native';
+import { Linking, Share } from 'react-native';
 import ReactNativeSettingsPage, {
   SectionRow,
   NavigateRow,
@@ -27,6 +27,8 @@ import {
   TouchableNativeFeedback,
   NativeModules
 } from 'react-native';
+
+import email from 'react-native-email';
 
 class UserSettings extends Component {
   state = {
@@ -59,6 +61,14 @@ class UserSettings extends Component {
   // };
 
   render() {
+    // handleEmail = () => {
+    //   const to = ['nadaashraf11@iclou.com']; // string or array of email addresses
+    //   email(to, {
+    //     // Optional additional arguments
+    //     subject: 'Nabd app feedback',
+    //     body: 'Some body right here'
+    //   }).catch(console.error);
+    // };
     return (
       <ReactNativeSettingsPage>
         <SectionRow text="Profile">
@@ -90,6 +100,30 @@ class UserSettings extends Component {
             text="Twitter"
             iconName="twitter"
             onPressCallback={() => Linking.openURL('https://twitter.com')}
+          />
+        </SectionRow>
+        <SectionRow text="Help us grow">
+        <NavigateRow
+            text="Send us feedback"
+            iconName="envelope"
+            onPressCallback={() => {
+              const to = ['nadaashraf11@icloud.com']; // string or array of email addresses
+              email(to, {
+                subject: 'Nabd app feedback'
+              }).catch(console.error);
+            }}
+          />
+          <NavigateRow
+            text="Share Nabd"
+            iconName="share-square"
+            onPressCallback={() => {
+              Share.share({
+                message:
+                  "BAM: we're helping your business with awesome React Native apps",
+                url: 'http://bam.tech',
+                title: 'Wow, did you see that?'
+              });
+            }}
           />
         </SectionRow>
       </ReactNativeSettingsPage>
