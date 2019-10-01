@@ -15,6 +15,7 @@ import { switchLanguage } from '../../actions';
 import { Icon } from '../../components';
 import t from '../../I18n';
 import { Actions } from 'react-native-router-flux';
+import TextDisplay from './TextDisplay';
 
 import {
   StyleSheet,
@@ -72,7 +73,9 @@ class UserSettings extends Component {
     return (
       <ReactNativeSettingsPage>
         <SectionRow text="Profile">
-          <Text>Name</Text>
+          <TextDisplay iconName="user" text="Username" value="value" />
+          <TextDisplay iconName="lock" text="Password" value="value" />
+          <TextDisplay iconName="phone" text="Phone Number" value="value" />
         </SectionRow>
         <SectionRow text="Language">
           <View style={{ flex: 1 }}>
@@ -103,7 +106,7 @@ class UserSettings extends Component {
           />
         </SectionRow>
         <SectionRow text="Help us grow">
-        <NavigateRow
+          <NavigateRow
             text="Send us feedback"
             iconName="envelope"
             onPressCallback={() => {
