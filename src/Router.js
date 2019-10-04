@@ -13,6 +13,7 @@ import UserAndDoctorHome from './app/home/UserAndDoctorHome';
 import ParamedicHome from './app/home/ParamedicHome';
 import AmbulanceHome from './app/home/AmbulanceHome';
 import Incidents from './app/home/Incidents';
+import UserSettings from './app/settings/UserSettings';
 import { argonTheme } from './constants';
 import InjuriesList from './app/firstAid/InjuriesList';
 import FirstAidDetails from './app/firstAid/FirstAidDetails';
@@ -42,8 +43,8 @@ class RouterComponent extends Component {
         }}
         tintColor={argonTheme.COLORS.APP}
       >
-        <Scene key="root" headerLayoutPreset="center" hideNavBar initial>
-          <Scene key="welcome">
+        <Scene key="root" hideNavBar initial>
+          <Scene key="welcome" initial>
             <Scene
               key="languageSelection"
               component={LanguageSelection}
@@ -51,7 +52,7 @@ class RouterComponent extends Component {
             />
           </Scene>
 
-          <Scene key="typeSelection">
+          <Scene key="typeSelection" headerLayoutPreset="center">
             <Scene key="whoRU" component={WhoAmI} hideNavBar={true} />
             <Scene key="iUser" component={IamUser} title="User" />
             <Scene key="iDoctor" component={IamDoctor} title="Doctor" />
@@ -119,6 +120,15 @@ class RouterComponent extends Component {
           </Tabs>
           <Scene key="paramedicHome" component={ParamedicHome} title="Home" />
           <Scene key="ambulanceHome" component={AmbulanceHome} title="Home" />
+          </Scene>
+
+          <Scene key="UserSettings" headerLayoutPreset="center">
+            <Scene
+              key="UserSettings"
+              component={UserSettings}
+              title="Settings"
+            />
+          </Scene>
         </Scene>
       </Router>
     );

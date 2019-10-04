@@ -4,12 +4,11 @@ import RouterComponent from './Router';
 import { Block } from 'galio-framework';
 import SplashScreen from 'react-native-splash-screen';
 import { PersistGate } from 'redux-persist/es/integration/react';
-import { persistStore } from "redux-persist";
+import { persistStore } from 'redux-persist';
 import Languages from './I18n';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
 import CreateStore from './config/CreateStore';
-import { argonTheme } from './constants'
-import { setCustomText, setCustomTextInput, setCustomView } from 'react-native-global-props';
+import { argonTheme } from './constants';
 
 const { store } = CreateStore();
 let persistor;
@@ -17,7 +16,7 @@ let persistor;
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { rehydrated: false }
+    this.state = { rehydrated: false };
   }
   componentWillMount() {
     persistor = persistStore(store, {}, () => {
@@ -27,23 +26,23 @@ class App extends Component {
       Languages.setLanguage(language.lang);
       switch (language.lang) {
         case 'en':
-          customProps = { 
-            style: { 
+          customProps = {
+            style: {
               fontFamily: 'Manjari-Regular'
             }
-          }
+          };
           break;
         case 'ar':
-          customProps = { 
-            style: { 
+          customProps = {
+            style: {
               fontFamily: 'Tajawal-Regular'
             }
-          }
+          };
           break;
         default:
-          customProps = { 
+          customProps = {
             style: {}
-          }
+          };
           break;
       }
       setCustomText(customProps);
@@ -53,14 +52,18 @@ class App extends Component {
     });
   }
   componentDidUpdate() {
-    if(this.state.rehydrated) {
+    if (this.state.rehydrated) {
       SplashScreen.hide();
     }
   }
 
   render() {
-    if(!this.state.rehydrated){
-      return (<View style={[styles.container, styles.horizontal]}><ActivityIndicator size="large" color="#ffff" /></View>)
+    if (!this.state.rehydrated) {
+      return (
+        <View style={[styles.container, styles.horizontal]}>
+          <ActivityIndicator size="large" color="#ffff" />
+        </View>
+      );
     }
     return (
       <Provider store={store}>
@@ -85,10 +88,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     padding: 10
   }
-})
+});
 
 export default App;
-
-// import StepIndicator from './app/firstAid/StepIndicator';
-
-// export default StepIndicator;

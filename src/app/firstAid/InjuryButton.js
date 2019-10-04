@@ -2,7 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
 import { argonTheme, Images } from '../../constants';
 
-const InjuryButton = props => {
+const InjuryButton = (props) => {
   return (
     <View style={styles.container}>
       <View style={[styles.button, { backgroundColor: props.backgroundClr }]}>
