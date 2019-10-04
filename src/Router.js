@@ -34,7 +34,7 @@ class RouterComponent extends Component {
         tintColor={argonTheme.COLORS.APP}
       >
         <Scene key="root" hideNavBar initial>
-          <Scene key="welcome">
+          <Scene key="welcome" initial>
             <Scene
               key="languageSelection"
               component={LanguageSelection}
@@ -95,7 +95,7 @@ class RouterComponent extends Component {
             />
           </Scene>
 
-          <Scene key="UserSettings" headerLayoutPreset="center" initial>
+          <Scene key="UserSettings" headerLayoutPreset="center">
             <Scene
               key="UserSettings"
               component={UserSettings}

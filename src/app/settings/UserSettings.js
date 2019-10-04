@@ -2,42 +2,18 @@ import React, { Component } from 'react';
 import { Linking, Share } from 'react-native';
 import ReactNativeSettingsPage, {
   SectionRow,
-  NavigateRow,
-  CheckRow,
-  SwitchRow,
-  SliderRow
+  NavigateRow
 } from 'react-native-settings-page';
-
 import { connect } from 'react-redux';
 import RNRestart from 'react-native-restart';
-import { argonTheme } from '../../constants';
 import { switchLanguage } from '../../actions';
-import { Icon } from '../../components';
-import t from '../../I18n';
 import { Actions } from 'react-native-router-flux';
 import TextDisplay from './TextDisplay';
-
-import {
-  StyleSheet,
-  View,
-  Text,
-  Image,
-  I18nManager,
-  Picker,
-  TouchableOpacity,
-  TouchableNativeFeedback,
-  NativeModules
-} from 'react-native';
+import { View, Picker } from 'react-native';
 
 import email from 'react-native-email';
 
 class UserSettings extends Component {
-  state = {
-    check: false,
-    switch: false,
-    value: 40
-  };
-
   constructor(props) {
     super(props);
     this.state = {
@@ -62,14 +38,6 @@ class UserSettings extends Component {
   // };
 
   render() {
-    // handleEmail = () => {
-    //   const to = ['nadaashraf11@iclou.com']; // string or array of email addresses
-    //   email(to, {
-    //     // Optional additional arguments
-    //     subject: 'Nabd app feedback',
-    //     body: 'Some body right here'
-    //   }).catch(console.error);
-    // };
     return (
       <ReactNativeSettingsPage>
         <SectionRow text="Profile">
@@ -110,7 +78,7 @@ class UserSettings extends Component {
             text="Send us feedback"
             iconName="envelope"
             onPressCallback={() => {
-              const to = ['nadaashraf11@icloud.com']; // string or array of email addresses
+              const to = ['nadaashraf11@icloud.com'];
               email(to, {
                 subject: 'Nabd app feedback'
               }).catch(console.error);
@@ -121,10 +89,7 @@ class UserSettings extends Component {
             iconName="share-square"
             onPressCallback={() => {
               Share.share({
-                message:
-                  "BAM: we're helping your business with awesome React Native apps",
-                url: 'http://bam.tech',
-                title: 'Wow, did you see that?'
+                message: 'Help people in emergencies with #Nabd app'
               });
             }}
           />
@@ -140,43 +105,3 @@ export default connect(
   mapStateToProps,
   { switchLanguage }
 )(UserSettings);
-
-{
-  /* <SectionRow text="Usage">
-<NavigateRow
-  text="Navigate Row"
-  iconName="your-icon-name"
-  onPressCallback={() =>
-    Linking.openURL('https://facebook.com')
-  }
-/>
-<SwitchRow
-  text="Switch Row"
-  iconName="your-icon-name"
-  _value={this.state.switch}
-  _onValueChange={() => {
-    this.setState({ switch: !this.state.switch });
-  }}
-/>
-<CheckRow
-  text="Check Row"
-  iconName="your-icon-name"
-  _color="#000"
-  _value={this.state.check}
-  _onValueChange={() => {
-    this.setState({ check: !this.state.check });
-  }}
-/>
-<SliderRow
-  text="Slider Row"
-  iconName="your-icon-name"
-  _color="#000"
-  _min={0}
-  _max={100}
-  _value={this.state.value}
-  _onValueChange={value => {
-    this.setState({ value });
-  }}
-/>
-</SectionRow> */
-}
