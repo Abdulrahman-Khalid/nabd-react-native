@@ -30,7 +30,7 @@ class LanguageSelection extends Component {
     return (
       <View style={styles.buttonContainer}>
         <Button
-          color='white'
+          color="white"
           textStyle={{ color: argonTheme.COLORS.BLACK }}
           onPress={this._handlePress}
         >
