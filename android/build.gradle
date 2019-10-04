@@ -38,9 +38,3 @@ allprojects {
     }
 }
 
-android {
-    compileOptions {
-        sourceCompatibility java_version
-        targetCompatibility java_version
-    }
-}

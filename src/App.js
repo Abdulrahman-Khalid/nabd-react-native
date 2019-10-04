@@ -1,21 +1,94 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import reducers from './reducers';
-import ReduxThunk from 'redux-thunk';
 import RouterComponent from './Router';
+import { Block } from 'galio-framework';
+import SplashScreen from 'react-native-splash-screen';
+import { PersistGate } from 'redux-persist/es/integration/react';
+import { persistStore } from "redux-persist";
+import Languages from './I18n';
+import { ActivityIndicator, View, StyleSheet } from 'react-native';
+import CreateStore from './config/CreateStore';
+import { argonTheme } from './constants'
+import { setCustomText, setCustomTextInput, setCustomView } from 'react-native-global-props';
+
+const { store } = CreateStore();
+let persistor;
 
 class App extends Component {
-  componentDidMount() {}
+  constructor(props) {
+    super(props);
+    this.state = { rehydrated: false }
+  }
+  componentWillMount() {
+    persistor = persistStore(store, {}, () => {
+      const language = store.getState().language;
+      let customProps;
+      // // set default Language for App
+      Languages.setLanguage(language.lang);
+      switch (language.lang) {
+        case 'en':
+          customProps = { 
+            style: { 
+              fontFamily: 'Manjari-Regular'
+            }
+          }
+          break;
+        case 'ar':
+          customProps = { 
+            style: { 
+              fontFamily: 'Tajawal-Regular'
+            }
+          }
+          break;
+        default:
+          customProps = { 
+            style: {}
+          }
+          break;
+      }
+      setCustomText(customProps);
+      setCustomTextInput(customProps);
+      setCustomView(customProps);
+      this.setState({ rehydrated: true });
+    });
+  }
+  componentDidUpdate() {
+    if(this.state.rehydrated) {
+      SplashScreen.hide();
+    }
+  }
 
   render() {
-    const store = createStore(reducers, {}, applyMiddleware(ReduxThunk));
+    if(!this.state.rehydrated){
+      return (<View style={[styles.container, styles.horizontal]}><ActivityIndicator size="large" color="#ffff" /></View>)
+    }
     return (
       <Provider store={store}>
-        <RouterComponent />
+        <PersistGate persistor={persistor}>
+          <Block flex>
+            <RouterComponent />
+          </Block>
+        </PersistGate>
       </Provider>
     );
   }
 }
 
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: argonTheme.COLORS.APP
+  },
+  horizontal: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10
+  }
+})
+
 export default App;
+
+// import StepIndicator from './app/firstAid/StepIndicator';
+
+// export default StepIndicator;

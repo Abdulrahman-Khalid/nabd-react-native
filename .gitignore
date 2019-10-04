@@ -4,6 +4,7 @@
 
 # Xcode
 #
+Pods/
 build/
 *.pbxuser
 !default.pbxuser
@@ -58,3 +59,5 @@ buck-out/
 # Misc
 #
 .env
+
+emulator.sh
