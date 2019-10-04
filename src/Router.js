@@ -120,7 +120,6 @@ class RouterComponent extends Component {
           </Tabs>
           <Scene key="paramedicHome" component={ParamedicHome} title="Home" />
           <Scene key="ambulanceHome" component={AmbulanceHome} title="Home" />
-          </Scene>
 
           <Scene key="UserSettings" headerLayoutPreset="center">
             <Scene

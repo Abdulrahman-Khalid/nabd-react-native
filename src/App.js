@@ -9,6 +9,11 @@ import Languages from './I18n';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
 import CreateStore from './config/CreateStore';
 import { argonTheme } from './constants';
+import {
+  setCustomText,
+  setCustomTextInput,
+  setCustomView
+} from 'react-native-global-props';
 
 const { store } = CreateStore();
 let persistor;
