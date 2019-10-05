@@ -27,4 +27,6 @@ export const REQUSET_DOCTOR = 'request_doctor';
 export const REQUSET_PARAMEDIC = 'request_paramedic';
 export const REQUSET_AMBULANCE = 'request_ambulance';
 // Language Redux
-export const SWITCH_LANGUAGE = "SWITCH_LANGUAGE";
+export const SWITCH_LANGUAGE = 'SWITCH_LANGUAGE';
+//cache
+export const CACHE_USER_ID = 'cache_user_id';

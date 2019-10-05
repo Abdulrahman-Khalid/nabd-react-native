@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
 import { Actions } from 'react-native-router-flux';
-import { argonTheme, Images } from '../../constants';
+import { argonTheme, Images, info } from '../../constants';
 import { connect } from 'react-redux';
 import { selectHelperType, requestHelp } from '../../actions';
 import {
@@ -18,6 +18,7 @@ import RadioForm, { RadioButton } from 'react-native-simple-radio-button';
 import axios from 'axios';
 import PubNubReact from 'pubnub-react';
 import { CustomPicker } from 'react-native-custom-picker';
+import { Voximplant } from 'react-native-voximplant';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -31,7 +32,9 @@ class Incidents extends Component {
         { label: 'Ambulance', value: 'ambulance' }
       ],
       valueIndex: 0,
-      value: 'doctor'
+      value: 'doctor',
+      client: Voximplant.getInstance(),
+      currentCall: null
     };
     props.selectHelperType('doctor');
     // Init PubNub. Use your subscribe key here.
@@ -259,6 +262,43 @@ class Incidents extends Component {
     }
   }
 
+  async videoCall() {
+    try {
+      let s = await client.getClientState();
+      if (s === Voximplant.ClientState.DISCONNECTED) {
+        await client.connect();
+      }
+      let authResult = await this.state.client.login('412412', info.userPass);
+      // Alert.alert('Selected Item', authResult);
+    } catch (e) {
+      console.log(e.name + e.message);
+    }
+    // currentCall = client.call('201011315175', {
+    //   receiveVideo: true,
+    //   sendVideo: true
+    // });
+
+    // const json = await response.json();
+    // const user_id = JSON.stringify(json.user_id);
+  }
+
+  // // Call connected
+  // onCallConnected(e) {
+  //   // Start sending video and show incoming video
+  //   client.sendVideo(true);
+  //   currentCall.showRemoteVideo(true);
+  // }
+
+  // // Call disconnected
+  // onCallDisconnected(e) {
+  //   currentCall = null;
+  // }
+
+  // // Call failed
+  // onCallFailed(e) {
+  //   // Error code -  e.code, error reason - e.reason
+  // }
+
   render() {
     return (
       <View
@@ -309,7 +349,12 @@ class Incidents extends Component {
           </View>
           <View>{this.isDoctorSelected()}</View>
 
-          <TouchableOpacity style={styles.circleStyle}>
+          <TouchableOpacity
+            onPress={() => {
+              this.videoCall();
+            }}
+            style={styles.circleStyle}
+          >
             <Icon
               size={50}
               color={argonTheme.COLORS.WHITE}

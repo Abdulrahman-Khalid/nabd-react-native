@@ -12,6 +12,9 @@ import styles, {
   NOT_EMPTY_CELL_BG_COLOR
 } from './styles';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import { info } from '../../../../constants';
+import { cacheUserId } from '../../../../actions';
 
 const codeLength = 4;
 
@@ -20,13 +23,20 @@ const source = {
     'https://user-images.githubusercontent.com/4661784/56352614-4631a680-61d8-11e9-880d-86ecb053413d.png'
 };
 
-export default class AnimatedExample extends Component {
+class AnimatedExample extends Component {
   _animationsColor = [...new Array(codeLength)].map(
     () => new Animated.Value(0)
   );
   _animationsScale = [...new Array(codeLength)].map(
     () => new Animated.Value(1)
   );
+
+  // constructor(){
+
+  // }
+  // componentDidMount() {
+  //   var voxAPI = VoxImplant.getInstance();
+  // }
 
   animateCell({ hasValue, index, isFocused }) {
     Animated.parallel([
@@ -48,6 +58,27 @@ export default class AnimatedExample extends Component {
         randomCode: code
       })
       .then(() => {
+        axios(
+          'https://api.voximplant.com/platform_api/AddUser/?account_id=' +
+            info.accountId +
+            '&api_key=' +
+            info.apiKey +
+            '&user_name=' +
+            this.props.phone.substring(1) +
+            '&user_display_name=' +
+            this.props.name +
+            '&user_password=' +
+            info.userPass +
+            '&application_id=' +
+            info.appId
+        )
+          .then(response => {
+            this.props.cacheUserId(response.data.user_id);
+            console.log(response);
+          })
+          .catch(error => {
+            console.log(error);
+          });
         return Alert.alert(
           'Confirmation Code',
           'Successful!',
@@ -166,3 +197,35 @@ export default class AnimatedExample extends Component {
     );
   }
 }
+
+const mapSateToProps = ({ signup }) => {
+  const { name, phone } = signup;
+  return {
+    name,
+    phone
+  };
+};
+
+export default connect(
+  mapSateToProps,
+  cacheUserId
+)(AnimatedExample);
+// const apiKey = 'a70036fa-792b-4f9c-a13a-ba6a0dd606f5';
+// const accountId = '3233280';
+// const userPass = 'nabd_app';
+// const appId = '7423899';
+// axios
+//   .post('https://api.voximplant.com/platform_api/AddUser/', {
+//     account_id: accountId,
+//     api_key: apiKey,
+//     user_name: '201011315175',
+//     user_display_name: 'Abdulrahman Khalid',
+//     user_password: userPass,
+//     application_id: appId
+//   })
+//   .then(function(response) {
+//     console.log(response);
+//   })
+//   .catch(function(error) {
+//     console.log(error);
+//   });
