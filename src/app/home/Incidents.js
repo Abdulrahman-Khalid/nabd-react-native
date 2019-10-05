@@ -11,8 +11,7 @@ import {
   TouchableOpacity,
   View,
   Dimensions,
-  Image,
-  ScrollView
+  Image
 } from 'react-native';
 import { Icon, Card } from '../../components';
 import RadioForm, { RadioButton } from 'react-native-simple-radio-button';
@@ -31,7 +30,8 @@ class Incidents extends Component {
         { label: 'Paramedic', value: 'paramedic' },
         { label: 'Ambulance', value: 'ambulance' }
       ],
-      valueIndex: 0
+      valueIndex: 0,
+      value: 'doctor'
     };
     props.selectHelperType('doctor');
     // Init PubNub. Use your subscribe key here.
@@ -195,7 +195,7 @@ class Incidents extends Component {
       ];
       return (
         <CustomPicker
-          placeholder={'Please select your doctor specialization...'}
+          placeholder={'Please select your doctor specialization'}
           options={options}
           getLabel={item => item.label}
           fieldTemplate={this.renderField}
@@ -217,77 +217,111 @@ class Incidents extends Component {
     return (
       <ScrollView
         showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.articles}>
+        contentContainerStyle={styles.articles}
+      >
         <Block flex>
           <Block flex row>
-            <Card item={buttons[0]} style={{ marginRight: theme.SIZES.BASE }} imageStyle={{ backgroundColor: 'red', opacity: 0.6 }}/>
-            <Card item={buttons[1]} imageStyle={{ backgroundColor: 'green', opacity: 0.6 }}/>
+            <Card
+              item={buttons[0]}
+              style={{ marginRight: theme.SIZES.BASE }}
+              imageStyle={{ backgroundColor: 'red', opacity: 0.6 }}
+            />
+            <Card
+              item={buttons[1]}
+              imageStyle={{ backgroundColor: 'green', opacity: 0.6 }}
+            />
           </Block>
-          <Card style={{ marginBottom: theme.SIZES.BASE }} item={buttons[2]} full imageStyle={{ backgroundColor: 'blue', opacity: 0.6 }}/>
+          <Card
+            style={{ marginBottom: theme.SIZES.BASE }}
+            item={buttons[2]}
+            full
+            imageStyle={{ backgroundColor: 'blue', opacity: 0.6 }}
+          />
         </Block>
       </ScrollView>
-    )
+    );
+  }
+
+  decideImage() {
+    switch (this.state.value) {
+      case 'doctor':
+        return <Image style={styles.imageDoctor} source={Images.doctor} />;
+      case 'paramedic':
+        return (
+          <View style={styles.imageParamedicWrapper}>
+            <Image style={styles.imageParamedic} source={Images.paramedic} />
+          </View>
+        );
+      case 'ambulance':
+        return (
+          <Image style={styles.imageAmbulance} source={Images.ambulance} />
+        );
+    }
   }
 
   render() {
     return (
-      <Block
-        flex
+      <View
+        // flex
         style={{
+          flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: argonTheme.COLORS.BACKGROUND
         }}
       >
-        {/* <Text style={styles.welcome}>Request</Text> */}
-        <View style={styles.component}>
-          <RadioForm
-            formHorizontal={true}
-            animation={true}
-            // style={{ paddingLeft: 20 }}
-          >
-            {this.state.type.map((obj, i) => {
-              var that = this;
-              var is_selected = this.state.valueIndex == i;
-              return (
-                <View key={i} style={styles.radioButtonWrap}>
-                  <RadioButton
-                    labelStyle={{ fontSize: 18, paddingTop: 5 }}
-                    isSelected={is_selected}
-                    obj={obj}
-                    index={i}
-                    labelHorizontal={false}
-                    buttonColor={argonTheme.COLORS.APP}
-                    labelColor={'#000'}
-                    style={[
-                      i !== this.state.type.length - 1 && styles.radioStyle
-                    ]}
-                    onPress={(value, index) => {
-                      this.setState({ value: value });
-                      this.setState({ valueIndex: index });
-                      this.props.selectHelperType(value);
-                    }}
-                  />
-                </View>
-              );
-            })}
-          </RadioForm>
-          {/* <Text>selected: {this.state.type[this.state.valueIndex].label}</Text> */}
-        </View>
-        <View>{this.isDoctorSelected()}</View>
+        <View></View>
+        {this.decideImage()}
+        <View style={styles.position}>
+          <View style={styles.component}>
+            <RadioForm
+              formHorizontal={true}
+              animation={true}
+              // style={{ paddingLeft: 20 }}
+            >
+              {this.state.type.map((obj, i) => {
+                var that = this;
+                var is_selected = this.state.valueIndex == i;
+                return (
+                  <View key={i} style={styles.radioButtonWrap}>
+                    <RadioButton
+                      labelStyle={{ fontSize: 18, paddingTop: 5 }}
+                      isSelected={is_selected}
+                      obj={obj}
+                      index={i}
+                      labelHorizontal={false}
+                      buttonColor={argonTheme.COLORS.APP}
+                      labelColor={'#000'}
+                      style={[
+                        i !== this.state.type.length - 1 && styles.radioStyle
+                      ]}
+                      onPress={(value, index) => {
+                        this.setState({ value: value });
+                        this.setState({ valueIndex: index });
+                        this.props.selectHelperType(value);
+                      }}
+                    />
+                  </View>
+                );
+              })}
+            </RadioForm>
+            {/* <Text>selected: {this.state.type[this.state.valueIndex].label}</Text> */}
+          </View>
+          <View>{this.isDoctorSelected()}</View>
 
-        <TouchableOpacity style={styles.circleStyle}>
-          <Icon
-            size={50}
-            color={argonTheme.COLORS.WHITE}
-            name="camera-video"
-            family="LinearIcon"
-            style={{
-              textAlign: 'center'
-            }}
-          />
-        </TouchableOpacity>
-      </Block>
+          <TouchableOpacity style={styles.circleStyle}>
+            <Icon
+              size={50}
+              color={argonTheme.COLORS.WHITE}
+              name="camera-video"
+              family="LinearIcon"
+              style={{
+                textAlign: 'center'
+              }}
+            />
+          </TouchableOpacity>
+        </View>
+      </View>
     );
   }
 }
@@ -299,17 +333,11 @@ const styles = StyleSheet.create({
     alignContent: 'center'
   },
   articles: {
-    width: width - theme.SIZES.BASE * 2,
-  },
-  welcome: {
-    fontSize: 20,
-    marginTop: 20,
-    marginBottom: 20,
-    paddingRight: 15
+    width: width - theme.SIZES.BASE * 2
   },
   component: {
     alignItems: 'center',
-    marginBottom: 50
+    marginBottom: 20
   },
   radioStyle: {
     borderRightWidth: 2,
@@ -373,6 +401,13 @@ const styles = StyleSheet.create({
     height: 20,
     marginRight: 10
   },
+  imageAmbulance: {
+    width: 240,
+    height: 240
+    // borderRadius: 240 / 2
+    // position: 'absolute',
+    // top: 0
+  },
   imageIcon: {},
   imageIconWrapper: {
     backgroundColor: '#E8E6E3',
@@ -387,6 +422,35 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     shadowOpacity: 0.1,
     elevation: 2
+  },
+  imageParamedic: {
+    width: 140,
+    height: 140,
+    textAlign: 'center',
+    marginTop: 18,
+    marginLeft: 28
+  },
+  imageParamedicWrapper: {
+    backgroundColor: '#FF5B62',
+    width: 160,
+    height: 160,
+    borderRadius: 160 / 2,
+    marginBottom: 30
+    // position: 'absolute',
+    // top: 40
+  },
+  imageDoctor: {
+    width: 160,
+    height: 160,
+    borderRadius: 160 / 2,
+    marginBottom: 20
+    // position: 'absolute',
+    // top: 40
+  },
+  position: {
+    // position: 'absolute',
+    // bottom: 0,
+    alignItems: 'center'
   }
 });
 

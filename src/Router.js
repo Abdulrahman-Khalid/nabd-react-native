@@ -27,7 +27,7 @@ class RouterComponent extends Component {
   _renderSettingsButton() {
     return (
       <TouchableOpacity
-        // onPress={() => Actions.settings()}
+        onPress={() => Actions.UserSettings()}
         style={{ marginRight: 10 }}
       >
         <Icon name="settings" size={25} />
@@ -43,7 +43,7 @@ class RouterComponent extends Component {
         }}
         tintColor={argonTheme.COLORS.APP}
       >
-        <Scene key="root" hideNavBar initial>
+        <Scene key="root" hideNavBar initial headerLayoutPreset="center">
           <Scene key="welcome" initial>
             <Scene
               key="languageSelection"
@@ -52,7 +52,7 @@ class RouterComponent extends Component {
             />
           </Scene>
 
-          <Scene key="typeSelection" headerLayoutPreset="center">
+          <Scene key="typeSelection">
             <Scene key="whoRU" component={WhoAmI} hideNavBar={true} />
             <Scene key="iUser" component={IamUser} title="User" />
             <Scene key="iDoctor" component={IamDoctor} title="Doctor" />
@@ -121,7 +121,7 @@ class RouterComponent extends Component {
           <Scene key="paramedicHome" component={ParamedicHome} title="Home" />
           <Scene key="ambulanceHome" component={AmbulanceHome} title="Home" />
 
-          <Scene key="UserSettings" headerLayoutPreset="center">
+          <Scene key="UserSettings">
             <Scene
               key="UserSettings"
               component={UserSettings}
