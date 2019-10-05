@@ -61,6 +61,11 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
     flexDirection: 'column',
     marginBottom: '3%',
+    shadowColor: 'black',
+    shadowOffset: { width: 2, height: 2 },
+    shadowRadius: 20,
+    shadowOpacity: 0.5,
+    elevation: 2
   },
   headerText: {
     fontSize: 30,
