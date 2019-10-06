@@ -12,7 +12,8 @@ import {
   FlatList,
   PermissionsAndroid
 } from 'react-native';
-
+import { connect } from 'react-redux';
+import { toggleAudioState, toggleVideoState, resetCallOptions } from '../../../actions';
 import { Voximplant } from 'react-native-voximplant';
 import CallButton from '../components/CallButton';
 import COLOR_SCHEME from '../styles/ColorScheme';
@@ -138,16 +139,10 @@ export default class CallScreen extends React.Component {
   }
 
   muteAudio() {
-    console.log(
-      'CallScreen[' + this.callId + '] muteAudio: ' + !this.state.isAudioMuted
-    );
-    const isMuted = this.state.isAudioMuted;
-    this.call.sendAudio(isMuted);
-    this.setState({ isAudioMuted: !isMuted });
+    this.props.toggleAudioState();
   }
 
   async sendVideo(doSend) {
-    console.log('CallScreen[' + this.callId + '] sendVideo: ' + doSend);
     try {
       if (doSend && Platform.OS === 'android') {
         const granted = await PermissionsAndroid.request(
@@ -542,3 +537,11 @@ export default class CallScreen extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+    const { localVideoStreamId, remoteVideoStreamId} = state.call;
+    return { localVideoStreamId, remoteVideoStreamId};
+  };
+  
+export default connect(mapStateToProps,{ toggleAudioState, toggleVideoState, resetCallOptions })(MainScreen);
+  

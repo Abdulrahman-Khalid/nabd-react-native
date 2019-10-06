@@ -31,8 +31,8 @@ export const SWITCH_LANGUAGE = 'SWITCH_LANGUAGE';
 //cache
 export const CACHE_USER_ID = 'cache_user_id';
 //call
-export const CHANGE_AUDIO_STATE = 'change_audio_state';
-export const CHANGE_VIDEO_STATE = 'change_video_state';
+export const TOGGLE_AUDIO_STATE = 'toggle_audio_state';
+export const TOGGLE_VIDEO_STATE = 'toggle_video_state';
 export const SET_LOCAL_VIDEO_STREAM_ID = 'set_local_video_stream_id';
 export const SET_REMOTE_VIDEO_STREAM_ID = 'set_remote_video_stream_id';
 export const RESET_CALL_OPTIONS = 'reset_call_options';

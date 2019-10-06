@@ -1,22 +1,20 @@
 import {
-  CHANGE_AUDIO_STATE,
-  CHANGE_VIDEO_STATE,
+  TOGGLE_AUDIO_STATE,
+  TOGGLE_VIDEO_STATE,
   SET_LOCAL_VIDEO_STREAM_ID,
   SET_REMOTE_VIDEO_STREAM_ID,
   RESET_CALL_OPTIONS
 } from '../actions/types';
 
-export const changeAudioState = mute => {
+export const toggleAudioState = () => {
   return {
-    type: CHANGE_AUDIO_STATE,
-    payload: mute
+    type: TOGGLE_AUDIO_STATE
   };
 };
 
-export const changeVideoState = isVideo => {
+export const toggleVideoState = () => {
   return {
-    type: CHANGE_VIDEO_STATE,
-    payload: isVideo
+    type: TOGGLE_VIDEO_STATE
   };
 };
 

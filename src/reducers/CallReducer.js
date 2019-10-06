@@ -1,6 +1,6 @@
 import {
-  CHANGE_AUDIO_STATE,
-  CHANGE_VIDEO_STATE,
+  TOGGLE_AUDIO_STATE,
+  TOGGLE_VIDEO_STATE,
   SET_LOCAL_VIDEO_STREAM_ID,
   SET_REMOTE_VIDEO_STREAM_ID,
   RESET_CALL_OPTIONS
@@ -16,10 +16,10 @@ const INTIAL_STATE = {
 
 export default (state = INTIAL_STATE, action) => {
   switch (action.type) {
-    case CHANGE_AUDIO_STATE:
-      return { ...state, isAudioMuted: action.payload };
-    case CHANGE_VIDEO_STATE:
-      return { ...state, isVideoSent: action.payload };
+    case TOGGLE_AUDIO_STATE:
+      return { ...state, isAudioMuted: !state.isAudioMuted };
+    case TOGGLE_VIDEO_STATE:
+      return { ...state, isVideoSent: !state.isVideoSent };
     case SET_LOCAL_VIDEO_STREAM_ID:
       return { ...state, localVideoStreamId: action.payload };
     case SET_REMOTE_VIDEO_STREAM_ID:
