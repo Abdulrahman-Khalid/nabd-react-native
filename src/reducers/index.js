@@ -6,6 +6,7 @@ import FirstAidReducer from './FirstAidReducer';
 import RequestHelpReducer from './RequestHelpReducer';
 import LanguageReducer from './LanguageReducer';
 import CachedReducer from './CachedReducer';
+import CallReducer from './CallReducer';
 
 export default combineReducers({
   signup: SignUpReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
   firstAid: FirstAidReducer,
   requestHelp: RequestHelpReducer,
   language: LanguageReducer,
-  cached: CachedReducer
+  cached: CachedReducer,
+  call: CallReducer
 });

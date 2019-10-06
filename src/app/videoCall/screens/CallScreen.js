@@ -15,7 +15,6 @@ import {
 
 import { Voximplant } from 'react-native-voximplant';
 import CallButton from '../components/CallButton';
-import { Keypad } from '../components/Keypad';
 import COLOR_SCHEME from '../styles/ColorScheme';
 import COLOR from '../styles/Color';
 import CallManager from '../manager/CallManager';
@@ -27,20 +26,18 @@ const CALL_STATES = {
   CONNECTING: 'connecting',
   CONNECTED: 'connected'
 };
-
+import Call from './Call';
 export default class CallScreen extends React.Component {
   constructor(props) {
     super(props);
 
-    this.callId = this.props.callId;
-    this.isVideoCall = this.props.isVideo;
-    this.isIncoming = this.props.isIncoming;
-    this.callState = CALL_STATES.DISCONNECTED;
+    this.props.calls.forEach(call => {
+      new Call(call.callId, this.props.isVideo, this.props.isIncoming);
+    });
 
     this.state = {
       isAudioMuted: false,
       isVideoSent: this.isVideoCall,
-      isKeypadVisible: false,
       isModalOpen: false,
       modalText: '',
       localVideoStreamId: null,
@@ -202,11 +199,6 @@ export default class CallScreen extends React.Component {
     this.call.hangup();
   }
 
-  switchKeypad() {
-    let isVisible = this.state.isKeypadVisible;
-    this.setState({ isKeypadVisible: !isVisible });
-  }
-
   async switchAudioDevice() {
     console.log('CallScreen[' + this.callId + '] switchAudioDevice');
     let devices = await Voximplant.Hardware.AudioDeviceManager.getInstance().getAudioDevices();
@@ -219,11 +211,6 @@ export default class CallScreen extends React.Component {
       device
     );
     this.setState({ audioDeviceSelectionVisible: false });
-  }
-
-  _keypadPressed(value) {
-    console.log('CallScreen[' + this.callId + '] _keypadPressed(: ' + value);
-    this.call.sendTone(value);
   }
 
   _closeModal() {
@@ -442,10 +429,6 @@ export default class CallScreen extends React.Component {
             </Text>
           </View>
 
-          {this.state.isKeypadVisible ? (
-            <Keypad keyPressed={e => this._keypadPressed(e)} />
-          ) : null}
-
           <View style={styles.call_controls}>
             <View
               style={{
@@ -467,11 +450,6 @@ export default class CallScreen extends React.Component {
                   buttonPressed={() => this.muteAudio()}
                 />
               )}
-              <CallButton
-                icon_name="dialpad"
-                color={COLOR.ACCENT}
-                buttonPressed={() => this.switchKeypad()}
-              />
               <CallButton
                 icon_name={this.state.audioDeviceIcon}
                 color={COLOR.ACCENT}
