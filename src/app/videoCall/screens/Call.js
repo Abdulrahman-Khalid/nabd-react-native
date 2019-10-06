@@ -28,7 +28,7 @@ const CALL_STATES = {
   CONNECTED: 'connected'
 };
 
-export default class CallScreen extends React.Component {
+export default class Call extends React.Component {
   constructor(props) {
     super(props);
 
