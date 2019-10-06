@@ -19,17 +19,29 @@ const incidentsDummyData = [
   {
     userID: '01001796904',
     description: 'حادثة علي الطريق الصحراوي',
-    image: Images.aideCard
+    image: Images.aideCard,
+    location: {
+      latitude: -33.8600024,
+      longitude: 18.697459
+    }
   },
   {
     userID: '01001796905',
     description: 'انفجار مغسلة في حي المعادي',
-    image: null
+    image: null,
+    location: {
+      latitude: -33.8600024,
+      longitude: 18.697459
+    }
   },
   {
     userID: '01001796906',
     description: 'طلب كيس دم ضروري في مستشفي الدفاع الجوي التخصصي',
     image: Images.ambulanceCard,
+    location: {
+      latitude: -33.8600024,
+      longitude: 18.697459
+    }
   }
 ];
 
@@ -59,7 +71,7 @@ export class Incidents extends Component {
     setTimeout(() => {
       this.setState({
         refreshing: false
-      })
+      });
     }, 5000);
   };
 
@@ -70,17 +82,17 @@ export class Incidents extends Component {
   //  * @param  {int} contentSize - size of all content
   //  */
   moreIncidentCards = ({ layoutMeasurement, contentOffset, contentSize }) => {
-  //   if (
-  //     layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 &&
-  //     this.state.refreshing !== true
-  //   ) {
-  //     this.setState({
-  //       refreshing: true
-  //     });
-  //     this.updateIncidentCards(
-  //       this.state.IncidentCards[this.state.IncidentCards.length - 1].id
-  //     );
-  //   }
+    //   if (
+    //     layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 &&
+    //     this.state.refreshing !== true
+    //   ) {
+    //     this.setState({
+    //       refreshing: true
+    //     });
+    //     this.updateIncidentCards(
+    //       this.state.IncidentCards[this.state.IncidentCards.length - 1].id
+    //     );
+    //   }
   };
 
   // /** Update IncidentCards.
@@ -89,28 +101,28 @@ export class Incidents extends Component {
   //  * @param {int} id - The id of IncidentCard .
   //  */
   updateIncidentCards(id = null, username = null) {
-  //   axios
-  //     .get('Incidents/cards', {
-  //       params: {
-  //         last_retrieved_IncidentCard_id: id
-  //       }
-  //     })
-  //     .then(response => {
-  //       if (id === null) {
-  //         this.setState({
-  //           IncidentCards: response.data
-  //         });
-  //       } else {
-  //         this.setState(prevState => ({
-  //           IncidentCards: prevState.IncidentCards.concat(response.data)
-  //         }));
-  //       }
-  //       this.setState({ refreshing: false });
-  //     })
-  //     .catch(() => {})
-  //     .then(() => {
-  //       // always executed
-  //     });
+    //   axios
+    //     .get('Incidents/cards', {
+    //       params: {
+    //         last_retrieved_IncidentCard_id: id
+    //       }
+    //     })
+    //     .then(response => {
+    //       if (id === null) {
+    //         this.setState({
+    //           IncidentCards: response.data
+    //         });
+    //       } else {
+    //         this.setState(prevState => ({
+    //           IncidentCards: prevState.IncidentCards.concat(response.data)
+    //         }));
+    //       }
+    //       this.setState({ refreshing: false });
+    //     })
+    //     .catch(() => {})
+    //     .then(() => {
+    //       // always executed
+    //     });
   }
 
   render() {
@@ -133,8 +145,9 @@ export class Incidents extends Component {
           {this.state.IncidentCards.map(item => (
             <IncidentCard
               item={item}
-              onPressDirections={() => { console.log('getdirections Pressed') }}
-              onPressRemove={() => { console.log('Remove Pressed') }}
+              onPressRemove={() => {
+                console.log('Remove Pressed');
+              }}
               renderRemove={this.state.userID === item.userID}
               style={styles.incidents}
             />
@@ -168,7 +181,7 @@ const styles = StyleSheet.create({
     width: width,
     height: height,
     alignContent: 'center'
-  },
+  }
 });
 
 export default Incidents;

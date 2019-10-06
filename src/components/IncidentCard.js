@@ -11,15 +11,36 @@ import {
 import { Block, Text, theme } from 'galio-framework';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { argonTheme } from '../constants';
+import getDirections from 'react-native-google-maps-directions';
 
 const { width, height } = Dimensions.get('screen');
 
 class IncidentCard extends React.Component {
+  handleGetDirections = () => {
+    const directionsData = {
+      source: {
+        latitude: -33.8356372,
+        longitude: 18.6947617
+      },
+      destination: this.props.item.location,
+      params: [
+        {
+          key: 'travelmode',
+          value: 'driving' // may be "walking", "bicycling" or "transit" as well
+        },
+        {
+          key: 'dir_action',
+          value: 'navigate' // this instantly initializes navigation using the given travel mode
+        }
+      ]
+    };
+    getDirections(directionsData);
+  };
+
   render() {
     const {
       item,
       style,
-      onPressDirections,
       onPressRemove,
       renderRemove
     } = this.props;
@@ -51,7 +72,7 @@ class IncidentCard extends React.Component {
           <View style={styles.buttonsContainer}>
             <TouchableOpacity
               style={styles.buttonContainer}
-              onPress={onPressDirections}
+              onPress={this.handleGetDirections}
             >
               <View
                 style={[
