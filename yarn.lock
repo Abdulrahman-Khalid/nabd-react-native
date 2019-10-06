@@ -1108,6 +1108,11 @@
     lodash.unescape "4.0.1"
     semver "5.5.0"
 
+"@voximplant/react-native-foreground-service@^2.0.0":
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/@voximplant/react-native-foreground-service/-/react-native-foreground-service-2.0.0.tgz#06da5b121231a8ffcb13bc792ce67c37f1fbb2d8"
+  integrity sha512-V7hpxvYVsIvbpJaIlhjl4BUsWEzPYKIIfWZOYm0s93VEBmp548xx8f5hSeVuhaR6NqveibxVNr+J011ej/yc2g==
+
 abab@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/abab/-/abab-2.0.0.tgz#aba0ab4c5eee2d4c79d3487d85450fb2376ebb0f"
@@ -3341,13 +3346,6 @@ image-size@^0.6.0:
   resolved "https://registry.yarnpkg.com/image-size/-/image-size-0.6.3.tgz#e7e5c65bb534bd7cdcedd6cb5166272a85f75fb2"
   integrity sha512-47xSUiQioGaB96nqtp5/q55m0aBQSQdyIloMOc/x+QVTDZLNmXE892IIDrJ0hM1A5vcNUDD5tDffkSP5lCaIIA==
 
-immutability-helper@^2.2.0:
-  version "2.9.1"
-  resolved "https://registry.yarnpkg.com/immutability-helper/-/immutability-helper-2.9.1.tgz#71c423ba387e67b6c6ceba0650572f2a2a6727df"
-  integrity sha512-r/RmRG8xO06s/k+PIaif2r5rGc3j4Yhc01jSBfwPCXDLYZwp/yxralI37Df1mwmuzcCsen/E/ITKcTEvc1PQmQ==
-  dependencies:
-    invariant "^2.2.0"
-
 import-fresh@^2.0.0:
   version "2.0.0"
   resolved "https://registry.yarnpkg.com/import-fresh/-/import-fresh-2.0.0.tgz#d81355c15612d386c61f9ddd3922d4304822a546"
@@ -3453,7 +3451,7 @@ inquirer@^6.4.1:
     strip-ansi "^5.1.0"
     through "^2.3.6"
 
-invariant@^2.2.0, invariant@^2.2.2, invariant@^2.2.4:
+invariant@^2.2.2, invariant@^2.2.4:
   version "2.2.4"
   resolved "https://registry.yarnpkg.com/invariant/-/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
   integrity sha512-phJfQVBuaJM5raOpJjSfkiD6BpbCE4Ns//LaXl6wGYtUBY83nWS6Rf9tXm2e8VaK60JEjYldbPif/A2B1C2gNA==
@@ -5716,15 +5714,7 @@ psl@^1.1.24, psl@^1.1.28:
   resolved "https://registry.yarnpkg.com/psl/-/psl-1.3.0.tgz#e1ebf6a3b5564fa8376f3da2275da76d875ca1bd"
   integrity sha512-avHdspHO+9rQTLbv1RO+MPYeP/SzsCoxofjVnHanETfQhTJrmB0HlDoW+EiN/R+C0BZ+gERab9NY0lPN2TxNag==
 
-pubnub-react@^1.3.1:
-  version "1.3.1"
-  resolved "https://registry.yarnpkg.com/pubnub-react/-/pubnub-react-1.3.1.tgz#46bc1e0a7ec38c224d77451dd1b8d98d88a19155"
-  integrity sha512-RA+gzJFEL3Q5Kwxr5Y3gYAThY1jastJnyvet7avng1zJkzd/LnvgheId6j5BHCa60QMCnZAZZjbA3W2ZCNcv7Q==
-  dependencies:
-    immutability-helper "^2.2.0"
-    pubnub "^4.24.2"
-
-pubnub@^4.24.2, pubnub@^4.25.2:
+pubnub@^4.25.2:
   version "4.25.2"
   resolved "https://registry.yarnpkg.com/pubnub/-/pubnub-4.25.2.tgz#dd6ac48faa93cffe978c86093d5a36a413d8b870"
   integrity sha512-H2BZ4AAlTf3zmkw4KjuCozDJDdJicVSP0hhbkyB/ksV0UlANavZxoVWHVjWsDu/9tLuhVemKtuzW5iB1NIGmbQ==
@@ -5833,6 +5823,11 @@ react-native-awesome-alerts@^1.2.0:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-callkit@^1.3.4:
+  version "1.3.4"
+  resolved "https://registry.yarnpkg.com/react-native-callkit/-/react-native-callkit-1.3.4.tgz#8d89cd983152bd09fe75ccfdf1f9127b967d0b35"
+  integrity sha512-eemmcZ8NhHSzl7Qw1fDW7SN10Gu6UmLka1c2Bg6dU1RzihJQv9jIsFtunfFSfiGpE23VWFIJ+xkeFHu+bPWFGQ==
+
 react-native-confirmation-code-field@^3.9.0:
   version "3.9.0"
   resolved "https://registry.yarnpkg.com/react-native-confirmation-code-field/-/react-native-confirmation-code-field-3.9.0.tgz#5bf8a2e3af7e5a343739bf74ba74affdff2a4ca0"
@@ -5907,6 +5902,14 @@ react-native-email@^1.0.2:
   dependencies:
     qs "^6.5.1"
 
+react-native-firebase@^5.5.6:
+  version "5.5.6"
+  resolved "https://registry.yarnpkg.com/react-native-firebase/-/react-native-firebase-5.5.6.tgz#17b34ec0d5dc39afaaf0e159fd160f6339e0f707"
+  integrity sha512-AdbpGwKEEiMFgaRar9WOPc8Li4sfxR//WOyNQzxYsQ1fpARC908j7feqy2gu73SLqk4wzIrnlfJWakOe0/Bclg==
+  dependencies:
+    opencollective-postinstall "^2.0.0"
+    prop-types "^15.7.2"
+
 react-native-flexi-radio-button@^0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/react-native-flexi-radio-button/-/react-native-flexi-radio-button-0.2.2.tgz#a0180393c531ba3477722c6e42a31ceb1c11623b"
@@ -5933,12 +5936,22 @@ react-native-localization@^2.1.6:
   dependencies:
     react-localization "^1.0.14"
 
+react-native-md5@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-md5/-/react-native-md5-1.0.0.tgz#2320be24d674938ae5ef4f492698edbbfa0e0205"
+  integrity sha1-IyC+JNZ0k4rl709JJpjtu/oOAgU=
+
 react-native-modal-dropdown@^0.6.2:
   version "0.6.2"
   resolved "https://registry.yarnpkg.com/react-native-modal-dropdown/-/react-native-modal-dropdown-0.6.2.tgz#da6027b3546d2031fbce46242bffc95561e13599"
   integrity sha512-1jzByA+ME+q0mZJ2rZrLsf6jVwJhNxNHdg7I50xYZ9oYJsmmKwF9r/ks95tZxxks4Zvd7/FnaveNtyd+uevXAw==
   dependencies:
     prop-types "^15.6.0"
+
+react-native-notifications@^3.0.0-beta.0:
+  version "3.0.0-beta.0"
+  resolved "https://registry.yarnpkg.com/react-native-notifications/-/react-native-notifications-3.0.0-beta.0.tgz#09de0b996fef60dace34bc32db035fb88122e715"
+  integrity sha512-uIlMppAaIQ/jtgwybAvXxCfwfgu1R2xvkdr7U+qNFSvHlyNFJJW06ISUsVgvnEjrUcmheRu0PB54I/pX+soxmQ==
 
 react-native-phone-input@0.2.2:
   version "0.2.2"
@@ -7478,7 +7491,7 @@ utils-merge@1.0.1:
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
 
-uuid@^3.3.2:
+uuid@^3.3.2, uuid@^3.3.3:
   version "3.3.3"
   resolved "https://registry.yarnpkg.com/uuid/-/uuid-3.3.3.tgz#4568f0216e78760ee1dbf3a4d2cf53e224112866"
   integrity sha512-pW0No1RGHgzlpHJO1nsVrHKpOEIxkGg1xB+v0ZmdNH5OAeAwzAVrCnI2/6Mtx+Uys6iaylxa+D3g4j63IKKjSQ==

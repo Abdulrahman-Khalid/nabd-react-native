@@ -17,7 +17,6 @@ import {
 import { Icon, Card } from '../../components';
 import RadioForm, { RadioButton } from 'react-native-simple-radio-button';
 import axios from 'axios';
-import PubNubReact from 'pubnub-react';
 import { CustomPicker } from 'react-native-custom-picker';
 
 const { width, height } = Dimensions.get('screen');
@@ -50,11 +49,6 @@ class UserAndDoctorHome extends Component {
       valueIndex: 0
     };
     props.selectHelperType('doctor');
-    // Init PubNub. Use your subscribe key here.
-    this.pubnub = new PubNubReact({
-      subscribeKey: 'sub-key'
-    });
-    this.pubnub.init(this);
   }
 
   logoutButtonPressed() {

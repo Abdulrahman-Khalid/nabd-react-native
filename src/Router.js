@@ -12,7 +12,7 @@ import LanguageSelection from './app/welcome/LanguageSelection';
 import UserAndDoctorHome from './app/home/UserAndDoctorHome';
 import ParamedicHome from './app/home/ParamedicHome';
 import AmbulanceHome from './app/home/AmbulanceHome';
-import Incidents from './app/home/Incidents';
+import MainScreen from './app/videoCall/screens/MainScreen';
 import UserSettings from './app/settings/UserSettings';
 import { argonTheme } from './constants';
 import InjuriesList from './app/firstAid/InjuriesList';
@@ -22,6 +22,8 @@ import { connect } from 'react-redux';
 import { resetSignInReducerState, resetSignUpReducerState } from './actions';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native';
+import IncomingCallScreen from './app/videoCall/screens/IncomingCallScreen';
+import CallScreen from './app/videoCall/screens/CallScreen';
 
 class RouterComponent extends Component {
   _renderSettingsButton() {
@@ -100,8 +102,8 @@ class RouterComponent extends Component {
               icon={() => <Icon name="home" size={25} />}
             />
             <Scene
-              key="Incidents"
-              component={Incidents}
+              key="main"
+              component={MainScreen}
               title="Incidents"
               icon={() => <Icon name="lifebuoy" size={25} />}
             />
@@ -128,6 +130,14 @@ class RouterComponent extends Component {
               title="Settings"
             />
           </Scene>
+
+          <Scene key="Call" component={CallScreen} hideNavBar={true} />
+
+          <Scene
+            key="IncomingCall"
+            component={IncomingCallScreen}
+            hideNavBar={true}
+          />
         </Scene>
       </Router>
     );
