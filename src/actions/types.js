@@ -35,4 +35,6 @@ export const TOGGLE_AUDIO_STATE = 'toggle_audio_state';
 export const TOGGLE_VIDEO_STATE = 'toggle_video_state';
 export const SET_LOCAL_VIDEO_STREAM_ID = 'set_local_video_stream_id';
 export const SET_REMOTE_VIDEO_STREAM_ID = 'set_remote_video_stream_id';
+export const SET_CALLING_COUNTER = 'set_calling_counter';
+export const DEC_CALLING_COUNTER = 'dec_calling_counter';
 export const RESET_CALL_OPTIONS = 'reset_call_options';

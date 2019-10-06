@@ -3,8 +3,23 @@ import {
   TOGGLE_VIDEO_STATE,
   SET_LOCAL_VIDEO_STREAM_ID,
   SET_REMOTE_VIDEO_STREAM_ID,
+  SET_CALLING_COUNTER,
+  DEC_CALLING_COUNTER,
   RESET_CALL_OPTIONS
 } from '../actions/types';
+
+export const decCallingCounter = () => {
+  return {
+    type: DEC_CALLING_COUNTER
+  };
+};
+
+export const setCallingCounter = counter => {
+  return {
+    type: SET_CALLING_COUNTER,
+    payload: counter
+  };
+};
 
 export const toggleAudioState = () => {
   return {

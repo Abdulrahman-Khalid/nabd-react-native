@@ -1,34 +1,25 @@
 'use strict';
 
 import React from 'react';
-import {
-  Text,
-  View,
-  Modal,
-  TouchableHighlight,
-  Platform,
-  SafeAreaView,
-  StatusBar,
-  FlatList,
-  PermissionsAndroid
-} from 'react-native';
+import { View, Platform, PermissionsAndroid } from 'react-native';
 
 import { Voximplant } from 'react-native-voximplant';
-import CallButton from '../components/CallButton';
-import { Keypad } from '../components/Keypad';
-import COLOR_SCHEME from '../styles/ColorScheme';
-import COLOR from '../styles/Color';
 import CallManager from '../manager/CallManager';
-import styles from '../styles/Styles';
 import VIForegroundService from '@voximplant/react-native-foreground-service';
 import { Actions } from 'react-native-router-flux';
+import { connect } from 'react-redux';
+import {
+  decCallingCounter,
+  setLocalVideoStreamId,
+  setRemoteVideoStreamId
+} from '../../../actions';
+
 const CALL_STATES = {
   DISCONNECTED: 'disconnected',
   CONNECTING: 'connecting',
   CONNECTED: 'connected'
 };
-
-export default class Call extends React.Component {
+class Call extends React.Component {
   constructor(props) {
     super(props);
 
@@ -38,13 +29,6 @@ export default class Call extends React.Component {
     this.callState = CALL_STATES.DISCONNECTED;
 
     this.state = {
-      isAudioMuted: false,
-      isVideoSent: this.isVideoCall,
-      isKeypadVisible: false,
-      isModalOpen: false,
-      modalText: '',
-      localVideoStreamId: null,
-      remoteVideoStreamId: null,
       audioDeviceSelectionVisible: false,
       audioDevices: [],
       audioDeviceIcon: 'hearing'
@@ -91,8 +75,8 @@ export default class Call extends React.Component {
     if (this.isIncoming) {
       const callSettings = {
         video: {
-          sendVideo: this.isVideoCall,
-          receiveVideo: this.isVideoCall
+          sendVideo: this.props.isVideoSent,
+          receiveVideo: this.props.isVideoSent
         }
       };
       this.call.answer(callSettings);
@@ -140,38 +124,9 @@ export default class Call extends React.Component {
     });
   }
 
-  muteAudio() {
-    console.log(
-      'CallScreen[' + this.callId + '] muteAudio: ' + !this.state.isAudioMuted
-    );
-    const isMuted = this.state.isAudioMuted;
-    this.call.sendAudio(isMuted);
-    this.setState({ isAudioMuted: !isMuted });
-  }
-
-  async sendVideo(doSend) {
-    console.log('CallScreen[' + this.callId + '] sendVideo: ' + doSend);
-    try {
-      if (doSend && Platform.OS === 'android') {
-        const granted = await PermissionsAndroid.request(
-          PermissionsAndroid.PERMISSIONS.CAMERA
-        );
-        if (granted !== PermissionsAndroid.RESULTS.GRANTED) {
-          console.warn(
-            'CallScreen[' +
-              this.callId +
-              '] sendVideo: failed due to camera permission is not granted'
-          );
-          return;
-        }
-      }
-      await this.call.sendVideo(doSend);
-      this.setState({ isVideoSent: doSend });
-    } catch (e) {
-      console.warn(
-        `Failed to sendVideo(${doSend}) due to ${e.code} ${e.message}`
-      );
-    }
+  shouldComponentUpdate() {
+    // this.call.sendAudio(this.props.isAudioMuted);
+    // async(()=>{await this.call.sendVideo(this.props.isVideoSent);});
   }
 
   async hold(doHold) {
@@ -202,11 +157,6 @@ export default class Call extends React.Component {
     this.call.hangup();
   }
 
-  switchKeypad() {
-    let isVisible = this.state.isKeypadVisible;
-    this.setState({ isKeypadVisible: !isVisible });
-  }
-
   async switchAudioDevice() {
     console.log('CallScreen[' + this.callId + '] switchAudioDevice');
     let devices = await Voximplant.Hardware.AudioDeviceManager.getInstance().getAudioDevices();
@@ -226,28 +176,15 @@ export default class Call extends React.Component {
     this.call.sendTone(value);
   }
 
-  _closeModal() {
-    this.setState({ isModalOpen: false, modalText: '' });
-    Actions.main();
-  }
-
   _onCallFailed = event => {
     this.callState = CALL_STATES.DISCONNECTED;
     CallManager.getInstance().removeCall(this.call);
-    this.setState({
-      isModalOpen: true,
-      modalText: 'Call failed: ' + event.reason,
-      remoteVideoStreamId: null,
-      localVideoStreamId: null
-    });
+    this.props.decCallingCounter();
   };
 
   _onCallDisconnected = event => {
     console.log('CallScreen: _onCallDisconnected: ' + event.call.callId);
-    this.setState({
-      remoteVideoStreamId: null,
-      localVideoStreamId: null
-    });
+    this.props.decCallingCounter();
     CallManager.getInstance().removeCall(this.call);
     if (
       Platform.OS === 'android' &&
@@ -295,14 +232,14 @@ export default class Call extends React.Component {
         ', video stream id: ' +
         event.videoStream.id
     );
-    this.setState({ localVideoStreamId: event.videoStream.id });
+    this.props.setLocalVideoStreamId(event.videoStream.id);
   };
 
   _onCallLocalVideoStreamRemoved = event => {
     console.log(
       'CallScreen: _onCallLocalVideoStreamRemoved: ' + this.call.callId
     );
-    this.setState({ localVideoStreamId: null });
+    // this.props.setLocalVideoStreamId(null);
   };
 
   _onCallEndpointAdded = event => {
@@ -324,7 +261,7 @@ export default class Call extends React.Component {
         ', video stream id: ' +
         event.videoStream.id
     );
-    this.setState({ remoteVideoStreamId: event.videoStream.id });
+    this.props.setRemoteVideoStreamId(event.videoStream.id);
   };
 
   _onEndpointRemoteVideoStreamRemoved = event => {
@@ -336,8 +273,8 @@ export default class Call extends React.Component {
         ', video stream id: ' +
         event.videoStream.id
     );
-    if (this.state.remoteVideoStreamId === event.videoStream.id) {
-      this.setState({ remoteVideoStreamId: null });
+    if (this.props.remoteVideoStreamId === event.videoStream.id) {
+      // this.props.setRemoteVideoStreamId(null);
     }
   };
 
@@ -411,156 +348,21 @@ export default class Call extends React.Component {
   };
 
   render() {
-    return (
-      <SafeAreaView style={styles.safearea}>
-        <StatusBar
-          barStyle={
-            Platform.OS === 'ios' ? COLOR_SCHEME.DARK : COLOR_SCHEME.LIGHT
-          }
-          backgroundColor={COLOR.PRIMARY_DARK}
-        />
-        <View style={styles.useragent}>
-          <View style={styles.videoPanel}>
-            <Voximplant.VideoView
-              style={styles.remotevideo}
-              videoStreamId={this.state.remoteVideoStreamId}
-              scaleType={Voximplant.RenderScaleType.SCALE_FIT}
-            />
-            {this.state.isVideoSent ? (
-              <Voximplant.VideoView
-                style={styles.selfview}
-                videoStreamId={this.state.localVideoStreamId}
-                scaleType={Voximplant.RenderScaleType.SCALE_FIT}
-                showOnTop={true}
-              />
-            ) : null}
-          </View>
-
-          <View style={{ alignItems: 'center', justifyContent: 'center' }}>
-            <Text style={styles.call_connecting_label}>
-              {this.state.callState}
-            </Text>
-          </View>
-
-          {this.state.isKeypadVisible ? (
-            <Keypad keyPressed={e => this._keypadPressed(e)} />
-          ) : null}
-
-          <View style={styles.call_controls}>
-            <View
-              style={{
-                flexDirection: 'row',
-                justifyContent: 'space-around',
-                backgroundColor: 'transparent'
-              }}
-            >
-              {this.state.isAudioMuted ? (
-                <CallButton
-                  icon_name="mic"
-                  color={COLOR.ACCENT}
-                  buttonPressed={() => this.muteAudio()}
-                />
-              ) : (
-                <CallButton
-                  icon_name="mic-off"
-                  color={COLOR.ACCENT}
-                  buttonPressed={() => this.muteAudio()}
-                />
-              )}
-              <CallButton
-                icon_name="dialpad"
-                color={COLOR.ACCENT}
-                buttonPressed={() => this.switchKeypad()}
-              />
-              <CallButton
-                icon_name={this.state.audioDeviceIcon}
-                color={COLOR.ACCENT}
-                buttonPressed={() => this.switchAudioDevice()}
-              />
-              {this.state.isVideoSent ? (
-                <CallButton
-                  icon_name="videocam-off"
-                  color={COLOR.ACCENT}
-                  buttonPressed={() => this.sendVideo(false)}
-                />
-              ) : (
-                <CallButton
-                  icon_name="video-call"
-                  color={COLOR.ACCENT}
-                  buttonPressed={() => this.sendVideo(true)}
-                />
-              )}
-              <CallButton
-                icon_name="call-end"
-                color={COLOR.RED}
-                buttonPressed={() => this.endCall()}
-              />
-            </View>
-          </View>
-
-          <Modal
-            animationType="fade"
-            transparent={true}
-            visible={this.state.audioDeviceSelectionVisible}
-            onRequestClose={() => {}}
-          >
-            <TouchableHighlight
-              onPress={() => {
-                this.setState({ audioDeviceSelectionVisible: false });
-              }}
-              style={styles.container}
-            >
-              <View style={[styles.container, styles.modalBackground]}>
-                <View
-                  style={[
-                    styles.innerContainer,
-                    styles.innerContainerTransparent
-                  ]}
-                >
-                  <FlatList
-                    data={this.state.audioDevices}
-                    keyExtractor={(item, index) => item}
-                    ItemSeparatorComponent={this.flatListItemSeparator}
-                    renderItem={({ item }) => (
-                      <Text
-                        onPress={() => {
-                          this.selectAudioDevice(item);
-                        }}
-                      >
-                        {' '}
-                        {item}{' '}
-                      </Text>
-                    )}
-                  />
-                </View>
-              </View>
-            </TouchableHighlight>
-          </Modal>
-
-          <Modal
-            animationType="fade"
-            transparent={true}
-            visible={this.state.isModalOpen}
-            onRequestClose={() => {}}
-          >
-            <TouchableHighlight
-              onPress={e => this._closeModal()}
-              style={styles.container}
-            >
-              <View style={[styles.container, styles.modalBackground]}>
-                <View
-                  style={[
-                    styles.innerContainer,
-                    styles.innerContainerTransparent
-                  ]}
-                >
-                  <Text>{this.state.modalText}</Text>
-                </View>
-              </View>
-            </TouchableHighlight>
-          </Modal>
-        </View>
-      </SafeAreaView>
-    );
+    return <View></View>;
   }
 }
+
+const mapStateToProps = state => {
+  const {
+    isAudioMuted,
+    isVideoSent,
+    localVideoStreamId,
+    remoteVideoStreamId
+  } = state.call;
+  return { isAudioMuted, isVideoSent, localVideoStreamId, remoteVideoStreamId };
+};
+
+export default connect(
+  mapStateToProps,
+  { decCallingCounter, setLocalVideoStreamId, setRemoteVideoStreamId }
+)(Call);
