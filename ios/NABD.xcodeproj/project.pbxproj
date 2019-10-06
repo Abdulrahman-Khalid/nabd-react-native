@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* NABDTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* NABDTests.m */; };
 		010B1321070F48F8BE15189B /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BA388B7A0964173BC55D94A /* Octicons.ttf */; };
@@ -325,6 +326,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				999241084489DD374CE71014 /* [CP] Copy Pods Resources */,
+				E3063274410D45BE50B85B69 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -623,6 +625,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E3063274410D45BE50B85B69 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NABD/Pods-NABD-frameworks.sh",
+				"${PODS_ROOT}/VoxImplantSDK/VoxImplant.framework",
+				"${PODS_ROOT}/VoxImplantWebRTC/WebRTC.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VoxImplant.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NABD/Pods-NABD-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F157BD9B2914EA3C93C3C64C /* [CP] Check Pods Manifest.lock */ = {
