@@ -1,257 +1,174 @@
 import React, { Component } from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
-import { Block, Text, Button, theme } from 'galio-framework';
-import { Actions } from 'react-native-router-flux';
-import { argonTheme, Images } from '../../constants';
-import { connect } from 'react-redux';
-import { selectHelperType, requestHelp } from '../../actions';
 import {
-  Alert,
-  StyleSheet,
-  TouchableOpacity,
   View,
-  Dimensions,
   Image,
-  ScrollView
+  ScrollView,
+  TouchableOpacity,
+  RefreshControl,
+  StyleSheet,
+  Dimensions
 } from 'react-native';
-import { Card, Modal } from '../../components';
-import axios from 'axios';
-import PubNubReact from 'pubnub-react';
-import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel
-} from 'react-native-simple-radio-button';
-import RNSwipeVerify from 'react-native-swipe-verify';
+import IncidentCard from '../../components/IncidentCard';
+import { argonTheme, Images } from '../../constants';
+import { theme, Block } from 'galio-framework';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 
 const { width, height } = Dimensions.get('screen');
 
-const buttons = [
+const incidentsDummyData = [
   {
-    title: 'Request an Aide',
+    userID: '01001796904',
+    description: 'حادثة علي الطريق الصحراوي',
     image: Images.aideCard
   },
   {
-    title: 'Request a Doctor',
-    image: Images.doctorCard
+    userID: '01001796905',
+    description: 'انفجار مغسلة في حي المعادي',
+    image: null
   },
   {
-    title: 'Request an Ambulance',
+    userID: '01001796906',
+    description: 'طلب كيس دم ضروري في مستشفي الدفاع الجوي التخصصي',
     image: Images.ambulanceCard,
-    horizontal: true
   }
 ];
 
-const ambulanceRequestTypes = [
-  { label: 'Send Current Location', value: 0 },
-  { label: 'Set Location Manually', value: 1 }
-];
-
-class UserAndDoctorHome extends Component {
+export class Incidents extends Component {
   constructor(props) {
-    super();
+    super(props);
     this.state = {
-      ambulanceRequestType: 0,
-      modalVisible: false
+      // IncidentCards: [],
+      IncidentCards: incidentsDummyData,
+      userID: '01001796904',
+      refreshing: false
     };
-    props.selectHelperType('doctor');
-    // Init PubNub. Use your subscribe key here.
-    this.pubnub = new PubNubReact({
-      subscribeKey: 'sub-key'
+  }
+
+  componentDidMount() {
+    this.pullRefresh();
+  }
+
+  /**
+   * Pull to refresh functionality
+   */
+  pullRefresh = () => {
+    this.setState({
+      refreshing: true
     });
-    this.pubnub.init(this);
-  }
+    // this.updateIncidentCards();
+    setTimeout(() => {
+      this.setState({
+        refreshing: false
+      })
+    }, 5000);
+  };
 
-  setModalVisible(visible) {
-    this.setState({ modalVisible: visible });
-  }
+  // /** Get more IncidentCards when we get to the end of the scrollView.
+  //  * Check we reached end of content
+  //  * @param {int} layoutMeasurement - size of the layout .
+  //  * @param  {int} contentOffset - position on screen
+  //  * @param  {int} contentSize - size of all content
+  //  */
+  moreIncidentCards = ({ layoutMeasurement, contentOffset, contentSize }) => {
+  //   if (
+  //     layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 &&
+  //     this.state.refreshing !== true
+  //   ) {
+  //     this.setState({
+  //       refreshing: true
+  //     });
+  //     this.updateIncidentCards(
+  //       this.state.IncidentCards[this.state.IncidentCards.length - 1].id
+  //     );
+  //   }
+  };
 
-  requestAmbulance() {
-    console.log('ambulance Request');
-  }
-
-  renderModal() {
-    return (
-      <Modal
-        title="Choose an option"
-        modalVisible={this.state.modalVisible}
-        onRequestClose={() => {
-          this.setModalVisible(false);
-        }}
-      >
-        <RadioForm animation={true}>
-          {ambulanceRequestTypes.map((obj, i) => {
-            return (
-              <RadioButton labelHorizontal={true} key={i}>
-                <RadioButtonInput
-                  obj={obj}
-                  index={i}
-                  isSelected={this.state.ambulanceRequestType === i}
-                  onPress={value => {
-                    this.setState({ ambulanceRequestType: value });
-                  }}
-                  borderWidth={1}
-                  buttonInnerColor={'#2196f3'}
-                  buttonOuterColor={
-                    this.state.ambulanceRequestType === i ? '#2196f3' : '#000'
-                  }
-                  buttonSize={10}
-                  buttonOuterSize={20}
-                  buttonStyle={{}}
-                  buttonWrapStyle={{ marginLeft: 20, marginBottom: 20 }}
-                />
-                <RadioButtonLabel
-                  obj={obj}
-                  index={i}
-                  labelHorizontal={true}
-                  onPress={value => {
-                    this.setState({ ambulanceRequestType: value });
-                  }}
-                  labelStyle={{ fontSize: 20, marginBottom: 20 }}
-                  labelWrapStyle={{}}
-                />
-              </RadioButton>
-            );
-          })}
-        </RadioForm>
-        <View
-          style={{
-            borderBottomColor: 'gray',
-            borderBottomWidth: StyleSheet.hairlineWidth
-          }}
-        />
-        <View style={{ marginTop: 20, marginBottom: 20 }}>
-          <RNSwipeVerify
-            width={width - 200}
-            buttonSize={60}
-            borderColor="#fff"
-            buttonColor="#2196f3"
-            backgroundColor="#ececec"
-            borderRadius={30}
-            okButton={{ visible: false, duration: 400 }}
-            icon={<Icon name="gesture-swipe-right" size={25} />}
-            onVerified={this.requestAmbulance}
-          >
-            <Text style={{ fontSize: 20 }}>Confirm</Text>
-          </RNSwipeVerify>
-        </View>
-        <TouchableOpacity
-          onPress={() => {
-            this.setModalVisible(false);
-          }}
-          style={styles.closeModalButton}
-        >
-          <Icon
-            size={30}
-            color="black"
-            name="close"
-            style={{
-              textAlign: 'center'
-            }}
-          />
-        </TouchableOpacity>
-      </Modal>
-    );
-  }
-
-  logoutButtonPressed() {
-    axios.defaults.headers.common['TOKEN'] = '';
-    AsyncStorage.clear()
-      .then(() => Actions.welcome())
-      .catch(() => {});
-  }
-
-  renderButtons() {
-    return (
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.buttons}
-      >
-        <Block flex>
-          <Block flex row>
-            <Card
-              item={buttons[0]}
-              style={{ marginRight: theme.SIZES.BASE }}
-              imageStyle={{ backgroundColor: 'red', opacity: 0.6 }}
-              onPress={() => {
-                this.props.selectHelperType('aide');
-              }}
-              onPressInfo={() => {
-                Alert.alert(
-                  'Info',
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
-                );
-              }}
-            />
-            <Card
-              item={buttons[1]}
-              imageStyle={{ backgroundColor: 'green', opacity: 0.6 }}
-              onPress={() => {
-                this.props.selectHelperType('doctor');
-              }}
-              onPressInfo={() => {
-                Alert.alert(
-                  'Info',
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
-                );
-              }}
-            />
-          </Block>
-          <Card
-            style={{ marginBottom: theme.SIZES.BASE }}
-            item={buttons[2]}
-            full
-            imageStyle={{ backgroundColor: 'blue', opacity: 0.6 }}
-            onPress={() => {
-              this.props.selectHelperType('ambulance');
-              this.setModalVisible(true);
-            }}
-            onPressInfo={() => {
-              Alert.alert(
-                'Info',
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
-              );
-            }}
-          />
-        </Block>
-      </ScrollView>
-    );
+  // /** Update IncidentCards.
+  //  * gets first 20 IncidentCards With default parameter (id=null)
+  //  * To retrieve more send the id of the last retrieved IncidentCard.
+  //  * @param {int} id - The id of IncidentCard .
+  //  */
+  updateIncidentCards(id = null, username = null) {
+  //   axios
+  //     .get('Incidents/cards', {
+  //       params: {
+  //         last_retrieved_IncidentCard_id: id
+  //       }
+  //     })
+  //     .then(response => {
+  //       if (id === null) {
+  //         this.setState({
+  //           IncidentCards: response.data
+  //         });
+  //       } else {
+  //         this.setState(prevState => ({
+  //           IncidentCards: prevState.IncidentCards.concat(response.data)
+  //         }));
+  //       }
+  //       this.setState({ refreshing: false });
+  //     })
+  //     .catch(() => {})
+  //     .then(() => {
+  //       // always executed
+  //     });
   }
 
   render() {
     return (
-      <Block flex center style={styles.home}>
-        {this.renderButtons()}
-        {this.renderModal()}
+      <Block flex center style={styles.mainContainer}>
+        <ScrollView
+          refreshControl={
+            <RefreshControl
+              refreshing={this.state.refreshing}
+              onRefresh={this.pullRefresh}
+            />
+          }
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.buttons}
+          style={{ flex: 1 }}
+          onScroll={({ nativeEvent }) => {
+            this.moreIncidentCards(nativeEvent);
+          }}
+        >
+          {this.state.IncidentCards.map(item => (
+            <IncidentCard
+              item={item}
+              onPressDirections={() => { console.log('getdirections Pressed') }}
+              onPressRemove={() => { console.log('Remove Pressed') }}
+              renderRemove={this.state.userID === item.userID}
+              style={styles.incidents}
+            />
+          ))}
+        </ScrollView>
+        <TouchableOpacity
+          onPress={() => console.log('create Incident')}
+          style={{
+            position: 'absolute',
+            right: 20,
+            bottom: 20,
+            width: 60,
+            height: 60,
+            borderRadius: 30,
+            alignItems: 'flex-end'
+          }}
+        >
+          <Icon name="plus" size={30} />
+        </TouchableOpacity>
       </Block>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  home: {
+  incidents: {
+    width: width - theme.SIZES.BASE * 2,
+    marginBottom: theme.SIZES.BASE
+  },
+  mainContainer: {
     width: width,
     height: height,
     alignContent: 'center'
   },
-  buttons: {
-    width: width - theme.SIZES.BASE * 2
-  },
-  closeModalButton: {
-    position: 'absolute',
-    margin: 10,
-    right: -1,
-    zIndex: 1
-  }
 });
 
-const mapStateToProps = state => {
-  const { helperType, helperName } = state.requestHelp;
-  return { helperType, helperName };
-};
-
-export default connect(
-  mapStateToProps,
-  { selectHelperType, requestHelp }
-)(UserAndDoctorHome);
+export default Incidents;
