@@ -4,6 +4,7 @@ import React from 'react';
 import {
   Text,
   View,
+  Alert,
   Modal,
   TouchableHighlight,
   Platform,
@@ -16,7 +17,8 @@ import { connect } from 'react-redux';
 import {
   toggleAudioState,
   toggleVideoState,
-  resetCallOptions
+  resetCallOptions,
+  setCallingCounter
 } from '../../../actions';
 import { Voximplant } from 'react-native-voximplant';
 import CallButton from '../components/CallButton';
@@ -31,14 +33,6 @@ class OutGoingCallScreen extends React.Component {
   constructor(props) {
     super(props);
 
-    this.props.calls.forEach(call => {
-      // new Call({
-      //   callId: call.callId,
-      //   isVideo: this.props.isVideo,
-      //   isIncoming: this.props.isIncoming
-      // });
-    });
-
     this.state = {
       isModalOpen: false,
       modalText: '',
@@ -49,11 +43,13 @@ class OutGoingCallScreen extends React.Component {
 
     this.calls = [];
     this.props.calls.forEach(call => {
-      this.calls.push(CallManager.getInstance().getCallById(call.callId));
+      let c = CallManager.getInstance().getCallById(call.callId);
+      this.calls.push(c);
     });
   }
 
   componentDidMount() {
+    this.props.setCallingCounter(this.props.calls.length);
     (async () => {
       let currentAudioDevice = await Voximplant.Hardware.AudioDeviceManager.getInstance().getActiveDevice();
       switch (currentAudioDevice) {
@@ -95,6 +91,15 @@ class OutGoingCallScreen extends React.Component {
       }
     });
     this.props.resetCallOptions();
+  }
+
+  shouldComponentUpdate() {
+    if (this.props.callingCounter == 0) {
+      this.setState({
+        isModalOpen: true,
+        modalText: 'Called users couldnot answer now, try again later'
+      });
+    }
   }
 
   muteAudio() {
@@ -142,13 +147,15 @@ class OutGoingCallScreen extends React.Component {
   }
 
   endCall() {
-    console.log('CallScreen[' + this.callId + '] endCall');
     this.calls.forEach(call => {
-      call.getEndpoints().forEach(endpoint => {
-        this._setupEndpointListeners(endpoint, false);
-      });
-      call.hangup();
+      if (call) {
+        call.getEndpoints().forEach(endpoint => {
+          this._setupEndpointListeners(endpoint, false);
+          call.hangup();
+        });
+      }
     });
+    this.props.resetCallOptions();
   }
 
   async switchAudioDevice() {
@@ -212,6 +219,17 @@ class OutGoingCallScreen extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.safearea}>
+        <FlatList
+          data={this.props.calls}
+          keyExtractor={call => call.callId}
+          renderItem={({ item }) => (
+            <Call
+              callId={item.callId}
+              isVideo={this.props.isVideo}
+              isIncoming={this.props.isIncoming}
+            />
+          )}
+        />
         <StatusBar
           barStyle={
             Platform.OS === 'ios' ? COLOR_SCHEME.DARK : COLOR_SCHEME.LIGHT
@@ -360,12 +378,19 @@ const mapStateToProps = state => {
     isAudioMuted,
     isVideoSent,
     localVideoStreamId,
-    remoteVideoStreamId
+    remoteVideoStreamId,
+    callingCounter
   } = state.call;
-  return { isAudioMuted, isVideoSent, localVideoStreamId, remoteVideoStreamId };
+  return {
+    callingCounter,
+    isAudioMuted,
+    isVideoSent,
+    localVideoStreamId,
+    remoteVideoStreamId
+  };
 };
 
 export default connect(
   mapStateToProps,
-  { toggleAudioState, toggleVideoState, resetCallOptions }
+  { setCallingCounter, toggleAudioState, toggleVideoState, resetCallOptions }
 )(OutGoingCallScreen);

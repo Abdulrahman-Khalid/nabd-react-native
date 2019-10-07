@@ -1,7 +1,7 @@
 'use strict';
 
 import React from 'react';
-import { View, Platform, PermissionsAndroid } from 'react-native';
+import { Platform } from 'react-native';
 
 import { Voximplant } from 'react-native-voximplant';
 import CallManager from '../manager/CallManager';
@@ -333,22 +333,8 @@ class Call extends React.Component {
     this.setState({ audioDevices: event.newDeviceList });
   };
 
-  flatListItemSeparator = () => {
-    return (
-      <View
-        style={{
-          height: 1,
-          width: '100%',
-          backgroundColor: '#607D8B',
-          marginTop: 10,
-          marginBottom: 10
-        }}
-      />
-    );
-  };
-
   render() {
-    return <View></View>;
+    return null;
   }
 }
 
