@@ -21,8 +21,8 @@ const incidentsDummyData = [
     description: 'حادثة علي الطريق الصحراوي',
     image: Images.aideCard,
     location: {
-      latitude: -33.8600024,
-      longitude: 18.697459
+      latitude: 30.027757,
+      longitude: 31.200701
     }
   },
   {
