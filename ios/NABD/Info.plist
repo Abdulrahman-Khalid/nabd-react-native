@@ -37,10 +37,12 @@
 			</dict>
 		</dict>
 	</dict>
-	<key>NSLocationAlwaysUsageDescription</key>
-	<string></string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string></string>
+	<string>Location is Required</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Location is Required</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Location is Required</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
