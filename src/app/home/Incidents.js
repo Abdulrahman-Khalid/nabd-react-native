@@ -142,8 +142,9 @@ export class Incidents extends Component {
             this.moreIncidentCards(nativeEvent);
           }}
         >
-          {this.state.IncidentCards.map(item => (
+          {this.state.IncidentCards.map((item, index) => (
             <IncidentCard
+              key={index}
               item={item}
               onPressRemove={() => {
                 console.log('Remove Pressed');
