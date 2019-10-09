@@ -14,6 +14,7 @@ import { argonTheme } from '../constants';
 import getDirections from 'react-native-google-maps-directions';
 import Geolocation from 'react-native-geolocation-service';
 import RNLocation from 'react-native-location';
+import {Linking} from 'react-native';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -110,6 +111,21 @@ class IncidentCard extends React.Component {
 
     return (
       <Block row card flex style={cardContainer}>
+        {item.numberToCall ? (
+          <TouchableOpacity
+          onPress={() => {
+            Linking.openURL(`tel:${item.numberToCall}`);
+          }}
+          style={styles.callButton}
+        >
+          <Icon
+            size={17}
+            color="white"
+            name="phone"
+            style={styles.callButtonIcon}
+          />
+        </TouchableOpacity>
+        ) : null}
         <View>
           <View>
             <Block flex style={imgContainer}>
@@ -236,6 +252,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 30
+  },
+  callButton: {
+    position: 'absolute',
+    margin: 7,
+    right: 45,
+    zIndex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    borderRadius: 50
+  },
+  callButtonIcon: {
+    textAlign: 'center',
+    padding: 10
   }
 });
 
