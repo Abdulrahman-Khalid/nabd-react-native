@@ -23,7 +23,8 @@ const incidentsDummyData = [
     location: {
       latitude: 30.027757,
       longitude: 31.200701
-    }
+    },
+    numberToCall: null
   },
   {
     userID: '01001796905',
@@ -32,7 +33,8 @@ const incidentsDummyData = [
     location: {
       latitude: -33.8600024,
       longitude: 18.697459
-    }
+    },
+    numberToCall: '01001796904'
   },
   {
     userID: '01001796906',
@@ -41,7 +43,8 @@ const incidentsDummyData = [
     location: {
       latitude: -33.8600024,
       longitude: 18.697459
-    }
+    },
+    numberToCall: '01001796904'
   }
 ];
 
