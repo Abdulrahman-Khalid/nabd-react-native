@@ -6,7 +6,8 @@ import {
   Image,
   View,
   TouchableOpacity,
-  Alert
+  Alert,
+  Share
 } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
@@ -14,7 +15,7 @@ import { argonTheme } from '../constants';
 import getDirections from 'react-native-google-maps-directions';
 import Geolocation from 'react-native-geolocation-service';
 import RNLocation from 'react-native-location';
-import {Linking} from 'react-native';
+import { Linking } from 'react-native';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -43,14 +44,6 @@ class IncidentCard extends React.Component {
         if (granted) {
           Geolocation.getCurrentPosition(
             position => {
-              console.log(
-                position.coords.latitude + ' ' + position.coords.longitude
-              );
-              console.log(
-                this.props.item.location.latitude +
-                  ' ' +
-                  this.props.item.location.longitude
-              );
               directionsData = {
                 source: {
                   latitude: position.coords.latitude,
@@ -113,19 +106,50 @@ class IncidentCard extends React.Component {
       <Block row card flex style={cardContainer}>
         {item.numberToCall ? (
           <TouchableOpacity
+            onPress={() => {
+              Linking.openURL(`tel:${item.numberToCall}`);
+            }}
+            style={styles.callButton}
+          >
+            <Icon
+              size={17}
+              color="white"
+              name="phone"
+              style={styles.callButtonIcon}
+            />
+          </TouchableOpacity>
+        ) : null}
+        <TouchableOpacity
           onPress={() => {
-            Linking.openURL(`tel:${item.numberToCall}`);
+            Share.share(
+              {
+                message:
+                  item.description +
+                  `${
+                    item.numberToCall
+                      ? '\n' + 'Number to call: ' + item.numberToCall + ','
+                      : ''
+                  }` +
+                  '\n' +
+                  'https://www.google.com/maps/search/?api=1&query=' +
+                  this.props.item.location.latitude +
+                  ',' +
+                  this.props.item.location.longitude +
+                  '\n' +
+                  'Shared via Nabd.'
+              },
+              {}
+            );
           }}
-          style={styles.callButton}
+          style={styles.shareButton}
         >
           <Icon
             size={17}
             color="white"
-            name="phone"
-            style={styles.callButtonIcon}
+            name="share-variant"
+            style={styles.shareButtonIcon}
           />
         </TouchableOpacity>
-        ) : null}
         <View>
           <View>
             <Block flex style={imgContainer}>
@@ -252,6 +276,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 30
+  },
+  shareButton: {
+    position: 'absolute',
+    margin: 7,
+    right: 0,
+    zIndex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    borderRadius: 50
+  },
+  shareButtonIcon: {
+    textAlign: 'center',
+    padding: 10
   },
   callButton: {
     position: 'absolute',
