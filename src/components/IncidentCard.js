@@ -6,28 +6,150 @@ import {
   Image,
   View,
   TouchableOpacity,
-  Alert
+  Alert,
+  Share
 } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { argonTheme } from '../constants';
+import getDirections from 'react-native-google-maps-directions';
+import Geolocation from 'react-native-geolocation-service';
+import RNLocation from 'react-native-location';
+import { Linking } from 'react-native';
 
 const { width, height } = Dimensions.get('screen');
 
 class IncidentCard extends React.Component {
+  handleGetDirections = () => {
+    var directionsData;
+    RNLocation.configure({
+      distanceFilter: 5.0,
+      allowsBackgroundLocationUpdates: true
+    })
+      .then(() =>
+        RNLocation.requestPermission({
+          ios: 'whenInUse',
+          android: {
+            detail: 'fine',
+            rationale: {
+              title: 'Location permission',
+              message: 'Your location is essential to request help',
+              buttonPositive: 'OK',
+              buttonNegative: 'Cancel'
+            }
+          }
+        })
+      )
+      .then(granted => {
+        if (granted) {
+          Geolocation.getCurrentPosition(
+            position => {
+              directionsData = {
+                source: {
+                  latitude: position.coords.latitude,
+                  longitude: position.coords.longitude
+                },
+                destination: this.props.item.location,
+                params: [
+                  {
+                    key: 'travelmode',
+                    value: 'driving' // may be "walking", "bicycling" or "transit" as well
+                  },
+                  {
+                    key: 'dir_action',
+                    value: 'navigate' // this instantly initializes navigation using the given travel mode
+                  }
+                ]
+              };
+              getDirections(directionsData);
+            },
+            error => {
+              switch (error.code) {
+                case 1:
+                  Alert.alert('Error', 'Location permission is not granted');
+                  break;
+                case 2:
+                  Alert.alert('Error', 'Location provider not available');
+                  break;
+                case 3:
+                  Alert.alert('Error', 'Location request timed out');
+                  break;
+                case 4:
+                  Alert.alert(
+                    'Error',
+                    'Google play service is not installed or has an older version'
+                  );
+                  break;
+                case 5:
+                  Alert.alert(
+                    'Error',
+                    'Location service is not enabled or location mode is not appropriate for the current request'
+                  );
+                  break;
+                default:
+                  Alert.alert('Error', 'Please try again');
+                  break;
+              }
+            },
+            { enableHighAccuracy: true, timeout: 10000, maximumAge: 1000 }
+          );
+        }
+      });
+  };
+
   render() {
-    const {
-      item,
-      style,
-      onPressDirections,
-      onPressRemove,
-      renderRemove
-    } = this.props;
+    const { item, style, onPressRemove, renderRemove } = this.props;
     const cardContainer = [styles.card, styles.shadow, style];
     const imgContainer = [styles.imageContainer, styles.horizontalStyles];
 
     return (
       <Block row card flex style={cardContainer}>
+        {item.numberToCall ? (
+          <TouchableOpacity
+            onPress={() => {
+              Linking.openURL(`tel:${item.numberToCall}`);
+            }}
+            style={styles.callButton}
+          >
+            <Icon
+              size={17}
+              color="white"
+              name="phone"
+              style={styles.callButtonIcon}
+            />
+          </TouchableOpacity>
+        ) : null}
+        <TouchableOpacity
+          onPress={() => {
+            Share.share(
+              {
+                message:
+                  item.description +
+                  `${
+                    item.numberToCall
+                      ? '\n' + 'Number to call: ' + item.numberToCall + ','
+                      : ''
+                  }` +
+                  '\n' +
+                  'https://www.google.com/maps/search/?api=1&query=' +
+                  this.props.item.location.latitude +
+                  ',' +
+                  this.props.item.location.longitude +
+                  '\n' +
+                  'Shared via Nabd.'
+              },
+              {}
+            );
+          }}
+          style={styles.shareButton}
+        >
+          <Icon
+            size={17}
+            color="white"
+            name="share-variant"
+            style={styles.shareButtonIcon}
+          />
+        </TouchableOpacity>
         <View>
           <View>
             <Block flex style={imgContainer}>
@@ -51,7 +173,7 @@ class IncidentCard extends React.Component {
           <View style={styles.buttonsContainer}>
             <TouchableOpacity
               style={styles.buttonContainer}
-              onPress={onPressDirections}
+              onPress={this.handleGetDirections}
             >
               <View
                 style={[
@@ -154,6 +276,30 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 30
+  },
+  shareButton: {
+    position: 'absolute',
+    margin: 7,
+    right: 0,
+    zIndex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    borderRadius: 50
+  },
+  shareButtonIcon: {
+    textAlign: 'center',
+    padding: 10
+  },
+  callButton: {
+    position: 'absolute',
+    margin: 7,
+    right: 45,
+    zIndex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+    borderRadius: 50
+  },
+  callButtonIcon: {
+    textAlign: 'center',
+    padding: 10
   }
 });
 

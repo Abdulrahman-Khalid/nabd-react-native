@@ -184,6 +184,10 @@ PODS:
     - React-cxxreact (= 0.61.2)
     - React-jsi (= 0.61.2)
   - React-jsinspector (0.61.2)
+  - react-native-geolocation (1.4.2):
+    - React
+  - react-native-location (2.5.0):
+    - React
   - react-native-splash-screen (3.2.0):
     - React
   - react-native-voximplant (1.12.0):
@@ -259,6 +263,8 @@ DEPENDENCIES:
   - React-jsi (from `../node_modules/react-native/ReactCommon/jsi`)
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
+  - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
+  - react-native-location (from `../node_modules/react-native-location`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-voximplant (from `../node_modules/react-native-voximplant`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -316,6 +322,10 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsiexecutor"
   React-jsinspector:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
+  react-native-geolocation:
+    :path: "../node_modules/@react-native-community/geolocation"
+  react-native-location:
+    :path: "../node_modules/react-native-location"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
   react-native-voximplant:
@@ -370,6 +380,8 @@ SPEC CHECKSUMS:
   React-jsi: 32285a21b1b24c36060493ed3057a34677d58d09
   React-jsiexecutor: 8909917ff7d8f21a57e443a866fd8d4560e50c65
   React-jsinspector: 111d7d342b07a904c400592e02a2b958f1098b60
+  react-native-geolocation: a7b94614afbd5fd8350e0233a2025c8228fc8041
+  react-native-location: 5a40ec1cc6abf2f6d94df979f98ec76c3a415681
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-voximplant: c50bfa82f1a2398d64a3dcc7df5d645ffe66fa30
   React-RCTActionSheet: 89b037c0fb7d2671607cb645760164e7e0c013f6
@@ -391,6 +403,6 @@ SPEC CHECKSUMS:
   VoxImplantWebRTC: 959b59c4a5d1338354792416ee677c5e47036321
   Yoga: 14927e37bd25376d216b150ab2a561773d57911f
 
-PODFILE CHECKSUM: 61fa1bc8c3ccd45b2d2a04af9af921d2e3ba8acc
+PODFILE CHECKSUM: fcf72e883d68223c3eb576064acd845a44e0fbe0
 
 COCOAPODS: 1.8.3
