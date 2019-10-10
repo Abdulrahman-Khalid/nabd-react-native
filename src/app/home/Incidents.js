@@ -18,7 +18,8 @@ const { width, height } = Dimensions.get('screen');
 const incidentsDummyData = [
   {
     userID: '01001796904',
-    description: 'حادثة علي الطريق الصحراوي',
+    description: 'Accident on ElSahrawy road',
+    date: new Date(+(new Date()) - Math.floor(Math.random()*10000000000)),
     image: Images.aideCard,
     location: {
       latitude: 30.027757,
@@ -29,6 +30,7 @@ const incidentsDummyData = [
   {
     userID: '01001796905',
     description: 'انفجار مغسلة في حي المعادي',
+    date: new Date(+(new Date()) - Math.floor(Math.random()*10000000000)),
     image: null,
     location: {
       latitude: -33.8600024,
@@ -39,6 +41,7 @@ const incidentsDummyData = [
   {
     userID: '01001796906',
     description: 'طلب كيس دم ضروري في مستشفي الدفاع الجوي التخصصي',
+    date: new Date(+(new Date()) - Math.floor(Math.random()*10000000000)),
     image: Images.ambulanceCard,
     location: {
       latitude: -33.8600024,

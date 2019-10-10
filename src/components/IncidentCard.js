@@ -97,6 +97,56 @@ class IncidentCard extends React.Component {
       });
   };
 
+  calculateDateAndTime() {
+    const now = new Date();
+    const months = [
+      ' Jan',
+      ' Feb',
+      ' Mar',
+      ' Apr',
+      ' May',
+      ' Jun',
+      ' Jul',
+      ' Aug',
+      ' Sep',
+      ' Oct',
+      ' Nov',
+      ' Dec'
+    ];
+    const dateTime = new Date(this.props.item.date);
+    const day = dateTime.getDate();
+    const year = dateTime.getFullYear();
+    const month = dateTime.getMonth();
+    const hour = dateTime.getHours();
+    const minutes = dateTime.getMinutes();
+    if (
+      now.getFullYear() === year &&
+      now.getMonth() === month &&
+      now.getDate() === day &&
+      now.getHours() === hour
+    ) {
+      return (now.getMinutes() - minutes).toString().concat('m');
+    }
+    if (
+      now.getFullYear() === year &&
+      now.getMonth() === month &&
+      now.getDate() === day
+    ) {
+      return (now.getHours() - hour).toString().concat('h');
+    }
+    if (
+      now.getFullYear() === year &&
+      now.getMonth() === month &&
+      now.getDate() - day <= 6
+    ) {
+      return (now.getDate() - day).toString().concat('d');
+    }
+    if (now.getFullYear() === year) {
+      return day.toString().concat(months[month]);
+    }
+    return months[month].concat(' ').concat(year.toString());
+  }
+
   render() {
     const { item, style, onPressRemove, renderRemove } = this.props;
     const cardContainer = [styles.card, styles.shadow, style];
@@ -169,6 +219,9 @@ class IncidentCard extends React.Component {
               </Text>
             </Block>
           </View>
+          <Text style={styles.dateAndDistance}>
+            {this.calculateDateAndTime()}
+          </Text>
           <View style={styles.hr} />
           <View style={styles.buttonsContainer}>
             <TouchableOpacity
@@ -228,7 +281,9 @@ const styles = StyleSheet.create({
     minHeight: 114
   },
   cardDescription: {
-    padding: theme.SIZES.BASE / 2
+    paddingTop: theme.SIZES.BASE / 2,
+    paddingLeft: theme.SIZES.BASE / 2,
+    paddingRight: theme.SIZES.BASE / 2
   },
   imageContainer: {
     borderTopLeftRadius: 5,
@@ -300,6 +355,11 @@ const styles = StyleSheet.create({
   callButtonIcon: {
     textAlign: 'center',
     padding: 10
+  },
+  dateAndDistance: {
+    color: 'gray',
+    marginLeft: theme.SIZES.BASE / 2,
+    marginBottom: theme.SIZES.BASE / 2
   }
 });
 
