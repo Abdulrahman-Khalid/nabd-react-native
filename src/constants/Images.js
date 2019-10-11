@@ -42,6 +42,8 @@ const tooth_injury = require('../assets/imgs/first_aid/tooth_injury.png');
 const aideCard = require('../assets/imgs/aide-card.jpg');
 const doctorCard = require('../assets/imgs/doctor-card.jpg');
 const ambulanceCard = require('../assets/imgs/ambulance-card.jpg');
+
+const locationPermission = require('../assets/imgs/location-permission.png');
 // internet imgs
 
 const ProfilePicture =
@@ -103,5 +105,6 @@ export default {
   tooth_injury,
   aideCard,
   doctorCard,
-  ambulanceCard
+  ambulanceCard,
+  locationPermission
 };

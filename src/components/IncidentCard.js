@@ -13,89 +13,118 @@ import { Block, Text, theme } from 'galio-framework';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { argonTheme } from '../constants';
 import getDirections from 'react-native-google-maps-directions';
-import Geolocation from 'react-native-geolocation-service';
-import RNLocation from 'react-native-location';
 import { Linking } from 'react-native';
+import { getDistance, convertDistance } from 'geolib';
+import { connect } from 'react-redux';
 
 const { width, height } = Dimensions.get('screen');
 
 class IncidentCard extends React.Component {
-  handleGetDirections = () => {
-    var directionsData;
-    RNLocation.configure({
-      distanceFilter: 5.0,
-      allowsBackgroundLocationUpdates: true
-    })
-      .then(() =>
-        RNLocation.requestPermission({
-          ios: 'whenInUse',
-          android: {
-            detail: 'fine',
-            rationale: {
-              title: 'Location permission',
-              message: 'Your location is essential to request help',
-              buttonPositive: 'OK',
-              buttonNegative: 'Cancel'
-            }
-          }
-        })
-      )
-      .then(granted => {
-        if (granted) {
-          Geolocation.getCurrentPosition(
-            position => {
-              directionsData = {
-                source: {
-                  latitude: position.coords.latitude,
-                  longitude: position.coords.longitude
-                },
-                destination: this.props.item.location,
-                params: [
-                  {
-                    key: 'travelmode',
-                    value: 'driving' // may be "walking", "bicycling" or "transit" as well
-                  },
-                  {
-                    key: 'dir_action',
-                    value: 'navigate' // this instantly initializes navigation using the given travel mode
-                  }
-                ]
-              };
-              getDirections(directionsData);
-            },
-            error => {
-              switch (error.code) {
-                case 1:
-                  Alert.alert('Error', 'Location permission is not granted');
-                  break;
-                case 2:
-                  Alert.alert('Error', 'Location provider not available');
-                  break;
-                case 3:
-                  Alert.alert('Error', 'Location request timed out');
-                  break;
-                case 4:
-                  Alert.alert(
-                    'Error',
-                    'Google play service is not installed or has an older version'
-                  );
-                  break;
-                case 5:
-                  Alert.alert(
-                    'Error',
-                    'Location service is not enabled or location mode is not appropriate for the current request'
-                  );
-                  break;
-                default:
-                  Alert.alert('Error', 'Please try again');
-                  break;
-              }
-            },
-            { enableHighAccuracy: true, timeout: 10000, maximumAge: 1000 }
-          );
+  constructor(props) {
+    super(props);
+    this.state = {
+      distanceFromUser: '-'
+    };
+  }
+
+  componentDidUpdate(prevProps, prevState) {
+    if (
+      prevProps.location.position.coords.latitude !==
+        this.props.location.position.coords.latitude &&
+      prevProps.location.position.coords.longitude !==
+        this.props.location.position.coords.longitude
+    ) {
+      this.caclulateDistance();
+    }
+  }
+
+  componentDidMount() {
+    this.caclulateDistance();
+  }
+
+  handleGetDirections = async () => {
+    const directionsData = {
+      source: {
+        latitude: this.props.location.position.coords.latitude,
+        longitude: this.props.location.position.coords.longitude
+      },
+      destination: this.props.item.location,
+      params: [
+        {
+          key: 'travelmode',
+          value: 'driving' // may be "walking", "bicycling" or "transit" as well
+        },
+        {
+          key: 'dir_action',
+          value: 'navigate' // this instantly initializes navigation using the given travel mode
         }
-      });
+      ]
+    };
+    getDirections(directionsData);
   };
+
+  calculateDateAndTime = () => {
+    const now = new Date();
+    const months = [
+      ' Jan',
+      ' Feb',
+      ' Mar',
+      ' Apr',
+      ' May',
+      ' Jun',
+      ' Jul',
+      ' Aug',
+      ' Sep',
+      ' Oct',
+      ' Nov',
+      ' Dec'
+    ];
+    const dateTime = new Date(this.props.item.date);
+    const day = dateTime.getDate();
+    const year = dateTime.getFullYear();
+    const month = dateTime.getMonth();
+    const hour = dateTime.getHours();
+    const minutes = dateTime.getMinutes();
+    if (
+      now.getFullYear() === year &&
+      now.getMonth() === month &&
+      now.getDate() === day &&
+      now.getHours() === hour
+    ) {
+      return (now.getMinutes() - minutes).toString().concat('m');
+    }
+    if (
+      now.getFullYear() === year &&
+      now.getMonth() === month &&
+      now.getDate() === day
+    ) {
+      return (now.getHours() - hour).toString().concat('h');
+    }
+    if (
+      now.getFullYear() === year &&
+      now.getMonth() === month &&
+      now.getDate() - day <= 6
+    ) {
+      return (now.getDate() - day).toString().concat('d');
+    }
+    if (now.getFullYear() === year) {
+      return day.toString().concat(months[month]);
+    }
+    return months[month].concat(' ').concat(year.toString());
+  };
+
+  caclulateDistance() {
+    const distance = convertDistance(
+      getDistance(
+        this.props.location.position.coords,
+        this.props.item.location
+      ),
+      'km'
+    );
+    this.setState({
+      distanceFromUser: distance > 1 ? Math.round(distance) : distance
+    });
+  }
 
   render() {
     const { item, style, onPressRemove, renderRemove } = this.props;
@@ -169,6 +198,12 @@ class IncidentCard extends React.Component {
               </Text>
             </Block>
           </View>
+          <Text style={styles.dateAndDistance}>
+            {this.calculateDateAndTime() +
+              ' • ' +
+              this.state.distanceFromUser +
+              ' km away'}
+          </Text>
           <View style={styles.hr} />
           <View style={styles.buttonsContainer}>
             <TouchableOpacity
@@ -228,7 +263,9 @@ const styles = StyleSheet.create({
     minHeight: 114
   },
   cardDescription: {
-    padding: theme.SIZES.BASE / 2
+    paddingTop: theme.SIZES.BASE / 2,
+    paddingLeft: theme.SIZES.BASE / 2,
+    paddingRight: theme.SIZES.BASE / 2
   },
   imageContainer: {
     borderTopLeftRadius: 5,
@@ -300,7 +337,17 @@ const styles = StyleSheet.create({
   callButtonIcon: {
     textAlign: 'center',
     padding: 10
+  },
+  dateAndDistance: {
+    color: 'gray',
+    marginLeft: theme.SIZES.BASE / 2,
+    marginBottom: theme.SIZES.BASE / 2
   }
 });
 
-export default IncidentCard;
+const mapStateToProps = state => ({ location: state.location });
+
+export default connect(
+  mapStateToProps,
+  null
+)(IncidentCard);

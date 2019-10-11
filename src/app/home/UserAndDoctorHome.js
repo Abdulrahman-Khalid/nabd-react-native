@@ -4,7 +4,11 @@ import { Block, Text, Button, theme } from 'galio-framework';
 import { Actions } from 'react-native-router-flux';
 import { argonTheme, Images } from '../../constants';
 import { connect } from 'react-redux';
-import { selectHelperType, requestHelp } from '../../actions';
+import {
+  selectHelperType,
+  requestHelp,
+  requestLocationPermission
+} from '../../actions';
 import {
   Alert,
   StyleSheet,
@@ -12,9 +16,10 @@ import {
   View,
   Dimensions,
   Image,
-  ScrollView
+  ScrollView,
+  Modal
 } from 'react-native';
-import { Card, Modal } from '../../components';
+import { Card, Modal as CustomModal } from '../../components';
 import axios from 'axios';
 import PubNubReact from 'pubnub-react';
 import RadioForm, {
@@ -24,6 +29,7 @@ import RadioForm, {
 } from 'react-native-simple-radio-button';
 import RNSwipeVerify from 'react-native-swipe-verify';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import { openSettings } from 'react-native-permissions';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -63,6 +69,10 @@ class UserAndDoctorHome extends Component {
     this.pubnub.init(this);
   }
 
+  componentDidMount() {
+    this.props.requestLocationPermission();
+  }
+
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
@@ -73,7 +83,7 @@ class UserAndDoctorHome extends Component {
 
   renderModal() {
     return (
-      <Modal
+      <CustomModal
         title="Choose an option"
         modalVisible={this.state.modalVisible}
         onRequestClose={() => {
@@ -151,6 +161,83 @@ class UserAndDoctorHome extends Component {
             }}
           />
         </TouchableOpacity>
+      </CustomModal>
+    );
+  }
+
+  renderLocationPermissionRequestModal() {
+    return (
+      <Modal
+        visible={!this.props.locationPermissionGranted}
+        animationType="fade"
+      >
+        <View
+          style={styles.locationPermissionModalContainer}
+        >
+          <Image
+            style={styles.locationPermissionImage}
+            source={Images.locationPermission}
+            resizeMode="center"
+          />
+          <View
+            style={styles.locationPermissionModalTitleContainer}
+          >
+            <Text
+              style={styles.locationPermissionModalTitle}
+            >
+              Nabd requires access to your location
+            </Text>
+          </View>
+          <Text
+            style={styles.locationPermissionModalDescription}
+          >
+            In order to have help at your fingertips, location access is
+            required. Press 'Open Settings' > Permissions > Location > Allow all the time > Go
+            back to Nabd > Press 'Refresh'
+          </Text>
+          <View style={styles.permissionModalButtons}>
+            <TouchableOpacity
+              style={styles.permissionModalButtonContainer}
+              onPress={() => {
+                openSettings().catch(() =>
+                  Alert.alert('Error', 'Cannot open settings')
+                );
+              }}
+            >
+              <View
+                style={[
+                  styles.permissionModalButton,
+                  {
+                    backgroundColor: '#f6f6f4'
+                  }
+                ]}
+              >
+                <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
+                  Open Settings
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.permissionModalButtonContainer}
+              onPress={() => {
+                this.props.requestLocationPermission();
+              }}
+            >
+              <View
+                style={[
+                  styles.permissionModalButton,
+                  {
+                    backgroundColor: '#fdeaec'
+                  }
+                ]}
+              >
+                <Text style={{ color: '#d76674', fontFamily: 'Manjari-Bold' }}>
+                  Refresh
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
       </Modal>
     );
   }
@@ -222,6 +309,7 @@ class UserAndDoctorHome extends Component {
   render() {
     return (
       <Block flex center style={styles.home}>
+        {this.renderLocationPermissionRequestModal()}
         {this.renderButtons()}
         {this.renderModal()}
       </Block>
@@ -243,15 +331,66 @@ const styles = StyleSheet.create({
     margin: 10,
     right: -1,
     zIndex: 1
-  }
+  },
+  permissionModalButtons: {
+    flex: 1,
+    flexDirection: 'row',
+    margin: 10,
+    marginBottom: 30,
+    alignItems: 'flex-end',
+    justifyContent: 'center'
+  },
+  permissionModalButtonContainer: {
+    flex: 1,
+    alignItems: 'center',
+    paddingLeft: 10,
+    paddingRight: 10
+  },
+  permissionModalButton: {
+    width: '100%',
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 30
+  },
+  locationPermissionModalContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  locationPermissionImage: {
+              width: 200,
+              height: 200,
+              margin: 12,
+              flex: 2
+            },
+  locationPermissionModalTitleContainer: {
+              flex: 0.8,
+              justifyContent: 'center',
+              alignItems: 'center'
+            },
+  locationPermissionModalTitle: {
+                fontSize: 30,
+                textAlign: 'center',
+                fontFamily: 'Manjari-Regular',
+                marginLeft: theme.SIZES.BASE * 2,
+                marginRight: theme.SIZES.BASE * 2
+              },
+  locationPermissionModalDescription: {
+              fontSize: 15,
+              color: 'gray',
+              textAlign: 'center',
+              flex: 1,
+              fontFamily: 'Manjari-Regular',
+              marginLeft: theme.SIZES.BASE * 2,
+              marginRight: theme.SIZES.BASE * 2
+            },
+
 });
 
 const mapStateToProps = state => {
   const { helperType, helperName } = state.requestHelp;
-  return { helperType, helperName };
+  const locationPermissionGranted = state.location.permissionGranted;
+  return { helperType, helperName, locationPermissionGranted };
 };
 
 export default connect(
   mapStateToProps,
-  { selectHelperType, requestHelp }
+  { selectHelperType, requestHelp, requestLocationPermission }
 )(UserAndDoctorHome);

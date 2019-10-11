@@ -6,19 +6,24 @@ import {
   TouchableOpacity,
   RefreshControl,
   StyleSheet,
-  Dimensions
+  Dimensions,
+  Alert
 } from 'react-native';
 import IncidentCard from '../../components/IncidentCard';
 import { argonTheme, Images } from '../../constants';
 import { theme, Block } from 'galio-framework';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import { getLocation, updateLocation } from '../../actions';
+import { connect } from 'react-redux';
+import Geolocation from 'react-native-geolocation-service';
 
 const { width, height } = Dimensions.get('screen');
 
 const incidentsDummyData = [
   {
     userID: '01001796904',
-    description: 'حادثة علي الطريق الصحراوي',
+    description: 'Accident on ElSahrawy road',
+    date: new Date(+new Date() - Math.floor(Math.random() * 10000000000)),
     image: Images.aideCard,
     location: {
       latitude: 30.027757,
@@ -29,6 +34,7 @@ const incidentsDummyData = [
   {
     userID: '01001796905',
     description: 'انفجار مغسلة في حي المعادي',
+    date: new Date(+new Date() - Math.floor(Math.random() * 10000000000)),
     image: null,
     location: {
       latitude: -33.8600024,
@@ -39,6 +45,7 @@ const incidentsDummyData = [
   {
     userID: '01001796906',
     description: 'طلب كيس دم ضروري في مستشفي الدفاع الجوي التخصصي',
+    date: new Date(+new Date() - Math.floor(Math.random() * 10000000000)),
     image: Images.ambulanceCard,
     location: {
       latitude: -33.8600024,
@@ -59,8 +66,47 @@ export class Incidents extends Component {
     };
   }
 
-  componentDidMount() {
+  async componentDidMount() {
     this.pullRefresh();
+    await this.props.getLocation();
+    this.watchID = Geolocation.watchPosition(
+      position => {
+        this.props.updateLocation(position);
+      },
+      error => {
+        switch (error.code) {
+          case 1:
+            Alert.alert('Error', 'Location permission is not granted');
+            break;
+          case 2:
+            Alert.alert('Error', 'Location provider not available');
+            break;
+          case 3:
+            Alert.alert('Error', 'Location request timed out');
+            break;
+          case 4:
+            Alert.alert(
+              'Error',
+              'Google play service is not installed or has an older version'
+            );
+            break;
+          case 5:
+            Alert.alert(
+              'Error',
+              'Location service is not enabled or location mode is not appropriate for the current request'
+            );
+            break;
+          default:
+            Alert.alert('Error', 'Please try again');
+            break;
+        }
+      },
+      { enableHighAccuracy: true }
+    );
+  }
+
+  componentWillUnmount() {
+    Geolocation.clearWatch(this.watchID);
   }
 
   /**
@@ -188,4 +234,7 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Incidents;
+export default connect(
+  null,
+  { getLocation, updateLocation }
+)(Incidents);
