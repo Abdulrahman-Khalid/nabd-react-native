@@ -53,6 +53,7 @@
     "react-native-localization": "^2.1.6",
     "react-native-location": "^2.5.0",
     "react-native-modal-dropdown": "^0.6.2",
+    "react-native-permissions": "^2.0.2",
     "react-native-phone-input": "0.2.2",
     "react-native-push-notification": "^3.1.9",
     "react-native-restart": "^0.0.12",

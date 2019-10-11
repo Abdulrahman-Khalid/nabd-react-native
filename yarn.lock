@@ -5971,6 +5971,11 @@ react-native-modal-dropdown@^0.6.2:
   dependencies:
     prop-types "^15.6.0"
 
+react-native-permissions@^2.0.2:
+  version "2.0.2"
+  resolved "https://registry.yarnpkg.com/react-native-permissions/-/react-native-permissions-2.0.2.tgz#1b3e3e936a6333ef58f9418b57985ca148f6462b"
+  integrity sha512-Lo32wSGfG6WXhxYl0XqZmiTdfX88j4mROOGOw60brLM9jFJMxJg3TDM8vBbm4LJnpYrVN2JtNw6baqv0vUaIeA==
+
 react-native-phone-input@0.2.2:
   version "0.2.2"
   resolved "https://registry.yarnpkg.com/react-native-phone-input/-/react-native-phone-input-0.2.2.tgz#17121b1384a15fd4a7c099362f2b5ca328e48041"
