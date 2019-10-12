@@ -17,7 +17,8 @@ import {
   Dimensions,
   Image,
   ScrollView,
-  Modal
+  Modal,
+  Platform
 } from 'react-native';
 import { Card, Modal as CustomModal } from '../../components';
 import axios from 'axios';
@@ -191,9 +192,9 @@ class UserAndDoctorHome extends Component {
           <Text
             style={styles.locationPermissionModalDescription}
           >
-            In order to have help at your fingertips, location access is
-            required. Press 'Open Settings' > Permissions > Location > Allow all the time > Go
-            back to Nabd > Press 'Refresh'
+            {Platform.OS === 'android' ? `In order to have help at your fingertips, location access is required. Press 'Open Settings' > Permissions > Location > Allow all the time > Go back to Nabd > Press 'Refresh'` 
+            : 
+            `In order to have help at your fingertips, location access is required. Press 'Open Settings' > Location > Always > Go back to Nabd > Press 'Refresh'`}
           </Text>
           <View style={styles.permissionModalButtons}>
             <TouchableOpacity
