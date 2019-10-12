@@ -30,7 +30,7 @@ class IncidentCard extends React.Component {
   componentDidUpdate(prevProps, prevState) {
     if (
       prevProps.location.position.coords.latitude !==
-        this.props.location.position.coords.latitude &&
+        this.props.location.position.coords.latitude ||
       prevProps.location.position.coords.longitude !==
         this.props.location.position.coords.longitude
     ) {
