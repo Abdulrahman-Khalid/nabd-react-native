@@ -39,10 +39,12 @@ class IncidentCard extends React.Component {
   }
 
   componentDidMount() {
-    this.caclulateDistance();
+    if (this.props.location.position !== null) {
+      this.caclulateDistance();
+    }
   }
 
-  handleGetDirections = async () => {
+  handleGetDirections = () => {
     const directionsData = {
       source: {
         latitude: this.props.location.position.coords.latitude,
