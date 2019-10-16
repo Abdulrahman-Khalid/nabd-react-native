@@ -190,6 +190,8 @@ PODS:
   - React-jsinspector (0.61.2)
   - react-native-geolocation (1.4.2):
     - React
+  - react-native-image-picker (1.1.0):
+    - React
   - react-native-location (2.5.0):
     - React
   - react-native-splash-screen (3.2.0):
@@ -272,6 +274,7 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
+  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-location (from `../node_modules/react-native-location`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-voximplant (from `../node_modules/react-native-voximplant`)
@@ -337,6 +340,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-geolocation:
     :path: "../node_modules/@react-native-community/geolocation"
+  react-native-image-picker:
+    :path: "../node_modules/react-native-image-picker"
   react-native-location:
     :path: "../node_modules/react-native-location"
   react-native-splash-screen:
@@ -398,6 +403,7 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 8909917ff7d8f21a57e443a866fd8d4560e50c65
   React-jsinspector: 111d7d342b07a904c400592e02a2b958f1098b60
   react-native-geolocation: a7b94614afbd5fd8350e0233a2025c8228fc8041
+  react-native-image-picker: 7a85cf7b0a53845f03ae52fb4592a2748ded069b
   react-native-location: 5a40ec1cc6abf2f6d94df979f98ec76c3a415681
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-voximplant: c50bfa82f1a2398d64a3dcc7df5d645ffe66fa30
