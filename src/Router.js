@@ -14,6 +14,7 @@ import ParamedicHome from './app/home/ParamedicHome';
 import AmbulanceHome from './app/home/AmbulanceHome';
 import Incidents from './app/home/Incidents';
 import UserSettings from './app/settings/UserSettings';
+import AddIncident from './app/home/AddIncident';
 import { argonTheme } from './constants';
 import InjuriesList from './app/firstAid/InjuriesList';
 import FirstAidDetails from './app/firstAid/FirstAidDetails';
@@ -84,50 +85,56 @@ class RouterComponent extends Component {
             />
             <Scene key="verifySignup" component={VerifySignup} title="Verify" />
           </Scene>
-          <Tabs
-            key="home"
-            // headerLayoutPreset="left"
-            initial
-            lazy={true}
-            swipeEnabled={true}
-            renderRightButton={this._renderSettingsButton}
-            titleStyle={{ color: '#000', fontFamily: 'Manjari-Bold' }}
-          >
-            <Scene
-              key="userAndDoctorHome"
-              component={UserAndDoctorHome}
-              title="Home"
-              icon={() => <Icon name="home" size={25} />}
-            />
-            <Scene
-              key="Incidents"
-              component={Incidents}
-              title="Incidents"
-              icon={() => <Icon name="lifebuoy" size={25} />}
-            />
-            <Scene
-              key="FirstAid"
-              title="First Aid"
-              icon={() => <Icon name="hospital" size={25} />}
+          <Scene key="userAndDoctor" initial hideNavBar={true}>
+            <Tabs
+              key="home"
+              // headerLayoutPreset="left"
+              initial
+              lazy={true}
+              swipeEnabled={true}
+              renderRightButton={this._renderSettingsButton}
+              titleStyle={{ color: '#000', fontFamily: 'Manjari-Bold' }}
             >
-              <Scene key="InjuriesList" component={InjuriesList} />
-              <Scene key="FirstAidDetails" component={FirstAidDetails} />
               <Scene
-                key="FirstAidDetailsWithButtons"
-                component={FirstAidDetailsWithButtons}
+                key="userAndDoctorHome"
+                component={UserAndDoctorHome}
+                title="Home"
+                icon={() => <Icon name="home" size={25} />}
               />
-            </Scene>
-          </Tabs>
-          <Scene key="paramedicHome" component={ParamedicHome} title="Home" />
-          <Scene key="ambulanceHome" component={AmbulanceHome} title="Home" />
-
-          <Scene key="UserSettings">
+              <Scene
+                key="Incidents"
+                component={Incidents}
+                title="Incidents"
+                icon={() => <Icon name="lifebuoy" size={25} />}
+              />
+              <Scene
+                key="FirstAid"
+                title="First Aid"
+                icon={() => <Icon name="hospital" size={25} />}
+              >
+                <Scene key="InjuriesList" component={InjuriesList} />
+                <Scene key="FirstAidDetails" component={FirstAidDetails} />
+                <Scene
+                  key="FirstAidDetailsWithButtons"
+                  component={FirstAidDetailsWithButtons}
+                />
+              </Scene>
+            </Tabs>
             <Scene
               key="UserSettings"
               component={UserSettings}
               title="Settings"
+              hideNavBar={false}
+            />
+            <Scene
+              key="AddIncident"
+              component={AddIncident}
+              title="Add Incident"
+              hideNavBar={false}
             />
           </Scene>
+          <Scene key="paramedicHome" component={ParamedicHome} title="Home" />
+          <Scene key="ambulanceHome" component={AmbulanceHome} title="Home" />
         </Scene>
       </Router>
     );
