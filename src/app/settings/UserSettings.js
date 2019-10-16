@@ -10,7 +10,7 @@ import { switchLanguage } from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import TextDisplay from './TextDisplay';
 import { View, Picker } from 'react-native';
-
+import t from '../../I18n';
 import email from 'react-native-email';
 
 class UserSettings extends Component {
@@ -40,12 +40,12 @@ class UserSettings extends Component {
   render() {
     return (
       <ReactNativeSettingsPage>
-        <SectionRow text="Profile">
-          <TextDisplay iconName="user" text="Username" value="value" />
-          <TextDisplay iconName="lock" text="Password" value="value" />
-          <TextDisplay iconName="phone" text="Phone Number" value="value" />
+        <SectionRow text={t.Profile}>
+          <TextDisplay iconName="user" text={t.Username} value="value" />
+          <TextDisplay iconName="lock" text={t.Password} value="value" />
+          <TextDisplay iconName="phone" text={t.PhoneNumber} value="value" />
         </SectionRow>
-        <SectionRow text="Language">
+        <SectionRow text={t.Language}>
           <View style={{ flex: 1 }}>
             <Picker
               selectedValue={this.state.selectedOption}
@@ -61,35 +61,41 @@ class UserSettings extends Component {
           </View>
         </SectionRow>
 
-        <SectionRow text="Connect With Us">
+        <SectionRow text={t.ContactWithUs}>
           <NavigateRow
-            text="Facebook"
+            text={t.Facebook}
             iconName="facebook"
-            onPressCallback={() => Linking.openURL('https://facebook.com')}
+            onPressCallback={() =>
+              Linking.openURL(
+                'https://www.facebook.com/تطبيق-نبض-Nabd-App-108933110525150/'
+              )
+            }
           />
           <NavigateRow
-            text="Twitter"
+            text={t.Twitter}
             iconName="twitter"
-            onPressCallback={() => Linking.openURL('https://twitter.com')}
+            onPressCallback={() =>
+              Linking.openURL('https://twitter.com/NabdEmergApp')
+            }
           />
         </SectionRow>
-        <SectionRow text="Help us grow">
+        <SectionRow text={t.HelpUs}>
           <NavigateRow
-            text="Send us feedback"
+            text={t.SendUsFeedback}
             iconName="envelope"
             onPressCallback={() => {
-              const to = ['nadaashraf11@icloud.com'];
+              const to = ['nabd_app@hotmail.com'];
               email(to, {
-                subject: 'Nabd app feedback'
+                subject: t.EmailTitle
               }).catch(console.error);
             }}
           />
           <NavigateRow
-            text="Share Nabd"
+            text={t.ShareNabd}
             iconName="share-square"
             onPressCallback={() => {
               Share.share({
-                message: 'Help people in emergencies with #Nabd app'
+                message: t.ShareMsg
               });
             }}
           />

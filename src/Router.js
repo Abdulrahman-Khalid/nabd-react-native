@@ -22,6 +22,7 @@ import { connect } from 'react-redux';
 import { resetSignInReducerState, resetSignUpReducerState } from './actions';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native';
+import t from './I18n';
 
 class RouterComponent extends Component {
   _renderSettingsButton() {
@@ -125,7 +126,7 @@ class RouterComponent extends Component {
             <Scene
               key="UserSettings"
               component={UserSettings}
-              title="Settings"
+              title={t.Settings}
             />
           </Scene>
         </Scene>
