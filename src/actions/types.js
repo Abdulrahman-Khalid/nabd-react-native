@@ -26,5 +26,9 @@ export const SELECT_HELPER_SPECIALIZATION = 'select_helper_specialization';
 export const REQUSET_DOCTOR = 'request_doctor';
 export const REQUSET_PARAMEDIC = 'request_paramedic';
 export const REQUSET_AMBULANCE = 'request_ambulance';
-// Language Redux
+// Language
 export const SWITCH_LANGUAGE = "SWITCH_LANGUAGE";
+// Location
+export const GET_LOCATION = "get_location";
+export const REQUEST_LOCATION_PERMISSION = "request_location_permission";
+export const UPDATE_LOCATION = "update_location";

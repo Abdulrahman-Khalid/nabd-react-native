@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* NABDTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* NABDTests.m */; };
 		010B1321070F48F8BE15189B /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BA388B7A0964173BC55D94A /* Octicons.ttf */; };
@@ -33,6 +34,7 @@
 		9CCEFA3673DF4A39BE53DA74 /* Tajawal-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EA292E2A75D241DA9EA1D896 /* Tajawal-Regular.ttf */; };
 		A48E3F623FDB483F8073A897 /* Tajawal-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AD67DB9CE8C04188A508C32E /* Tajawal-Medium.ttf */; };
 		A56800E80CC94368995B02D1 /* Manjari-Thin.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 063B38267B714C3EA475C1FD /* Manjari-Thin.ttf */; };
+		A814802B234E2198003BDCA2 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A814802A234E2198003BDCA2 /* CoreLocation.framework */; };
 		A9ABF178E502D409189F33A6 /* libPods-NABDTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 0E483EEEE1092767A0D62B59 /* libPods-NABDTests.a */; };
 		B2832E2519444B2B9E623D9A /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5255ECBF681464690485D83 /* Zocial.ttf */; };
 		BE809DB9AF1E4440A9E15E16 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA809B8255884D58BB1D35A8 /* FontAwesome.ttf */; };
@@ -108,6 +110,7 @@
 		9A1CFFF7FE34401697B8836F /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		A4BC63EFD52D4F0AB305B79B /* Tajawal-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Tajawal-Black.ttf"; path = "../src/assets/fonts/Tajawal-Black.ttf"; sourceTree = "<group>"; };
 		A6BC4E2858F5457D88147FBB /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
+		A814802A234E2198003BDCA2 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		A91D26EDA15B40A69F63B29D /* Tajawal-Light.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Tajawal-Light.ttf"; path = "../src/assets/fonts/Tajawal-Light.ttf"; sourceTree = "<group>"; };
 		AA3A66E79C1D30DA60A9EA56 /* Pods-NABD-tvOSTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NABD-tvOSTests.debug.xcconfig"; path = "Target Support Files/Pods-NABD-tvOSTests/Pods-NABD-tvOSTests.debug.xcconfig"; sourceTree = "<group>"; };
 		AD67DB9CE8C04188A508C32E /* Tajawal-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Tajawal-Medium.ttf"; path = "../src/assets/fonts/Tajawal-Medium.ttf"; sourceTree = "<group>"; };
@@ -139,6 +142,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A814802B234E2198003BDCA2 /* CoreLocation.framework in Frameworks */,
 				CC2D1A5F27FC45AF1BD66960 /* libPods-NABD.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -233,6 +237,7 @@
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				A814802A234E2198003BDCA2 /* CoreLocation.framework */,
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
 				06B4EE67C5532DB679E2D936 /* libPods-NABD.a */,
@@ -325,6 +330,7 @@
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				999241084489DD374CE71014 /* [CP] Copy Pods Resources */,
+				E3063274410D45BE50B85B69 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -386,6 +392,13 @@
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
+					};
+					13B07F861A680F5B00A75B9A = {
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -623,6 +636,26 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		E3063274410D45BE50B85B69 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-NABD/Pods-NABD-frameworks.sh",
+				"${PODS_ROOT}/VoxImplantSDK/VoxImplant.framework",
+				"${PODS_ROOT}/VoxImplantWebRTC/WebRTC.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/VoxImplant.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/WebRTC.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-NABD/Pods-NABD-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		F157BD9B2914EA3C93C3C64C /* [CP] Check Pods Manifest.lock */ = {

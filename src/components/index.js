@@ -7,6 +7,8 @@ import Input from './Input';
 import Switch from './Switch';
 import Select from './Select';
 import Spinner from './Spinner';
+import Modal from './Modal';
+import IncidentCard from './IncidentCard';
 
 export {
   Button,
@@ -17,5 +19,7 @@ export {
   Header,
   Switch, 
   Select,
-  Spinner
+  Spinner,
+  Modal,
+  IncidentCard
 };
