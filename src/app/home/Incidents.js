@@ -18,6 +18,8 @@ import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { getLocation, updateLocation } from '../../actions';
 import { connect } from 'react-redux';
 import Geolocation from 'react-native-geolocation-service';
+import { Actions } from 'react-native-router-flux';
+import { FAB } from 'react-native-paper';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -211,20 +213,11 @@ export class Incidents extends Component {
               />
             ))}
           </ScrollView>
-          <TouchableOpacity
-            onPress={() => console.log('create Incident')}
-            style={{
-              position: 'absolute',
-              right: 20,
-              bottom: 20,
-              width: 60,
-              height: 60,
-              borderRadius: 30,
-              alignItems: 'flex-end'
-            }}
-          >
-            <Icon name="plus" size={30} />
-          </TouchableOpacity>
+          <FAB
+            style={styles.addIncidentButton}
+            icon="add"
+            onPress={() => Actions.AddIncident()}
+          />
         </Block>
       );
     } else {
@@ -232,8 +225,10 @@ export class Incidents extends Component {
         <View
           style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
-          <ActivityIndicator size="large" style={{ marginBottom: 10 }}/>
-          <Text style={{ fontFamily: 'Manjari-Regular', fontSize: 15 }}>Fetching your location...</Text>
+          <ActivityIndicator size="large" style={{ marginBottom: 10 }} />
+          <Text style={{ fontFamily: 'Manjari-Regular', fontSize: 15 }}>
+            Fetching your location...
+          </Text>
         </View>
       );
     }
@@ -249,6 +244,13 @@ const styles = StyleSheet.create({
     width: width,
     height: height,
     alignContent: 'center'
+  },
+  addIncidentButton: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+    backgroundColor: argonTheme.COLORS.APP
   }
 });
 
