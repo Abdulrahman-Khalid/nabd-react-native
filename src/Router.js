@@ -23,6 +23,7 @@ import { connect } from 'react-redux';
 import { resetSignInReducerState, resetSignUpReducerState } from './actions';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native';
+import { TabBar } from './components'
 
 class RouterComponent extends Component {
   _renderSettingsButton() {
@@ -87,16 +88,16 @@ class RouterComponent extends Component {
           </Scene>
           <Scene key="userAndDoctor" initial hideNavBar={true}>
             <Tabs
-              key="home"
+              key="tabBar"
               // headerLayoutPreset="left"
               initial
               lazy={true}
-              swipeEnabled={true}
+              tabBarComponent={TabBar}
               renderRightButton={this._renderSettingsButton}
               titleStyle={{ color: '#000', fontFamily: 'Manjari-Bold' }}
             >
               <Scene
-                key="userAndDoctorHome"
+                key="Home"
                 component={UserAndDoctorHome}
                 title="Home"
                 icon={() => <Icon name="home" size={25} />}
