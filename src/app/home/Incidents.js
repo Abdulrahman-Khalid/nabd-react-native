@@ -7,7 +7,9 @@ import {
   RefreshControl,
   StyleSheet,
   Dimensions,
-  Alert
+  Alert,
+  ActivityIndicator,
+  Text
 } from 'react-native';
 import IncidentCard from '../../components/IncidentCard';
 import { argonTheme, Images } from '../../constants';
@@ -16,6 +18,8 @@ import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { getLocation, updateLocation } from '../../actions';
 import { connect } from 'react-redux';
 import Geolocation from 'react-native-geolocation-service';
+import { Actions } from 'react-native-router-flux';
+import { FAB } from 'react-native-paper';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -68,6 +72,11 @@ export class Incidents extends Component {
 
   async componentDidMount() {
     this.pullRefresh();
+    Geolocation.setRNConfiguration({
+      skipPermissionRequests: false,
+      authorizationLevel: 'always'
+    });
+    Geolocation.requestAuthorization();
     await this.props.getLocation();
     this.watchID = Geolocation.watchPosition(
       position => {
@@ -175,50 +184,54 @@ export class Incidents extends Component {
   }
 
   render() {
-    return (
-      <Block flex center style={styles.mainContainer}>
-        <ScrollView
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={this.pullRefresh}
-            />
-          }
-          showsVerticalScrollIndicator={false}
-          contentContainerStyle={styles.buttons}
-          style={{ flex: 1 }}
-          onScroll={({ nativeEvent }) => {
-            this.moreIncidentCards(nativeEvent);
-          }}
+    if (this.props.location.position) {
+      return (
+        <Block flex center style={styles.mainContainer}>
+          <ScrollView
+            refreshControl={
+              <RefreshControl
+                refreshing={this.state.refreshing}
+                onRefresh={this.pullRefresh}
+              />
+            }
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.buttons}
+            style={{ flex: 1 }}
+            onScroll={({ nativeEvent }) => {
+              this.moreIncidentCards(nativeEvent);
+            }}
+          >
+            {this.state.IncidentCards.map((item, index) => (
+              <IncidentCard
+                key={index}
+                item={item}
+                onPressRemove={() => {
+                  console.log('Remove Pressed');
+                }}
+                renderRemove={this.state.userID === item.userID}
+                style={styles.incidents}
+              />
+            ))}
+          </ScrollView>
+          <FAB
+            style={styles.addIncidentButton}
+            icon="add"
+            onPress={() => Actions.AddIncident()}
+          />
+        </Block>
+      );
+    } else {
+      return (
+        <View
+          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
         >
-          {this.state.IncidentCards.map((item, index) => (
-            <IncidentCard
-              key={index}
-              item={item}
-              onPressRemove={() => {
-                console.log('Remove Pressed');
-              }}
-              renderRemove={this.state.userID === item.userID}
-              style={styles.incidents}
-            />
-          ))}
-        </ScrollView>
-        <TouchableOpacity
-          onPress={() => console.log('create Incident')}
-          style={{
-            position: 'absolute',
-            right: 20,
-            bottom: 20,
-            width: 60,
-            height: 60,
-            borderRadius: 30,
-            alignItems: 'flex-end'
-          }}
-        >
-          <Icon name="plus" size={30} />
-        </TouchableOpacity>
-      </Block>
-    );
+          <ActivityIndicator size="large" style={{ marginBottom: 10 }} />
+          <Text style={{ fontFamily: 'Manjari-Regular', fontSize: 15 }}>
+            Fetching your location...
+          </Text>
+        </View>
+      );
+    }
   }
 }
 
@@ -231,10 +244,19 @@ const styles = StyleSheet.create({
     width: width,
     height: height,
     alignContent: 'center'
+  },
+  addIncidentButton: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+    backgroundColor: argonTheme.COLORS.APP
   }
 });
 
+const mapStateToProps = state => ({ location: state.location });
+
 export default connect(
-  null,
+  mapStateToProps,
   { getLocation, updateLocation }
 )(Incidents);

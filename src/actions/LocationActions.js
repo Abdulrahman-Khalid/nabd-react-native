@@ -12,6 +12,8 @@ export const updateLocation = (position) => {
 
 export const getLocation = () => {
   return async dispatch => {
+    Geolocation.setRNConfiguration({ skipPermissionRequests: false, authorizationLevel: 'always' });
+    Geolocation.requestAuthorization();
     await Geolocation.getCurrentPosition(
       position => {
         dispatch({ type: GET_LOCATION, payload: position });

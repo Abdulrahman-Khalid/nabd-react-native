@@ -9,6 +9,8 @@ import Select from './Select';
 import Spinner from './Spinner';
 import Modal from './Modal';
 import IncidentCard from './IncidentCard';
+import MapSearch from './MapSearch';
+import LocationPicker from './LocationPicker';
 
 export {
   Button,
@@ -21,5 +23,7 @@ export {
   Select,
   Spinner,
   Modal,
-  IncidentCard
+  IncidentCard,
+  MapSearch,
+  LocationPicker
 };

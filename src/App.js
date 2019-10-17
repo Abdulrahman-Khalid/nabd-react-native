@@ -14,6 +14,7 @@ import {
   setCustomTextInput,
   setCustomView
 } from 'react-native-global-props';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 const { store } = CreateStore();
 let persistor;
@@ -73,9 +74,11 @@ class App extends Component {
     return (
       <Provider store={store}>
         <PersistGate persistor={persistor}>
-          <Block flex>
-            <RouterComponent />
-          </Block>
+          <PaperProvider>
+            <Block flex>
+              <RouterComponent />
+            </Block>
+          </PaperProvider>
         </PersistGate>
       </Provider>
     );
