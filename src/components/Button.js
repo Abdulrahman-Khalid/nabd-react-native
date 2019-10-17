@@ -3,13 +3,13 @@ import { StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { Button } from 'galio-framework';
 
-import argonTheme from '../constants/Theme';
+import { Colors } from '../constants';
 
 class ArButton extends React.Component {
   render() {
     const { small, shadowless, children, color, style, ...props } = this.props;
 
-    const colorStyle = color && argonTheme.COLORS[color.toUpperCase()];
+    const colorStyle = color && Colors[color.toUpperCase()];
 
     const buttonStyles = [
       small && styles.smallButton,

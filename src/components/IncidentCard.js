@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
-import { argonTheme } from '../constants';
+import { Colors } from '../constants';
 import getDirections from 'react-native-google-maps-directions';
 import { Linking } from 'react-native';
 import { getDistance, convertDistance } from 'geolib';

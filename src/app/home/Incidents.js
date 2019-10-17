@@ -12,7 +12,7 @@ import {
   Text
 } from 'react-native';
 import IncidentCard from '../../components/IncidentCard';
-import { argonTheme, Images } from '../../constants';
+import { Colors, Images } from '../../constants';
 import { theme, Block } from 'galio-framework';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { getLocation, updateLocation } from '../../actions';
@@ -250,7 +250,7 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 0,
     bottom: 0,
-    backgroundColor: argonTheme.COLORS.APP
+    backgroundColor: Colors.APP
   }
 });
 

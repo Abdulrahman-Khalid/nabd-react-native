@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
-import { argonTheme } from '../constants';
+import { Colors } from '../constants';
 
 class Card extends React.Component {
   _renderCTA() {
@@ -19,7 +19,7 @@ class Card extends React.Component {
         <Text
           size={12}
           muted={!ctaColor}
-          color={ctaColor || argonTheme.COLORS.ACTIVE}
+          color={ctaColor || Colors.ACTIVE}
           bold
         >
           {item.cta}

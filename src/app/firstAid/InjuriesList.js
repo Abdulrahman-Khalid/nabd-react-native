@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { InjuryButtonPressed } from '../../actions';
 import InjuryButton from './InjuryButton';
 import data from './metadata.json';
-import { argonTheme } from '../../constants';
+import { Colors } from '../../constants';
 
 class InjuriesList extends Component {
   onButtonPress(text) {
@@ -19,7 +19,7 @@ class InjuriesList extends Component {
     Actions.FirstAidDetailsWithButtons();
   }
   render() {
-    const { INJURY_BUTTON, INJURY_BUTTON_TWO } = argonTheme.COLORS;
+    const { INJURY_BUTTON, INJURY_BUTTON_TWO } = Colors;
     return (
       <ScrollView>
         <TouchableOpacity onPress={this.onButtonPress.bind(this, 'cpr')}>

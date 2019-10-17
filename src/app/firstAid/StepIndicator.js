@@ -3,9 +3,9 @@ import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
 import Steps from 'react-native-steps';
 import data from './FirstAidData';
 import metadata from './metadata.json';
-import { argonTheme } from '../../constants';
+import { Colors } from '../../constants';
 
-const { APP, BACKGROUND } = argonTheme.COLORS;
+const { APP, BACKGROUND } = Colors;
 const stepIndicatorStyles = {
   stepIndicatorSize: 50,
   currentStepIndicatorSize: 40,
@@ -85,7 +85,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     flexDirection: 'row-reverse',
-    backgroundColor: BACKGROUND
   },
   stepIndicator: {
     marginVertical: 20, // 50

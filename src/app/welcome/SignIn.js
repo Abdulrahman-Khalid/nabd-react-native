@@ -14,7 +14,7 @@ import {
   Alert
 } from 'react-native';
 import { Block, Text } from 'galio-framework';
-import { argonTheme } from '../../constants';
+import { Colors } from '../../constants';
 import PhoneInput from 'react-native-phone-input';
 import ModalPickerImage from './ModalPickerImage';
 import { signInAttempt, fillSignInForm } from '../../actions';
@@ -58,7 +58,7 @@ class SignIn extends Component {
   isLoading() {
     console.log('hi', this.state);
     if (this.props.loading) {
-      return <ActivityIndicator size="large" color={argonTheme.COLORS.APP} />;
+      return <ActivityIndicator size="large" color={Colors.APP} />;
     }
     return (
       <TouchableOpacity
@@ -81,7 +81,7 @@ class SignIn extends Component {
       <Block
         flex
         middle
-        style={{ backgroundColor: argonTheme.COLORS.BACKGROUND }}
+        style={{ backgroundColor: Colors.BACKGROUND }}
       >
         <StatusBar hidden />
         <Block flex middle>
@@ -146,7 +146,7 @@ class SignIn extends Component {
                 <View>{this.isLoading()}</View>
 
                 <TouchableHighlight
-                  underlayColor={argonTheme.COLORS.APP}
+                  underlayColor={Colors.APP}
                   style={styles.buttonContainer}
                   onPress={() => this.onClickListener('restore_password')}
                 >
@@ -154,7 +154,7 @@ class SignIn extends Component {
                 </TouchableHighlight>
 
                 <TouchableHighlight
-                  underlayColor={argonTheme.COLORS.APP}
+                  underlayColor={Colors.APP}
                   style={styles.buttonContainer}
                   onPress={() => this.onClickListener('register')}
                 >
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
     height: height * 0.6,
     backgroundColor: '#F4F5F7',
     borderRadius: 4,
-    shadowColor: argonTheme.COLORS.BLACK,
+    shadowColor: Colors.BLACK,
     shadowOffset: {
       width: 0,
       height: 4
@@ -224,17 +224,17 @@ const styles = StyleSheet.create({
     borderRadius: 30
   },
   loginButton: {
-    backgroundColor: argonTheme.COLORS.APP
+    backgroundColor: Colors.APP
   },
   loginText: {
     color: 'white'
   },
   phoneContainer: {
     borderRadius: 4,
-    borderColor: argonTheme.COLORS.BORDER,
+    borderColor: Colors.BORDER,
     height: 44,
     backgroundColor: '#FFFFFF',
-    shadowColor: argonTheme.COLORS.BLACK,
+    shadowColor: Colors.BLACK,
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 2,
     shadowOpacity: 0.05,

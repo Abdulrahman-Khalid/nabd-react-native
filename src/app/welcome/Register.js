@@ -12,7 +12,7 @@ import ModalPickerImage from './ModalPickerImage';
 import { RadioGroup, RadioButton } from 'react-native-flexi-radio-button';
 import { Block, Checkbox, Text, theme } from 'galio-framework';
 import { Button, Icon, Input } from '../../components';
-import { Images, argonTheme } from '../../constants';
+import { Images, Colors } from '../../constants';
 import DatePicker from 'react-native-datepicker';
 import { connect } from 'react-redux';
 import { Spinner } from '../../components/Spinner';
@@ -70,7 +70,7 @@ class Register extends React.Component {
   isLoading() {
     console.log('hi', this.state);
     if (this.props.loading) {
-      return <Spinner color={argonTheme.COLORS.APP} />;
+      return <Spinner color={Colors.APP} />;
     }
     return (
       <Block middle>
@@ -123,7 +123,7 @@ class Register extends React.Component {
           // );
           style={styles.createButton}
         >
-          <Text bold size={14} color={argonTheme.COLORS.WHITE}>
+          <Text bold size={14} color={Colors.WHITE}>
             CREATE ACCOUNT
           </Text>
         </Button>
@@ -155,13 +155,13 @@ class Register extends React.Component {
   phoneInputBorderColor() {
     const { isSuccessPhone, isErrorPhone } = this.props;
     const shadow = {
-      shadowColor: argonTheme.COLORS.BLACK,
+      shadowColor: Colors.BLACK,
       shadowOffset: { width: 0, height: 1 },
       shadowRadius: 2,
       shadowOpacity: 0.05,
       elevation: 2,
       borderRadius: 4,
-      borderColor: argonTheme.COLORS.BORDER,
+      borderColor: Colors.BORDER,
       height: 44,
       backgroundColor: '#FFFFFF',
       borderWidth: 1
@@ -170,12 +170,12 @@ class Register extends React.Component {
     if (isSuccessPhone) {
       return {
         ...shadow,
-        borderColor: argonTheme.COLORS.INPUT_SUCCESS
+        borderColor: Colors.INPUT_SUCCESS
       };
     } else if (isErrorPhone) {
       return {
         ...shadow,
-        borderColor: argonTheme.COLORS.INPUT_ERROR
+        borderColor: Colors.INPUT_ERROR
       };
     }
     return shadow;
@@ -233,7 +233,7 @@ class Register extends React.Component {
       <Block
         flex
         middle
-        style={{ backgroundColor: argonTheme.COLORS.BACKGROUND }}
+        style={{ backgroundColor: Colors.BACKGROUND }}
       >
         <StatusBar hidden />
         <Block flex middle>
@@ -256,7 +256,7 @@ class Register extends React.Component {
                       iconContent={
                         <Icon
                           size={16}
-                          color={argonTheme.COLORS.ICON}
+                          color={Colors.ICON}
                           name="hat-3"
                           family="ArgonExtra"
                           style={styles.inputIcons}
@@ -314,7 +314,7 @@ class Register extends React.Component {
                       iconContent={
                         <Icon
                           size={16}
-                          color={argonTheme.COLORS.ICON}
+                          color={Colors.ICON}
                           name="padlock-unlocked"
                           family="ArgonExtra"
                           style={styles.inputIcons}
@@ -337,7 +337,7 @@ class Register extends React.Component {
                       iconContent={
                         <Icon
                           size={16}
-                          color={argonTheme.COLORS.ICON}
+                          color={Colors.ICON}
                           name="padlock-unlocked"
                           family="ArgonExtra"
                           style={styles.inputIcons}
@@ -353,7 +353,7 @@ class Register extends React.Component {
                     />
 
                     <Block row style={styles.passwordCheck}>
-                      <Text size={12} color={argonTheme.COLORS.MUTED}>
+                      <Text size={12} color={Colors.MUTED}>
                         password strength:
                       </Text>
                       <Text
@@ -425,7 +425,7 @@ class Register extends React.Component {
                         size={20}
                         style={{ float: 'left', margin: 0, padding: 0 }}
                         thickness={2}
-                        color={argonTheme.COLORS.APP}
+                        color={Colors.APP}
                         selectedIndex={0}
                         onSelect={(index, value) => this.onSelect(index, value)}
                         style={{
@@ -459,14 +459,14 @@ class Register extends React.Component {
                       checkboxStyle={{
                         borderWidth: 3
                       }}
-                      color={argonTheme.COLORS.APP}
+                      color={Colors.APP}
                       label="I agree with the"
                     />
                     <Button
                       style={{ width: 100 }}
                       color="transparent"
                       textStyle={{
-                        color: argonTheme.COLORS.APP,
+                        color: Colors.APP,
                         fontSize: 14
                       }}
                     >
@@ -487,7 +487,7 @@ class Register extends React.Component {
               showCancelButton={false}
               showConfirmButton={true}
               confirmText="OK"
-              confirmButtonColor={argonTheme.COLORS.APP}
+              confirmButtonColor={Colors.APP}
               onConfirmPressed={() => {
                 this.hideAlert();
               }}
@@ -505,7 +505,7 @@ const styles = StyleSheet.create({
     height: height * 0.8,
     backgroundColor: '#F4F5F7',
     borderRadius: 4,
-    shadowColor: argonTheme.COLORS.BLACK,
+    shadowColor: Colors.BLACK,
     shadowOffset: {
       width: 0,
       height: 4
@@ -516,7 +516,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden'
   },
   socialConnect: {
-    backgroundColor: argonTheme.COLORS.WHITE,
+    backgroundColor: Colors.WHITE,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: '#8898AA'
   },
@@ -524,7 +524,7 @@ const styles = StyleSheet.create({
     width: 120,
     height: 40,
     backgroundColor: '#fff',
-    shadowColor: argonTheme.COLORS.BLACK,
+    shadowColor: Colors.BLACK,
     shadowOffset: {
       width: 0,
       height: 4
@@ -534,7 +534,7 @@ const styles = StyleSheet.create({
     elevation: 1
   },
   socialTextButtons: {
-    color: argonTheme.COLORS.PRIMARY,
+    color: Colors.PRIMARY,
     fontWeight: '800',
     fontSize: 14
   },
@@ -550,14 +550,14 @@ const styles = StyleSheet.create({
   createButton: {
     width: width * 0.75,
     marginTop: 20,
-    backgroundColor: argonTheme.COLORS.APP
+    backgroundColor: Colors.APP
   },
   phoneContainer: {
     borderRadius: 4,
-    borderColor: argonTheme.COLORS.BORDER,
+    borderColor: Colors.BORDER,
     height: 44,
     backgroundColor: '#FFFFFF',
-    shadowColor: argonTheme.COLORS.BLACK,
+    shadowColor: Colors.BLACK,
     shadowOffset: { width: 0, height: 1 },
     shadowRadius: 2,
     shadowOpacity: 0.05,
@@ -567,10 +567,10 @@ const styles = StyleSheet.create({
   },
   hardText: { fontSize: 20, marginRight: 10 },
   success: {
-    borderColor: argonTheme.COLORS.INPUT_SUCCESS
+    borderColor: Colors.INPUT_SUCCESS
   },
   error: {
-    borderColor: argonTheme.COLORS.INPUT_ERROR
+    borderColor: Colors.INPUT_ERROR
   }
 });
 

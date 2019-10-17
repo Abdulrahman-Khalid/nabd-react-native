@@ -2,7 +2,7 @@ import React from 'react';
 import { Text, View, TouchableOpacity, StyleSheet } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import Icon from './Icon';
-import { argonTheme } from '../constants';
+import { Colors } from '../constants';
 
 export default class TabBar extends React.Component {
   renderIcon(tabName) {
@@ -14,7 +14,8 @@ export default class TabBar extends React.Component {
           <Icon
             name="house"
             family="flaticon"
-            color={activeTabIndex === 0 ? argonTheme.COLORS.APP : 'black'}
+						style={{ fontWeight: '900' }}
+            color={activeTabIndex === 0 ? Colors.APP : 'black'}
             size={30}
           />
         );
@@ -24,7 +25,7 @@ export default class TabBar extends React.Component {
           <Icon
             name="support"
             family="flaticon"
-            color={activeTabIndex === 1 ? argonTheme.COLORS.APP : 'black'}
+            color={activeTabIndex === 1 ? Colors.APP : 'black'}
             size={30}
           />
         );
@@ -34,7 +35,7 @@ export default class TabBar extends React.Component {
           <Icon
             name="hospital"
             family="flaticon"
-            color={activeTabIndex === 2 ? argonTheme.COLORS.APP : 'black'}
+            color={activeTabIndex === 2 ? Colors.APP : 'black'}
             size={30}
           />
         );
@@ -44,7 +45,6 @@ export default class TabBar extends React.Component {
   render() {
     const { state } = this.props.navigation;
     const activeTabIndex = state.index;
-    console.log(activeTabIndex);
     return (
       <View style={styles.tabBar}>
         {state.routes.map(element => (
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.34,
     shadowRadius: 10,
-    elevation: 10
+    elevation: 10,
   },
   tabBarButton: { flex: 1, justifyContent: 'center', alignItems: 'center' }
 });

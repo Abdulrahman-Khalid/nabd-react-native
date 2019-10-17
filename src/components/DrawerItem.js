@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import { Block, Text, theme } from "galio-framework";
 
 import Icon from "./Icon";
-import argonTheme from "../constants/Theme";
+import { Colors } from "../constants";
 
 class DrawerItem extends React.Component {
   renderIcon = () => {
@@ -16,7 +16,7 @@ class DrawerItem extends React.Component {
             name="shop"
             family="ArgonExtra"
             size={10}
-            color={focused ? "white" : argonTheme.COLORS.ICON}
+            color={focused ? "white" : Colors.ICON}
           />
         );
       case "Elements":
@@ -25,7 +25,7 @@ class DrawerItem extends React.Component {
             name="map-big"
             family="ArgonExtra"
             size={12}
-            color={focused ? "white" : argonTheme.COLORS.ICON}
+            color={focused ? "white" : Colors.ICON}
           />
         );
       case "Components":
@@ -34,7 +34,7 @@ class DrawerItem extends React.Component {
             name="map-big"
             family="ArgonExtra"
             size={12}
-            color={focused ? "white" : argonTheme.COLORS.ICON}
+            color={focused ? "white" : Colors.ICON}
           />
         );
       case "Articles":
@@ -43,7 +43,7 @@ class DrawerItem extends React.Component {
             name="spaceship"
             family="ArgonExtra"
             size={12}
-            color={focused ? "white" : argonTheme.COLORS.ICON}
+            color={focused ? "white" : Colors.ICON}
           />
         );
       case "Profile":
@@ -52,7 +52,7 @@ class DrawerItem extends React.Component {
             name="chart-pie-35"
             family="ArgonExtra"
             size={12}
-            color={focused ? "white" : argonTheme.COLORS.ICON}
+            color={focused ? "white" : Colors.ICON}
           />
         );
       case "Account":
@@ -61,7 +61,7 @@ class DrawerItem extends React.Component {
             name="calendar-date"
             family="ArgonExtra"
             size={12}
-            color={focused ? "white" : argonTheme.COLORS.ICON}
+            color={focused ? "white" : Colors.ICON}
           />
         );
       case "Getting Started":
@@ -106,7 +106,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14
   },
   activeStyle: {
-    backgroundColor: argonTheme.COLORS.ACTIVE,
+    backgroundColor: Colors.ACTIVE,
     borderRadius: 4
   },
   shadow: {

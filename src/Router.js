@@ -15,7 +15,7 @@ import AmbulanceHome from './app/home/AmbulanceHome';
 import Incidents from './app/home/Incidents';
 import UserSettings from './app/settings/UserSettings';
 import AddIncident from './app/home/AddIncident';
-import { argonTheme } from './constants';
+import { Colors } from './constants';
 import InjuriesList from './app/firstAid/InjuriesList';
 import FirstAidDetails from './app/firstAid/FirstAidDetails';
 import FirstAidDetailsWithButtons from './app/firstAid/FirstAidDetailsWithButtons';
@@ -43,7 +43,7 @@ class RouterComponent extends Component {
           fontWeight: 'bold',
           color: '#000'
         }}
-        tintColor={argonTheme.COLORS.APP}
+        tintColor={Colors.APP}
       >
         <Scene key="root" hideNavBar initial headerLayoutPreset="center">
           <Scene key="welcome" initial>
