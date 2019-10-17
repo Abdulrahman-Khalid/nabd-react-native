@@ -11,6 +11,7 @@ import Modal from './Modal';
 import IncidentCard from './IncidentCard';
 import MapSearch from './MapSearch';
 import LocationPicker from './LocationPicker';
+import TabBar from './TabBar';
 
 export {
   Button,
@@ -25,5 +26,6 @@ export {
   Modal,
   IncidentCard,
   MapSearch,
-  LocationPicker
+  LocationPicker,
+  TabBar
 };
