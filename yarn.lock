@@ -6077,6 +6077,11 @@ react-native-google-maps-directions@^2.1.1:
   resolved "https://registry.yarnpkg.com/react-native-google-maps-directions/-/react-native-google-maps-directions-2.1.1.tgz#d27c38508174bd4009adebc1517eff852901c13b"
   integrity sha512-hsq2T3cJsZZ31akEq08nBCdRlYQ+o+07R7wTb9QclrTQHJRIKR78mI9lgizOpKm4NFSYUOxGtbL7LfhJw1OANQ==
 
+react-native-google-maps@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/react-native-google-maps/-/react-native-google-maps-1.0.0.tgz#df55b421642bd02ba9cb95229ca9f5546db0208c"
+  integrity sha1-31W0IWQr0Cupy5UinKn1VG2wIIw=
+
 react-native-image-picker@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/react-native-image-picker/-/react-native-image-picker-1.1.0.tgz#c2a0523886edb4cf2cdc008ad0a71433142a4d53"
@@ -6093,6 +6098,11 @@ react-native-location@^2.5.0:
   version "2.5.0"
   resolved "https://registry.yarnpkg.com/react-native-location/-/react-native-location-2.5.0.tgz#b6d2f7e9c3dbe13fbe87587f9533b8bf943b6a35"
   integrity sha512-myT54tZuFmN6d5RruMVfoa8eY+voJWkSd73xUVhjzJDnQr5uu5MFoH7hMg3trHF1CAkaY/2gIneOspUdGxv59Q==
+
+react-native-maps@0.26.1:
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/react-native-maps/-/react-native-maps-0.26.1.tgz#6ec316259b38d259c8974448d894bd7a23101da4"
+  integrity sha512-p4VTB8YB5ZmOmDRCUpoHZkm05amZwhIo04AJMBbB9+JAR2PNNfpo0vceoWX0Mag4wnePkdzPomeWMplr/wimTg==
 
 react-native-modal-dropdown@^0.6.2:
   version "0.6.2"
