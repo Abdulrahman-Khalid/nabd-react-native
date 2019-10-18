@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* NABDTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* NABDTests.m */; };
 		010B1321070F48F8BE15189B /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4BA388B7A0964173BC55D94A /* Octicons.ttf */; };
@@ -38,6 +39,7 @@
 		B2832E2519444B2B9E623D9A /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5255ECBF681464690485D83 /* Zocial.ttf */; };
 		BE809DB9AF1E4440A9E15E16 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA809B8255884D58BB1D35A8 /* FontAwesome.ttf */; };
 		C06FE0E12B7947C8AF1EC354 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D75D3392D63494C90B908CF /* Ionicons.ttf */; };
+		C0E40E2D723E4C4CA8B89B1F /* flaticons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 954569A621B14B23835278AF /* flaticons.ttf */; };
 		CC2D1A5F27FC45AF1BD66960 /* libPods-NABD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B4EE67C5532DB679E2D936 /* libPods-NABD.a */; };
 		CD2BB768EFA24A32A1159F96 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C7C75CFF6B84619A873BE9A /* SimpleLineIcons.ttf */; };
 		E51626E7CF324EF4B790BC3B /* Manjari-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FC9737B6FFE4ADCAA32379E /* Manjari-Regular.ttf */; };
@@ -48,7 +50,6 @@
 		F8BFBFAEC5C44356894DD312 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 011D01C687C54DF799C072E4 /* Feather.ttf */; };
 		FFA955E2DDE4454A96D608E4 /* Tajawal-ExtraLight.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 12EBFADEE1F54FB3ADF4EA57 /* Tajawal-ExtraLight.ttf */; };
 		FFD412169D1E4E97810DB505 /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 2A69F03A07CE4C0ABE3F5C10 /* Fontisto.ttf */; };
-		C0E40E2D723E4C4CA8B89B1F /* flaticons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 954569A621B14B23835278AF /* flaticons.ttf */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -107,6 +108,7 @@
 		828B443F6138828B4B0A8537 /* libPods-NABD-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NABD-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8960A44A75A64A99AA238743 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		89FA31E35EDC42D6B4AD945F /* argon.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = argon.ttf; path = ../src/assets/font/argon.ttf; sourceTree = "<group>"; };
+		954569A621B14B23835278AF /* flaticons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = flaticons.ttf; path = ../src/assets/fonts/flaticons.ttf; sourceTree = "<group>"; };
 		9A1CFFF7FE34401697B8836F /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		A4BC63EFD52D4F0AB305B79B /* Tajawal-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Tajawal-Black.ttf"; path = "../src/assets/fonts/Tajawal-Black.ttf"; sourceTree = "<group>"; };
 		A6BC4E2858F5457D88147FBB /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
@@ -127,7 +129,6 @@
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
 		F51662F3D6CB5B7B2001111E /* Pods-NABD-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-NABD-tvOS.release.xcconfig"; path = "Target Support Files/Pods-NABD-tvOS/Pods-NABD-tvOS.release.xcconfig"; sourceTree = "<group>"; };
-		954569A621B14B23835278AF /* flaticons.ttf */ = {isa = PBXFileReference; name = "flaticons.ttf"; path = "../src/assets/fonts/flaticons.ttf"; sourceTree = "<group>"; fileEncoding = undefined; lastKnownFileType = unknown; explicitFileType = undefined; includeInIndex = 0; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
