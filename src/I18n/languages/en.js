@@ -14,5 +14,6 @@ export default en = {
   SendUsFeedback: 'Send us feedback',
   ShareMsg: 'Help people in emergencies with #Nabd app',
   EmailTitle: 'Nabd app feedback',
-  Settings: 'Settings'
+  Settings: 'Settings',
+  FirstAid: 'First Aid'
 };

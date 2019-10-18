@@ -14,5 +14,6 @@ export default ar = {
   SendUsFeedback: 'البريد الالكتروني',
   ShareMsg: 'استخدم تطبيق #نبض وساعد الآخرين في حالات الطوارئ',
   EmailTitle: 'تطبيق نبض',
-  Settings: 'الإعدادات'
+  Settings: 'الإعدادات',
+  FirstAid: 'الإسعافات الأولية'
 };

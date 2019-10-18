@@ -35,6 +35,17 @@ class RouterComponent extends Component {
       </TouchableOpacity>
     );
   }
+
+  _renderBackButton() {
+    return (
+      <TouchableOpacity
+        onPress={() => Actions.pop()}
+        style={{ marginLeft: 10 }}
+      >
+        <Icon name="arrow-left" color={argonTheme.COLORS.APP} size={25} />
+      </TouchableOpacity>
+    );
+  }
   render() {
     return (
       <Router
@@ -45,7 +56,7 @@ class RouterComponent extends Component {
         tintColor={argonTheme.COLORS.APP}
       >
         <Scene key="root" hideNavBar initial headerLayoutPreset="center">
-          <Scene key="welcome" initial>
+          <Scene key="welcome">
             <Scene
               key="languageSelection"
               component={LanguageSelection}
@@ -108,8 +119,9 @@ class RouterComponent extends Component {
             />
             <Scene
               key="FirstAid"
-              title="First Aid"
+              title={t.FirstAid}
               icon={() => <Icon name="hospital" size={25} />}
+              initial
             >
               <Scene key="InjuriesList" component={InjuriesList} />
               <Scene key="FirstAidDetails" component={FirstAidDetails} />
@@ -127,6 +139,7 @@ class RouterComponent extends Component {
               key="UserSettings"
               component={UserSettings}
               title={t.Settings}
+              renderLeftButton={this._renderBackButton}
             />
           </Scene>
         </Scene>
