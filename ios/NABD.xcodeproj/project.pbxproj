@@ -39,6 +39,7 @@
 		B2832E2519444B2B9E623D9A /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5255ECBF681464690485D83 /* Zocial.ttf */; };
 		BE809DB9AF1E4440A9E15E16 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA809B8255884D58BB1D35A8 /* FontAwesome.ttf */; };
 		C06FE0E12B7947C8AF1EC354 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D75D3392D63494C90B908CF /* Ionicons.ttf */; };
+		C0E40E2D723E4C4CA8B89B1F /* flaticons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 954569A621B14B23835278AF /* flaticons.ttf */; };
 		CC2D1A5F27FC45AF1BD66960 /* libPods-NABD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B4EE67C5532DB679E2D936 /* libPods-NABD.a */; };
 		CD2BB768EFA24A32A1159F96 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C7C75CFF6B84619A873BE9A /* SimpleLineIcons.ttf */; };
 		E51626E7CF324EF4B790BC3B /* Manjari-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FC9737B6FFE4ADCAA32379E /* Manjari-Regular.ttf */; };
@@ -107,6 +108,7 @@
 		828B443F6138828B4B0A8537 /* libPods-NABD-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NABD-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8960A44A75A64A99AA238743 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		89FA31E35EDC42D6B4AD945F /* argon.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = argon.ttf; path = ../src/assets/font/argon.ttf; sourceTree = "<group>"; };
+		954569A621B14B23835278AF /* flaticons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = flaticons.ttf; path = ../src/assets/fonts/flaticons.ttf; sourceTree = "<group>"; };
 		9A1CFFF7FE34401697B8836F /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		A4BC63EFD52D4F0AB305B79B /* Tajawal-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Tajawal-Black.ttf"; path = "../src/assets/fonts/Tajawal-Black.ttf"; sourceTree = "<group>"; };
 		A6BC4E2858F5457D88147FBB /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				A91D26EDA15B40A69F63B29D /* Tajawal-Light.ttf */,
 				AD67DB9CE8C04188A508C32E /* Tajawal-Medium.ttf */,
 				EA292E2A75D241DA9EA1D896 /* Tajawal-Regular.ttf */,
+				954569A621B14B23835278AF /* flaticons.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -305,9 +308,9 @@
 			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "NABDTests" */;
 			buildPhases = (
 				B7E78C4FE03B5D4086EA0DA7 /* [CP] Check Pods Manifest.lock */,
+				00E356EC1AD99517003FC87E /* Resources */,
 				00E356EA1AD99517003FC87E /* Sources */,
 				00E356EB1AD99517003FC87E /* Frameworks */,
-				00E356EC1AD99517003FC87E /* Resources */,
 			);
 			buildRules = (
 			);
@@ -326,8 +329,8 @@
 				56ED3D4CB15CCC0429F29FF4 /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
-				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
+				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				999241084489DD374CE71014 /* [CP] Copy Pods Resources */,
 				E3063274410D45BE50B85B69 /* [CP] Embed Pods Frameworks */,
@@ -391,9 +394,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = R82JMSV6WV;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
+						DevelopmentTeam = R82JMSV6WV;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -475,6 +480,7 @@
 				0F69C1B97C20492C95362689 /* Tajawal-Light.ttf in Resources */,
 				A48E3F623FDB483F8073A897 /* Tajawal-Medium.ttf in Resources */,
 				9CCEFA3673DF4A39BE53DA74 /* Tajawal-Regular.ttf in Resources */,
+				C0E40E2D723E4C4CA8B89B1F /* flaticons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -575,6 +581,7 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-NABD/Pods-NABD-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
@@ -594,6 +601,7 @@
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
 				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
@@ -788,6 +796,8 @@
 			baseConfigurationReference = DADFBFD296D5DBD296C845EF /* Pods-NABDTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				DEVELOPMENT_TEAM = R82JMSV6WV;
+				ENABLE_BITCODE = NO;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -812,6 +822,8 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = R82JMSV6WV;
+				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = NABDTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -833,6 +845,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
+				DEVELOPMENT_TEAM = R82JMSV6WV;
 				INFOPLIST_FILE = NABD/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -852,6 +865,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = R82JMSV6WV;
 				INFOPLIST_FILE = NABD/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -1004,6 +1018,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1057,6 +1072,7 @@
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;

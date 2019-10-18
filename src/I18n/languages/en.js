@@ -37,6 +37,10 @@ export default en = {
   RequestAmbulance: 'Request Ambulance',
   LogOut: 'Log out',
 
+    // Paramedic Home
+  DoctorSpecialization: 'تخصص الطبيب',
+  Close: 'اغلاق',
+
   tooth_injury: [
     'Find the tooth, hold it from the part of the chewing (crown), and never touch the roots of the tooth.',
     'If the tooth is dirty, rinse it gently with clean water only, do not use soap, or any chemicals, and do not rub or dry the tooth, and the tooth should not be wrapped with a tissue or cloth.',

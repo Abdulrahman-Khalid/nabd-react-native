@@ -14,7 +14,8 @@ import ParamedicHome from './app/home/ParamedicHome';
 import AmbulanceHome from './app/home/AmbulanceHome';
 import Incidents from './app/home/Incidents';
 import UserSettings from './app/settings/UserSettings';
-import { argonTheme } from './constants';
+import AddIncident from './app/home/AddIncident';
+import { Colors } from './constants';
 import InjuriesList from './app/firstAid/InjuriesList';
 import FirstAidDetails from './app/firstAid/FirstAidDetails';
 import FirstAidDetailsWithButtons from './app/firstAid/FirstAidDetailsWithButtons';
@@ -23,6 +24,7 @@ import { resetSignInReducerState, resetSignUpReducerState } from './actions';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native';
 import t from './I18n';
+import { TabBar } from './components';
 
 class RouterComponent extends Component {
   _renderSettingsButton() {
@@ -53,7 +55,7 @@ class RouterComponent extends Component {
           fontWeight: 'bold',
           color: '#000'
         }}
-        tintColor={argonTheme.COLORS.APP}
+        tintColor={Colors.APP}
       >
         <Scene key="root" hideNavBar initial headerLayoutPreset="center">
           <Scene key="welcome">
@@ -96,6 +98,7 @@ class RouterComponent extends Component {
             />
             <Scene key="verifySignup" component={VerifySignup} title="Verify" />
           </Scene>
+
           <Tabs
             key="home"
             // headerLayoutPreset="left"
@@ -122,26 +125,62 @@ class RouterComponent extends Component {
               title={t.FirstAid}
               icon={() => <Icon name="hospital" size={25} />}
               initial
-            >
-              <Scene key="InjuriesList" component={InjuriesList} />
-              <Scene key="FirstAidDetails" component={FirstAidDetails} />
-              <Scene
-                key="FirstAidDetailsWithButtons"
-                component={FirstAidDetailsWithButtons}
-              />
-            </Scene>
+            />
           </Tabs>
-          <Scene key="paramedicHome" component={ParamedicHome} title="Home" />
-          <Scene key="ambulanceHome" component={AmbulanceHome} title="Home" />
 
-          <Scene key="UserSettings">
+          <Scene key="userAndDoctor" initial hideNavBar={true}>
+            <Tabs
+              key="tabBar"
+              // headerLayoutPreset="left"
+              initial
+              lazy={true}
+              tabBarComponent={TabBar}
+              renderRightButton={this._renderSettingsButton}
+              titleStyle={{ color: '#000', fontFamily: 'Manjari-Bold' }}
+            >
+              <Scene
+                key="Home"
+                component={UserAndDoctorHome}
+                title="Home"
+                icon={() => <Icon name="home" size={25} />}
+              />
+              <Scene
+                key="Incidents"
+                component={Incidents}
+                title="Incidents"
+                icon={() => <Icon name="lifebuoy" size={25} />}
+              />
+              <Scene
+                key="FirstAid"
+                title="First Aid"
+                icon={() => <Icon name="hospital" size={25} />}
+              >
+                <Scene key="InjuriesList" component={InjuriesList} />
+                <Scene key="FirstAidDetails" component={FirstAidDetails} />
+                <Scene
+                  key="FirstAidDetailsWithButtons"
+                  component={FirstAidDetailsWithButtons}
+                />
+              </Scene>
+            </Tabs>
+
             <Scene
               key="UserSettings"
               component={UserSettings}
               title={t.Settings}
               renderLeftButton={this._renderBackButton}
+              title="Settings"
+              hideNavBar={false}
+            />
+            <Scene
+              key="AddIncident"
+              component={AddIncident}
+              title="Add Incident"
+              hideNavBar={false}
             />
           </Scene>
+          <Scene key="paramedicHome" component={ParamedicHome} title="Home" />
+          <Scene key="ambulanceHome" component={AmbulanceHome} title="Home" />
         </Scene>
       </Router>
     );

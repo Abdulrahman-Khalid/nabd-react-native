@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Block, Text, Button, theme } from 'galio-framework';
 import { Actions } from 'react-native-router-flux';
-import { argonTheme, Images } from '../../constants';
+import { Colors, Images } from '../../constants';
 import { connect } from 'react-redux';
 import {
   selectHelperType,
@@ -17,7 +17,8 @@ import {
   Dimensions,
   Image,
   ScrollView,
-  Modal
+  Modal,
+  Platform
 } from 'react-native';
 import { Card, Modal as CustomModal } from '../../components';
 import axios from 'axios';
@@ -171,29 +172,21 @@ class UserAndDoctorHome extends Component {
         visible={!this.props.locationPermissionGranted}
         animationType="fade"
       >
-        <View
-          style={styles.locationPermissionModalContainer}
-        >
+        <View style={styles.locationPermissionModalContainer}>
           <Image
             style={styles.locationPermissionImage}
             source={Images.locationPermission}
             resizeMode="center"
           />
-          <View
-            style={styles.locationPermissionModalTitleContainer}
-          >
-            <Text
-              style={styles.locationPermissionModalTitle}
-            >
+          <View style={styles.locationPermissionModalTitleContainer}>
+            <Text style={styles.locationPermissionModalTitle}>
               Nabd requires access to your location
             </Text>
           </View>
-          <Text
-            style={styles.locationPermissionModalDescription}
-          >
-            In order to have help at your fingertips, location access is
-            required. Press 'Open Settings' > Permissions > Location > Allow all the time > Go
-            back to Nabd > Press 'Refresh'
+          <Text style={styles.locationPermissionModalDescription}>
+            {Platform.OS === 'android'
+              ? `In order to have help at your fingertips, location access is required. Press 'Open Settings' > Permissions > Location > Allow all the time > Go back to Nabd > Press 'Refresh'`
+              : `In order to have help at your fingertips, location access is required. Press 'Open Settings' > Location > Always > Go back to Nabd > Press 'Refresh'`}
           </Text>
           <View style={styles.permissionModalButtons}>
             <TouchableOpacity
@@ -250,17 +243,84 @@ class UserAndDoctorHome extends Component {
   }
 
   renderButtons() {
+    // return (
+    //   <View style={styles.buttons}>
+    //     <View style={{ flex: 1 }}>
+    //       <View style={{ flexDirection: 'row', flex: 1 }}>
+    //         <Card
+    //           item={buttons[0]}
+    //           style={{ marginRight: theme.SIZES.BASE, flex: 1 }}
+    //           imageStyle={{ backgroundColor: 'red', opacity: 0.6 }}
+    //           onPress={() => {
+    //             this.props.selectHelperType('aide');
+    //           }}
+    //           onPressInfo={() => {
+    //             Alert.alert(
+    //               'Info',
+    //               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
+    //             );
+    //           }}
+    //         />
+    //         <Card
+    //           item={buttons[1]}
+    //           imageStyle={{ backgroundColor: 'green', opacity: 0.6 }}
+    //           onPress={() => {
+    //             this.props.selectHelperType('doctor');
+    //           }}
+    //           style={{ flex: 1 }}
+    //           onPressInfo={() => {
+    //             Alert.alert(
+    //               'Info',
+    //               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
+    //             );
+    //           }}
+    //         />
+    //       </View>
+    //       <Card
+    //         style={{ marginBottom: theme.SIZES.BASE, flex: 1 }}
+    //         item={buttons[2]}
+    //         full
+    //         imageStyle={{ backgroundColor: 'blue', opacity: 0.6 }}
+    //         onPress={() => {
+    //           this.props.selectHelperType('ambulance');
+    //           this.setModalVisible(true);
+    //         }}
+    //         onPressInfo={() => {
+    //           Alert.alert(
+    //             'Info',
+    //             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
+    //           );
+    //         }}
+    //       />
+    //     </View>
+    //   </View>
+    // );
     return (
-      <ScrollView
-        showsVerticalScrollIndicator={false}
-        contentContainerStyle={styles.buttons}
+      <View
+        style={{
+          flex: 1,
+          flexDirection: 'column',
+          justifyContent: 'flex-start',
+          alignItems: 'center'
+        }}
       >
-        <Block flex>
-          <Block flex row>
+        <View style={{ height: height - 140, width: width }}>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+          >
             <Card
               item={buttons[0]}
-              style={{ marginRight: theme.SIZES.BASE }}
-              imageStyle={{ backgroundColor: 'red', opacity: 0.6 }}
+              style={{
+                paddingTop: theme.SIZES.BASE,
+                paddingLeft: theme.SIZES.BASE,
+                paddingRight: theme.SIZES.BASE / 2,
+                paddingBottom: theme.SIZES.BASE / 2
+              }}
               onPress={() => {
                 this.props.selectHelperType('aide');
               }}
@@ -273,7 +333,12 @@ class UserAndDoctorHome extends Component {
             />
             <Card
               item={buttons[1]}
-              imageStyle={{ backgroundColor: 'green', opacity: 0.6 }}
+              style={{
+                paddingTop: theme.SIZES.BASE,
+                paddingRight: theme.SIZES.BASE,
+                paddingLeft: theme.SIZES.BASE / 2,
+                paddingBottom: theme.SIZES.BASE / 2
+              }}
               onPress={() => {
                 this.props.selectHelperType('doctor');
               }}
@@ -284,35 +349,47 @@ class UserAndDoctorHome extends Component {
                 );
               }}
             />
-          </Block>
-          <Card
-            style={{ marginBottom: theme.SIZES.BASE }}
-            item={buttons[2]}
-            full
-            imageStyle={{ backgroundColor: 'blue', opacity: 0.6 }}
-            onPress={() => {
-              this.props.selectHelperType('ambulance');
-              this.setModalVisible(true);
+          </View>
+          <View
+            style={{
+              flex: 1,
+              flexDirection: 'row',
+              justifyContent: 'center',
+              alignItems: 'center'
             }}
-            onPressInfo={() => {
-              Alert.alert(
-                'Info',
-                'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
-              );
-            }}
-          />
-        </Block>
-      </ScrollView>
+          >
+            <Card
+              item={buttons[2]}
+              style={{
+                paddingTop: theme.SIZES.BASE / 2,
+                paddingLeft: theme.SIZES.BASE,
+                paddingRight: theme.SIZES.BASE,
+                paddingBottom: theme.SIZES.BASE / 2
+              }}
+              onPress={() => {
+                this.props.selectHelperType('ambulance');
+                this.setModalVisible(true);
+              }}
+              onPressInfo={() => {
+                Alert.alert(
+                  'Info',
+                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
+                );
+              }}
+            />
+          </View>
+        </View>
+      </View>
     );
   }
 
   render() {
     return (
-      <Block flex center style={styles.home}>
+      <View style={styles.home}>
         {this.renderLocationPermissionRequestModal()}
         {this.renderButtons()}
         {this.renderModal()}
-      </Block>
+      </View>
     );
   }
 }
@@ -321,10 +398,15 @@ const styles = StyleSheet.create({
   home: {
     width: width,
     height: height,
-    alignContent: 'center'
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   buttons: {
-    width: width - theme.SIZES.BASE * 2
+    width: width - theme.SIZES.BASE * 2,
+    flex: 1,
+    backgroundColor: 'red',
+    alignItems: 'center',
+    justifyContent: 'center'
   },
   closeModalButton: {
     position: 'absolute',
@@ -353,35 +435,38 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     borderRadius: 30
   },
-  locationPermissionModalContainer: { flex: 1, justifyContent: 'center', alignItems: 'center' },
+  locationPermissionModalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   locationPermissionImage: {
-              width: 200,
-              height: 200,
-              margin: 12,
-              flex: 2
-            },
+    width: 200,
+    height: 200,
+    margin: 12,
+    flex: 2
+  },
   locationPermissionModalTitleContainer: {
-              flex: 0.8,
-              justifyContent: 'center',
-              alignItems: 'center'
-            },
+    flex: 0.8,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
   locationPermissionModalTitle: {
-                fontSize: 30,
-                textAlign: 'center',
-                fontFamily: 'Manjari-Regular',
-                marginLeft: theme.SIZES.BASE * 2,
-                marginRight: theme.SIZES.BASE * 2
-              },
+    fontSize: 30,
+    textAlign: 'center',
+    fontFamily: 'Manjari-Regular',
+    marginLeft: theme.SIZES.BASE * 2,
+    marginRight: theme.SIZES.BASE * 2
+  },
   locationPermissionModalDescription: {
-              fontSize: 15,
-              color: 'gray',
-              textAlign: 'center',
-              flex: 1,
-              fontFamily: 'Manjari-Regular',
-              marginLeft: theme.SIZES.BASE * 2,
-              marginRight: theme.SIZES.BASE * 2
-            },
-
+    fontSize: 15,
+    color: 'gray',
+    textAlign: 'center',
+    flex: 1,
+    fontFamily: 'Manjari-Regular',
+    marginLeft: theme.SIZES.BASE * 2,
+    marginRight: theme.SIZES.BASE * 2
+  }
 });
 
 const mapStateToProps = state => {

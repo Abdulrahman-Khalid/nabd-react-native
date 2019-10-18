@@ -8,12 +8,13 @@ import { persistStore } from 'redux-persist';
 import Languages from './I18n';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
 import CreateStore from './config/CreateStore';
-import { argonTheme } from './constants';
+import { Colors } from './constants';
 import {
   setCustomText,
   setCustomTextInput,
   setCustomView
 } from 'react-native-global-props';
+import { Provider as PaperProvider } from 'react-native-paper';
 
 const { store } = CreateStore();
 let persistor;
@@ -73,9 +74,11 @@ class App extends Component {
     return (
       <Provider store={store}>
         <PersistGate persistor={persistor}>
-          <Block flex>
-            <RouterComponent />
-          </Block>
+          <PaperProvider>
+            <Block flex>
+              <RouterComponent />
+            </Block>
+          </PaperProvider>
         </PersistGate>
       </Provider>
     );
@@ -86,7 +89,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: argonTheme.COLORS.APP
+    backgroundColor: Colors.APP
   },
   horizontal: {
     flexDirection: 'row',

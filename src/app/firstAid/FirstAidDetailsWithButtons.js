@@ -12,6 +12,7 @@ import { InjuryButtonPressed } from '../../actions';
 import data from './metadata.json';
 import { argonTheme } from '../../constants';
 import t from '../../I18n';
+import { Colors } from '../../constants';
 
 class FirstAidDetailsWithButtons extends Component {
   onButtonPress(text) {
@@ -86,7 +87,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: argonTheme.COLORS.BACKGROUND
+    backgroundColor: Colors.BACKGROUND
   },
   button: {
     marginBottom: 30,
@@ -94,11 +95,11 @@ const styles = StyleSheet.create({
     height: 70,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: argonTheme.COLORS.APP,
+    backgroundColor: Colors.APP,
     borderRadius: 15
   },
   text: {
     fontSize: 20,
-    color: argonTheme.COLORS.WHITE
+    color: Colors.WHITE
   }
 });

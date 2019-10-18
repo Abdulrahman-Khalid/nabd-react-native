@@ -4,7 +4,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
 import { Actions } from 'react-native-router-flux';
 import { StyleSheet, Dimensions } from 'react-native';
-import { argonTheme } from '../../constants';
+import { Colors } from '../../constants';
 import axios from 'axios';
 import t from '../../I18n';
 
@@ -60,7 +60,7 @@ const styles = StyleSheet.create({
     marginBottom: theme.SIZES.BASE,
     width: width - theme.SIZES.BASE * 2,
     height: height / 15,
-    backgroundColor: argonTheme.COLORS.APP,
+    backgroundColor: Colors.APP,
     borderRadius: 5
   },
   buttonText: { fontSize: 20, fontWeight: '700' }

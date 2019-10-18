@@ -11,11 +11,15 @@ import {
 } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
-import { argonTheme } from '../constants';
+import { Colors } from '../constants';
 import getDirections from 'react-native-google-maps-directions';
 import { Linking } from 'react-native';
 import { getDistance, convertDistance } from 'geolib';
 import { connect } from 'react-redux';
+import Menu, { MenuItem } from 'react-native-material-menu';
+import CustomIcon from './Icon';
+import LinearGradient from 'react-native-linear-gradient';
+import { Images } from '../constants';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -27,10 +31,18 @@ class IncidentCard extends React.Component {
     };
   }
 
+  setMenuRef = ref => {
+    this._menu = ref;
+  };
+
+  openMenu = () => this._menu.show();
+
+  closeMenu = () => this._menu.hide();
+
   componentDidUpdate(prevProps, prevState) {
     if (
       prevProps.location.position.coords.latitude !==
-        this.props.location.position.coords.latitude &&
+        this.props.location.position.coords.latitude ||
       prevProps.location.position.coords.longitude !==
         this.props.location.position.coords.longitude
     ) {
@@ -39,10 +51,12 @@ class IncidentCard extends React.Component {
   }
 
   componentDidMount() {
-    this.caclulateDistance();
+    if (this.props.location.position !== null) {
+      this.caclulateDistance();
+    }
   }
 
-  handleGetDirections = async () => {
+  handleGetDirections = () => {
     const directionsData = {
       source: {
         latitude: this.props.location.position.coords.latitude,
@@ -129,124 +143,157 @@ class IncidentCard extends React.Component {
   render() {
     const { item, style, onPressRemove, renderRemove } = this.props;
     const cardContainer = [styles.card, styles.shadow, style];
-    const imgContainer = [styles.imageContainer, styles.horizontalStyles];
 
     return (
-      <Block row card flex style={cardContainer}>
-        {item.numberToCall ? (
-          <TouchableOpacity
-            onPress={() => {
-              Linking.openURL(`tel:${item.numberToCall}`);
-            }}
-            style={styles.callButton}
+      <View style={cardContainer}>
+        <LinearGradient
+          start={{ x: 0.95, y: 0.7 }}
+          end={{ x: 1.0, y: 0.0 }}
+          locations={[0.3, 1]}
+          colors={['transparent', 'rgba(0, 0, 0, 0.3)']}
+          style={styles.linearGradient}
+        />
+        <View style={{ zIndex: 100, position: 'absolute', right: 0 }}>
+          <Menu
+            style={{ borderTopRightRadius: 30 }}
+            ref={this.setMenuRef}
+            button={
+              <TouchableOpacity
+                style={styles.menuButton}
+                onPress={this.openMenu}
+              >
+                <Icon
+                  name="dots-vertical"
+                  size={30}
+                  style={styles.menuButtonIcon}
+                  color="white"
+                />
+              </TouchableOpacity>
+            }
           >
-            <Icon
-              size={17}
-              color="white"
-              name="phone"
-              style={styles.callButtonIcon}
-            />
-          </TouchableOpacity>
-        ) : null}
-        <TouchableOpacity
-          onPress={() => {
-            Share.share(
-              {
-                message:
-                  item.description +
-                  `${
-                    item.numberToCall
-                      ? '\n' + 'Number to call: ' + item.numberToCall + ','
-                      : ''
-                  }` +
-                  '\n' +
-                  'https://www.google.com/maps/search/?api=1&query=' +
-                  this.props.item.location.latitude +
-                  ',' +
-                  this.props.item.location.longitude +
-                  '\n' +
-                  'Shared via Nabd.'
-              },
-              {}
-            );
-          }}
-          style={styles.shareButton}
-        >
-          <Icon
-            size={17}
-            color="white"
-            name="share-variant"
-            style={styles.shareButtonIcon}
-          />
-        </TouchableOpacity>
+            <MenuItem
+              onPress={() => {
+                Share.share(
+                  {
+                    message:
+                      item.description +
+                      `${
+                        item.numberToCall
+                          ? '\n' + 'Number to call: ' + item.numberToCall + ','
+                          : ''
+                      }` +
+                      '\n' +
+                      'https://www.google.com/maps/search/?api=1&query=' +
+                      this.props.item.location.latitude +
+                      ',' +
+                      this.props.item.location.longitude +
+                      '\n' +
+                      'Shared via Nabd.'
+                  },
+                  {}
+                );
+              }}
+            >
+              <CustomIcon family="flaticon" name="share" size={17}>
+                {' '}
+                Share
+              </CustomIcon>
+            </MenuItem>
+            {renderRemove ? (
+              <MenuItem onPress={onPressRemove}>
+                <CustomIcon name="garbage" family="flaticon" size={17}>
+                  {' '}
+                  Remove
+                </CustomIcon>
+              </MenuItem>
+            ) : null}
+          </Menu>
+        </View>
         <View>
-          <View>
-            <Block flex style={imgContainer}>
-              {item.image ? (
-                <Image source={item.image} style={styles.fullImage} />
-              ) : (
-                <View style={styles.noImage}>
-                  <Icon name="image-off" size={100} />
-                </View>
-              )}
-            </Block>
+          <View style={styles.imageContainer}>
+            {item.image ? (
+              <View>
+                <Image
+                  source={item.image}
+                  style={styles.fullImage}
+                  resizeMode="cover"
+                />
+              </View>
+            ) : (
+              <View style={styles.noImage} />
+            )}
           </View>
-          <View>
-            <Block flex style={styles.cardDescription}>
-              <Text size={18} style={styles.cardTitle}>
-                {item.description}
+        </View>
+
+        <View>
+          <Block flex style={styles.cardDescription}>
+            <Text size={18} style={styles.cardTitle}>
+              {item.description}
+            </Text>
+          </Block>
+        </View>
+        <Text style={styles.dateAndDistance}>
+          {this.calculateDateAndTime() +
+            ' • ' +
+            this.state.distanceFromUser +
+            ' km away'}
+        </Text>
+        <View style={styles.hr} />
+        <View style={styles.buttonsContainer}>
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={this.handleGetDirections}
+          >
+            <View
+              style={[
+                styles.button,
+                {
+                  backgroundColor: '#f6f6f4'
+                }
+              ]}
+            >
+              <CustomIcon
+                name="paper-plane"
+                family="flaticon"
+                style={{ marginRight: 5 }}
+                color="#b3b3b2"
+                size={17}
+              />
+              <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
+                Get Directions
               </Text>
-            </Block>
-          </View>
-          <Text style={styles.dateAndDistance}>
-            {this.calculateDateAndTime() +
-              ' • ' +
-              this.state.distanceFromUser +
-              ' km away'}
-          </Text>
-          <View style={styles.hr} />
-          <View style={styles.buttonsContainer}>
+            </View>
+          </TouchableOpacity>
+          {item.numberToCall ? (
             <TouchableOpacity
               style={styles.buttonContainer}
-              onPress={this.handleGetDirections}
+              onPress={() => {
+                Linking.openURL(`tel:${item.numberToCall}`);
+              }}
             >
               <View
                 style={[
                   styles.button,
                   {
-                    backgroundColor: '#f6f6f4'
+                    backgroundColor: '#fdeaec'
                   }
                 ]}
               >
-                <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
-                  Get Directions
+                <CustomIcon
+                  name="phone-call"
+                  family="flaticon"
+                  style={{ marginRight: 5 }}
+                  color="#d76674"
+                  size={17}
+                />
+                <Text style={{ color: '#d76674', fontFamily: 'Manjari-Bold' }}>
+                  Call
                 </Text>
               </View>
             </TouchableOpacity>
-            {renderRemove ? (
-              <TouchableOpacity
-                style={styles.buttonContainer}
-                onPress={onPressRemove}
-              >
-                <View
-                  style={[
-                    styles.button,
-                    {
-                      backgroundColor: '#fdeaec'
-                    }
-                  ]}
-                >
-                  <Text
-                    style={{ color: '#d76674', fontFamily: 'Manjari-Bold' }}
-                  >
-                    Remove
-                  </Text>
-                </View>
-              </TouchableOpacity>
-            ) : null}
-          </View>
+          ) : null}
         </View>
-      </Block>
+      </View>
     );
   }
 }
@@ -260,28 +307,27 @@ const styles = StyleSheet.create({
     backgroundColor: theme.COLORS.WHITE,
     marginTop: theme.SIZES.BASE,
     borderWidth: 0,
-    minHeight: 114
+    minHeight: 114,
+    borderRadius: 30
   },
   cardDescription: {
-    paddingTop: theme.SIZES.BASE / 2,
-    paddingLeft: theme.SIZES.BASE / 2,
-    paddingRight: theme.SIZES.BASE / 2
+    paddingTop: theme.SIZES.BASE,
+    paddingLeft: theme.SIZES.BASE,
+    paddingRight: theme.SIZES.BASE,
+    paddingBottom: theme.SIZES.BASE / 2
   },
   imageContainer: {
-    borderTopLeftRadius: 5,
-    borderTopRightRadius: 5,
-    overflow: 'hidden'
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
+    overflow: 'hidden',
+    zIndex: 3
   },
   fullImage: {
     height: 200,
     width: width - theme.SIZES.BASE * 2
   },
   noImage: {
-    height: 200,
-    width: width - theme.SIZES.BASE * 2,
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center'
+    height: 10
   },
   shadow: {
     shadowColor: theme.COLORS.BLACK,
@@ -312,36 +358,33 @@ const styles = StyleSheet.create({
     height: 40,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 30
+    borderRadius: 30,
+    flexDirection: 'row'
   },
-  shareButton: {
-    position: 'absolute',
-    margin: 7,
-    right: 0,
-    zIndex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    borderRadius: 50
+  menuButton: {
+    width: 40,
+    height: 40,
+    margin: 10,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  shareButtonIcon: {
-    textAlign: 'center',
-    padding: 10
-  },
-  callButton: {
-    position: 'absolute',
-    margin: 7,
-    right: 45,
-    zIndex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)',
-    borderRadius: 50
-  },
-  callButtonIcon: {
-    textAlign: 'center',
-    padding: 10
+  menuButtonIcon: {
+    textAlign: 'center'
   },
   dateAndDistance: {
     color: 'gray',
-    marginLeft: theme.SIZES.BASE / 2,
-    marginBottom: theme.SIZES.BASE / 2
+    marginLeft: theme.SIZES.BASE,
+    marginBottom: theme.SIZES.BASE
+  },
+  linearGradient: {
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    borderRadius: 30,
+    zIndex: 98
   }
 });
 

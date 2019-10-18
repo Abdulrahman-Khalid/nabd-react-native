@@ -37,12 +37,18 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCameraUsageDescription</key>
+	<string>Nabd would like to use your camera</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
 	<string>Nabd requires access to your location</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Nabd requires access to your location</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Nabd requires access to your location</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Nabd would like to save photos to your photo gallery</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Nabd would like access to your photo gallery</string>
 	<key>UIAppFonts</key>
 	<array>
 		<string>AntDesign.ttf</string>
@@ -73,6 +79,7 @@
 		<string>Tajawal-Light.ttf</string>
 		<string>Tajawal-Medium.ttf</string>
 		<string>Tajawal-Regular.ttf</string>
+		<string>flaticons.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>
@@ -87,8 +94,6 @@
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
-		<string>UIInterfaceOrientationLandscapeLeft</string>
-		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>

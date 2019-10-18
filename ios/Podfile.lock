@@ -1,5 +1,7 @@
 PODS:
   - boost-for-react-native (1.63.0)
+  - BVLinearGradient (2.5.6):
+    - React
   - DoubleConversion (1.1.6)
   - FBLazyVector (0.61.2)
   - FBReactNativeSpec (0.61.2):
@@ -19,6 +21,31 @@ PODS:
     - DoubleConversion
     - glog
   - glog (0.3.5)
+  - Google-Maps-iOS-Utils (2.1.0):
+    - Google-Maps-iOS-Utils/Clustering (= 2.1.0)
+    - Google-Maps-iOS-Utils/Geometry (= 2.1.0)
+    - Google-Maps-iOS-Utils/Heatmap (= 2.1.0)
+    - Google-Maps-iOS-Utils/QuadTree (= 2.1.0)
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Clustering (2.1.0):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Geometry (2.1.0):
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/Heatmap (2.1.0):
+    - Google-Maps-iOS-Utils/QuadTree
+    - GoogleMaps
+  - Google-Maps-iOS-Utils/QuadTree (2.1.0):
+    - GoogleMaps
+  - GoogleMaps (3.2.0):
+    - GoogleMaps/Maps (= 3.2.0)
+  - GoogleMaps/Base (3.2.0)
+  - GoogleMaps/Maps (3.2.0):
+    - GoogleMaps/Base
+  - Permission-LocationAlways (2.0.2):
+    - RNPermissions
+  - Permission-LocationWhenInUse (2.0.2):
+    - RNPermissions
   - RCTRequired (0.61.2)
   - RCTRestart (0.0.12):
     - React
@@ -186,7 +213,15 @@ PODS:
   - React-jsinspector (0.61.2)
   - react-native-geolocation (1.4.2):
     - React
+  - react-native-google-maps (0.26.1):
+    - Google-Maps-iOS-Utils (= 2.1.0)
+    - GoogleMaps (= 3.2.0)
+    - React
+  - react-native-image-picker (1.1.0):
+    - React
   - react-native-location (2.5.0):
+    - React
+  - react-native-maps (0.26.1):
     - React
   - react-native-splash-screen (3.2.0):
     - React
@@ -234,7 +269,11 @@ PODS:
     - React
   - RNGestureHandler (1.3.0):
     - React
+  - RNPermissions (2.0.2):
+    - React
   - RNSettingsPage (1.0.0):
+    - React
+  - RNSVG (9.11.1):
     - React
   - RNVectorIcons (6.6.0):
     - React
@@ -246,11 +285,16 @@ PODS:
   - Yoga (1.14.0)
 
 DEPENDENCIES:
+  - BVLinearGradient (from `../node_modules/react-native-linear-gradient`)
   - DoubleConversion (from `../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec`)
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/Libraries/FBReactNativeSpec`)
   - Folly (from `../node_modules/react-native/third-party-podspecs/Folly.podspec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
+  - Google-Maps-iOS-Utils
+  - GoogleMaps
+  - Permission-LocationAlways (from `../node_modules/react-native-permissions/ios/LocationAlways.podspec`)
+  - Permission-LocationWhenInUse (from `../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec`)
   - RCTRequired (from `../node_modules/react-native/Libraries/RCTRequired`)
   - RCTRestart (from `../node_modules/react-native-restart/ios`)
   - RCTTypeSafety (from `../node_modules/react-native/Libraries/TypeSafety`)
@@ -264,7 +308,10 @@ DEPENDENCIES:
   - React-jsiexecutor (from `../node_modules/react-native/ReactCommon/jsiexecutor`)
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - "react-native-geolocation (from `../node_modules/@react-native-community/geolocation`)"
+  - react-native-google-maps (from `../node_modules/react-native-maps`)
+  - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-location (from `../node_modules/react-native-location`)
+  - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-splash-screen (from `../node_modules/react-native-splash-screen`)
   - react-native-voximplant (from `../node_modules/react-native-voximplant`)
   - React-RCTActionSheet (from `../node_modules/react-native/Libraries/ActionSheetIOS`)
@@ -281,17 +328,23 @@ DEPENDENCIES:
   - ReactNativeLocalization (from `../node_modules/react-native-localization`)
   - "RNCAsyncStorage (from `../node_modules/@react-native-community/async-storage`)"
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
+  - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNSettingsPage (from `../node_modules/react-native-settings-page/ios`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
 SPEC REPOS:
   trunk:
     - boost-for-react-native
+    - Google-Maps-iOS-Utils
+    - GoogleMaps
     - VoxImplantSDK
     - VoxImplantWebRTC
 
 EXTERNAL SOURCES:
+  BVLinearGradient:
+    :path: "../node_modules/react-native-linear-gradient"
   DoubleConversion:
     :podspec: "../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec"
   FBLazyVector:
@@ -302,6 +355,10 @@ EXTERNAL SOURCES:
     :podspec: "../node_modules/react-native/third-party-podspecs/Folly.podspec"
   glog:
     :podspec: "../node_modules/react-native/third-party-podspecs/glog.podspec"
+  Permission-LocationAlways:
+    :path: "../node_modules/react-native-permissions/ios/LocationAlways.podspec"
+  Permission-LocationWhenInUse:
+    :path: "../node_modules/react-native-permissions/ios/LocationWhenInUse.podspec"
   RCTRequired:
     :path: "../node_modules/react-native/Libraries/RCTRequired"
   RCTRestart:
@@ -324,8 +381,14 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/jsinspector"
   react-native-geolocation:
     :path: "../node_modules/@react-native-community/geolocation"
+  react-native-google-maps:
+    :path: "../node_modules/react-native-maps"
+  react-native-image-picker:
+    :path: "../node_modules/react-native-image-picker"
   react-native-location:
     :path: "../node_modules/react-native-location"
+  react-native-maps:
+    :path: "../node_modules/react-native-maps"
   react-native-splash-screen:
     :path: "../node_modules/react-native-splash-screen"
   react-native-voximplant:
@@ -356,8 +419,12 @@ EXTERNAL SOURCES:
     :path: "../node_modules/@react-native-community/async-storage"
   RNGestureHandler:
     :path: "../node_modules/react-native-gesture-handler"
+  RNPermissions:
+    :path: "../node_modules/react-native-permissions"
   RNSettingsPage:
     :path: "../node_modules/react-native-settings-page/ios"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   Yoga:
@@ -365,11 +432,16 @@ EXTERNAL SOURCES:
 
 SPEC CHECKSUMS:
   boost-for-react-native: 39c7adb57c4e60d6c5479dd8623128eb5b3f0f2c
+  BVLinearGradient: e3aad03778a456d77928f594a649e96995f1c872
   DoubleConversion: 5805e889d232975c086db112ece9ed034df7a0b2
   FBLazyVector: 68b6a76960fbd8ecd9fb7ce0aadd3329c3340a99
   FBReactNativeSpec: 5a764c60abdc3336a213e5310c40b74741f32839
   Folly: 30e7936e1c45c08d884aa59369ed951a8e68cf51
   glog: 1f3da668190260b06b429bb211bfbee5cd790c28
+  Google-Maps-iOS-Utils: c32891ff472eaaa1fca032beedafa1a013af7875
+  GoogleMaps: 5046d7edfe381c1a0b20fdaf293915a375c3122b
+  Permission-LocationAlways: 94832b8fa358c939cc16c142e6eb15b8b0c6ffd1
+  Permission-LocationWhenInUse: 75577651fdcc5bc34e1c41641989e13cfeac903a
   RCTRequired: c639d59ed389cfb1f1203f65c2ea946d8ec586e2
   RCTRestart: 3abdd55016c31254b996e0a55cc14cc2544fa3c1
   RCTTypeSafety: dc23fb655d6c77667c78e327bf661bc11e3b8aec
@@ -381,7 +453,10 @@ SPEC CHECKSUMS:
   React-jsiexecutor: 8909917ff7d8f21a57e443a866fd8d4560e50c65
   React-jsinspector: 111d7d342b07a904c400592e02a2b958f1098b60
   react-native-geolocation: a7b94614afbd5fd8350e0233a2025c8228fc8041
+  react-native-google-maps: 2e2e697dab576abd5809d78cd74e775865b62bf7
+  react-native-image-picker: 7a85cf7b0a53845f03ae52fb4592a2748ded069b
   react-native-location: 5a40ec1cc6abf2f6d94df979f98ec76c3a415681
+  react-native-maps: 6e499eee4eabf422ba8b6f94e993cc768bf35153
   react-native-splash-screen: 200d11d188e2e78cea3ad319964f6142b6384865
   react-native-voximplant: c50bfa82f1a2398d64a3dcc7df5d645ffe66fa30
   React-RCTActionSheet: 89b037c0fb7d2671607cb645760164e7e0c013f6
@@ -397,12 +472,14 @@ SPEC CHECKSUMS:
   ReactNativeLocalization: dbb269b27d8a84bb22b9c2cdec38ba780b51dd72
   RNCAsyncStorage: 2e2e3feb9bdadc752a026703d8c4065ca912e75a
   RNGestureHandler: 5329a942fce3d41c68b84c2c2276ce06a696d8b0
+  RNPermissions: 9525b0f4d209fdf9a373d52d1492ae2943e691e5
   RNSettingsPage: 8c103cbcc01488cd0cd65d9128b5be5f517f0174
+  RNSVG: be27aa7c58819f97399388ae53d7fa0572f32c7f
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   VoxImplantSDK: e7fba0ba2a1dd9b9d953b49d47588c0ab902f698
   VoxImplantWebRTC: 959b59c4a5d1338354792416ee677c5e47036321
   Yoga: 14927e37bd25376d216b150ab2a561773d57911f
 
-PODFILE CHECKSUM: fcf72e883d68223c3eb576064acd845a44e0fbe0
+PODFILE CHECKSUM: 24fc08ba2e145c78b608d50768769871077a2c31
 
 COCOAPODS: 1.8.3

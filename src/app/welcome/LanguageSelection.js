@@ -12,7 +12,7 @@ import {
 } from 'react-native';
 import { connect } from 'react-redux';
 import RNRestart from 'react-native-restart';
-import { argonTheme } from '../../constants';
+import { Colors } from '../../constants';
 import { switchLanguage } from '../../actions';
 import { Icon } from '../../components';
 import t from '../../I18n';
@@ -31,7 +31,7 @@ class LanguageSelection extends Component {
       <View style={styles.buttonContainer}>
         <Button
           color="white"
-          textStyle={{ color: argonTheme.COLORS.BLACK }}
+          textStyle={{ color: Colors.BLACK }}
           onPress={this._handlePress}
         >
           {t.GetStarted}
@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: argonTheme.COLORS.APP
+    backgroundColor: Colors.APP
   },
   image: {
     flex: 1,

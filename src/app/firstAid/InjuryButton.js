@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image } from 'react-native';
-import { argonTheme, Images } from '../../constants';
+import { Colors, Images } from '../../constants';
 
 const InjuryButton = (props) => {
   return (
@@ -22,7 +22,6 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     flexDirection: 'row',
-    backgroundColor: argonTheme.COLORS.BACKGROUND
   },
   textContainer: {
     flex: 1,
@@ -31,13 +30,13 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 40,
-    color: argonTheme.COLORS.BLACK,
+    color: Colors.BLACK,
     textAlign: 'center',
     fontWeight: 'bold',
     margin: 10,
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 1,
-    textShadowColor: argonTheme.COLORS.WHITE
+    textShadowColor: Colors.WHITE
   },
   button: {
     marginLeft: 16,
@@ -50,7 +49,7 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: argonTheme.COLORS.WHITE,
+    shadowColor: Colors.WHITE,
     shadowOffset: {
       width: 0,
       height: 2
@@ -58,7 +57,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
     elevation: 5,
-    borderRadius: 5
+    borderRadius: 30
   },
   image: {
     margin: 10,
@@ -76,7 +75,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 1,
-    textShadowColor: argonTheme.COLORS.WHITE,
+    textShadowColor: Colors.WHITE,
     shadowOpacity: 0.25,
     elevation: 5
   }

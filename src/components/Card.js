@@ -1,144 +1,103 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {
   StyleSheet,
+  View,
+  Text,
   Dimensions,
   Image,
-  View,
-  TouchableOpacity,
-  Alert
+  TouchableOpacity
 } from 'react-native';
-import { Block, Text, theme } from 'galio-framework';
+import { Colors } from '../constants';
+import { theme } from 'galio-framework';
+import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
-import { argonTheme } from '../constants';
+
+const { width, height } = Dimensions.get('screen');
 
 class Card extends React.Component {
-  _renderCTA() {
-    if (this.props.item.cta) {
-      return (
-        <Text
-          size={12}
-          muted={!ctaColor}
-          color={ctaColor || argonTheme.COLORS.ACTIVE}
-          bold
-        >
-          {item.cta}
-        </Text>
-      );
-    } else {
-      return null;
-    }
-  }
   render() {
-    const {
-      item,
-      horizontal,
-      full,
-      style,
-      ctaColor,
-      imageStyle,
-      onPress,
-      onPressInfo
-    } = this.props;
-
-    const imageStyles = [
-      full ? styles.fullImage : styles.horizontalImage,
-      imageStyle
-    ];
-    const cardContainer = [styles.card, styles.shadow, style];
-    const imgContainer = [
-      styles.imageContainer,
-      horizontal ? styles.horizontalStyles : styles.verticalStyles,
-      styles.shadow
-    ];
-
+    const { item, style, onPress, onPressInfo } = this.props;
     return (
-      <Block row={horizontal} card flex style={cardContainer}>
-        <TouchableOpacity
-          onPress={onPressInfo}
-          style={{ position: 'absolute', margin: 7, right: -1, zIndex: 1 }}
-        >
-          <Icon
-            size={20}
-            color='white'
-            name="information-outline"
-            style={{
-              textAlign: 'center'
-            }}
+      <View style={[styles.mainView, style]}>
+        <TouchableOpacity style={styles.cardContainer} onPress={onPress}>
+          <TouchableOpacity onPress={onPressInfo} style={styles.infoButton}>
+            <Icon
+              size={25}
+              color="white"
+              name="information-outline"
+              style={{
+                textAlign: 'center'
+              }}
+            />
+          </TouchableOpacity>
+          <LinearGradient
+            start={{ x: 1, y: 0 }}
+            end={{ x: 0, y: 1 }}
+            locations={[0.15, 1]}
+            colors={['transparent', 'black']}
+            style={styles.linearGradient}
           />
+          <Image source={item.image} style={styles.image} />
+          <Text
+            style={{
+              fontSize: 35,
+              zIndex: 2,
+              color: 'white',
+              position: 'absolute',
+              bottom: 0,
+              fontWeight: '900',
+              fontFamily: 'Manjari-Bold',
+              marginLeft: 15
+            }}
+          >
+            {item.title}
+          </Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={onPress}>
-          <View>
-            <Block flex style={imgContainer}>
-              <Image source={item.image} style={imageStyles} />
-            </Block>
-          </View>
-          <View>
-            <Block flex space="between" style={styles.cardDescription}>
-              <Text size={20} style={styles.cardTitle}>
-                {item.title}
-              </Text>
-              {this._renderCTA}
-            </Block>
-          </View>
-        </TouchableOpacity>
-      </Block>
+      </View>
     );
   }
 }
 
-Card.propTypes = {
-  item: PropTypes.object,
-  horizontal: PropTypes.bool,
-  full: PropTypes.bool,
-  ctaColor: PropTypes.string,
-  imageStyle: PropTypes.any
-};
-
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: theme.COLORS.WHITE,
-    marginTop: theme.SIZES.BASE,
-    borderWidth: 0,
-    minHeight: 114
-  },
-  cardTitle: {
+  mainView: {
     flex: 1,
-    flexWrap: 'wrap'
+    justifyContent: 'flex-start',
+    alignItems: 'center'
   },
-  cardDescription: {
-    padding: theme.SIZES.BASE / 2
-  },
-  imageContainer: {
-    borderRadius: 5,
-    elevation: 1,
-    overflow: 'hidden'
+  cardContainer: {
+    flex: 1,
+    width: '100%',
+    borderRadius: 30,
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 6
+    },
+    shadowOpacity: 0.39,
+    shadowRadius: 8.3,
+    elevation: 13
   },
   image: {
-    // borderRadius: 3,
+    height: '100%',
+    width: '100%',
+    borderRadius: 30
   },
-  horizontalImage: {
-    height: 204,
-    width: 'auto'
+  linearGradient: {
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    borderRadius: 30,
+    zIndex: 1
   },
-  horizontalStyles: {
-    borderTopRightRadius: 0,
-    borderBottomRightRadius: 0
-  },
-  verticalStyles: {
-    borderBottomRightRadius: 0,
-    borderBottomLeftRadius: 0
-  },
-  fullImage: {
-    height: 204,
-    width: 'auto'
-  },
-  shadow: {
-    shadowColor: theme.COLORS.BLACK,
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    shadowOpacity: 0.1,
-    elevation: 2
+  infoButton: {
+    position: 'absolute',
+    margin: 12,
+    right: 0,
+    zIndex: 3
   }
 });
 

@@ -1,11 +1,11 @@
 import { StyleSheet, Platform } from 'react-native';
-import { argonTheme } from '../../../../constants';
+import { Colors } from '../../../../constants';
 
 export const CELL_SIZE = 70;
 export const CELL_BORDER_RADIUS = 8;
 export const DEFAULT_CELL_BG_COLOR = '#fff';
 // export const NOT_EMPTY_CELL_BG_COLOR = '#3557b7';
-export const NOT_EMPTY_CELL_BG_COLOR = argonTheme.COLORS.APP;
+export const NOT_EMPTY_CELL_BG_COLOR = Colors.APP;
 export const ACTIVE_CELL_BG_COLOR = '#f7fafe';
 
 export default StyleSheet.create({
@@ -54,7 +54,7 @@ export default StyleSheet.create({
     fontSize: 30,
     borderRadius: CELL_BORDER_RADIUS,
     // color: '#3759b8',
-    color: argonTheme.COLORS.APP,
+    color: Colors.APP,
     backgroundColor: '#fff',
 
     // IOS
@@ -74,7 +74,7 @@ export default StyleSheet.create({
     borderRadius: 80,
     minHeight: 80,
     // backgroundColor: '#3557b7',
-    backgroundColor: argonTheme.COLORS.APP,
+    backgroundColor: Colors.APP,
     justifyContent: 'center',
     alignItems: 'center',
     minWidth: 300,

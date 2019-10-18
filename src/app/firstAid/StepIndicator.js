@@ -5,8 +5,9 @@ import data from './FirstAidData';
 import metadata from './metadata.json';
 import { argonTheme } from '../../constants';
 import t from '../../I18n';
+import { Colors } from '../../constants';
 
-const { APP, BACKGROUND } = argonTheme.COLORS;
+const { APP, BACKGROUND } = Colors;
 const stepIndicatorStyles = {
   stepIndicatorSize: 50,
   currentStepIndicatorSize: 40,
@@ -85,8 +86,7 @@ export default class StepIndicator extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row-reverse',
-    backgroundColor: BACKGROUND
+    flexDirection: 'row-reverse'
   },
   stepIndicator: {
     marginVertical: 20, // 50

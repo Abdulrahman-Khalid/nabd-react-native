@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Button } from '../../components';
 import { Actions } from 'react-native-router-flux';
-import { argonTheme } from '../../constants';
+import { Colors } from '../../constants';
 import { Dimensions } from 'react-native';
 import { Block, Button as GaButton, theme } from 'galio-framework';
 
@@ -43,10 +43,10 @@ const styles = {
     borderRadius: 5
   },
   appColor: {
-    backgroundColor: argonTheme.COLORS.APP
+    backgroundColor: Colors.APP
   },
   buttonTextNew: {
-    color: argonTheme.COLORS.WHITE,
+    color: Colors.WHITE,
     fontSize: 20,
     fontWeight: 'bold'
   },

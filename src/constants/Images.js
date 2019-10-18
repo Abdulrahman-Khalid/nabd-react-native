@@ -44,6 +44,8 @@ const doctorCard = require('../assets/imgs/doctor-card.jpg');
 const ambulanceCard = require('../assets/imgs/ambulance-card.jpg');
 
 const locationPermission = require('../assets/imgs/location-permission.png');
+
+const locationMarker = require('../assets/imgs/location-marker.png');
 // internet imgs
 
 const ProfilePicture =
@@ -106,5 +108,6 @@ export default {
   aideCard,
   doctorCard,
   ambulanceCard,
-  locationPermission
+  locationPermission,
+  locationMarker
 };
