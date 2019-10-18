@@ -11,6 +11,7 @@ import { connect } from 'react-redux';
 import { InjuryButtonPressed } from '../../actions';
 import data from './metadata.json';
 import { argonTheme } from '../../constants';
+import t from '../../I18n';
 
 class FirstAidDetailsWithButtons extends Component {
   onButtonPress(text) {
@@ -30,9 +31,7 @@ class FirstAidDetailsWithButtons extends Component {
                 'chemical_poisoning_swallowing'
               )}
             >
-              <Text style={styles.text}>
-                {data.chemical_poisoning_swallowing.arValue}
-              </Text>
+              <Text style={styles.text}>{t.ChemicalPoisoning_Swallowing}</Text>
             </TouchableOpacity>
             <TouchableOpacity
               style={styles.button}
@@ -41,9 +40,7 @@ class FirstAidDetailsWithButtons extends Component {
                 'chemical_poisoning_inhaling'
               )}
             >
-              <Text style={styles.text}>
-                {data.chemical_poisoning_inhaling.arValue}
-              </Text>
+              <Text style={styles.text}>{t.ChemicalPoisoning_Inhaling}</Text>
             </TouchableOpacity>
           </View>
         ) : (
@@ -53,9 +50,7 @@ class FirstAidDetailsWithButtons extends Component {
                 style={styles.button}
                 onPress={this.onButtonPress.bind(this, 'eye_injury_puncture')}
               >
-                <Text style={styles.text}>
-                  {data.eye_injury_puncture.arValue}
-                </Text>
+                <Text style={styles.text}>{t.EyeInjury_Puncture}</Text>
               </TouchableOpacity>
             </View>
 
@@ -64,9 +59,7 @@ class FirstAidDetailsWithButtons extends Component {
                 style={styles.button}
                 onPress={this.onButtonPress.bind(this, 'eye_injury_scratch')}
               >
-                <Text style={styles.text}>
-                  {data.eye_injury_scratch.arValue}
-                </Text>
+                <Text style={styles.text}>{t.EyeInjury_scratch}</Text>
               </TouchableOpacity>
             </View>
           </View>

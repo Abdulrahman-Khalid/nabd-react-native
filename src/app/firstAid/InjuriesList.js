@@ -6,6 +6,7 @@ import { InjuryButtonPressed } from '../../actions';
 import InjuryButton from './InjuryButton';
 import data from './metadata.json';
 import { argonTheme } from '../../constants';
+import t from '../../I18n';
 
 class InjuriesList extends Component {
   onButtonPress(text) {
@@ -23,18 +24,14 @@ class InjuriesList extends Component {
     return (
       <ScrollView>
         <TouchableOpacity onPress={this.onButtonPress.bind(this, 'cpr')}>
-          <InjuryButton
-            src={'cpr'}
-            backgroundClr={INJURY_BUTTON}
-            txt={data.cpr.arValue}
-          />
+          <InjuryButton src={'cpr'} backgroundClr={INJURY_BUTTON} txt={t.CPR} />
         </TouchableOpacity>
 
         <TouchableOpacity onPress={this.onButtonPress.bind(this, 'bleeding')}>
           <InjuryButton
             src={'bleeding'}
             backgroundClr={INJURY_BUTTON_TWO}
-            txt={data.bleeding.arValue}
+            txt={t.Bleeding}
           />
         </TouchableOpacity>
 
@@ -42,7 +39,7 @@ class InjuriesList extends Component {
           <InjuryButton
             src={'cuts'}
             backgroundClr={INJURY_BUTTON}
-            txt={data.cuts.arValue}
+            txt={t.Cuts}
           />
         </TouchableOpacity>
 
@@ -52,7 +49,7 @@ class InjuriesList extends Component {
           <InjuryButton
             src={'head_injury'}
             backgroundClr={INJURY_BUTTON_TWO}
-            txt={data.head_injury.arValue}
+            txt={t.HeadInjury}
           />
         </TouchableOpacity>
 
@@ -60,7 +57,7 @@ class InjuriesList extends Component {
           <InjuryButton
             src={'burns'}
             backgroundClr={INJURY_BUTTON}
-            txt={data.burns.arValue}
+            txt={t.Burns}
           />
         </TouchableOpacity>
 
@@ -70,7 +67,7 @@ class InjuriesList extends Component {
           <InjuryButton
             src={'eye_injury'}
             backgroundClr={INJURY_BUTTON_TWO}
-            txt={data.eye_injury.arValue}
+            txt={t.EyeInjury}
           />
         </TouchableOpacity>
 
@@ -78,7 +75,7 @@ class InjuriesList extends Component {
           <InjuryButton
             src={'fractures'}
             backgroundClr={INJURY_BUTTON}
-            txt={data.fractures.arValue}
+            txt={t.Fractures}
           />
         </TouchableOpacity>
 
@@ -88,17 +85,15 @@ class InjuriesList extends Component {
           <InjuryButton
             src={'tooth_injury'}
             backgroundClr={INJURY_BUTTON_TWO}
-            txt={data.tooth_injury.arValue}
+            txt={t.ToothInjury}
           />
         </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={this.onButtonPress.bind(this, 'nosebleeding')}
-        >
+        <TouchableOpacity onPress={this.onButtonPress.bind(this, 'nosebleed')}>
           <InjuryButton
-            src={'nosebleeding'}
+            src={'nosebleed'}
             backgroundClr={INJURY_BUTTON}
-            txt={data.nosebleeding.arValue}
+            txt={t.Nosebleed}
           />
         </TouchableOpacity>
 
@@ -106,7 +101,7 @@ class InjuriesList extends Component {
           <InjuryButton
             src={'seizure'}
             backgroundClr={INJURY_BUTTON_TWO}
-            txt={data.seizure.arValue}
+            txt={t.Seizure}
           />
         </TouchableOpacity>
 
@@ -116,7 +111,7 @@ class InjuriesList extends Component {
           <InjuryButton
             src={'chemical_poisoning'}
             backgroundClr={INJURY_BUTTON}
-            txt={data.chemical_poisoning.arValue}
+            txt={t.ChemicalPoisoning}
           />
         </TouchableOpacity>
       </ScrollView>

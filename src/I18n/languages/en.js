@@ -16,25 +16,21 @@ export default en = {
   EmailTitle: 'Nabd app feedback',
   Settings: 'Settings',
   FirstAid: 'First Aid',
-  // tooth_injury: [
-  //   {
-  //     body: 'something'
-  //   },
-  //   {
-  //     body: 'something'
-  //   },
-  //   {
-  //     body: 'something'
-  //   },
-  //   {
-  //     body: 'something'
-  //   },
-  //   {
-  //     body: 'something'
-  //   }
-  // ]
-
-  // tooth_injury: ['1', '2', '3']
+  Bleeding: 'Bleeding',
+  Burns: 'Burns',
+  ChemicalPoisoning: 'Chemical Poisoning',
+  CPR: 'CPR',
+  Seizure: 'Seizure',
+  Cuts: 'Cuts',
+  EyeInjury: 'Eye Injury',
+  Fractures: 'Fractures',
+  HeadInjury: 'HeadInjury',
+  Nosebleed: 'Nosebleed',
+  ToothInjury: 'Tooth Injury',
+  EyeInjuryPuncture: 'Eye Puncture',
+  EyeInjuryScratch: 'Eye Scratch',
+  ChemicalPoisoningInhaling: 'Inhaling',
+  ChemicalPoisoningSwallowing: 'Swallowing',
 
   tooth_injury: [
     'Find the tooth, hold it from the part of the chewing (crown), and never touch the roots of the tooth.',
