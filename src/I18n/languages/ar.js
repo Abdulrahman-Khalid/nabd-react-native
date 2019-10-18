@@ -33,6 +33,16 @@ export default ar = {
   ChemicalPoisoning_Inhaling: ' التسمم بالاستنشاق',
   ChemicalPoisoning_Swallowing: 'التسمم بالبلع',
 
+  // Ambulance Home
+  RequestDoctor: 'اتصل بطبيب',
+  RequestParamedic: 'اتصل بمسعف',
+  RequestAmbulance: 'اتصل بالإسعاف',
+  LogOut: 'تسجيل الخروج',
+
+  // Paramedic Home
+  DoctorSpecialization: 'تخصص الطبيب',
+  Close: 'اغلاق',
+
   tooth_injury: [
     'العثور على السن، وإمساكه من الجزء المستخدم في المضغ (التاج)، ولا يجب أبدًا لمس جذور السن.',
     '	إذا كان السن متسخًا، يجب شطفه بلطف باستخدام الماء النظيف فقط، ولا يستخدم الصابون، أو أي من المواد الكيميائية، مع عدم القيام بفرك السن، أو تجفيفه، كما لا يجب لف السن بمنديل، أو قطعة قماش.',
