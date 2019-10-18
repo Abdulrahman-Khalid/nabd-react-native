@@ -273,6 +273,8 @@ PODS:
     - React
   - RNSettingsPage (1.0.0):
     - React
+  - RNSVG (9.11.1):
+    - React
   - RNVectorIcons (6.6.0):
     - React
   - VoxImplantSDK (2.23.0):
@@ -328,6 +330,7 @@ DEPENDENCIES:
   - RNGestureHandler (from `../node_modules/react-native-gesture-handler`)
   - RNPermissions (from `../node_modules/react-native-permissions`)
   - RNSettingsPage (from `../node_modules/react-native-settings-page/ios`)
+  - RNSVG (from `../node_modules/react-native-svg`)
   - RNVectorIcons (from `../node_modules/react-native-vector-icons`)
   - Yoga (from `../node_modules/react-native/ReactCommon/yoga`)
 
@@ -420,6 +423,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native-permissions"
   RNSettingsPage:
     :path: "../node_modules/react-native-settings-page/ios"
+  RNSVG:
+    :path: "../node_modules/react-native-svg"
   RNVectorIcons:
     :path: "../node_modules/react-native-vector-icons"
   Yoga:
@@ -469,6 +474,7 @@ SPEC CHECKSUMS:
   RNGestureHandler: 5329a942fce3d41c68b84c2c2276ce06a696d8b0
   RNPermissions: 9525b0f4d209fdf9a373d52d1492ae2943e691e5
   RNSettingsPage: 8c103cbcc01488cd0cd65d9128b5be5f517f0174
+  RNSVG: be27aa7c58819f97399388ae53d7fa0572f32c7f
   RNVectorIcons: 0bb4def82230be1333ddaeee9fcba45f0b288ed4
   VoxImplantSDK: e7fba0ba2a1dd9b9d953b49d47588c0ab902f698
   VoxImplantWebRTC: 959b59c4a5d1338354792416ee677c5e47036321
