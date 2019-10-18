@@ -15,7 +15,7 @@ export default class TabBar extends React.Component {
             name="house"
             family="flaticon"
 						style={{ fontWeight: '900' }}
-            color={activeTabIndex === 0 ? Colors.APP : 'black'}
+            color={activeTabIndex === 0 ? Colors.APP : 'gray'}
             size={30}
           />
         );
@@ -25,7 +25,7 @@ export default class TabBar extends React.Component {
           <Icon
             name="support"
             family="flaticon"
-            color={activeTabIndex === 1 ? Colors.APP : 'black'}
+            color={activeTabIndex === 1 ? Colors.APP : 'gray'}
             size={30}
           />
         );
@@ -35,7 +35,7 @@ export default class TabBar extends React.Component {
           <Icon
             name="hospital"
             family="flaticon"
-            color={activeTabIndex === 2 ? Colors.APP : 'black'}
+            color={activeTabIndex === 2 ? Colors.APP : 'gray'}
             size={30}
           />
         );
