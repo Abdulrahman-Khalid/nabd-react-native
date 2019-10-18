@@ -15,7 +15,7 @@ import AmbulanceHome from './app/home/AmbulanceHome';
 import Incidents from './app/home/Incidents';
 import UserSettings from './app/settings/UserSettings';
 import AddIncident from './app/home/AddIncident';
-import { argonTheme } from './constants';
+import { Colors } from './constants';
 import InjuriesList from './app/firstAid/InjuriesList';
 import FirstAidDetails from './app/firstAid/FirstAidDetails';
 import FirstAidDetailsWithButtons from './app/firstAid/FirstAidDetailsWithButtons';
@@ -23,6 +23,7 @@ import { connect } from 'react-redux';
 import { resetSignInReducerState, resetSignUpReducerState } from './actions';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native';
+import { TabBar } from './components'
 
 class RouterComponent extends Component {
   _renderSettingsButton() {
@@ -42,7 +43,7 @@ class RouterComponent extends Component {
           fontWeight: 'bold',
           color: '#000'
         }}
-        tintColor={argonTheme.COLORS.APP}
+        tintColor={Colors.APP}
       >
         <Scene key="root" hideNavBar initial headerLayoutPreset="center">
           <Scene key="welcome" initial>
@@ -87,16 +88,16 @@ class RouterComponent extends Component {
           </Scene>
           <Scene key="userAndDoctor" initial hideNavBar={true}>
             <Tabs
-              key="home"
+              key="tabBar"
               // headerLayoutPreset="left"
               initial
               lazy={true}
-              swipeEnabled={true}
+              tabBarComponent={TabBar}
               renderRightButton={this._renderSettingsButton}
               titleStyle={{ color: '#000', fontFamily: 'Manjari-Bold' }}
             >
               <Scene
-                key="userAndDoctorHome"
+                key="Home"
                 component={UserAndDoctorHome}
                 title="Home"
                 icon={() => <Icon name="home" size={25} />}

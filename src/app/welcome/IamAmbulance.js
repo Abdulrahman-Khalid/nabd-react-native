@@ -4,14 +4,14 @@ import { Button } from '../../components';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
 import { Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
-import { argonTheme, Images } from '../../constants';
+import { Colors, Images } from '../../constants';
 
 const { width, height } = Dimensions.get('screen');
 
 class IamAmbulance extends Component {
   render() {
     return (
-      <Block flex style={{ backgroundColor: argonTheme.COLORS.BACKGROUND }}>
+      <Block flex style={{ backgroundColor: Colors.BACKGROUND }}>
         <Block center style={{ position: 'absolute', top: 30 }}>
           <Image style={styles.image} source={Images.ambulance} />
           <Text style={{ fontSize: 20, fontWeight: '700' }}>Ambulance</Text>

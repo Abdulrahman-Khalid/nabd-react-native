@@ -3,7 +3,7 @@ import { StyleSheet, Dimensions, FlatList, Animated } from 'react-native';
 import { Block, theme } from 'galio-framework';
 
 const { width } = Dimensions.get('screen');
-import argonTheme from '../constants/Theme';
+import { Colors } from '../constants';
 
 const defaultMenu = [
   { id: 'popular', title: 'Popular', },
@@ -65,13 +65,13 @@ export default class Tabs extends React.Component {
 
     const textColor = this.animatedValue.interpolate({
       inputRange: [0, 1],
-      outputRange: [argonTheme.COLORS.BLACK, isActive ? argonTheme.COLORS.WHITE : argonTheme.COLORS.BLACK],
+      outputRange: [Colors.BLACK, isActive ? Colors.WHITE : Colors.BLACK],
       extrapolate: 'clamp',
     });
     
     const containerStyles = [
       styles.titleContainer,
-      !isActive && { backgroundColor: argonTheme.COLORS.SECONDARY },
+      !isActive && { backgroundColor: Colors.SECONDARY },
       isActive && styles.containerShadow
     ];
 
@@ -137,7 +137,7 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     alignItems: 'center',
-    backgroundColor: argonTheme.COLORS.ACTIVE,
+    backgroundColor: Colors.ACTIVE,
     borderRadius: 4,
     marginRight: 9
   },
@@ -154,6 +154,6 @@ const styles = StyleSheet.create({
     // lineHeight: 28,
     paddingVertical: 10,
     paddingHorizontal: 16,
-    color: argonTheme.COLORS.MUTED
+    color: Colors.MUTED
   },
 });

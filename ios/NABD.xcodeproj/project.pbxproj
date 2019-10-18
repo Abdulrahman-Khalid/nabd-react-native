@@ -39,6 +39,7 @@
 		B2832E2519444B2B9E623D9A /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B5255ECBF681464690485D83 /* Zocial.ttf */; };
 		BE809DB9AF1E4440A9E15E16 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BA809B8255884D58BB1D35A8 /* FontAwesome.ttf */; };
 		C06FE0E12B7947C8AF1EC354 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7D75D3392D63494C90B908CF /* Ionicons.ttf */; };
+		C0E40E2D723E4C4CA8B89B1F /* flaticons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 954569A621B14B23835278AF /* flaticons.ttf */; };
 		CC2D1A5F27FC45AF1BD66960 /* libPods-NABD.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 06B4EE67C5532DB679E2D936 /* libPods-NABD.a */; };
 		CD2BB768EFA24A32A1159F96 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1C7C75CFF6B84619A873BE9A /* SimpleLineIcons.ttf */; };
 		E51626E7CF324EF4B790BC3B /* Manjari-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3FC9737B6FFE4ADCAA32379E /* Manjari-Regular.ttf */; };
@@ -107,6 +108,7 @@
 		828B443F6138828B4B0A8537 /* libPods-NABD-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-NABD-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8960A44A75A64A99AA238743 /* FontAwesome5_Solid.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = FontAwesome5_Solid.ttf; path = "../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf"; sourceTree = "<group>"; };
 		89FA31E35EDC42D6B4AD945F /* argon.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = argon.ttf; path = ../src/assets/font/argon.ttf; sourceTree = "<group>"; };
+		954569A621B14B23835278AF /* flaticons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = flaticons.ttf; path = ../src/assets/fonts/flaticons.ttf; sourceTree = "<group>"; };
 		9A1CFFF7FE34401697B8836F /* Foundation.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Foundation.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Foundation.ttf"; sourceTree = "<group>"; };
 		A4BC63EFD52D4F0AB305B79B /* Tajawal-Black.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Tajawal-Black.ttf"; path = "../src/assets/fonts/Tajawal-Black.ttf"; sourceTree = "<group>"; };
 		A6BC4E2858F5457D88147FBB /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
@@ -230,6 +232,7 @@
 				A91D26EDA15B40A69F63B29D /* Tajawal-Light.ttf */,
 				AD67DB9CE8C04188A508C32E /* Tajawal-Medium.ttf */,
 				EA292E2A75D241DA9EA1D896 /* Tajawal-Regular.ttf */,
+				954569A621B14B23835278AF /* flaticons.ttf */,
 			);
 			name = Resources;
 			sourceTree = "<group>";
@@ -477,6 +480,7 @@
 				0F69C1B97C20492C95362689 /* Tajawal-Light.ttf in Resources */,
 				A48E3F623FDB483F8073A897 /* Tajawal-Medium.ttf in Resources */,
 				9CCEFA3673DF4A39BE53DA74 /* Tajawal-Regular.ttf in Resources */,
+				C0E40E2D723E4C4CA8B89B1F /* flaticons.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

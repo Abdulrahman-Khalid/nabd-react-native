@@ -8,7 +8,7 @@ import { persistStore } from 'redux-persist';
 import Languages from './I18n';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
 import CreateStore from './config/CreateStore';
-import { argonTheme } from './constants';
+import { Colors } from './constants';
 import {
   setCustomText,
   setCustomTextInput,
@@ -89,7 +89,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: argonTheme.COLORS.APP
+    backgroundColor: Colors.APP
   },
   horizontal: {
     flexDirection: 'row',

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
 import { Block, Text, Button, theme } from 'galio-framework';
 import { Actions } from 'react-native-router-flux';
-import { argonTheme, Images } from '../../constants';
+import { Colors, Images } from '../../constants';
 import { connect } from 'react-redux';
 import {
   selectHelperType,

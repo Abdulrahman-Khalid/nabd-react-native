@@ -12,7 +12,7 @@ import {
   Text
 } from 'react-native';
 import IncidentCard from '../../components/IncidentCard';
-import { argonTheme, Images } from '../../constants';
+import { Colors, Images } from '../../constants';
 import { theme, Block } from 'galio-framework';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { getLocation, updateLocation } from '../../actions';
@@ -20,6 +20,7 @@ import { connect } from 'react-redux';
 import Geolocation from 'react-native-geolocation-service';
 import { Actions } from 'react-native-router-flux';
 import { FAB } from 'react-native-paper';
+import { SkeletonCard } from '../../components';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -222,13 +223,9 @@ export class Incidents extends Component {
       );
     } else {
       return (
-        <View
-          style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
-        >
-          <ActivityIndicator size="large" style={{ marginBottom: 10 }} />
-          <Text style={{ fontFamily: 'Manjari-Regular', fontSize: 15 }}>
-            Fetching your location...
-          </Text>
+        <View style={styles.skeletonCardsContainer}>
+          <SkeletonCard />
+          <SkeletonCard />
         </View>
       );
     }
@@ -250,7 +247,13 @@ const styles = StyleSheet.create({
     margin: 16,
     right: 0,
     bottom: 0,
-    backgroundColor: argonTheme.COLORS.APP
+    backgroundColor: Colors.APP
+  },
+  skeletonCardsContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'space-evenly',
+    alignItems: 'center',
   }
 });
 

@@ -5,7 +5,7 @@ import ModalDropdown from 'react-native-modal-dropdown';
 import { Block, Text } from 'galio-framework';
 
 import Icon from './Icon';
-import { argonTheme } from '../constants';
+import { Colors } from '../constants';
 
 class DropDown extends React.Component {
   state = {
@@ -42,7 +42,7 @@ class DropDown extends React.Component {
         {...props}>
         <Block flex row middle space="between">
           <Text size={12} style={textStyles}>{this.state.value}</Text>
-          <Icon name={iconName || "nav-down"} family={iconFamily || "ArgonExtra"} size={iconSize || 10} color={iconColor || argonTheme.COLORS.WHITE} />
+          <Icon name={iconName || "nav-down"} family={iconFamily || "ArgonExtra"} size={iconSize || 10} color={iconColor || Colors.WHITE} />
         </Block>
       </ModalDropdown>
     )
@@ -61,7 +61,7 @@ DropDown.propTypes = {
 const styles = StyleSheet.create({
   qty: {
     width: 100,
-    backgroundColor: argonTheme.COLORS.DEFAULT,
+    backgroundColor: Colors.DEFAULT,
     paddingHorizontal: 16,
     paddingTop: 10,
     paddingBottom:9.5,
@@ -72,7 +72,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 1,
   },
   text: {
-    color: argonTheme.COLORS.WHITE,
+    color: Colors.WHITE,
     fontWeight: '600'
   },
   dropdown: {
