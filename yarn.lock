@@ -6261,6 +6261,18 @@ react-native-steps@^1.3.0:
   dependencies:
     prop-types "^15.7.2"
 
+react-native-svg-animated-linear-gradient@^0.3.3:
+  version "0.3.3"
+  resolved "https://registry.yarnpkg.com/react-native-svg-animated-linear-gradient/-/react-native-svg-animated-linear-gradient-0.3.3.tgz#7177d46bb3bcdcfd1037b3f0731ec56f03a30432"
+  integrity sha512-oTA6snOJ7zCcQHzQM9SMRVp1f8m2s99VT9zNobO3PvsRHyhbtc5Cpwbs3tkX8FKpclHIXguqoy+fGA/HpHLKyQ==
+  dependencies:
+    d3-interpolate "^1.1.5"
+
+react-native-svg@^9.11.1:
+  version "9.11.1"
+  resolved "https://registry.yarnpkg.com/react-native-svg/-/react-native-svg-9.11.1.tgz#b1ccf48de413ff8c4f476f202aaa3893f4c8b59a"
+  integrity sha512-BmNCM81SSzhj1+N5rYiy7sxrkmybgiT8Cu8yVRB7zVoWze/i1lbCWJah+Gk0OHHwR35ZA31oVKf5jtO4G1n94Q==
+
 react-native-swipe-verify@^0.1.6:
   version "0.1.6"
   resolved "https://registry.yarnpkg.com/react-native-swipe-verify/-/react-native-swipe-verify-0.1.6.tgz#332c46562fc0e9e7cc0fbac72b205e7effd53660"
