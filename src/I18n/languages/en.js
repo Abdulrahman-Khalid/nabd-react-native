@@ -27,10 +27,10 @@ export default en = {
   HeadInjury: 'HeadInjury',
   Nosebleed: 'Nosebleed',
   ToothInjury: 'Tooth Injury',
-  EyeInjuryPuncture: 'Eye Puncture',
-  EyeInjuryScratch: 'Eye Scratch',
-  ChemicalPoisoningInhaling: 'Inhaling',
-  ChemicalPoisoningSwallowing: 'Swallowing',
+  EyeInjury_Puncture: 'Eye Puncture',
+  EyeInjury_Scratch: 'Eye Scratch',
+  ChemicalPoisoning_Inhaling: 'Inhaling',
+  ChemicalPoisoning_Swallowing: 'Swallowing',
 
   tooth_injury: [
     'Find the tooth, hold it from the part of the chewing (crown), and never touch the roots of the tooth.',
