@@ -40,8 +40,7 @@ const styles = StyleSheet.create({
   modalBackground: {
     width: '100%',
     position: 'absolute',
-    bottom: -2,
-    right: -12
+    bottom: 0
   },
   modalOverlay: {
     position: 'absolute',
@@ -54,26 +53,24 @@ const styles = StyleSheet.create({
   modalViewWrapper: {
     backgroundColor: '#FFFFFF',
     height: 'auto',
-    width: '94%',
-    borderRadius: 10,
-    display: 'flex',
+    width: '100%',
+    borderTopLeftRadius: 30,
+    borderTopRightRadius: 30,
     alignItems: 'stretch',
     justifyContent: 'space-around',
     flexDirection: 'column',
-    marginBottom: '3%',
-    shadowColor: 'black',
-    shadowOffset: { width: 2, height: 2 },
-    shadowRadius: 20,
-    shadowOpacity: 0.5,
-    elevation: 2
+    shadowColor: '#000',
+    shadowOpacity: 1,
+    shadowRadius: 100,
+    elevation: 20
   },
   headerText: {
-    fontSize: 30,
+    fontSize: 23,
     textAlign: 'left',
     fontFamily: 'Manjari-Bold',
     fontWeight: '900',
     paddingTop: 20,
-    paddingBottom: 20,
+    paddingBottom: 10,
     paddingLeft: 20
   }
 });
