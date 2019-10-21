@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.34,
     shadowRadius: 10,
     elevation: 10,
+    flex: 0.12
   },
   tabBarButton: { flex: 1, justifyContent: 'center', alignItems: 'center' }
 });
