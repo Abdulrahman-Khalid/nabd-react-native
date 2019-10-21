@@ -345,13 +345,14 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     flex: 1,
     flexDirection: 'row',
-    margin: 10
+    margin: 10,
   },
   buttonContainer: {
     flex: 1,
     alignItems: 'center',
     paddingLeft: 10,
-    paddingRight: 10
+    paddingRight: 10,
+    zIndex: 100
   },
   button: {
     width: '100%',
