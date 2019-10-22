@@ -253,7 +253,7 @@ class IncidentCard extends React.Component {
               ]}
             >
               <CustomIcon
-                name="paper-plane"
+                name="map"
                 family="flaticon"
                 style={{ marginRight: 5 }}
                 color="#b3b3b2"
@@ -280,7 +280,7 @@ class IncidentCard extends React.Component {
                 ]}
               >
                 <CustomIcon
-                  name="phone-call"
+                  name="phone-handset"
                   family="flaticon"
                   style={{ marginRight: 5 }}
                   color="#d76674"
@@ -305,7 +305,6 @@ IncidentCard.propTypes = {
 const styles = StyleSheet.create({
   card: {
     backgroundColor: theme.COLORS.WHITE,
-    marginTop: theme.SIZES.BASE,
     borderWidth: 0,
     minHeight: 114,
     borderRadius: 30
