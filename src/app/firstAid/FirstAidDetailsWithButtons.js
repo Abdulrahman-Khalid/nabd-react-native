@@ -93,7 +93,6 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-around',
-    backgroundColor: Colors.BACKGROUND
   },
   button: {
     marginBottom: 30,
@@ -101,7 +100,6 @@ const styles = StyleSheet.create({
     height: 70,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: Colors.APP,
     borderRadius: 15
   },
   text: {

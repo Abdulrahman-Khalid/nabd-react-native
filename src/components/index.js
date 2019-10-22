@@ -4,7 +4,7 @@ import DrawerItem from './DrawerItem';
 import Icon from './Icon';
 import Header from './Header';
 import Input from './Input';
-import Switch from './Switch';
+import SwitchButton from './Switch';
 import Select from './Select';
 import Spinner from './Spinner';
 import Modal from './Modal';
@@ -21,7 +21,7 @@ export {
   Icon,
   Input,
   Header,
-  Switch, 
+  SwitchButton, 
   Select,
   Spinner,
   Modal,
