@@ -25,7 +25,6 @@ import {
   Card,
   Modal as CustomModal,
   Icon as CustomIcon,
-  SwitchButton
 } from '../../components';
 import axios from 'axios';
 import PubNubReact from 'pubnub-react';
@@ -105,7 +104,6 @@ class UserAndDoctorHome extends Component {
             justifyContent: 'space-around'
           }}
         >
-        <SwitchButton/>
           <Text style={{ fontSize: 18 }}>Send current location?</Text>
           <Switch
             value={this.state.switchValue}

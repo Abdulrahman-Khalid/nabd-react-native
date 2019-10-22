@@ -54,6 +54,7 @@ export default class StepIndicator extends Component {
           renderItem={this.renderPage}
           onViewableItemsChanged={this.onViewableItemsChanged}
           viewabilityConfig={this.viewabilityConfig}
+          showsVerticalScrollIndicator={false}
         />
       </View>
     );
@@ -91,9 +92,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: 20
   },
   rowItem: {
-    marginVertical: 30, // space between list items
+    marginVertical: '10%', // space between list items
     flex: 1,
-    paddingVertical: 20
+    paddingVertical: '10%'
   },
   body: {
     flex: 1,

@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
-import { ScrollView, TouchableOpacity } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { InjuryButtonPressed } from '../../actions';
 import InjuryButton from './InjuryButton';
 import data from './metadata.json';
 import { Colors } from '../../constants';
+import { theme } from 'galio-framework';
 
 class InjuriesList extends Component {
   onButtonPress(text) {
@@ -21,104 +22,105 @@ class InjuriesList extends Component {
   render() {
     const { INJURY_BUTTON, INJURY_BUTTON_TWO } = Colors;
     return (
-      <ScrollView>
-        <TouchableOpacity onPress={this.onButtonPress.bind(this, 'cpr')}>
+      <ScrollView contentContainerStyle={{ paddingTop: theme.SIZES.BASE }}>
+        <View>
           <InjuryButton
             src={'cpr'}
-            backgroundClr={INJURY_BUTTON}
+            backgroundClr="#63B8B1"
             txt={data.cpr.arValue}
+            onPress={this.onButtonPress.bind(this, 'cpr')}
           />
-        </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity onPress={this.onButtonPress.bind(this, 'bleeding')}>
+        <View>
           <InjuryButton
             src={'bleeding'}
-            backgroundClr={INJURY_BUTTON_TWO}
+            backgroundClr="#FFE0B2"
             txt={data.bleeding.arValue}
+            onPress={this.onButtonPress.bind(this, 'bleeding')}
           />
-        </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity onPress={this.onButtonPress.bind(this, 'cuts')}>
+        <View>
           <InjuryButton
             src={'cuts'}
-            backgroundClr={INJURY_BUTTON}
+            backgroundClr="#B9917C"
             txt={data.cuts.arValue}
+            onPress={this.onButtonPress.bind(this, 'cuts')}
           />
-        </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity
-          onPress={this.onButtonPress.bind(this, 'head_injury')}
-        >
+        <View>
           <InjuryButton
             src={'head_injury'}
-            backgroundClr={INJURY_BUTTON_TWO}
+            backgroundClr="#E5C7BD"
             txt={data.head_injury.arValue}
+            onPress={this.onButtonPress.bind(this, 'head_injury')}
           />
-        </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity onPress={this.onButtonPress.bind(this, 'burns')}>
+        <View>
           <InjuryButton
             src={'burns'}
-            backgroundClr={INJURY_BUTTON}
+            backgroundClr="#F66775"
             txt={data.burns.arValue}
+            onPress={this.onButtonPress.bind(this, 'burns')}
           />
-        </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity
-          onPress={this.onButtonPress_.bind(this, 'eye_injury')}
-        >
+        <View>
           <InjuryButton
             src={'eye_injury'}
-            backgroundClr={INJURY_BUTTON_TWO}
+            backgroundClr="#CCCBCB"
             txt={data.eye_injury.arValue}
+            onPress={this.onButtonPress_.bind(this, 'eye_injury')}
           />
-        </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity onPress={this.onButtonPress.bind(this, 'fractures')}>
+        <View>
           <InjuryButton
             src={'fractures'}
-            backgroundClr={INJURY_BUTTON}
+            backgroundClr="#FAEBC7"
             txt={data.fractures.arValue}
+            onPress={this.onButtonPress.bind(this, 'fractures')}
           />
-        </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity
-          onPress={this.onButtonPress.bind(this, 'tooth_injury')}
-        >
+        <View>
           <InjuryButton
             src={'tooth_injury'}
-            backgroundClr={INJURY_BUTTON_TWO}
+            backgroundClr="#DB527D"
             txt={data.tooth_injury.arValue}
+            onPress={this.onButtonPress.bind(this, 'tooth_injury')}
           />
-        </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity
-          onPress={this.onButtonPress.bind(this, 'nosebleeding')}
-        >
+        <View>
           <InjuryButton
             src={'nosebleeding'}
-            backgroundClr={INJURY_BUTTON}
+            backgroundClr="#FFE0B2"
             txt={data.nosebleeding.arValue}
+            onPress={this.onButtonPress.bind(this, 'nosebleeding')}
           />
-        </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity onPress={this.onButtonPress.bind(this, 'seizure')}>
+        <View>
           <InjuryButton
             src={'seizure'}
-            backgroundClr={INJURY_BUTTON_TWO}
+            backgroundClr="#F6494C"
             txt={data.seizure.arValue}
+            onPress={this.onButtonPress.bind(this, 'seizure')}
           />
-        </TouchableOpacity>
+        </View>
 
-        <TouchableOpacity
-          onPress={this.onButtonPress_.bind(this, 'chemical_poisoning')}
-        >
+        <View>
           <InjuryButton
             src={'chemical_poisoning'}
-            backgroundClr={INJURY_BUTTON}
+            backgroundClr="#B289C9"
             txt={data.chemical_poisoning.arValue}
+            onPress={this.onButtonPress_.bind(this, 'chemical_poisoning')}
           />
-        </TouchableOpacity>
+        </View>
       </ScrollView>
     );
   }
