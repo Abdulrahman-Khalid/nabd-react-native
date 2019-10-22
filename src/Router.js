@@ -22,17 +22,24 @@ import FirstAidDetailsWithButtons from './app/firstAid/FirstAidDetailsWithButton
 import { connect } from 'react-redux';
 import { resetSignInReducerState, resetSignUpReducerState } from './actions';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
-import { TouchableOpacity } from 'react-native';
-import { TabBar } from './components'
+import { TouchableOpacity, Text } from 'react-native';
+import { TabBar, Icon as CustomIcon } from './components';
 
 class RouterComponent extends Component {
   _renderSettingsButton() {
     return (
       <TouchableOpacity
         onPress={() => Actions.UserSettings()}
-        style={{ marginRight: 10 }}
+        style={{ marginRight: 20 }}
       >
-        <Icon name="settings" size={25} />
+        <CustomIcon
+          name="gear-option"
+          family="flaticon"
+          size={20}
+          style={{
+            color: 'white'
+          }}
+        />
       </TouchableOpacity>
     );
   }
@@ -41,11 +48,24 @@ class RouterComponent extends Component {
       <Router
         titleStyle={{
           fontWeight: 'bold',
-          color: '#000'
+          fontSize: 20,
+          color: 'white'
         }}
-        tintColor={Colors.APP}
+        tintColor="white"
       >
-        <Scene key="root" hideNavBar initial headerLayoutPreset="center">
+        <Scene
+          key="root"
+          hideNavBar
+          initial
+          headerLayoutPreset="center"
+          navigationBarStyle={{
+            borderBottomLeftRadius: 30,
+            borderBottomRightRadius: 30,
+            height: 60,
+            backgroundColor: Colors.APP,
+            color: 'white'
+          }}
+        >
           <Scene key="welcome" initial>
             <Scene
               key="languageSelection"
@@ -53,7 +73,6 @@ class RouterComponent extends Component {
               hideNavBar={true}
             />
           </Scene>
-
           <Scene key="typeSelection">
             <Scene key="whoRU" component={WhoAmI} hideNavBar={true} />
             <Scene key="iUser" component={IamUser} title="User" />
@@ -94,7 +113,6 @@ class RouterComponent extends Component {
               lazy={true}
               tabBarComponent={TabBar}
               renderRightButton={this._renderSettingsButton}
-              titleStyle={{ color: '#000', fontFamily: 'Manjari-Bold' }}
             >
               <Scene
                 key="Home"
@@ -106,6 +124,7 @@ class RouterComponent extends Component {
                 key="Incidents"
                 component={Incidents}
                 title="Incidents"
+                hideNavBar
                 icon={() => <Icon name="lifebuoy" size={25} />}
               />
               <Scene
@@ -113,7 +132,7 @@ class RouterComponent extends Component {
                 title="First Aid"
                 icon={() => <Icon name="hospital" size={25} />}
               >
-                <Scene key="InjuriesList" component={InjuriesList} />
+                <Scene hideNavBar key="InjuriesList" component={InjuriesList} />
                 <Scene key="FirstAidDetails" component={FirstAidDetails} />
                 <Scene
                   key="FirstAidDetailsWithButtons"
