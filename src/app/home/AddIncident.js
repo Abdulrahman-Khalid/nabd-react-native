@@ -13,9 +13,8 @@ import axios from 'axios';
 import ImagePicker from 'react-native-image-picker';
 import { Actions } from 'react-native-router-flux';
 import { TextInput, Button } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import ActionSheet from 'react-native-action-sheet';
-import { LocationPicker } from '../../components';
+import { LocationPicker, Icon } from '../../components';
 
 const actionSheetButtons = [
   'Take a picture',
@@ -202,7 +201,7 @@ export default class AddIncident extends Component {
             }}
           >
             {this.state.photo === null ? (
-              <Icon name="image-plus" size={80} color="gray" />
+              <Icon name="add-image" family="flaticon" size={80} color="gray" />
             ) : (
               <View
                 style={{
