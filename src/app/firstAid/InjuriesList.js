@@ -15,6 +15,7 @@ import data from './metadata.json';
 import { Colors } from '../../constants';
 import { theme } from 'galio-framework';
 import { Icon } from '../../components';
+import { isIphoneX } from 'react-native-iphone-x-helper';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -55,11 +56,17 @@ class InjuriesList extends Component {
             {
               paddingHorizontal: width * 0.05,
               width: width,
-              height: scrollOffset.interpolate({
-                inputRange: [0, 200],
-                outputRange: [80, 60],
-                extrapolate: 'clamp'
-              }),
+              height: isIphoneX()
+                ? scrollOffset.interpolate({
+                    inputRange: [0, 200],
+                    outputRange: [124, 104],
+                    extrapolate: 'clamp'
+                  })
+                : scrollOffset.interpolate({
+                    inputRange: [0, 200],
+                    outputRange: [80, 60],
+                    extrapolate: 'clamp'
+                  }),
               backgroundColor: scrollOffset.interpolate({
                 inputRange: [0, 200],
                 outputRange: ['#E9E9EF', Colors.APP],
@@ -138,7 +145,7 @@ class InjuriesList extends Component {
           />
         </Animated.View>
         <ScrollView
-          contentContainerStyle={{ paddingTop: theme.SIZES.BASE }}
+          contentContainerStyle={{ paddingTop: theme.SIZES.BASE, zIndex: 2 }}
           onScroll={({ nativeEvent }) => {
             const scrollSensitivity = 4 / 3;
             const offset = nativeEvent.contentOffset.y / scrollSensitivity;
@@ -254,7 +261,8 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingTop: isIphoneX() ? 44 : 0
   }
 });
 
