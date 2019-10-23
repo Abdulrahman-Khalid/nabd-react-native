@@ -35,11 +35,12 @@ export default en = {
   RequestDoctor: 'ٌRequest Doctor',
   RequestParamedic: 'Request Paramedic',
   RequestAmbulance: 'Request Ambulance',
+  RequestHelp: 'Request Help',
   LogOut: 'Log out',
 
-    // Paramedic Home
-  DoctorSpecialization: 'تخصص الطبيب',
-  Close: 'اغلاق',
+  // Paramedic Home
+  DoctorSpecialization: 'Doctor Specialization',
+  Close: 'close',
 
   tooth_injury: [
     'Find the tooth, hold it from the part of the chewing (crown), and never touch the roots of the tooth.',

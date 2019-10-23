@@ -44,7 +44,7 @@ class RouterComponent extends Component {
         onPress={() => Actions.pop()}
         style={{ marginLeft: 10 }}
       >
-        <Icon name="arrow-left" color={argonTheme.COLORS.APP} size={25} />
+        <Icon name="arrow-left" color={Colors.APP} size={25} />
       </TouchableOpacity>
     );
   }
@@ -122,6 +122,7 @@ class RouterComponent extends Component {
             />
             <Scene
               key="FirstAid"
+              component={Incidents}
               title={t.FirstAid}
               icon={() => <Icon name="hospital" size={25} />}
               initial
@@ -152,7 +153,7 @@ class RouterComponent extends Component {
               />
               <Scene
                 key="FirstAid"
-                title="First Aid"
+                title={t.FirstAid}
                 icon={() => <Icon name="hospital" size={25} />}
               >
                 <Scene key="InjuriesList" component={InjuriesList} />
@@ -169,7 +170,7 @@ class RouterComponent extends Component {
               component={UserSettings}
               title={t.Settings}
               renderLeftButton={this._renderBackButton}
-              title="Settings"
+              title={t.Settings}
               hideNavBar={false}
             />
             <Scene

@@ -31,20 +31,21 @@ import RadioForm, {
 import RNSwipeVerify from 'react-native-swipe-verify';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { openSettings } from 'react-native-permissions';
+import t from '../../I18n';
 
 const { width, height } = Dimensions.get('screen');
 
 const buttons = [
   {
-    title: 'Request an Aide',
+    title: t.RequestHelp,
     image: Images.aideCard
   },
   {
-    title: 'Request a Doctor',
+    title: t.RequestDoctor,
     image: Images.doctorCard
   },
   {
-    title: 'Request an Ambulance',
+    title: t.RequestAmbulance,
     image: Images.ambulanceCard,
     horizontal: true
   }
@@ -166,74 +167,74 @@ class UserAndDoctorHome extends Component {
     );
   }
 
-  renderLocationPermissionRequestModal() {
-    return (
-      <Modal
-        visible={!this.props.locationPermissionGranted}
-        animationType="fade"
-      >
-        <View style={styles.locationPermissionModalContainer}>
-          <Image
-            style={styles.locationPermissionImage}
-            source={Images.locationPermission}
-            resizeMode="center"
-          />
-          <View style={styles.locationPermissionModalTitleContainer}>
-            <Text style={styles.locationPermissionModalTitle}>
-              Nabd requires access to your location
-            </Text>
-          </View>
-          <Text style={styles.locationPermissionModalDescription}>
-            {Platform.OS === 'android'
-              ? `In order to have help at your fingertips, location access is required. Press 'Open Settings' > Permissions > Location > Allow all the time > Go back to Nabd > Press 'Refresh'`
-              : `In order to have help at your fingertips, location access is required. Press 'Open Settings' > Location > Always > Go back to Nabd > Press 'Refresh'`}
-          </Text>
-          <View style={styles.permissionModalButtons}>
-            <TouchableOpacity
-              style={styles.permissionModalButtonContainer}
-              onPress={() => {
-                openSettings().catch(() =>
-                  Alert.alert('Error', 'Cannot open settings')
-                );
-              }}
-            >
-              <View
-                style={[
-                  styles.permissionModalButton,
-                  {
-                    backgroundColor: '#f6f6f4'
-                  }
-                ]}
-              >
-                <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
-                  Open Settings
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.permissionModalButtonContainer}
-              onPress={() => {
-                this.props.requestLocationPermission();
-              }}
-            >
-              <View
-                style={[
-                  styles.permissionModalButton,
-                  {
-                    backgroundColor: '#fdeaec'
-                  }
-                ]}
-              >
-                <Text style={{ color: '#d76674', fontFamily: 'Manjari-Bold' }}>
-                  Refresh
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
-    );
-  }
+  // renderLocationPermissionRequestModal() {
+  //   return (
+  //     <Modal
+  //       visible={!this.props.locationPermissionGranted}
+  //       animationType="fade"
+  //     >
+  //       <View style={styles.locationPermissionModalContainer}>
+  //         <Image
+  //           style={styles.locationPermissionImage}
+  //           source={Images.locationPermission}
+  //           resizeMode="center"
+  //         />
+  //         <View style={styles.locationPermissionModalTitleContainer}>
+  //           <Text style={styles.locationPermissionModalTitle}>
+  //             Nabd requires access to your location
+  //           </Text>
+  //         </View>
+  //         <Text style={styles.locationPermissionModalDescription}>
+  //           {Platform.OS === 'android'
+  //             ? `In order to have help at your fingertips, location access is required. Press 'Open Settings' > Permissions > Location > Allow all the time > Go back to Nabd > Press 'Refresh'`
+  //             : `In order to have help at your fingertips, location access is required. Press 'Open Settings' > Location > Always > Go back to Nabd > Press 'Refresh'`}
+  //         </Text>
+  //         <View style={styles.permissionModalButtons}>
+  //           <TouchableOpacity
+  //             style={styles.permissionModalButtonContainer}
+  //             onPress={() => {
+  //               openSettings().catch(() =>
+  //                 Alert.alert('Error', 'Cannot open settings')
+  //               );
+  //             }}
+  //           >
+  //             <View
+  //               style={[
+  //                 styles.permissionModalButton,
+  //                 {
+  //                   backgroundColor: '#f6f6f4'
+  //                 }
+  //               ]}
+  //             >
+  //               <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
+  //                 Open Settings
+  //               </Text>
+  //             </View>
+  //           </TouchableOpacity>
+  //           <TouchableOpacity
+  //             style={styles.permissionModalButtonContainer}
+  //             onPress={() => {
+  //               this.props.requestLocationPermission();
+  //             }}
+  //           >
+  //             <View
+  //               style={[
+  //                 styles.permissionModalButton,
+  //                 {
+  //                   backgroundColor: '#fdeaec'
+  //                 }
+  //               ]}
+  //             >
+  //               <Text style={{ color: '#d76674', fontFamily: 'Manjari-Bold' }}>
+  //                 Refresh
+  //               </Text>
+  //             </View>
+  //           </TouchableOpacity>
+  //         </View>
+  //       </View>
+  //     </Modal>
+  //   );
+  // }
 
   logoutButtonPressed() {
     axios.defaults.headers.common['TOKEN'] = '';
@@ -386,7 +387,6 @@ class UserAndDoctorHome extends Component {
   render() {
     return (
       <View style={styles.home}>
-        {this.renderLocationPermissionRequestModal()}
         {this.renderButtons()}
         {this.renderModal()}
       </View>

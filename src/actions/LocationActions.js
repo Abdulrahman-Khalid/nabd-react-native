@@ -1,9 +1,13 @@
-import { GET_LOCATION, REQUEST_LOCATION_PERMISSION, UPDATE_LOCATION } from './types';
+import {
+  GET_LOCATION,
+  REQUEST_LOCATION_PERMISSION,
+  UPDATE_LOCATION
+} from './types';
 import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import { Platform, Alert } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 
-export const updateLocation = (position) => {
+export const updateLocation = position => {
   return {
     type: UPDATE_LOCATION,
     payload: position
@@ -12,7 +16,10 @@ export const updateLocation = (position) => {
 
 export const getLocation = () => {
   return async dispatch => {
-    Geolocation.setRNConfiguration({ skipPermissionRequests: false, authorizationLevel: 'always' });
+    Geolocation.setRNConfiguration({
+      skipPermissionRequests: false,
+      authorizationLevel: 'always'
+    });
     Geolocation.requestAuthorization();
     await Geolocation.getCurrentPosition(
       position => {

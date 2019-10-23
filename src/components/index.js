@@ -21,7 +21,7 @@ export {
   Icon,
   Input,
   Header,
-  Switch, 
+  Switch,
   Select,
   Spinner,
   Modal,

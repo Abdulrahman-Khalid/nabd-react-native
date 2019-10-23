@@ -151,7 +151,7 @@ export default class AddIncident extends Component {
     this.setState({
       modalVisible: false
     });
-  }
+  };
 
   render() {
     const maxLength = 240;

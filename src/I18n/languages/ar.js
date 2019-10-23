@@ -37,6 +37,7 @@ export default ar = {
   RequestDoctor: 'اتصل بطبيب',
   RequestParamedic: 'اتصل بمسعف',
   RequestAmbulance: 'اتصل بالإسعاف',
+  RequestHelp: 'طلب مساعدة طبية',
   LogOut: 'تسجيل الخروج',
 
   // Paramedic Home
