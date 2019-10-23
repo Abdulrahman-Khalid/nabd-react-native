@@ -22,6 +22,7 @@ import Geolocation from 'react-native-geolocation-service';
 import { Actions } from 'react-native-router-flux';
 import { FAB } from 'react-native-paper';
 import { SkeletonCard, Icon as CustomIcon } from '../../components';
+import { isIphoneX } from 'react-native-iphone-x-helper';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -42,6 +43,28 @@ const incidentsDummyData = [
     description: 'انفجار مغسلة في حي المعادي',
     date: new Date(+new Date() - Math.floor(Math.random() * 10000000000)),
     image: null,
+    location: {
+      latitude: -33.8600024,
+      longitude: 18.697459
+    },
+    numberToCall: '01001796904'
+  },
+  {
+    userID: '01001796906',
+    description: 'طلب كيس دم ضروري في مستشفي الدفاع الجوي التخصصي',
+    date: new Date(+new Date() - Math.floor(Math.random() * 10000000000)),
+    image: Images.ambulanceCard,
+    location: {
+      latitude: -33.8600024,
+      longitude: 18.697459
+    },
+    numberToCall: '01001796904'
+  },
+  {
+    userID: '01001796906',
+    description: 'طلب كيس دم ضروري في مستشفي الدفاع الجوي التخصصي',
+    date: new Date(+new Date() - Math.floor(Math.random() * 10000000000)),
+    image: Images.ambulanceCard,
     location: {
       latitude: -33.8600024,
       longitude: 18.697459
@@ -199,18 +222,24 @@ export class Incidents extends Component {
     const { scrollOffset } = this.state;
     if (this.props.location.position) {
       return (
-        <Block flex center style={styles.mainContainer}>
+        <View style={styles.mainContainer}>
           <Animated.View
             style={[
               styles.header,
               {
                 paddingHorizontal: width * 0.05,
                 width: width,
-                height: scrollOffset.interpolate({
-                  inputRange: [0, 200],
-                  outputRange: [80, 60],
-                  extrapolate: 'clamp'
-                }),
+                height: isIphoneX()
+                  ? scrollOffset.interpolate({
+                      inputRange: [0, 200],
+                      outputRange: [124, 104],
+                      extrapolate: 'clamp'
+                    })
+                  : scrollOffset.interpolate({
+                      inputRange: [0, 200],
+                      outputRange: [80, 60],
+                      extrapolate: 'clamp'
+                    }),
                 backgroundColor: scrollOffset.interpolate({
                   inputRange: [0, 200],
                   outputRange: ['#E9E9EF', Colors.APP],
@@ -260,18 +289,23 @@ export class Incidents extends Component {
                 marginRight: 20
               }}
             >
-              <CustomIcon name="gear-option" family="animatedFlaticon" size={25} style={{
-                color: scrollOffset.interpolate({
-                  inputRange: [0, 200],
-                  outputRange: ['black', 'white'],
-                  extrapolate: 'clamp'
-                }),
-                fontSize: scrollOffset.interpolate({
-                  inputRange: [0, 200],
-                  outputRange: [25, 20],
-                  extrapolate: 'clamp'
-                }),
-              }} />
+              <CustomIcon
+                name="gear-option"
+                family="animatedFlaticon"
+                size={25}
+                style={{
+                  color: scrollOffset.interpolate({
+                    inputRange: [0, 200],
+                    outputRange: ['black', 'white'],
+                    extrapolate: 'clamp'
+                  }),
+                  fontSize: scrollOffset.interpolate({
+                    inputRange: [0, 200],
+                    outputRange: [25, 20],
+                    extrapolate: 'clamp'
+                  })
+                }}
+              />
             </TouchableOpacity>
             <Animated.View
               style={{
@@ -315,10 +349,10 @@ export class Incidents extends Component {
           </ScrollView>
           <FAB
             style={styles.addIncidentButton}
-            icon='add'
+            icon="add"
             onPress={() => Actions.AddIncident()}
           />
-        </Block>
+        </View>
       );
     } else {
       return (
@@ -339,7 +373,8 @@ const styles = StyleSheet.create({
   mainContainer: {
     width: width,
     height: height,
-    alignContent: 'center'
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   addIncidentButton: {
     position: 'absolute',
@@ -357,7 +392,8 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    paddingTop: isIphoneX() ? 44 : 0
   }
 });
 

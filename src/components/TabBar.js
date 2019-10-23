@@ -66,10 +66,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-evenly',
-    height: 70,
+    height: 88,
     width: '100%',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
+    borderTopLeftRadius: 44,
+    borderTopRightRadius: 44,
     backgroundColor: Colors.APP,
     shadowColor: '#000',
     shadowOffset: {
@@ -79,7 +79,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.34,
     shadowRadius: 10,
     elevation: 10,
-    flex: 0.12
+    flex: 0.12,
   },
   tabBarButton: { flex: 1, justifyContent: 'center', alignItems: 'center' }
 });

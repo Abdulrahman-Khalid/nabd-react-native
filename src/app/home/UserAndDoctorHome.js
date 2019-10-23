@@ -123,7 +123,7 @@ class UserAndDoctorHome extends Component {
             okButton={{ visible: false, duration: 400 }}
             icon={
               <CustomIcon
-                name="hand"
+                name="swipe-right"
                 family="flaticon"
                 size={25}
                 color="white"
@@ -163,7 +163,7 @@ class UserAndDoctorHome extends Component {
           <Image
             style={styles.locationPermissionImage}
             source={Images.locationPermission}
-            resizeMode="center"
+            resizeMode="contain"
           />
           <View style={styles.locationPermissionModalTitleContainer}>
             <Text style={styles.locationPermissionModalTitle}>

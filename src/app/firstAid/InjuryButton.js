@@ -43,10 +43,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderRadius: 30,
     shadowColor: theme.COLORS.BLACK,
-    shadowOffset: { width: 0, height: 10 },
-    shadowRadius: 50,
-    shadowOpacity: 0.5,
-    elevation: 10
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    shadowOpacity: 0.1,
+    elevation: 2
   },
   image: {
     margin: 10,
