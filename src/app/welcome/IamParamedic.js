@@ -3,6 +3,7 @@ import { Image, View } from 'react-native';
 import CommonButtons from './CommonButtons';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
 import { Images } from '../../constants';
+import t from '../../I18n';
 
 class IamParamedic extends Component {
   render() {
@@ -10,12 +11,9 @@ class IamParamedic extends Component {
       <Block flex style={{ backgroundColor: 'white' }}>
         <Block center style={{ position: 'absolute', top: 30 }}>
           <View style={styles.imageWrapper}>
-            <Image
-              style={styles.image}
-              source={Images.paramedic}
-            />
+            <Image style={styles.image} source={Images.paramedic} />
           </View>
-          <Text style={{ fontSize: 20, fontWeight: '700' }}>Paramedic</Text>
+          <Text style={{ fontSize: 20, fontWeight: '700' }}>{t.Paramedic}</Text>
           <Text style={styles.descriptionText}>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry Lorem Ipsum

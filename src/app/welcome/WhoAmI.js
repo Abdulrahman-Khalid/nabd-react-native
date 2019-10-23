@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { setUserType, getWelcomeInfo } from '../../actions';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
+import t from '../../I18n';
 
 const { width, height } = Dimensions.get('screen');
 class WhoAmI extends Component {
@@ -81,7 +82,7 @@ class WhoAmI extends Component {
                   <Text style={styles.numberText}>
                     {this.props.numberUsers}
                   </Text>
-                  <Text style={styles.textStyle}>Users</Text>
+                  <Text style={styles.textStyle}>{t.User}</Text>
                 </Block>
               </Block>
               <Block>
@@ -89,7 +90,7 @@ class WhoAmI extends Component {
                   <Text style={styles.numberText}>
                     {this.props.numberDoctors}
                   </Text>
-                  <Text style={styles.textStyle}>Doctors</Text>
+                  <Text style={styles.textStyle}>{t.Doctor}</Text>
                 </Block>
               </Block>
             </Block>
@@ -99,7 +100,7 @@ class WhoAmI extends Component {
                   <Text style={styles.numberText}>
                     {this.props.numberParamedics}
                   </Text>
-                  <Text style={styles.textStyle}>paramedic</Text>
+                  <Text style={styles.textStyle}>{t.Paramedic}</Text>
                 </Block>
               </Block>
               <Block>
@@ -107,7 +108,7 @@ class WhoAmI extends Component {
                   <Text style={styles.numberText}>
                     {this.props.numberAmbulance}
                   </Text>
-                  <Text style={styles.textStyle}>Ambulance</Text>
+                  <Text style={styles.textStyle}>{t.Ambulance}</Text>
                 </Block>
               </Block>
             </Block>
@@ -120,7 +121,7 @@ class WhoAmI extends Component {
             textStyle={styles.buttonText}
             onPress={this.user.bind(this)}
           >
-            I am a user
+            {t.iUser}
           </Button>
           <Button
             color="warning"
@@ -128,7 +129,7 @@ class WhoAmI extends Component {
             textStyle={styles.buttonText}
             onPress={this.doctor.bind(this)}
           >
-            I am a doctor
+            {t.iDoctor}
           </Button>
           <Button
             color="warning"
@@ -136,7 +137,7 @@ class WhoAmI extends Component {
             textStyle={styles.buttonText}
             onPress={this.paramedic.bind(this)}
           >
-            I am a paramedic
+            {t.iParamedic}
           </Button>
           <Button
             color="warning"
@@ -144,7 +145,7 @@ class WhoAmI extends Component {
             textStyle={styles.buttonText}
             onPress={this.ambulance.bind(this)}
           >
-            Ambulance
+            {t.Ambulance}
           </Button>
         </Block>
       </Block>
@@ -174,7 +175,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   numberUsers: state.openApp.numberUsers,
   numberParamedics: state.openApp.numberParamedics,
   numberAmbulance: state.openApp.numberAmbulance,

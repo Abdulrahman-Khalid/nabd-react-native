@@ -39,10 +39,33 @@ export default ar = {
   RequestAmbulance: 'اتصل بالإسعاف',
   RequestHelp: 'طلب مساعدة طبية',
   LogOut: 'تسجيل الخروج',
+  Home: 'الصفحة الرئيسية',
 
   // Paramedic Home
   DoctorSpecialization: 'تخصص الطبيب',
   Close: 'اغلاق',
+
+  // welocme
+  Ambulance: 'عربة إسعاف',
+  Doctor: 'طبيب',
+  Paramedic: 'مسعف',
+  User: 'مستخدم',
+  CreateAccount: 'إنشاء حساب',
+  iUser: 'مستخدم',
+  iDoctor: 'طبيب',
+  iParamedic: 'مسعف',
+  SignUp: 'إنشاء حساب',
+  SignIn: 'تسجيل الدخول',
+  Verify: 'التأكيد',
+  ConfirmPassword: 'تأكيد كلمة المرور',
+  Birthday: 'تاريخ الميلاد',
+  Male: 'ذكر',
+  Female: 'أنثى',
+  Iagree: 'أوافق على',
+  PrivacyPolicy: 'سياسة الخصوصية',
+
+  Incidents: 'حوادث',
+  AddIncident: 'إضافة حادثة',
 
   tooth_injury: [
     'العثور على السن، وإمساكه من الجزء المستخدم في المضغ (التاج)، ولا يجب أبدًا لمس جذور السن.',

@@ -25,6 +25,7 @@ import {
   validatePhone
 } from '../../actions';
 import AwesomeAlert from 'react-native-awesome-alerts';
+import t from '../../I18n';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -124,7 +125,7 @@ class Register extends React.Component {
           style={styles.createButton}
         >
           <Text bold size={14} color={Colors.WHITE}>
-            CREATE ACCOUNT
+            {t.CreateAccount}
           </Text>
         </Button>
       </Block>
@@ -230,11 +231,7 @@ class Register extends React.Component {
 
   render() {
     return (
-      <Block
-        flex
-        middle
-        style={{ backgroundColor: Colors.BACKGROUND }}
-      >
+      <Block flex middle style={{ backgroundColor: Colors.BACKGROUND }}>
         <StatusBar hidden />
         <Block flex middle>
           <Block style={styles.registerContainer}>
@@ -248,7 +245,7 @@ class Register extends React.Component {
                 >
                   <Block width={width * 0.75} style={{ marginBottom: 15 }}>
                     <Input
-                      placeholder="Name"
+                      placeholder={t.Username}
                       error={this.props.isErrorName}
                       success={this.props.isSuccessName}
                       // autoFocus={true}
@@ -283,7 +280,7 @@ class Register extends React.Component {
                         onPressFlag={this.onPressFlag}
                         textProps={{
                           onBlur: this.losePhoneFocus.bind(this),
-                          placeholder: 'Phone'
+                          placeholder: t.PhoneNumber
                         }}
                       />
 
@@ -304,7 +301,7 @@ class Register extends React.Component {
                       password
                       error={this.props.isErrorPass}
                       success={this.props.isSuccessPass}
-                      placeholder="Password"
+                      placeholder={t.Password}
                       onBlur={() =>
                         this.props.fillSignUpForm({
                           key: 'password',
@@ -332,7 +329,7 @@ class Register extends React.Component {
                         this.props.isSuccessPassMatch &&
                         this.props.confirmPassword
                       }
-                      placeholder="Confirm Password"
+                      placeholder={t.ConfirmPassword}
                       onBlur={this.loseConfirmPasswordFocus.bind(this)}
                       iconContent={
                         <Icon
@@ -381,14 +378,14 @@ class Register extends React.Component {
                         style={{ width: 200 }}
                         date={this.state.birthday}
                         mode="date"
-                        placeholder="Birthday"
+                        placeholder={t.Birthday}
                         format="YYYY-MM-DD"
                         minDate="1950-01-01"
                         maxDate={this.state.todayDate}
                         confirmBtnText="Confirm"
                         cancelBtnText="Cancel"
                         customStyles={{
-                          placeholderText: 'Your birthday',
+                          placeholderText: t.Birthday,
                           dateText: {
                             fontSize: 18,
                             fontWeight: 'bold',
@@ -440,7 +437,7 @@ class Register extends React.Component {
                           }}
                           value={'male'}
                         >
-                          <Text>Male</Text>
+                          <Text>{t.Male}</Text>
                         </RadioButton>
 
                         <RadioButton
@@ -449,7 +446,7 @@ class Register extends React.Component {
                           }}
                           value={'female'}
                         >
-                          <Text>Female</Text>
+                          <Text>{t.Female}</Text>
                         </RadioButton>
                       </RadioGroup>
                     </View>
@@ -460,7 +457,7 @@ class Register extends React.Component {
                         borderWidth: 3
                       }}
                       color={Colors.APP}
-                      label="I agree with the"
+                      label={t.Iagree}
                     />
                     <Button
                       style={{ width: 100 }}
@@ -470,7 +467,7 @@ class Register extends React.Component {
                         fontSize: 14
                       }}
                     >
-                      Privacy Policy
+                      {t.PrivacyPolicy}
                     </Button>
                   </Block>
                   {this.isLoading()}

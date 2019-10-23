@@ -19,6 +19,7 @@ import PhoneInput from 'react-native-phone-input';
 import ModalPickerImage from './ModalPickerImage';
 import { signInAttempt, fillSignInForm } from '../../actions';
 import { connect } from 'react-redux';
+import t from '../../I18n';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -78,11 +79,7 @@ class SignIn extends Component {
   }
   render() {
     return (
-      <Block
-        flex
-        middle
-        style={{ backgroundColor: Colors.BACKGROUND }}
-      >
+      <Block flex middle style={{ backgroundColor: Colors.BACKGROUND }}>
         <StatusBar hidden />
         <Block flex middle>
           <View>
@@ -105,7 +102,7 @@ class SignIn extends Component {
                       onPressFlag={this.onPressFlag}
                       style={{ paddingLeft: 13 }}
                       textProps={{
-                        placeholder: 'Phone'
+                        placeholder: t.PhoneNumber
                       }}
                     />
 
@@ -130,7 +127,7 @@ class SignIn extends Component {
                     />
                     <TextInput
                       style={styles.inputs}
-                      placeholder="Password"
+                      placeholder={t.Password}
                       secureTextEntry={true}
                       underlineColorAndroid="transparent"
                       onChangeText={value =>

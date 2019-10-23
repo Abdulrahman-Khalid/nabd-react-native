@@ -3,6 +3,7 @@ import { Image } from 'react-native';
 import CommonButtons from './CommonButtons';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
 import { Colors, Images } from '../../constants';
+import t from '../../I18n';
 
 class IamDoctor extends Component {
   render() {
@@ -10,7 +11,7 @@ class IamDoctor extends Component {
       <Block flex style={{ backgroundColor: Colors.BACKGROUND }}>
         <Block center style={{ position: 'absolute', top: 30 }}>
           <Image style={styles.image} source={Images.doctor} />
-          <Text style={{ fontSize: 20, fontWeight: '700' }}>Doctor</Text>
+          <Text style={{ fontSize: 20, fontWeight: '700' }}>{t.Doctor}</Text>
           <Text style={styles.descriptionText}>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry Lorem Ipsum

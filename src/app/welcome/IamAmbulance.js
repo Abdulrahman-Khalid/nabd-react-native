@@ -5,6 +5,7 @@ import { Block, Text, Button as GaButton, theme } from 'galio-framework';
 import { Dimensions } from 'react-native';
 import { Actions } from 'react-native-router-flux';
 import { Colors, Images } from '../../constants';
+import t from '../../I18n';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -14,7 +15,7 @@ class IamAmbulance extends Component {
       <Block flex style={{ backgroundColor: Colors.BACKGROUND }}>
         <Block center style={{ position: 'absolute', top: 30 }}>
           <Image style={styles.image} source={Images.ambulance} />
-          <Text style={{ fontSize: 20, fontWeight: '700' }}>Ambulance</Text>
+          <Text style={{ fontSize: 20, fontWeight: '700' }}>{t.Ambulance}</Text>
           <Text style={styles.descriptionText}>
             Lorem Ipsum is simply dummy text of the printing and type setting
             industry Lorem Ipsum

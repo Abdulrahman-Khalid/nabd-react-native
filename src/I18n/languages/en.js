@@ -37,10 +37,33 @@ export default en = {
   RequestAmbulance: 'Request Ambulance',
   RequestHelp: 'Request Help',
   LogOut: 'Log out',
+  Home: 'Home',
 
   // Paramedic Home
   DoctorSpecialization: 'Doctor Specialization',
   Close: 'close',
+
+  // welcome
+  Ambulance: 'Ambulance',
+  Doctor: 'Doctor',
+  Paramedic: 'Paramdeic',
+  User: 'User',
+  CreateAccount: 'Create Account',
+  iUser: 'I am a user',
+  iDoctor: 'I am a doctor',
+  iParamedic: 'I am a paramedic',
+  SignUp: 'Sign Up',
+  SignIn: 'Sign in',
+  Verify: 'Verify',
+  ConfirmPassword: 'Confirm Password',
+  Birthday: 'Birthday',
+  Male: 'Male',
+  Female: 'Female',
+  Iagree: 'I agree with the',
+  PrivacyPolicy: 'Privacy Policy',
+
+  Incidents: 'Incidents',
+  AddIncident: 'Add Incident',
 
   tooth_injury: [
     'Find the tooth, hold it from the part of the chewing (crown), and never touch the roots of the tooth.',
