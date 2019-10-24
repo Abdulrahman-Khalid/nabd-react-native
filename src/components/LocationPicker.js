@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import { getLocation } from '../actions';
 import { connect } from 'react-redux';
 import { Images } from '../constants';
 import { MapSearch } from './MapSearch';
@@ -13,23 +12,14 @@ class LocationPicker extends Component {
     super(props);
     this.state = {
       region: {
-        latitude: 30.005026,
-        longitude: 31.312718,
+        latitude: this.props.position.coords.latitude,
+        longitude: this.props.position.coords.longitude,
         latitudeDelta: 0.004,
         longitudeDelta: 0.004
       },
       mapMarginBottom: 1
     };
   }
-
-  // componentDidMount() {
-  //   this.setState({
-  //     region: {
-  //       latitude: this.props.position.latitude,
-  //       longitude: this.props.position.longitude
-  //     }
-  //   });
-  // }
 
   onRegionChange = region => {
     this.setState({
@@ -39,8 +29,8 @@ class LocationPicker extends Component {
 
   moveToUserLocation() {
     const userRegion = {
-      latitude: 30.005026,
-      longitude: 31.312718,
+      latitude: this.props.position.coords.latitude,
+      longitude: this.props.position.coords.longitude,
       latitudeDelta: 0.004,
       longitudeDelta: 0.004
     };
@@ -150,5 +140,5 @@ const mapStateToProps = state => ({ position: state.location.position });
 
 export default connect(
   mapStateToProps,
-  { getLocation }
+  null
 )(LocationPicker);
