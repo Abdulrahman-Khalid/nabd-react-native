@@ -33,7 +33,8 @@ target 'NABD' do
   pod 'Yoga', :path => '../node_modules/react-native/ReactCommon/yoga'
   pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways.podspec"
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse.podspec"
-
+  pod 'React-ART', :path => '../node_modules/react-native/Libraries/ART'
+  
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
   pod 'Folly', :podspec => '../node_modules/react-native/third-party-podspecs/Folly.podspec'
