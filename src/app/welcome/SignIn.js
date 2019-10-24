@@ -73,7 +73,7 @@ class SignIn extends Component {
           });
         }}
       >
-        <Text style={styles.loginText}>Login</Text>
+        <Text style={styles.loginText}>{t.LogIn}</Text>
       </TouchableOpacity>
     );
   }
@@ -147,7 +147,7 @@ class SignIn extends Component {
                   style={styles.buttonContainer}
                   onPress={() => this.onClickListener('restore_password')}
                 >
-                  <Text>Forgot your password?</Text>
+                  <Text>{t.ForgotPassword}</Text>
                 </TouchableHighlight>
 
                 <TouchableHighlight
@@ -155,7 +155,7 @@ class SignIn extends Component {
                   style={styles.buttonContainer}
                   onPress={() => this.onClickListener('register')}
                 >
-                  <Text>Register</Text>
+                  <Text>{t.SignUp}</Text>
                 </TouchableHighlight>
               </View>
             </Block>

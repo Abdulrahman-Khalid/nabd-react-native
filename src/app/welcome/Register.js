@@ -351,7 +351,7 @@ class Register extends React.Component {
 
                     <Block row style={styles.passwordCheck}>
                       <Text size={12} color={Colors.MUTED}>
-                        password strength:
+                        {t.PasswordStrength}
                       </Text>
                       <Text
                         bold

@@ -32,7 +32,7 @@ class IamAmbulance extends Component {
               textStyle={styles.buttonTextSignup}
               onPress={() => Actions.signin()}
             >
-              Sign in
+             {t.SignIn}
             </Button>
           </Block>
         </Block>

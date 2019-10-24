@@ -32,7 +32,7 @@ export default en = {
   ChemicalPoisoning_Inhaling: 'Inhaling',
   ChemicalPoisoning_Swallowing: 'Swallowing',
 
-  RequestDoctor: 'ٌRequest Doctor',
+  RequestDoctor: 'Request Doctor',
   RequestParamedic: 'Request Paramedic',
   RequestAmbulance: 'Request Ambulance',
   RequestHelp: 'Request Help',
@@ -61,9 +61,38 @@ export default en = {
   Female: 'Female',
   Iagree: 'I agree with the',
   PrivacyPolicy: 'Privacy Policy',
+  ForgotPassword: 'Forgot your password?',
+  LogIn: 'Log In',
+  PasswordStrength: 'Password Strength:',
 
+  Call:'Call',
   Incidents: 'Incidents',
   AddIncident: 'Add Incident',
+  GetDirections: 'Get Directions',
+  IncidentDescription: 'What is happening?',
+  IncidentDescriptionReq:'Incident Description (Required)',
+  NumberToCallOpt: 'Number to call (optional)',
+  NumberToCall: 'Number to call',
+  Next:'Next',
+  Share:'Share',
+  Remove:'Remove',
+  Km:' km away',
+  Away:'',
+  Months : [
+      ' Jan',
+      ' Feb',
+      ' Mar',
+      ' Apr',
+      ' May',
+      ' Jun',
+      ' Jul',
+      ' Aug',
+      ' Sep',
+      ' Oct',
+      ' Nov',
+      ' Dec'
+    ],
+
 
   tooth_injury: [
     'Find the tooth, hold it from the part of the chewing (crown), and never touch the roots of the tooth.',

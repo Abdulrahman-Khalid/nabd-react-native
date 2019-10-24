@@ -4,6 +4,7 @@ import { Actions } from 'react-native-router-flux';
 import { Colors } from '../../constants';
 import { Dimensions } from 'react-native';
 import { Block, Button as GaButton, theme } from 'galio-framework';
+import t from '../../I18n';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -17,7 +18,7 @@ export default class CommonButtons extends Component {
           onPress={() => Actions.signup()}
           textStyle={styles.buttonTextNew}
         >
-          I am new
+          {t.CreateAccount}
         </Button>
         <Button
           color="secondary"
@@ -28,7 +29,7 @@ export default class CommonButtons extends Component {
           textStyle={styles.buttonTextSignup}
           onPress={() => Actions.signin()}
         >
-          Sign in
+          {t.SignIn}
         </Button>
       </Block>
     );

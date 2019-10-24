@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     margin: 10,
     textShadowOffset: { width: 2, height: 2 },
     textShadowRadius: 1,
-    textShadowColor: Colors.WHITE
+    textShadowColor: Colors.WHITE,
   },
   button: {
     marginLeft: 16,

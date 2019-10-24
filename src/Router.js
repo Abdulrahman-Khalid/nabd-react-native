@@ -66,7 +66,7 @@ class RouterComponent extends Component {
             />
           </Scene>
 
-          <Scene key="typeSelection" initial>
+          <Scene key="typeSelection">
             <Scene key="whoRU" component={WhoAmI} hideNavBar={true} />
             <Scene key="iUser" component={IamUser} title={t.User} />
             <Scene key="iDoctor" component={IamDoctor} title={t.Doctor} />
@@ -103,7 +103,7 @@ class RouterComponent extends Component {
             />
           </Scene>
 
-          {/* <Tabs
+           <Tabs
             key="home"
             // headerLayoutPreset="left"
             initial
@@ -131,10 +131,10 @@ class RouterComponent extends Component {
               icon={() => <Icon name="hospital" size={25} />}
               initial
             />
-          </Tabs> */}
+          </Tabs> 
 
-          <Scene key="userAndDoctor" hideNavBar={true}>
-            {/* <Tabs
+          <Scene key="userAndDoctor" initial hideNavBar={true}>
+             <Tabs
               key="tabBar"
               // headerLayoutPreset="left"
               initial
@@ -167,7 +167,7 @@ class RouterComponent extends Component {
                   component={FirstAidDetailsWithButtons}
                 />
               </Scene>
-            </Tabs> */}
+            </Tabs>
 
             <Scene
               key="UserSettings"

@@ -17,6 +17,7 @@ import { TextInput } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import ActionSheet from 'react-native-action-sheet';
 import { LocationPicker } from '../../components';
+import t from '../../I18n';
 
 const actionSheetButtons = [
   'Take a picture',
@@ -224,13 +225,14 @@ export default class AddIncident extends Component {
             style={{ flex: 0.5, marginBottom: 20, justifyContent: 'center' }}
           >
             <TextInput
-              label="Number to Call (optional)"
+              label={t.NumberToCallOpt}
               mode="outlined"
               value={this.state.numberToCall}
               onChangeText={t => {
                 this.setState({ numberToCall: t });
               }}
               dataDetectorTypes="phoneNumber"
+              placeholder={t.NumberToCall}
               style={{ fontSize: 18 }}
               theme={{ colors: { background: '#EAE9EF' } }}
               keyboardType="phone-pad"
@@ -239,13 +241,13 @@ export default class AddIncident extends Component {
           </View>
           <View style={{ flex: 2, marginBottom: 10 }}>
             <TextInput
-              label="Description (required)"
+              label={t.IncidentDescriptionReq}
               mode="outlined"
               value={this.state.text}
               onChangeText={text => {
                 this.setState({ text });
               }}
-              placeholder="What's happening?"
+              placeholder={t.IncidentDescription}
               style={{ fontSize: 18, height: '100%' }}
               theme={{ colors: { background: '#EAE9EF' } }}
               multiline
@@ -271,7 +273,7 @@ export default class AddIncident extends Component {
                 ]}
               >
                 <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
-                  Next
+                  {t.Next}
                 </Text>
               </View>
             </TouchableOpacity>

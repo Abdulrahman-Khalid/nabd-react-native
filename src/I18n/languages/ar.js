@@ -63,9 +63,38 @@ export default ar = {
   Female: 'أنثى',
   Iagree: 'أوافق على',
   PrivacyPolicy: 'سياسة الخصوصية',
+  ForgotPassword: 'هل نسيت كلمة المرور؟',
+  LogIn:'تسجيل الدخول',
+  PasswordStrength: 'قوة كلمة المرور:',
 
   Incidents: 'حوادث',
   AddIncident: 'إضافة حادثة',
+  Call: 'الاتصال',
+  GetDirections: 'الحصول على الموقع',
+  IncidentDescription: 'وصف الحادثة',
+  IncidentDescriptionReq: 'وصف الحادثة (مطلوب)',
+  NumberToCallOpt: 'رقم التواصل (حقل اختياري)',
+  NumberToCall: 'رقم التواصل',
+  Next:'التالي',
+  Share:'مشاركة',
+  Remove:'إزالة',
+  Away:'يبعد عنك ',
+  Km: ' كيلومترًا',
+    Months : [
+      ' يناير',
+      ' فبراير',
+      ' مارس',
+      'إبريل',
+      ' مايو',
+      ' يونيو',
+      ' يوليو',
+      ' أغسطس',
+      ' سبتمبر',
+      ' أكتوبر',
+      ' نوفمبر',
+      ' ديسمبر'
+    ],
+
 
   tooth_injury: [
     'العثور على السن، وإمساكه من الجزء المستخدم في المضغ (التاج)، ولا يجب أبدًا لمس جذور السن.',
