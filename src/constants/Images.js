@@ -11,6 +11,7 @@ const androidLogo = require('../assets/imgs/android.png');
 
 const welcome = require('../assets/imgs/heart.png');
 const user = require('../assets/imgs/user.png');
+const accountType = require('../assets/imgs/account-type.png');
 const doctor = require('../assets/imgs/doctor.png');
 const paramedic = require('../assets/imgs/paramedic.png');
 const ambulance = require('../assets/imgs/ambulance.png');
@@ -114,5 +115,6 @@ export default {
   locationPermission,
   locationMarker,
   gpsOff,
-  language
+  language,
+  accountType
 };

@@ -1,58 +1,59 @@
 import React, { Component } from 'react';
-import { Image, View } from 'react-native';
+import { Image, View, Text, TouchableOpacity } from 'react-native';
 import CommonButtons from './CommonButtons';
-import { Block, Text, Button as GaButton, theme } from 'galio-framework';
-import { Images } from '../../constants';
+import { theme } from 'galio-framework';
+import { Colors, Images } from '../../constants';
 
 class IamParamedic extends Component {
   render() {
     return (
-      <Block flex style={{ backgroundColor: 'white' }}>
-        <Block center style={{ position: 'absolute', top: 30 }}>
-          <View style={styles.imageWrapper}>
-            <Image
-              style={styles.image}
-              source={Images.paramedic}
-            />
-          </View>
-          <Text style={{ fontSize: 20, fontWeight: '700' }}>Paramedic</Text>
-          <Text style={styles.descriptionText}>
+      <View style={styles.mainContainer}>
+        <Image style={styles.image} source={Images.paramedic} resizeMode="contain" />
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Aide</Text>
+          <Text style={styles.description}>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry Lorem Ipsum
           </Text>
-        </Block>
-        <Block center style={{ position: 'absolute', bottom: 10 }}>
-          <CommonButtons />
-        </Block>
-      </Block>
+        </View>
+        <CommonButtons />
+      </View>
     );
   }
 }
 
 const styles = {
-  image: {
-    width: 170,
-    height: 170,
-    marginTop: 30,
-    marginLeft: 30,
-    marginRight: 30
+  mainContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  imageWrapper: {
-    backgroundColor: '#FF5B62',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowRadius: 4,
-    shadowOpacity: 0.1,
-    elevation: 2,
+  image: {
     width: 200,
     height: 200,
-    borderRadius: 200 / 2
+    margin: 20,
+    marginTop: 40,
+    flex: 1
   },
-  descriptionText: {
-    fontSize: 16,
-    lineHeight: 22,
-    marginLeft: 30,
-    marginRight: 30
+  titleContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center'
+  },
+  title: {
+    fontSize: 30,
+    textAlign: 'center',
+    fontFamily: 'Manjari-Regular',
+    marginLeft: theme.SIZES.BASE * 2,
+    marginRight: theme.SIZES.BASE * 2
+  },
+  description: {
+    fontSize: 15,
+    color: 'gray',
+    textAlign: 'center',
+    fontFamily: 'Manjari-Regular',
+    marginLeft: theme.SIZES.BASE * 2,
+    marginRight: theme.SIZES.BASE * 2
   }
 };
 
