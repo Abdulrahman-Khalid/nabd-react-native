@@ -114,7 +114,7 @@ class Register extends React.Component {
   };
 
   isLoading() {
-    console.log('hi', this.state);
+    // console.log('hi', this.state);
     return (
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
@@ -162,7 +162,7 @@ class Register extends React.Component {
       borderBottomColor: Colors.BORDER,
       height: 44,
       backgroundColor: '#FFFFFF',
-      borderBottomWidth: 2
+      borderBottomWidth: 4
     };
 
     if (isSuccessPhone) {
@@ -526,7 +526,7 @@ const styles = StyleSheet.create({
   },
   socialConnect: {
     backgroundColor: Colors.WHITE,
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: 4,
     borderColor: '#8898AA'
   },
   socialButtons: {
@@ -564,7 +564,6 @@ const styles = StyleSheet.create({
   phoneContainer: {
     paddingLeft: 15,
     borderWidth: 0,
-    borderBottomWidth: 2,
     borderRadius: 30,
     borderBottomColor: Colors.BORDER,
     height: 44,
@@ -610,7 +609,7 @@ const styles = StyleSheet.create({
 });
 
 const mapSateToProps = state => {
-  console.log('Register State: ', state);
+  // console.log('Register State: ', state);
   const { userType } = state.openApp;
   //add in the reducer signup (birthday)
   const {

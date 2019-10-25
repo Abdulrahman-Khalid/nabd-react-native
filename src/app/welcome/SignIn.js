@@ -22,6 +22,7 @@ import ModalPickerImage from './ModalPickerImage';
 import { signInAttempt, fillSignInForm } from '../../actions';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import { Spinner } from '../../components/Spinner';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -55,7 +56,7 @@ class SignIn extends Component {
   }
 
   isLoading() {
-    console.log('hi', this.state);
+    // console.log('hi', this.state);
     return (
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
@@ -132,21 +133,19 @@ class SignIn extends Component {
                 cancelText="Cancel"
               />
             </View>
-            <View style={styles.inputContainer}>
+            <View style={styles.passwordContainer}>
+              <Icon
+                size={16}
+                color={Colors.BLACK}
+                name="padlock"
+                family="flaticon"
+                style={styles.inputIcons}
+              />
               <TextInput
                 style={styles.inputs}
                 placeholder="Password"
                 secureTextEntry={true}
                 underlineColorAndroid="transparent"
-                iconContent={
-                  <Icon
-                    size={16}
-                    color={Colors.BLACK}
-                    name="padlock"
-                    family="flaticon"
-                    style={styles.inputIcons}
-                  />
-                }
                 onChangeText={value =>
                   this.props.fillSignInForm({
                     key: 'password',
@@ -191,15 +190,26 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     justifyContent: 'center'
   },
+  passwordContainer: {
+    flexDirection: 'row',
+    paddingLeft: 15,
+    borderWidth: 0,
+    borderRadius: 30,
+    height: 55,
+    backgroundColor: '#FFFFFF',
+    marginHorizontal: 15,
+    marginBottom: 10,
+    justifyContent: 'center'
+  },
   inputs: {
     height: 55,
-    marginLeft: 16,
     borderBottomColor: '#FFFFFF',
-    flex: 1
+    flex: 1,
   },
   inputIcons: {
-    marginRight: 12,
-    paddingRight: 12
+    alignSelf: 'center',
+    margin: 10,
+    marginLeft: 20
   },
   textButtonContainer: {
     justifyContent: 'center',
@@ -252,7 +262,7 @@ const styles = StyleSheet.create({
 });
 
 const mapSateToProps = state => {
-  console.log('state', state);
+  // console.log('state', state);
   const { userType } = state.openApp;
   const { phone, password, loading } = state.signin;
   return { phone, password, loading, userType };
