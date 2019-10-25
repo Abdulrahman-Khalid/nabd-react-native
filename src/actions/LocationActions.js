@@ -1,9 +1,13 @@
-import { GET_LOCATION, REQUEST_LOCATION_PERMISSION, UPDATE_LOCATION } from './types';
+import {
+  GET_LOCATION,
+  REQUEST_LOCATION_PERMISSION,
+  UPDATE_LOCATION
+} from './types';
 import { request, PERMISSIONS, RESULTS } from 'react-native-permissions';
 import { Platform, Alert } from 'react-native';
 import Geolocation from 'react-native-geolocation-service';
 
-export const updateLocation = (position) => {
+export const updateLocation = position => {
   return {
     type: UPDATE_LOCATION,
     payload: position
@@ -12,7 +16,10 @@ export const updateLocation = (position) => {
 
 export const getLocation = () => {
   return async dispatch => {
-    Geolocation.setRNConfiguration({ skipPermissionRequests: false, authorizationLevel: 'always' });
+    Geolocation.setRNConfiguration({
+      skipPermissionRequests: false,
+      authorizationLevel: 'always'
+    });
     Geolocation.requestAuthorization();
     await Geolocation.getCurrentPosition(
       position => {
@@ -52,7 +59,6 @@ export const getLocation = () => {
 };
 
 export const requestLocationPermission = () => {
-  var flag;
   console.log('requesting location permission');
   return async dispatch => {
     if (Platform.OS === 'ios') {
@@ -96,36 +102,6 @@ export const requestLocationPermission = () => {
               console.log(
                 'This feature is not available (on this device / in this context)'
               );
-              flag = false;
-              break;
-            case RESULTS.DENIED:
-              console.log(
-                'The permission has not been requested / is denied but requestable'
-              );
-              flag = false;
-              break;
-            case RESULTS.GRANTED:
-              console.log('The permission is granted');
-              flag = true;
-              break;
-            case RESULTS.BLOCKED:
-              console.log(
-                'The permission is denied and not requestable anymore'
-              );
-              flag = false;
-              break;
-          }
-        })
-        .catch(error => {
-          console.log('Error requesting location permission');
-        });
-      await request(PERMISSIONS.ANDROID.ACCESS_BACKGROUND_LOCATION)
-        .then(result => {
-          switch (result) {
-            case RESULTS.UNAVAILABLE:
-              console.log(
-                'This feature is not available (on this device / in this context)'
-              );
               dispatch({ type: REQUEST_LOCATION_PERMISSION, payload: false });
               break;
             case RESULTS.DENIED:
@@ -138,7 +114,7 @@ export const requestLocationPermission = () => {
               console.log('The permission is granted');
               dispatch({
                 type: REQUEST_LOCATION_PERMISSION,
-                payload: true && flag
+                payload: true
               });
               break;
             case RESULTS.BLOCKED:
