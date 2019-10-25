@@ -11,14 +11,17 @@ import {
   KeyboardAvoidingView,
   ActivityIndicator,
   StatusBar,
-  Alert
+  Alert,
+  Platform
 } from 'react-native';
+import { Icon } from '../../components';
 import { Block, Text } from 'galio-framework';
 import { Colors } from '../../constants';
 import PhoneInput from 'react-native-phone-input';
 import ModalPickerImage from './ModalPickerImage';
 import { signInAttempt, fillSignInForm } from '../../actions';
 import { connect } from 'react-redux';
+import { Actions } from 'react-native-router-flux';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -51,177 +54,137 @@ class SignIn extends Component {
     this.phone.selectCountry(country.iso2);
   }
 
-  onClickListener = ViewId => {
-    Alert.alert('Alert', 'Button pressed ' + ViewId);
-  };
-
   isLoading() {
     console.log('hi', this.state);
-    if (this.props.loading) {
-      return <ActivityIndicator size="large" color={Colors.APP} />;
-    }
     return (
-      <TouchableOpacity
-        style={[styles.buttonContainer, styles.loginButton]}
-        onPress={() => {
-          const { signInAttempt, phone, password, userType } = this.props;
-          signInAttempt({
-            phone,
-            password,
-            userType
-          });
-        }}
-      >
-        <Text style={styles.loginText}>Login</Text>
-      </TouchableOpacity>
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={() => {
+            const { signInAttempt, phone, password, userType } = this.props;
+            signInAttempt({
+              phone,
+              password,
+              userType
+            });
+          }}
+        >
+          <View style={styles.button}>
+            {this.props.loading ? (
+              <Spinner color={Colors.WHITE} size="small" />
+            ) : (
+              <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
+                Log In
+              </Text>
+            )}
+          </View>
+        </TouchableOpacity>
+      </View>
     );
   }
   render() {
     return (
-      <Block
-        flex
-        middle
-        style={{ backgroundColor: Colors.BACKGROUND }}
-      >
-        <StatusBar hidden />
-        <Block flex middle>
+      <View style={styles.container}>
+        <KeyboardAvoidingView behavior={Platform.OS == 'ios' ? 'padding' : null}>
+          <Text style={{ textAlign: 'left', fontSize: 50, fontWeight: 'bold', marginLeft: 20, lineHeight: 50, marginBottom: 25 }}>
+            Welcome{"\n"}Back
+          </Text>
           <View>
-            <Block style={styles.loginContainer}>
-              <View style={styles.container}>
-                <KeyboardAvoidingView>
-                  <View style={styles.inputContainer}>
-                    <PhoneInput
-                      ref={ref => {
-                        this.phone = ref;
-                      }}
-                      initialCountry="eg"
-                      offset={22}
-                      onChangePhoneNumber={value => {
-                        this.props.fillSignInForm({
-                          key: 'phone',
-                          value
-                        });
-                      }}
-                      onPressFlag={this.onPressFlag}
-                      style={{ paddingLeft: 13 }}
-                      textProps={{
-                        placeholder: 'Phone'
-                      }}
-                    />
+          <View style={styles.inputContainer}>
+            <PhoneInput
+              ref={ref => {
+                this.phone = ref;
+              }}
+              initialCountry="eg"
+              offset={22}
+              onChangePhoneNumber={value => {
+                this.props.fillSignInForm({
+                  key: 'phone',
+                  value
+                });
+              }}
+              onPressFlag={this.onPressFlag}
+              style={{ paddingLeft: 13 }}
+              textProps={{
+                placeholder: 'Phone'
+              }}
+            />
 
-                    <ModalPickerImage
-                      ref={ref => {
-                        this.myCountryPicker = ref;
-                      }}
-                      data={this.state.pickerData}
-                      onChange={country => {
-                        this.selectCountry(country);
-                      }}
-                      cancelText="Cancel"
-                    />
-                  </View>
-                  <View style={styles.inputContainer}>
-                    <Image
-                      style={styles.inputIcon}
-                      source={{
-                        uri:
-                          'https://img.icons8.com/office/50/000000/key-security.png'
-                      }}
-                    />
-                    <TextInput
-                      style={styles.inputs}
-                      placeholder="Password"
-                      secureTextEntry={true}
-                      underlineColorAndroid="transparent"
-                      onChangeText={value =>
-                        this.props.fillSignInForm({
-                          key: 'password',
-                          value
-                        })
-                      }
-                    />
-                  </View>
-                </KeyboardAvoidingView>
-
-                <View>{this.isLoading()}</View>
-
-                <TouchableHighlight
-                  underlayColor={Colors.APP}
-                  style={styles.buttonContainer}
-                  onPress={() => this.onClickListener('restore_password')}
-                >
-                  <Text>Forgot your password?</Text>
-                </TouchableHighlight>
-
-                <TouchableHighlight
-                  underlayColor={Colors.APP}
-                  style={styles.buttonContainer}
-                  onPress={() => this.onClickListener('register')}
-                >
-                  <Text>Register</Text>
-                </TouchableHighlight>
-              </View>
-            </Block>
+            <ModalPickerImage
+              ref={ref => {
+                this.myCountryPicker = ref;
+              }}
+              data={this.state.pickerData}
+              onChange={country => {
+                this.selectCountry(country);
+              }}
+              cancelText="Cancel"
+            />
           </View>
-        </Block>
-      </Block>
+          <View style={styles.inputContainer}>
+            <TextInput
+              style={styles.inputs}
+              placeholder="Password"
+              secureTextEntry={true}
+              underlineColorAndroid="transparent"
+              iconContent={
+                <Icon
+                  size={16}
+                  color={Colors.BLACK}
+                  name="padlock"
+                  family="flaticon"
+                  style={styles.inputIcons}
+                />
+              }
+              onChangeText={value =>
+                this.props.fillSignInForm({
+                  key: 'password',
+                  value
+                })
+              }
+            />
+          </View></View>
+          
+        </KeyboardAvoidingView>
+        <View>{this.isLoading()}</View>
+          <TouchableOpacity style={styles.textButtonContainer} onPress={() => console.log('restore_password')}><Text>Forgot your password?</Text></TouchableOpacity>
+          <TouchableOpacity style={styles.textButtonContainer} onPress={() => Actions.signup()}><Text>Register</Text></TouchableOpacity>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  loginContainer: {
-    width: width * 0.8,
-    height: height * 0.6,
-    backgroundColor: '#F4F5F7',
-    borderRadius: 4,
-    shadowColor: Colors.BLACK,
-    shadowOffset: {
-      width: 0,
-      height: 4
-    },
-    shadowRadius: 8,
-    shadowOpacity: 0.1,
-    elevation: 1,
-    overflow: 'hidden'
-  },
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: '#DCDCDC'
+    alignItems: 'stretch'
   },
   inputContainer: {
-    borderBottomColor: '#F5FCFF',
-    backgroundColor: '#FFFFFF',
+    paddingLeft: 15,
+    borderWidth: 0,
     borderRadius: 30,
-    borderBottomWidth: 1,
-    width: 250,
-    height: 45,
-    marginBottom: 20,
-    flexDirection: 'row',
-    alignItems: 'center'
+    height: 55,
+    backgroundColor: '#FFFFFF',
+    marginHorizontal: 15,
+    marginBottom: 10,
+    justifyContent: 'center'
   },
   inputs: {
-    height: 45,
+    height: 55,
     marginLeft: 16,
     borderBottomColor: '#FFFFFF',
     flex: 1
   },
-  inputIcon: {
-    width: 30,
-    height: 30,
-    marginLeft: 15,
-    justifyContent: 'center'
+  inputIcons: {
+    marginRight: 12,
+    paddingRight: 12
   },
-  buttonContainer: {
-    height: 45,
-    flexDirection: 'row',
+  textButtonContainer: {
     justifyContent: 'center',
     alignItems: 'center',
+    marginHorizontal: 100,
     marginBottom: 10,
-    width: 250,
-    borderRadius: 30
   },
   loginButton: {
     backgroundColor: Colors.APP
@@ -230,7 +193,6 @@ const styles = StyleSheet.create({
     color: 'white'
   },
   phoneContainer: {
-    borderRadius: 4,
     borderColor: Colors.BORDER,
     height: 44,
     backgroundColor: '#FFFFFF',
@@ -241,6 +203,30 @@ const styles = StyleSheet.create({
     elevation: 2,
     justifyContent: 'center',
     paddingLeft: 10
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    margin: 10,
+    justifyContent: 'center',
+  },
+  buttonContainer: {
+    width: '100%',
+    padding: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  button: {
+    height: 55,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderRadius: 30,
+    backgroundColor: Colors.APP
   }
 });
 
