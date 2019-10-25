@@ -269,7 +269,7 @@ function runPassword(password, dispatch) {
   else if (nScore >= 20) {
     passStrengthText = 'Weak';
     passStrengthColor = '#Fe3d1a';
-    passError = 'Password is sweak';
+    passError = 'Password is weak';
   }
   // -- Very Weak
   else {
