@@ -1,19 +1,23 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { Colors, Images } from '../../constants';
+import { theme } from 'galio-framework';
 
-const InjuryButton = (props) => {
+const InjuryButton = props => {
   return (
-    <View style={styles.container}>
-      <View style={[styles.button, { backgroundColor: props.backgroundClr }]}>
-        <View style={styles.shadow}>
-          <Image style={styles.image} source={Images[props.src]} />
-        </View>
-        <View style={styles.textContainer}>
-          <Text style={styles.text}>{props.txt}</Text>
-        </View>
+    <TouchableOpacity
+      style={[
+        styles.container,
+        styles.button,
+        { backgroundColor: props.backgroundClr }
+      ]}
+      onPress={props.onPress}
+    >
+      <Image style={styles.image} source={Images[props.src]} />
+      <View style={styles.textContainer}>
+        <Text style={styles.text}>{props.txt}</Text>
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -21,7 +25,11 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    flexDirection: 'row',
+    flexDirection: 'column',
+    marginLeft: 16,
+    marginRight: 16,
+    marginBottom: 16,
+    borderRadius: 30
   },
   textContainer: {
     flex: 1,
@@ -30,54 +38,29 @@ const styles = StyleSheet.create({
   },
   text: {
     fontSize: 40,
-    color: Colors.BLACK,
+    color: 'white',
     textAlign: 'center',
     fontWeight: 'bold',
-    margin: 10,
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 1,
-    textShadowColor: Colors.WHITE,
+    margin: 10
   },
   button: {
-    marginLeft: 16,
-    marginRight: 16,
-    marginBottom: 8,
-    marginTop: 8,
     flex: 1,
-    width: 400,
     height: 240,
-    overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
-    shadowColor: Colors.WHITE,
-    shadowOffset: {
-      width: 0,
-      height: 2
-    },
-    shadowOpacity: 0.25,
-    shadowRadius: 3.84,
-    elevation: 5,
-    borderRadius: 30
+    borderRadius: 30,
+    shadowColor: theme.COLORS.BLACK,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 4,
+    shadowOpacity: 0.1,
+    elevation: 2
   },
   image: {
     margin: 10,
     alignItems: 'center',
     justifyContent: 'center',
     width: 150,
-    height: 150,
-    borderRadius: 100
-  },
-  shadow: {
-    margin: 20,
-    borderRadius: 100,
-    width: 150,
-    height: 150,
-    justifyContent: 'center',
-    textShadowOffset: { width: 2, height: 2 },
-    textShadowRadius: 1,
-    textShadowColor: Colors.WHITE,
-    shadowOpacity: 0.25,
-    elevation: 5
+    height: 150
   }
 });
 

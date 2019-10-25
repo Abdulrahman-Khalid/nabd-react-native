@@ -18,9 +18,14 @@ import {
   Image,
   ScrollView,
   Modal,
-  Platform
+  Platform,
+  Switch
 } from 'react-native';
-import { Card, Modal as CustomModal } from '../../components';
+import {
+  Card,
+  Modal as CustomModal,
+  Icon as CustomIcon
+} from '../../components';
 import axios from 'axios';
 import PubNubReact from 'pubnub-react';
 import RadioForm, {
@@ -61,7 +66,8 @@ class UserAndDoctorHome extends Component {
     super();
     this.state = {
       ambulanceRequestType: 0,
-      modalVisible: false
+      modalVisible: false,
+      switchValue: true
     };
     props.selectHelperType('doctor');
     // Init PubNub. Use your subscribe key here.
@@ -86,66 +92,47 @@ class UserAndDoctorHome extends Component {
   renderModal() {
     return (
       <CustomModal
-        title="Choose an option"
+        title="Proceed carefully"
         modalVisible={this.state.modalVisible}
         onRequestClose={() => {
           this.setModalVisible(false);
         }}
       >
-        <RadioForm animation={true}>
-          {ambulanceRequestTypes.map((obj, i) => {
-            return (
-              <RadioButton labelHorizontal={true} key={i}>
-                <RadioButtonInput
-                  obj={obj}
-                  index={i}
-                  isSelected={this.state.ambulanceRequestType === i}
-                  onPress={value => {
-                    this.setState({ ambulanceRequestType: value });
-                  }}
-                  borderWidth={1}
-                  buttonInnerColor={'#2196f3'}
-                  buttonOuterColor={
-                    this.state.ambulanceRequestType === i ? '#2196f3' : '#000'
-                  }
-                  buttonSize={10}
-                  buttonOuterSize={20}
-                  buttonStyle={{}}
-                  buttonWrapStyle={{ marginLeft: 20, marginBottom: 20 }}
-                />
-                <RadioButtonLabel
-                  obj={obj}
-                  index={i}
-                  labelHorizontal={true}
-                  onPress={value => {
-                    this.setState({ ambulanceRequestType: value });
-                  }}
-                  labelStyle={{ fontSize: 20, marginBottom: 20 }}
-                  labelWrapStyle={{}}
-                />
-              </RadioButton>
-            );
-          })}
-        </RadioForm>
         <View
           style={{
-            borderBottomColor: 'gray',
-            borderBottomWidth: StyleSheet.hairlineWidth
+            alignItems: 'center',
+            flexDirection: 'row',
+            justifyContent: 'space-around'
           }}
-        />
+        >
+          <Text style={{ fontSize: 18 }}>Send current location?</Text>
+          <Switch
+            value={this.state.switchValue}
+            onValueChange={value => {
+              this.setState({ switchValue: value });
+            }}
+          />
+        </View>
         <View style={{ marginTop: 20, marginBottom: 20 }}>
           <RNSwipeVerify
-            width={width - 200}
+            width={width - 100}
             buttonSize={60}
-            borderColor="#fff"
-            buttonColor="#2196f3"
-            backgroundColor="#ececec"
+            borderColor="#ffff"
+            buttonColor={Colors.APP}
+            backgroundColor="#d4d4d4"
             borderRadius={30}
             okButton={{ visible: false, duration: 400 }}
-            icon={<Icon name="gesture-swipe-right" size={25} />}
+            icon={
+              <CustomIcon
+                name="swipe-right"
+                family="flaticon"
+                size={25}
+                color="white"
+              />
+            }
             onVerified={this.requestAmbulance}
           >
-            <Text style={{ fontSize: 20 }}>Confirm</Text>
+            <Text style={{ fontSize: 25 }}>Confirm</Text>
           </RNSwipeVerify>
         </View>
         <TouchableOpacity
@@ -167,74 +154,74 @@ class UserAndDoctorHome extends Component {
     );
   }
 
-  // renderLocationPermissionRequestModal() {
-  //   return (
-  //     <Modal
-  //       visible={!this.props.locationPermissionGranted}
-  //       animationType="fade"
-  //     >
-  //       <View style={styles.locationPermissionModalContainer}>
-  //         <Image
-  //           style={styles.locationPermissionImage}
-  //           source={Images.locationPermission}
-  //           resizeMode="center"
-  //         />
-  //         <View style={styles.locationPermissionModalTitleContainer}>
-  //           <Text style={styles.locationPermissionModalTitle}>
-  //             Nabd requires access to your location
-  //           </Text>
-  //         </View>
-  //         <Text style={styles.locationPermissionModalDescription}>
-  //           {Platform.OS === 'android'
-  //             ? `In order to have help at your fingertips, location access is required. Press 'Open Settings' > Permissions > Location > Allow all the time > Go back to Nabd > Press 'Refresh'`
-  //             : `In order to have help at your fingertips, location access is required. Press 'Open Settings' > Location > Always > Go back to Nabd > Press 'Refresh'`}
-  //         </Text>
-  //         <View style={styles.permissionModalButtons}>
-  //           <TouchableOpacity
-  //             style={styles.permissionModalButtonContainer}
-  //             onPress={() => {
-  //               openSettings().catch(() =>
-  //                 Alert.alert('Error', 'Cannot open settings')
-  //               );
-  //             }}
-  //           >
-  //             <View
-  //               style={[
-  //                 styles.permissionModalButton,
-  //                 {
-  //                   backgroundColor: '#f6f6f4'
-  //                 }
-  //               ]}
-  //             >
-  //               <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
-  //                 Open Settings
-  //               </Text>
-  //             </View>
-  //           </TouchableOpacity>
-  //           <TouchableOpacity
-  //             style={styles.permissionModalButtonContainer}
-  //             onPress={() => {
-  //               this.props.requestLocationPermission();
-  //             }}
-  //           >
-  //             <View
-  //               style={[
-  //                 styles.permissionModalButton,
-  //                 {
-  //                   backgroundColor: '#fdeaec'
-  //                 }
-  //               ]}
-  //             >
-  //               <Text style={{ color: '#d76674', fontFamily: 'Manjari-Bold' }}>
-  //                 Refresh
-  //               </Text>
-  //             </View>
-  //           </TouchableOpacity>
-  //         </View>
-  //       </View>
-  //     </Modal>
-  //   );
-  // }
+  renderLocationPermissionRequestModal() {
+    return (
+      <Modal
+        visible={!this.props.locationPermissionGranted}
+        animationType="fade"
+      >
+        <View style={styles.locationPermissionModalContainer}>
+          <Image
+            style={styles.locationPermissionImage}
+            source={Images.locationPermission}
+            resizeMode="contain"
+          />
+          <View style={styles.locationPermissionModalTitleContainer}>
+            <Text style={styles.locationPermissionModalTitle}>
+              Nabd requires access to your location
+            </Text>
+          </View>
+          <Text style={styles.locationPermissionModalDescription}>
+            {Platform.OS === 'android'
+              ? `In order to have help at your fingertips, location access is required. Press 'Open Settings' > Permissions > Location > Allow all the time > Go back to Nabd > Press 'Refresh'`
+              : `In order to have help at your fingertips, location access is required. Press 'Open Settings' > Location > Always > Go back to Nabd > Press 'Refresh'`}
+          </Text>
+          <View style={styles.permissionModalButtons}>
+            <TouchableOpacity
+              style={styles.permissionModalButtonContainer}
+              onPress={() => {
+                openSettings().catch(() =>
+                  Alert.alert('Error', 'Cannot open settings')
+                );
+              }}
+            >
+              <View
+                style={[
+                  styles.permissionModalButton,
+                  {
+                    backgroundColor: '#f6f6f4'
+                  }
+                ]}
+              >
+                <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
+                  Open Settings
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.permissionModalButtonContainer}
+              onPress={() => {
+                this.props.requestLocationPermission();
+              }}
+            >
+              <View
+                style={[
+                  styles.permissionModalButton,
+                  {
+                    backgroundColor: '#fdeaec'
+                  }
+                ]}
+              >
+                <Text style={{ color: '#d76674', fontFamily: 'Manjari-Bold' }}>
+                  Refresh
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    );
+  }
 
   logoutButtonPressed() {
     axios.defaults.headers.common['TOKEN'] = '';
@@ -244,58 +231,6 @@ class UserAndDoctorHome extends Component {
   }
 
   renderButtons() {
-    // return (
-    //   <View style={styles.buttons}>
-    //     <View style={{ flex: 1 }}>
-    //       <View style={{ flexDirection: 'row', flex: 1 }}>
-    //         <Card
-    //           item={buttons[0]}
-    //           style={{ marginRight: theme.SIZES.BASE, flex: 1 }}
-    //           imageStyle={{ backgroundColor: 'red', opacity: 0.6 }}
-    //           onPress={() => {
-    //             this.props.selectHelperType('aide');
-    //           }}
-    //           onPressInfo={() => {
-    //             Alert.alert(
-    //               'Info',
-    //               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
-    //             );
-    //           }}
-    //         />
-    //         <Card
-    //           item={buttons[1]}
-    //           imageStyle={{ backgroundColor: 'green', opacity: 0.6 }}
-    //           onPress={() => {
-    //             this.props.selectHelperType('doctor');
-    //           }}
-    //           style={{ flex: 1 }}
-    //           onPressInfo={() => {
-    //             Alert.alert(
-    //               'Info',
-    //               'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
-    //             );
-    //           }}
-    //         />
-    //       </View>
-    //       <Card
-    //         style={{ marginBottom: theme.SIZES.BASE, flex: 1 }}
-    //         item={buttons[2]}
-    //         full
-    //         imageStyle={{ backgroundColor: 'blue', opacity: 0.6 }}
-    //         onPress={() => {
-    //           this.props.selectHelperType('ambulance');
-    //           this.setModalVisible(true);
-    //         }}
-    //         onPressInfo={() => {
-    //           Alert.alert(
-    //             'Info',
-    //             'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
-    //           );
-    //         }}
-    //       />
-    //     </View>
-    //   </View>
-    // );
     return (
       <View
         style={{
@@ -305,7 +240,7 @@ class UserAndDoctorHome extends Component {
           alignItems: 'center'
         }}
       >
-        <View style={{ height: height - 140, width: width }}>
+        <View style={{ height: '100%', width: width }}>
           <View
             style={{
               flex: 1,
@@ -365,7 +300,7 @@ class UserAndDoctorHome extends Component {
                 paddingTop: theme.SIZES.BASE / 2,
                 paddingLeft: theme.SIZES.BASE,
                 paddingRight: theme.SIZES.BASE,
-                paddingBottom: theme.SIZES.BASE / 2
+                paddingBottom: theme.SIZES.BASE
               }}
               onPress={() => {
                 this.props.selectHelperType('ambulance');
@@ -387,6 +322,7 @@ class UserAndDoctorHome extends Component {
   render() {
     return (
       <View style={styles.home}>
+        {this.renderLocationPermissionRequestModal()}
         {this.renderButtons()}
         {this.renderModal()}
       </View>
@@ -396,22 +332,16 @@ class UserAndDoctorHome extends Component {
 
 const styles = StyleSheet.create({
   home: {
+    flex: 1,
     width: width,
     height: height,
     alignItems: 'center',
     justifyContent: 'center'
   },
-  buttons: {
-    width: width - theme.SIZES.BASE * 2,
-    flex: 1,
-    backgroundColor: 'red',
-    alignItems: 'center',
-    justifyContent: 'center'
-  },
   closeModalButton: {
     position: 'absolute',
-    margin: 10,
-    right: -1,
+    margin: 14,
+    right: 0,
     zIndex: 1
   },
   permissionModalButtons: {

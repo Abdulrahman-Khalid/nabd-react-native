@@ -12,11 +12,11 @@ export default class TabBar extends React.Component {
       case 'Home':
         return (
           <Icon
-            name="house"
+            name="home"
             family="flaticon"
 						style={{ fontWeight: '900' }}
-            color={activeTabIndex === 0 ? Colors.APP : 'gray'}
-            size={30}
+            color={activeTabIndex === 0 ? "white" : '#a8000b'}
+            size={28}
           />
         );
         break;
@@ -25,7 +25,7 @@ export default class TabBar extends React.Component {
           <Icon
             name="support"
             family="flaticon"
-            color={activeTabIndex === 1 ? Colors.APP : 'gray'}
+            color={activeTabIndex === 1 ? "white" : '#a8000b'}
             size={30}
           />
         );
@@ -35,7 +35,7 @@ export default class TabBar extends React.Component {
           <Icon
             name="hospital"
             family="flaticon"
-            color={activeTabIndex === 2 ? Colors.APP : 'gray'}
+            color={activeTabIndex === 2 ? "white" : '#a8000b'}
             size={30}
           />
         );
@@ -66,11 +66,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'stretch',
     justifyContent: 'space-evenly',
-    height: 70,
+    height: 88,
     width: '100%',
-    borderTopLeftRadius: 30,
-    borderTopRightRadius: 30,
-    backgroundColor: 'white',
+    borderTopLeftRadius: 44,
+    borderTopRightRadius: 44,
+    backgroundColor: Colors.APP,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -79,6 +79,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.34,
     shadowRadius: 10,
     elevation: 10,
+    flex: 0.12,
   },
   tabBarButton: { flex: 1, justifyContent: 'center', alignItems: 'center' }
 });

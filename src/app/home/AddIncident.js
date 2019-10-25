@@ -4,7 +4,6 @@ import {
   View,
   TouchableOpacity,
   Image,
-  Button,
   StyleSheet,
   ToastAndroid,
   Modal,
@@ -13,8 +12,7 @@ import {
 import axios from 'axios';
 import ImagePicker from 'react-native-image-picker';
 import { Actions } from 'react-native-router-flux';
-import { TextInput } from 'react-native-paper';
-import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import { TextInput, Button } from 'react-native-paper';
 import ActionSheet from 'react-native-action-sheet';
 import { LocationPicker } from '../../components';
 import t from '../../I18n';
@@ -158,7 +156,10 @@ export default class AddIncident extends Component {
     const maxLength = 240;
     return (
       <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled>
-        <Modal visible={this.state.modalVisible}>
+        <Modal
+          visible={this.state.modalVisible}
+          onRequestClose={this.modalCancelOnPress}
+        >
           <LocationPicker cancelOnPress={this.modalCancelOnPress} />
         </Modal>
         <View
@@ -201,7 +202,7 @@ export default class AddIncident extends Component {
             }}
           >
             {this.state.photo === null ? (
-              <Icon name="image-plus" size={80} color="gray" />
+              <Icon name="add-image" family="flaticon" size={80} color="gray" />
             ) : (
               <View
                 style={{
@@ -255,15 +256,18 @@ export default class AddIncident extends Component {
             />
           </View>
           <View style={styles.buttonsContainer}>
-            <TouchableOpacity
-              style={styles.buttonContainer}
+            <Button
+              mode="contained"
               onPress={() => {
-                // Actions.LocationPicker();
                 this.setState({
                   modalVisible: true
                 });
               }}
+              color="#FFFF"
+              style={{ borderRadius: 30, flex: 1 }}
+              touchableStyle={{ borderRadius: 30 }}
             >
+<<<<<<< HEAD
               <View
                 style={[
                   styles.button,
@@ -277,6 +281,12 @@ export default class AddIncident extends Component {
                 </Text>
               </View>
             </TouchableOpacity>
+=======
+              <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
+                Next
+              </Text>
+            </Button>
+>>>>>>> aa733a8d39e27182d190f6e552b25e82991fdde9
           </View>
         </View>
       </KeyboardAvoidingView>
