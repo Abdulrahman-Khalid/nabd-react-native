@@ -1,6 +1,9 @@
 export default {
   BACKGROUND: '#F5FCFF',
   APP: '#E30031',
+  LIGHT: '#ff555b',
+  DARK: '#a8000b',
+  SECONDARY_DARK: '#b3b3b2',
   DEFAULT: '#172B4D',
   PRIMARY: '#5E72E4',
   SECONDARY: '#F7FAFC',
