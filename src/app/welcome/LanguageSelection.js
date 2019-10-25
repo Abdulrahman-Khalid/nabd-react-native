@@ -28,19 +28,6 @@ class LanguageSelection extends Component {
       selectedOption: "ar",
     };
   }
-  _renderDoneButton = () => {
-    return (
-      <View style={styles.buttonContainer}>
-        <Button
-          color="white"
-          textStyle={{ color: Colors.BLACK }}
-          onPress={this._handlePress}
-        >
-          {t.GetStarted}
-        </Button>
-      </View>
-    );
-  };
 
   _handlePress = () => {
     const { switchLanguage, language } = this.props;
@@ -56,34 +43,12 @@ class LanguageSelection extends Component {
       }, 500);
       return;
     }
-    Actions.typeSelection();
+    Actions.whoRU();
   };
 
   render() {
     const isRtl = this.props.language.lang === 'ar' ? 'rtl' : 'ltr';
     return (
-      // <View style={styles.mainContent}>
-      //   <Image
-      //     source={require('../../assets/imgs/white-logo.png')}
-      //     style={styles.image}
-      //     resizeMode="contain"
-      //   />
-      //   <Text style={styles.title}>{t.LanguageScreenTitle}</Text>
-      //   <View style={{ flex: 1 }}>
-      //     <Picker
-      //       selectedValue={this.state.selectedOption}
-      //       style={styles.languagePicker}
-      //       mode="dropdown"
-      //       onValueChange={(itemValue, itemIndex) =>
-      //         this.setState({ selectedOption: itemValue })
-      //       }
-      //     >
-      //       <Picker.Item label="🇪🇬 العربية" value="ar" />
-      //       <Picker.Item label="🇬🇧 English" value="en" />
-      //     </Picker>
-      //   </View>
-      //   {this._renderDoneButton()}
-      // </View>
       <View style={styles.mainContainer}>
         <Image
           style={styles.image}
