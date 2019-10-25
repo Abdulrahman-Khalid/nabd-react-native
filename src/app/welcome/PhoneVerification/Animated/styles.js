@@ -10,7 +10,6 @@ export const ACTIVE_CELL_BG_COLOR = '#f7fafe';
 
 export default StyleSheet.create({
   inputWrapper: {
-    backgroundColor: 'white',
     paddingHorizontal: 20
   },
 
@@ -20,12 +19,12 @@ export default StyleSheet.create({
     fontSize: 25,
     fontWeight: '700',
     textAlign: 'center',
-    paddingBottom: 40
+    paddingBottom: 30
   },
 
   icon: {
-    width: 217 / 2.4,
-    height: 158 / 2.4,
+    width: 100 ,
+    height: 100,
     marginLeft: 'auto',
     marginRight: 'auto'
   },
