@@ -22,6 +22,7 @@ import ModalPickerImage from './ModalPickerImage';
 import { signInAttempt, fillSignInForm } from '../../actions';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
+import { Spinner } from '../../components/Spinner';
 
 const { width, height } = Dimensions.get('screen');
 
