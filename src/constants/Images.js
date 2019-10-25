@@ -50,6 +50,8 @@ const locationMarker = require('../assets/imgs/location-marker.png');
 
 const gpsOff = require('../assets/imgs/gps.png');
 const language = require('../assets/imgs/language.png');
+
+const verification = require('../assets/imgs/verification.png');
 // internet imgs
 
 const ProfilePicture =
@@ -116,5 +118,6 @@ export default {
   locationMarker,
   gpsOff,
   language,
-  accountType
+  accountType,
+  verification
 };
