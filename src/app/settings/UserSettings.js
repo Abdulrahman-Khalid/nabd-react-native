@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Linking, Share } from 'react-native';
+import { Linking, Share,I18nManager } from 'react-native';
 import ReactNativeSettingsPage, {
   SectionRow,
   NavigateRow
@@ -39,11 +39,11 @@ class UserSettings extends Component {
 
   render() {
     return (
-      <ReactNativeSettingsPage>
+      <ReactNativeSettingsPage >
         <SectionRow text={t.Profile}>
-          <TextDisplay iconName="user" text={t.Username} value="value" />
-          <TextDisplay iconName="lock" text={t.Password} value="value" />
-          <TextDisplay iconName="phone" text={t.PhoneNumber} value="value" />
+          <TextDisplay iconName="user" text={t.Username} />
+          <TextDisplay iconName="lock" text={t.Password}  />
+          <TextDisplay iconName="phone" text={t.PhoneNumber}  />
         </SectionRow>
         <SectionRow text={t.Language}>
           <View style={{ flex: 1 }}>
