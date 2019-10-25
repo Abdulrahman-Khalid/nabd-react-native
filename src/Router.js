@@ -22,14 +22,9 @@ import FirstAidDetailsWithButtons from './app/firstAid/FirstAidDetailsWithButton
 import { connect } from 'react-redux';
 import { resetSignInReducerState, resetSignUpReducerState } from './actions';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
-<<<<<<< HEAD
-import { TouchableOpacity } from 'react-native';
-import t from './I18n';
-import { TabBar } from './components';
-=======
 import { TouchableOpacity, Text } from 'react-native';
 import { TabBar, Icon as CustomIcon } from './components';
->>>>>>> aa733a8d39e27182d190f6e552b25e82991fdde9
+import t from './I18n';
 
 class RouterComponent extends Component {
   _renderSettingsButton() {
@@ -70,10 +65,6 @@ class RouterComponent extends Component {
         }}
         tintColor="white"
       >
-<<<<<<< HEAD
-        <Scene key="root" hideNavBar initial headerLayoutPreset="center">
-          <Scene key="welcome">
-=======
         <Scene
           key="root"
           hideNavBar
@@ -88,7 +79,6 @@ class RouterComponent extends Component {
           }}
         >
           <Scene key="welcome" initial>
->>>>>>> aa733a8d39e27182d190f6e552b25e82991fdde9
             <Scene
               key="languageSelection"
               component={LanguageSelection}
@@ -132,7 +122,7 @@ class RouterComponent extends Component {
             />
           </Scene>
 
-           <Tabs
+          <Tabs
             key="home"
             // headerLayoutPreset="left"
             initial
@@ -160,10 +150,10 @@ class RouterComponent extends Component {
               icon={() => <Icon name="hospital" size={25} />}
               initial
             />
-          </Tabs> 
+          </Tabs>
 
           <Scene key="userAndDoctor" initial hideNavBar={true}>
-             <Tabs
+            <Tabs
               key="tabBar"
               // headerLayoutPreset="left"
               initial
@@ -180,12 +170,8 @@ class RouterComponent extends Component {
               <Scene
                 key="Incidents"
                 component={Incidents}
-<<<<<<< HEAD
                 title={t.Incidents}
-=======
-                title="Incidents"
                 hideNavBar
->>>>>>> aa733a8d39e27182d190f6e552b25e82991fdde9
                 icon={() => <Icon name="lifebuoy" size={25} />}
               />
               <Scene
