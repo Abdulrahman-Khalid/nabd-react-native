@@ -91,9 +91,7 @@ class App extends Component {
         <PersistGate persistor={persistor}>
           <PaperProvider>
             <StatusBar backgroundColor={Colors.APP} barStyle="light-content" />
-            <Block flex>
               <RouterComponent />
-            </Block>
           </PaperProvider>
         </PersistGate>
       </Provider>
