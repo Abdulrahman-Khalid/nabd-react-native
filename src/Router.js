@@ -73,9 +73,7 @@ class RouterComponent extends Component {
               component={LanguageSelection}
               hideNavBar={true}
             />
-          </Scene>
-          <Scene key="typeSelection">
-            <Scene key="whoRU" component={WhoAmI} hideNavBar={true} />
+            <Scene key="whoRU" component={WhoAmI} title="Nabd" hideNavBar={false}/>
             <Scene key="iUser" component={IamUser} title="User" />
             <Scene key="iDoctor" component={IamDoctor} title="Doctor" />
             <Scene
