@@ -1,21 +1,23 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
+import { getLocation } from '../../actions';
 import { connect } from 'react-redux';
-import { Images } from '../constants';
-import { MapSearch } from './MapSearch';
+import { Images } from '../../constants';
 import { FAB, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
+import { Icon as CustomIcon } from '../../components';
 
-class LocationPicker extends Component {
+class WaitForAmbulance extends Component {
   constructor(props) {
     super(props);
     this.state = {
       region: {
         latitude: this.props.position.coords.latitude,
         longitude: this.props.position.coords.longitude,
-        latitudeDelta: 0.004,
-        longitudeDelta: 0.004
+        latitudeDelta: 0.005,
+        longitudeDelta: 0.005
       },
       mapMarginBottom: 1
     };
@@ -31,10 +33,14 @@ class LocationPicker extends Component {
     const userRegion = {
       latitude: this.props.position.coords.latitude,
       longitude: this.props.position.coords.longitude,
-      latitudeDelta: 0.004,
-      longitudeDelta: 0.004
+      latitudeDelta: 0.005,
+      longitudeDelta: 0.005
     };
     this.mapView.animateToRegion(userRegion, 1000);
+  }
+
+  sendRequest() {
+    console.log("send Request")
   }
 
   render() {
@@ -50,10 +56,8 @@ class LocationPicker extends Component {
           onMapReady={() => this.setState({ mapMarginBottom: 0 })}
           ref={ref => (this.mapView = ref)}
         />
-        {/* <MapSearch onLocationSelected={this.handleSearchedLocationSelected} /> */}
-        <View style={styles.markerFixed}>
-          <Image style={styles.marker} source={Images.locationMarker} />
-        </View>
+        <View style={styles.markerFixed}/>
+        {/* <Pulse size={100} color="#52AB42" /> */}
         <FAB
           style={styles.fab}
           icon={() => (
@@ -74,49 +78,32 @@ class LocationPicker extends Component {
           )}
           onPress={() => this.moveToUserLocation()}
         />
-        <View style={styles.buttonsContainer}>
-          <Button
-            mode="contained"
-            onPress={() => {
-              console.log('submit pressed');
-            }}
-            color="#ffff"
-            style={{ borderRadius: 30, flex: 1, marginRight: 10 }}
-            touchableStyle={{ borderRadius: 30 }}
-          >
-            <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
-              Submit
-            </Text>
-          </Button>
-          <Button
-            mode="contained"
-            onPress={this.props.cancelOnPress}
-            color="#fdeaec"
-            style={{ borderRadius: 30, flex: 1, marginLeft: 10 }}
-            touchableStyle={{ borderRadius: 30 }}
-          >
-            <Text style={{ color: '#d76674', fontFamily: 'Manjari-Bold' }}>
-              Cancel
-            </Text>
-          </Button>
-        </View>
+        <FAB
+          style={styles.sendButton}
+          icon={() => (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
+            >
+              <CustomIcon
+                name="next-1"
+                size={25}
+                color="gray"
+                style={{ alignSelf: 'center' }}
+              />
+            </View>
+          )}
+          onPress={() => this.sendRequest()}
+        />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  markerFixed: {
-    left: '50%',
-    marginLeft: -24,
-    marginTop: -48,
-    position: 'absolute',
-    top: '50%'
-  },
-  marker: {
-    height: 48,
-    width: 48
-  },
   fab: {
     position: 'absolute',
     margin: 16,
@@ -125,20 +112,28 @@ const styles = StyleSheet.create({
     bottom: 0,
     backgroundColor: 'white'
   },
-  buttonsContainer: {
+  sendButton: {
     position: 'absolute',
-    left: 0,
-    bottom: 0,
-    margin: 20,
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'space-between'
-  }
+    margin: 16,
+    marginBottom: 75,
+    right: 0,
+    bottom: 70,
+    backgroundColor: 'white'
+  },
+  markerFixed: {
+    left: "49.15%",
+    position: 'absolute',
+    top: "47.15%",
+    backgroundColor: 'black',
+    height: 7,
+    width: 7,
+    borderRadius: 14
+  },
 });
 
 const mapStateToProps = state => ({ position: state.location.position });
 
 export default connect(
   mapStateToProps,
-  null
-)(LocationPicker);
+  { getLocation }
+)(WaitForAmbulance);

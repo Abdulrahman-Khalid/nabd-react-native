@@ -16,9 +16,7 @@ import IncidentCard from '../../components/IncidentCard';
 import { Colors, Images } from '../../constants';
 import { theme, Block } from 'galio-framework';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
-import { getLocation, updateLocation } from '../../actions';
 import { connect } from 'react-redux';
-import Geolocation from 'react-native-geolocation-service';
 import { Actions } from 'react-native-router-flux';
 import { FAB } from 'react-native-paper';
 import { SkeletonCard, Icon as CustomIcon } from '../../components';
@@ -104,53 +102,9 @@ export class Incidents extends Component {
     this.state.scrollOffset.setValue(offset);
   };
 
-  async componentDidMount() {
+  componentDidMount() {
     this.state.scrollOffset.addListener(({ value }) => (this.offset = value));
     this.pullRefresh();
-    Geolocation.setRNConfiguration({
-      skipPermissionRequests: false,
-      authorizationLevel: 'always'
-    });
-    Geolocation.requestAuthorization();
-    await this.props.getLocation();
-    this.watchID = Geolocation.watchPosition(
-      position => {
-        this.props.updateLocation(position);
-      },
-      error => {
-        switch (error.code) {
-          case 1:
-            Alert.alert('Error', 'Location permission is not granted');
-            break;
-          case 2:
-            Alert.alert('Error', 'Location provider not available');
-            break;
-          case 3:
-            Alert.alert('Error', 'Location request timed out');
-            break;
-          case 4:
-            Alert.alert(
-              'Error',
-              'Google play service is not installed or has an older version'
-            );
-            break;
-          case 5:
-            Alert.alert(
-              'Error',
-              'Location service is not enabled or location mode is not appropriate for the current request'
-            );
-            break;
-          default:
-            Alert.alert('Error', 'Please try again');
-            break;
-        }
-      },
-      { enableHighAccuracy: true }
-    );
-  }
-
-  componentWillUnmount() {
-    Geolocation.clearWatch(this.watchID);
   }
 
   /**
@@ -401,5 +355,5 @@ const mapStateToProps = state => ({ location: state.location });
 
 export default connect(
   mapStateToProps,
-  { getLocation, updateLocation }
+  null
 )(Incidents);

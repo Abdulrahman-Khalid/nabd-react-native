@@ -9,7 +9,8 @@ import Register from './app/welcome/Register';
 import VerifySignup from './app/welcome/PhoneVerification/Animated';
 import SignIn from './app/welcome/SignIn';
 import LanguageSelection from './app/welcome/LanguageSelection';
-import UserAndDoctorHome from './app/home/UserAndDoctorHome';
+import UserHome from './app/home/UserHome';
+import WaitForAmbulance from './app/home/WaitForAmbulance';
 import ParamedicHome from './app/home/ParamedicHome';
 import AmbulanceHome from './app/home/AmbulanceHome';
 import Incidents from './app/home/Incidents';
@@ -105,10 +106,9 @@ class RouterComponent extends Component {
             />
             <Scene key="verifySignup" component={VerifySignup} title="Verify" />
           </Scene>
-          <Scene key="userAndDoctor" initial hideNavBar={true}>
+          <Scene key="userHome" hideNavBar={true}>
             <Tabs
               key="tabBar"
-              // headerLayoutPreset="left"
               initial
               lazy={true}
               tabBarComponent={TabBar}
@@ -116,7 +116,7 @@ class RouterComponent extends Component {
             >
               <Scene
                 key="Home"
-                component={UserAndDoctorHome}
+                component={UserHome}
                 title="Home"
                 icon={() => <Icon name="home" size={25} />}
               />
@@ -141,6 +141,12 @@ class RouterComponent extends Component {
               </Scene>
             </Tabs>
             <Scene
+              key="waitForAmbulance"
+              component={WaitForAmbulance}
+              title="Choose Pickup Location"
+              hideNavBar={false}
+            />
+            <Scene
               key="UserSettings"
               component={UserSettings}
               title="Settings"
@@ -153,6 +159,7 @@ class RouterComponent extends Component {
               hideNavBar={false}
             />
           </Scene>
+
           <Scene key="paramedicHome" component={ParamedicHome} title="Home" />
           <Scene key="ambulanceHome" component={AmbulanceHome} title="Home" />
         </Scene>
