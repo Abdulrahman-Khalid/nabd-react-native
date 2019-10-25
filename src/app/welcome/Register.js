@@ -238,7 +238,7 @@ class Register extends React.Component {
         behavior={Platform.OS == 'ios' ? 'padding' : null}
         enabled
       >
-        <View style={{ flex: 2, marginTop: 20 }}>
+        <View style={{ flex: 2, marginTop: 10 }}>
           <View
             style={{
               marginHorizontal: 15,
@@ -246,6 +246,9 @@ class Register extends React.Component {
               alignItems: 'center'
             }}
           >
+          <Text style={{ textAlign: 'left', fontSize: 40, fontWeight: 'bold', marginLeft: 10, lineHeight: 50, alignSelf: "flex-start"}}>
+            Create{"\n"}Account
+          </Text>
             <Input
               placeholder="Name"
               error={this.props.isErrorName}
@@ -268,7 +271,6 @@ class Register extends React.Component {
           </View>
           <View
             style={{
-              marginTop: 10,
               justifyContent: 'center',
               alignItems: 'center',
               width: '100%'
@@ -306,10 +308,9 @@ class Register extends React.Component {
           </View>
           <View
             style={{
-              marginTop: 10,
               marginHorizontal: 15,
               justifyContent: 'center',
-              alignItems: 'center'
+              alignItems: 'center',
             }}
           >
             <Input
@@ -338,10 +339,9 @@ class Register extends React.Component {
           </View>
           <View
             style={{
-              marginTop: 10,
               marginHorizontal: 15,
               justifyContent: 'center',
-              alignItems: 'center'
+              alignItems: 'center',
             }}
           >
             <Input
@@ -369,7 +369,6 @@ class Register extends React.Component {
               }
               value={this.props.confirmPassword}
             />
-
             <View row style={styles.passwordCheck}>
               <Text size={12} color={Colors.MUTED}>
                 Password strength:
@@ -545,7 +544,6 @@ const styles = StyleSheet.create({
   },
   passwordCheck: {
     paddingLeft: 10,
-    paddingTop: 13,
     flexDirection: 'row',
     width: '100%'
   },
@@ -562,7 +560,8 @@ const styles = StyleSheet.create({
     borderBottomColor: Colors.BORDER,
     height: 44,
     backgroundColor: '#FFFFFF',
-    marginHorizontal: 15
+    marginHorizontal: 15,
+    marginVertical: 7
   },
   hardText: { fontSize: 20, marginRight: 10 },
   success: {
@@ -591,7 +590,7 @@ const styles = StyleSheet.create({
     elevation: 5
   },
   button: {
-    height: 40,
+    height: 44,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',

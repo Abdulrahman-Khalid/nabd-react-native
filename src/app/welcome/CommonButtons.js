@@ -82,7 +82,7 @@ const styles = {
     elevation: 5
   },
   button: {
-    height: 40,
+    height: 44,
     width: '100%',
     alignItems: 'center',
     justifyContent: 'center',

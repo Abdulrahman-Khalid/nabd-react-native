@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     marginRight: theme.SIZES.BASE * 2
   },
   buttonsContainer: {
-    flex: 1,
+    flex: 1.2,
     flexDirection: 'column',
     margin: 10,
     width: '100%'
@@ -162,12 +162,11 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.25,
     shadowRadius: 3.84,
-
     elevation: 5
   },
   button: {
     width: '100%',
-    height: 40,
+    height: 44,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 30,
