@@ -54,7 +54,7 @@ ArInput.propTypes = {
 const styles = StyleSheet.create({
   input: {
     borderWidth: 0,
-    borderBottomWidth: 2,
+    borderBottomWidth: 4,
     borderRadius: 30,
     borderBottomColor: Colors.BORDER,
     height: 44,
