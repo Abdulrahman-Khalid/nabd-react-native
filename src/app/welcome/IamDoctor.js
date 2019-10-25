@@ -8,7 +8,11 @@ class IamDoctor extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
-        <Image style={styles.image} source={Images.doctor} resizeMode="contain" />
+        <Image
+          style={styles.image}
+          source={Images.doctor}
+          resizeMode="contain"
+        />
         <View style={styles.titleContainer}>
           <Text style={styles.title}>Doctor</Text>
           <Text style={styles.description}>

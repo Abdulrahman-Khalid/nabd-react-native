@@ -8,27 +8,6 @@ const { width, height } = Dimensions.get('screen');
 export default class CommonButtons extends Component {
   render() {
     return (
-      // <Block center>
-      //   <Button
-      //     color="warning"
-      //     style={{ ...styles.button, ...styles.appColor }}
-      //     onPress={() => Actions.signup()}
-      //     textStyle={styles.buttonTextNew}
-      //   >
-      //     I am new
-      //   </Button>
-      //   <Button
-      //     color="secondary"
-      //     style={{
-      //       ...styles.button,
-      //       ...{ borderColor: '#7a7a7a', borderWidth: 1 }
-      //     }}
-      //     textStyle={styles.buttonTextSignup}
-      //     onPress={() => Actions.signin()}
-      //   >
-      //     Sign in
-      //   </Button>
-      // </Block>
       <View style={styles.buttonsContainer}>
         <TouchableOpacity
           style={styles.buttonContainer}
@@ -44,7 +23,7 @@ export default class CommonButtons extends Component {
           style={styles.buttonContainer}
           onPress={() => Actions.signin()}
         >
-          <View style={[styles.button, {backgroundColor: Colors.SECONDARY}]}>
+          <View style={[styles.button, { backgroundColor: Colors.SECONDARY }]}>
             <Text
               style={{
                 color: Colors.SECONDARY_DARK,
@@ -67,7 +46,7 @@ const styles = {
     margin: 10,
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'flex-end',
+    alignItems: 'flex-end'
   },
   buttonContainer: {
     flex: 1,

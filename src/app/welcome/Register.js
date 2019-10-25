@@ -246,9 +246,18 @@ class Register extends React.Component {
               alignItems: 'center'
             }}
           >
-          <Text style={{ textAlign: 'left', fontSize: 40, fontWeight: 'bold', marginLeft: 10, lineHeight: 50, alignSelf: "flex-start"}}>
-            Create{"\n"}Account
-          </Text>
+            <Text
+              style={{
+                textAlign: 'left',
+                fontSize: 40,
+                fontWeight: 'bold',
+                marginLeft: 10,
+                lineHeight: 50,
+                alignSelf: 'flex-start'
+              }}
+            >
+              Create{'\n'}Account
+            </Text>
             <Input
               placeholder="Name"
               error={this.props.isErrorName}
@@ -310,7 +319,7 @@ class Register extends React.Component {
             style={{
               marginHorizontal: 15,
               justifyContent: 'center',
-              alignItems: 'center',
+              alignItems: 'center'
             }}
           >
             <Input
@@ -341,7 +350,7 @@ class Register extends React.Component {
             style={{
               marginHorizontal: 15,
               justifyContent: 'center',
-              alignItems: 'center',
+              alignItems: 'center'
             }}
           >
             <Input
@@ -405,7 +414,7 @@ class Register extends React.Component {
                 color={Colors.BLACK}
                 name="calendar-full"
                 family="LinearIcon"
-                style={{alignSelf: 'center'}}
+                style={{ alignSelf: 'center' }}
               />
               {/* <Text style={styles.hardText}>Birthday:</Text> */}
               <DatePicker
