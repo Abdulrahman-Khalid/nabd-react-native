@@ -21,6 +21,7 @@ import { Actions } from 'react-native-router-flux';
 import { FAB } from 'react-native-paper';
 import { SkeletonCard, Icon as CustomIcon } from '../../components';
 import { isIphoneX } from 'react-native-iphone-x-helper';
+import axios from 'axios';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -86,9 +87,9 @@ export class Incidents extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // IncidentCards: [],
-      IncidentCards: incidentsDummyData,
-      userID: '01001796904',
+      IncidentCards: [],
+      // IncidentCards: incidentsDummyData,
+      userID: '201140028533',
       refreshing: false,
       scrollOffset: new Animated.Value(0),
       titleWidth: 0
@@ -114,62 +115,52 @@ export class Incidents extends Component {
     this.setState({
       refreshing: true
     });
-    // this.updateIncidentCards();
-    setTimeout(() => {
-      this.setState({
-        refreshing: false
-      });
-    }, 5000);
+    this.updateIncidentCards();
   };
 
-  // /** Get more IncidentCards when we get to the end of the scrollView.
-  //  * Check we reached end of content
-  //  * @param {int} layoutMeasurement - size of the layout .
-  //  * @param  {int} contentOffset - position on screen
-  //  * @param  {int} contentSize - size of all content
-  //  */
   moreIncidentCards = ({ layoutMeasurement, contentOffset, contentSize }) => {
-    //   if (
-    //     layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 &&
-    //     this.state.refreshing !== true
-    //   ) {
-    //     this.setState({
-    //       refreshing: true
-    //     });
-    //     this.updateIncidentCards(
-    //       this.state.IncidentCards[this.state.IncidentCards.length - 1].id
-    //     );
-    //   }
+    if (
+      layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 &&
+      this.state.refreshing !== true
+    ) {
+      this.setState({
+        refreshing: true
+      });
+      this.updateIncidentCards(
+        this.state.IncidentCards[this.state.IncidentCards.length - 1]._id
+      );
+    }
   };
 
-  // /** Update IncidentCards.
-  //  * gets first 20 IncidentCards With default parameter (id=null)
-  //  * To retrieve more send the id of the last retrieved IncidentCard.
-  //  * @param {int} id - The id of IncidentCard .
-  //  */
   updateIncidentCards(id = null, username = null) {
-    //   axios
-    //     .get('Incidents/cards', {
-    //       params: {
-    //         last_retrieved_IncidentCard_id: id
-    //       }
-    //     })
-    //     .then(response => {
-    //       if (id === null) {
-    //         this.setState({
-    //           IncidentCards: response.data
-    //         });
-    //       } else {
-    //         this.setState(prevState => ({
-    //           IncidentCards: prevState.IncidentCards.concat(response.data)
-    //         }));
-    //       }
-    //       this.setState({ refreshing: false });
-    //     })
-    //     .catch(() => {})
-    //     .then(() => {
-    //       // always executed
-    //     });
+    console.log(id);
+    axios
+      .get('/incident/', {
+        params: {
+          incidentId: id
+        }
+      })
+      .then(response => {
+        if (!id) {
+          this.setState({
+            IncidentCards: response.data
+          });
+        } else {
+          this.setState(prevState => ({
+            IncidentCards: prevState.IncidentCards.concat(response.data)
+          }));
+        }
+        this.setState({ refreshing: false });
+      })
+      .catch(() => {
+        console.log('catch');
+      })
+      .then(() => {
+        console.log(this.state.IncidentCards);
+      });
+    console.log(this.state.refreshing);
+    console.log(this.state.IncidentCards.length);
+    console.log(!this.state.refreshing && this.state.IncidentCards.length == 0);
   }
 
   render() {
@@ -325,8 +316,7 @@ const styles = StyleSheet.create({
     marginBottom: theme.SIZES.BASE
   },
   mainContainer: {
-    width: width,
-    height: height,
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center'
   },
