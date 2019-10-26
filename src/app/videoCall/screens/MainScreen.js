@@ -108,22 +108,31 @@ class MainScreen extends React.Component {
         callSettings.setupCallKit = JSON.parse(useCallKitString);
       }
 
-      let calls = [];
-      for (let i = 0; i < this.numbers.length; i++) {
-        let call = await Voximplant.getInstance().call(
-          this.numbers[i],
-          callSettings
-        );
-        let callManager = CallManager.getInstance();
-        callManager.addCall(call);
-        calls.push(call);
-        if (callSettings.setupCallKit) {
-          callManager.startOutgoingCallViaCallKit(isVideoCall, this.numbers[i]);
-        }
+      // let calls = [];
+      // for (let i = 0; i < this.numbers.length; i++) {
+      //   let call = await Voximplant.getInstance().call(
+      //     this.numbers[i],
+      //     callSettings
+      //   );
+      //   let callManager = CallManager.getInstance();
+      //   callManager.addCall(call);
+      //   calls.push(call);
+      //   if (callSettings.setupCallKit) {
+      //     callManager.startOutgoingCallViaCallKit(isVideoCall, this.numbers[i]);
+      //   }
+      // }
+      // console.log(calls);
+      let call = await Voximplant.getInstance().call(
+        this.numbers[0],
+        callSettings
+      );
+      let callManager = CallManager.getInstance();
+      callManager.addCall(call);
+      if (callSettings.setupCallKit) {
+        callManager.startOutgoingCallViaCallKit(isVideoCall, this.numbers[0]);
       }
-      console.log(calls);
-      Actions.OutGoingCall({
-        calls,
+      Actions.Call({
+        callId: call.callId,
         isVideo: isVideoCall,
         isIncoming: false
       });

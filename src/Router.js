@@ -24,6 +24,7 @@ import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { TouchableOpacity } from 'react-native';
 import IncomingCallScreen from './app/videoCall/screens/IncomingCallScreen';
 import CallScreen from './app/videoCall/screens/CallScreen';
+import Call from './app/videoCall/screens/Call';
 import OutGoingCallScreen from './app/videoCall/screens/OutGoingCallScreen';
 
 class RouterComponent extends Component {
@@ -132,8 +133,13 @@ class RouterComponent extends Component {
             />
           </Scene>
 
-          <Scene key="Call" component={CallScreen} hideNavBar={true} />
-          <Scene key="OutGoingCall" component={OutGoingCallScreen} hideNavBar={true} />
+          {/* <Scene key="CallScreen" component={CallScreen} hideNavBar={true} /> */}
+          <Scene key="Call" component={Call} hideNavBar={true} />
+          {/* <Scene
+            key="OutGoingCall"
+            component={OutGoingCallScreen}
+            hideNavBar={true}
+          /> */}
 
           <Scene
             key="IncomingCall"
