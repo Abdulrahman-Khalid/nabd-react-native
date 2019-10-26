@@ -371,6 +371,7 @@ class MainScreen extends React.Component {
     //   console.log(e.name + e.message);
     // }
     // Alert.alert('Welcome', 'Hello');
+
     await LoginManager.getInstance().loginWithPassword(
       '201011315175@nabd.abdulrahman.elshafei98.voximplant.com',
       info.userPass
