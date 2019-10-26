@@ -1,11 +1,20 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Image, TouchableOpacity, Text } from 'react-native';
+import {
+  View,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  Text,
+  ActivityIndicator
+} from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { connect } from 'react-redux';
-import { Images } from '../constants';
+import { Images, Colors } from '../constants';
 import { MapSearch } from './MapSearch';
 import { FAB, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import PropTypes from 'prop-types';
+import LinearGradient from 'react-native-linear-gradient';
 
 class LocationPicker extends Component {
   constructor(props) {
@@ -21,10 +30,22 @@ class LocationPicker extends Component {
     };
   }
 
+  static propTypes = {
+    onValueChange: PropTypes.func
+  };
+
+  static defaultProps = {
+    onValueChange: () => null
+  };
+
   onRegionChange = region => {
-    this.setState({
-      region
-    });
+    const { onValueChange, disabled } = this.props;
+    this.setState(
+      {
+        region
+      },
+      () => onValueChange(this.state.region)
+    );
   };
 
   moveToUserLocation() {
@@ -50,6 +71,13 @@ class LocationPicker extends Component {
           onMapReady={() => this.setState({ mapMarginBottom: 0 })}
           ref={ref => (this.mapView = ref)}
         />
+        <LinearGradient
+          start={{ x: 1.0, y: 1.0 }}
+          end={{ x: 1.0, y: 0.0 }}
+          locations={[0.1, 1.0]}
+          colors={['transparent', 'rgba(0, 0, 0, 0.5)']}
+          style={styles.linearGradient}
+        />
         {/* <MapSearch onLocationSelected={this.handleSearchedLocationSelected} /> */}
         <View style={styles.markerFixed}>
           <Image style={styles.marker} source={Images.locationMarker} />
@@ -74,32 +102,49 @@ class LocationPicker extends Component {
           )}
           onPress={() => this.moveToUserLocation()}
         />
-        <View style={styles.buttonsContainer}>
-          <Button
-            mode="contained"
-            onPress={() => {
-              console.log('submit pressed');
-            }}
-            color="#ffff"
-            style={{ borderRadius: 30, flex: 1, marginRight: 10 }}
-            touchableStyle={{ borderRadius: 30 }}
-          >
-            <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
-              Submit
-            </Text>
-          </Button>
-          <Button
-            mode="contained"
-            onPress={this.props.cancelOnPress}
-            color="#fdeaec"
-            style={{ borderRadius: 30, flex: 1, marginLeft: 10 }}
-            touchableStyle={{ borderRadius: 30 }}
-          >
-            <Text style={{ color: '#d76674', fontFamily: 'Manjari-Bold' }}>
-              Cancel
-            </Text>
-          </Button>
-        </View>
+        <FAB
+          style={styles.submit}
+          icon={() => (
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
+            >
+              {this.props.loading ? (
+                <ActivityIndicator size="small" color="white" />
+              ) : (
+                <Icon
+                  name="check"
+                  size={25}
+                  color="white"
+                  style={{ alignSelf: 'center' }}
+                />
+              )}
+            </View>
+          )}
+          onPress={this.props.onPressSubmit}
+        />
+        <TouchableOpacity
+          style={{
+            position: 'absolute',
+            left: 0,
+            top: 0,
+            height: 60,
+            width: 60,
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+          onPress={this.props.cancelOnPress}
+        >
+          <Icon
+            name="chevron-left"
+            size={25}
+            color="white"
+            style={{ alignSelf: 'center' }}
+          />
+        </TouchableOpacity>
       </View>
     );
   }
@@ -120,7 +165,7 @@ const styles = StyleSheet.create({
   fab: {
     position: 'absolute',
     margin: 16,
-    marginBottom: 75,
+    marginBottom: 30,
     right: 0,
     bottom: 0,
     backgroundColor: 'white'
@@ -133,6 +178,22 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-end',
     justifyContent: 'space-between'
+  },
+  linearGradient: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    height: 80
+  },
+  submit: {
+    position: 'absolute',
+    margin: 16,
+    marginBottom: 100,
+    right: 0,
+    bottom: 0,
+    backgroundColor: Colors.APP
   }
 });
 
