@@ -5,12 +5,15 @@ import {
   Dimensions,
   StatusBar,
   View,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Platform,
+  Text,
+  TouchableOpacity
 } from 'react-native';
 import PhoneInput from 'react-native-phone-input';
 import ModalPickerImage from './ModalPickerImage';
 import { RadioGroup, RadioButton } from 'react-native-flexi-radio-button';
-import { Block, Checkbox, Text, theme } from 'galio-framework';
+import { theme } from 'galio-framework';
 import { Button, Icon, Input } from '../../components';
 import { Images, Colors } from '../../constants';
 import DatePicker from 'react-native-datepicker';
@@ -26,6 +29,7 @@ import {
 } from '../../actions';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import t from '../../I18n';
+import { TextInput } from 'react-native-paper';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -41,8 +45,8 @@ class Register extends React.Component {
 
     this.state = {
       pickerData: null,
-      todayDate: year + '-' + month + '-' + date,
-      birthday: year + '-' + month + '-' + date,
+      todayDate: date + '-' + month + '-' + year,
+      birthday: date + '-' + month + '-' + year,
       gender: 'male',
       showAlert: false
     };
@@ -68,67 +72,67 @@ class Register extends React.Component {
     });
   }
 
-  isLoading() {
-    console.log('hi', this.state);
-    if (this.props.loading) {
-      return <Spinner color={Colors.APP} />;
+  createAccountPressed = () => {
+    const {
+      password,
+      nameError,
+      phoneError,
+      passError,
+      passMatchError,
+      birthdayError,
+      fillSignUpForm,
+      validateBirthday
+    } = this.props;
+
+    fillSignUpForm({
+      key: 'password',
+      value: password
+    });
+    this.loseNameFocus();
+    this.losePhoneFocus();
+    validateBirthday(this.state.birthday);
+    this.loseConfirmPasswordFocus();
+
+    if (
+      nameError ||
+      phoneError ||
+      passError ||
+      passMatchError ||
+      birthdayError
+    ) {
+      this.showAlert();
+    } else {
+      this.props.signUpAttempt({
+        name: this.props.name,
+        phone: this.phone.getValue(),
+        birthday: new Date(this.state.birthday),
+        gender: this.state.gender,
+        password: this.props.password,
+        confirmPassword: this.props.confirmPassword,
+        userType: this.props.userType
+      });
     }
+  };
+
+  isLoading() {
+    // console.log('hi', this.state);
     return (
-      <Block middle>
-        <Button
-          color="primary"
-          onPress={() => {
-            const {
-              password,
-              nameError,
-              phoneError,
-              passError,
-              passMatchError,
-              birthdayError,
-              fillSignUpForm,
-              validateBirthday
-            } = this.props;
-
-            fillSignUpForm({
-              key: 'password',
-              value: password
-            });
-            this.loseNameFocus();
-            this.losePhoneFocus();
-            validateBirthday(this.state.birthday);
-            this.loseConfirmPasswordFocus();
-
-            if (
-              nameError ||
-              phoneError ||
-              passError ||
-              passMatchError ||
-              birthdayError
-            ) {
-              this.showAlert();
-            } else {
-              this.props.signUpAttempt({
-                name: this.props.name,
-                phone: this.phone.getValue(),
-                birthday: new Date(this.state.birthday),
-                gender: this.state.gender,
-                password: this.props.password,
-                confirmPassword: this.props.confirmPassword,
-                userType: this.props.userType
-              });
-            }
-          }}
-          // console.log(
-          //   this.phone.isValidNumber(),
-          //   this.phone.getValue()
-          // );
-          style={styles.createButton}
+      <View style={styles.buttonsContainer}>
+        <TouchableOpacity
+          style={styles.buttonContainer}
+          onPress={this.createAccountPressed}
         >
-          <Text bold size={14} color={Colors.WHITE}>
-            {t.CreateAccount}
-          </Text>
-        </Button>
-      </Block>
+          <View style={styles.button}>
+            {this.props.loading ? (
+              <Spinner color={Colors.WHITE} size="small" />
+            ) : (
+              <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
+                {t.CreateAccount}
+              </Text>
+            )}
+          </View>
+        </TouchableOpacity>
+      </View>
     );
   }
 
@@ -156,27 +160,21 @@ class Register extends React.Component {
   phoneInputBorderColor() {
     const { isSuccessPhone, isErrorPhone } = this.props;
     const shadow = {
-      shadowColor: Colors.BLACK,
-      shadowOffset: { width: 0, height: 1 },
-      shadowRadius: 2,
-      shadowOpacity: 0.05,
-      elevation: 2,
-      borderRadius: 4,
-      borderColor: Colors.BORDER,
+      borderBottomColor: Colors.BORDER,
       height: 44,
       backgroundColor: '#FFFFFF',
-      borderWidth: 1
+      borderBottomWidth: 4
     };
 
     if (isSuccessPhone) {
       return {
         ...shadow,
-        borderColor: Colors.INPUT_SUCCESS
+        borderBottomColor: Colors.INPUT_SUCCESS
       };
     } else if (isErrorPhone) {
       return {
         ...shadow,
-        borderColor: Colors.INPUT_ERROR
+        borderBottomColor: Colors.INPUT_ERROR
       };
     }
     return shadow;
@@ -231,267 +229,284 @@ class Register extends React.Component {
 
   render() {
     return (
-      <Block flex middle style={{ backgroundColor: Colors.BACKGROUND }}>
-        <StatusBar hidden />
-        <Block flex middle>
-          <Block style={styles.registerContainer}>
-            <Block flex>
-              <Block flex={0.05} middle />
-              <Block flex center>
-                <KeyboardAvoidingView
-                  style={{ flex: 1 }}
-                  behavior="padding"
-                  enabled
-                >
-                  <Block width={width * 0.75} style={{ marginBottom: 15 }}>
-                    <Input
-                      placeholder={t.Username}
-                      error={this.props.isErrorName}
-                      success={this.props.isSuccessName}
-                      // autoFocus={true}
-                      onBlur={this.loseNameFocus.bind(this)}
-                      iconContent={
-                        <Icon
-                          size={16}
-                          color={Colors.ICON}
-                          name="hat-3"
-                          family="ArgonExtra"
-                          style={styles.inputIcons}
-                        />
-                      }
-                      onChangeText={value =>
-                        this.props.fillSignUpForm({ key: 'name', value })
-                      }
-                      value={this.props.name}
-                    />
-                  </Block>
-                  <Block width={width * 0.75} style={{ marginBottom: 15 }}>
-                    <View
-                      style={{
-                        ...styles.phoneContainer,
-                        ...this.phoneInputBorderColor()
-                      }}
-                    >
-                      <PhoneInput
-                        ref={ref => {
-                          this.phone = ref;
-                        }}
-                        initialCountry="eg"
-                        onPressFlag={this.onPressFlag}
-                        textProps={{
-                          onBlur: this.losePhoneFocus.bind(this),
-                          placeholder: t.PhoneNumber
-                        }}
-                      />
-
-                      <ModalPickerImage
-                        ref={ref => {
-                          this.myCountryPicker = ref;
-                        }}
-                        data={this.state.pickerData}
-                        onChange={country => {
-                          this.selectCountry(country);
-                        }}
-                        cancelText="Cancel"
-                      />
-                    </View>
-                  </Block>
-                  <Block width={width * 0.75} style={{ marginBottom: 7 }}>
-                    <Input
-                      password
-                      error={this.props.isErrorPass}
-                      success={this.props.isSuccessPass}
-                      placeholder={t.Password}
-                      onBlur={() =>
-                        this.props.fillSignUpForm({
-                          key: 'password',
-                          value: this.props.password
-                        })
-                      }
-                      iconContent={
-                        <Icon
-                          size={16}
-                          color={Colors.ICON}
-                          name="padlock-unlocked"
-                          family="ArgonExtra"
-                          style={styles.inputIcons}
-                        />
-                      }
-                      onChangeText={this.onChangePassword.bind(this)}
-                      value={this.props.password}
-                    />
-                  </Block>
-                  <Block width={width * 0.75}>
-                    <Input
-                      password
-                      error={this.props.isErrorPassMatch}
-                      success={
-                        this.props.isSuccessPassMatch &&
-                        this.props.confirmPassword
-                      }
-                      placeholder={t.ConfirmPassword}
-                      onBlur={this.loseConfirmPasswordFocus.bind(this)}
-                      iconContent={
-                        <Icon
-                          size={16}
-                          color={Colors.ICON}
-                          name="padlock-unlocked"
-                          family="ArgonExtra"
-                          style={styles.inputIcons}
-                        />
-                      }
-                      onChangeText={value =>
-                        this.props.fillSignUpForm({
-                          key: 'confirmPassword',
-                          value
-                        })
-                      }
-                      value={this.props.confirmPassword}
-                    />
-
-                    <Block row style={styles.passwordCheck}>
-                      <Text size={12} color={Colors.MUTED}>
-                        {t.PasswordStrength}
-                      </Text>
-                      <Text
-                        bold
-                        size={12}
-                        style={{ paddingLeft: 2 }}
-                        color={this.props.passStrengthColor}
-                      >
-                        {this.props.passStrengthText}
-                      </Text>
-                    </Block>
-                  </Block>
-                  <Block center>
-                    <Block
-                      style={{
-                        flexDirection: 'row',
-                        flexWrap: 'wrap',
-                        marginTop: 10,
-                        marginBottom: 15,
-                        paddingRight: 20
-                      }}
-                    >
-                      {/* <Text style={styles.hardText}>Birthday:</Text> */}
-                      <DatePicker
-                        style={{ width: 200 }}
-                        date={this.state.birthday}
-                        mode="date"
-                        placeholder={t.Birthday}
-                        format="YYYY-MM-DD"
-                        minDate="1950-01-01"
-                        maxDate={this.state.todayDate}
-                        confirmBtnText="Confirm"
-                        cancelBtnText="Cancel"
-                        customStyles={{
-                          placeholderText: t.Birthday,
-                          dateText: {
-                            fontSize: 18,
-                            fontWeight: 'bold',
-                            color: 'gray'
-                          },
-                          dateIcon: {
-                            position: 'absolute',
-                            left: 0,
-                            top: 4,
-                            marginLeft: 0,
-                            margin: 0
-                          },
-                          dateInput: {
-                            marginLeft: 36
-                          }
-                          // ... You can check the source to find the other keys.
-                        }}
-                        onDateChange={date => {
-                          this.setState({ ...this.state, birthday: date });
-                        }}
-                      />
-                    </Block>
-                    <View
-                      style={{
-                        flexDirection: 'row',
-                        flexWrap: 'wrap',
-                        marginBottom: 15,
-                        marginTop: 0,
-                        padding: 0
-                      }}
-                    >
-                      {/* <Text style={styles.hardText}>Gender:</Text> */}
-                      <RadioGroup
-                        size={20}
-                        style={{ float: 'left', margin: 0, padding: 0 }}
-                        thickness={2}
-                        color={Colors.APP}
-                        selectedIndex={0}
-                        onSelect={(index, value) => this.onSelect(index, value)}
-                        style={{
-                          flexDirection: 'row',
-                          flexWrap: 'wrap'
-                        }}
-                      >
-                        <RadioButton
-                          style={{
-                            padding: 5,
-                            paddingRight: 10
-                          }}
-                          value={'male'}
-                        >
-                          <Text>{t.Male}</Text>
-                        </RadioButton>
-
-                        <RadioButton
-                          style={{
-                            padding: 5
-                          }}
-                          value={'female'}
-                        >
-                          <Text>{t.Female}</Text>
-                        </RadioButton>
-                      </RadioGroup>
-                    </View>
-                  </Block>
-                  <Block row width={width * 0.755}>
-                    <Checkbox
-                      checkboxStyle={{
-                        borderWidth: 3
-                      }}
-                      color={Colors.APP}
-                      label={t.Iagree}
-                    />
-                    <Button
-                      style={{ width: 100 }}
-                      color="transparent"
-                      textStyle={{
-                        color: Colors.APP,
-                        fontSize: 14
-                      }}
-                    >
-                      {t.PrivacyPolicy}
-                    </Button>
-                  </Block>
-                  {this.isLoading()}
-                </KeyboardAvoidingView>
-              </Block>
-            </Block>
-            <AwesomeAlert
-              show={this.state.showAlert}
-              showProgress={false}
-              title="Sign up failed"
-              message={this.errorMessage()}
-              closeOnTouchOutside={true}
-              closeOnHardwareBackPress={false}
-              showCancelButton={false}
-              showConfirmButton={true}
-              confirmText="OK"
-              confirmButtonColor={Colors.APP}
-              onConfirmPressed={() => {
-                this.hideAlert();
+      <KeyboardAvoidingView
+        style={{
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          height: '100%'
+        }}
+        behavior={Platform.OS == 'ios' ? 'padding' : null}
+        enabled
+      >
+        <View style={{ flex: 2, marginTop: 10 }}>
+          <View
+            style={{
+              marginHorizontal: 15,
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+          >
+            <Text
+              style={{
+                textAlign: 'left',
+                fontSize: 40,
+                fontWeight: 'bold',
+                marginLeft: 10,
+                lineHeight: 50,
+                alignSelf: 'flex-start'
               }}
+            >
+              Create{'\n'}Account
+            </Text>
+            <Input
+              placeholder={t.Username}
+              error={this.props.isErrorName}
+              success={this.props.isSuccessName}
+              onBlur={this.loseNameFocus.bind(this)}
+              iconContent={
+                <Icon
+                  size={16}
+                  color={Colors.BLACK}
+                  name="avatar"
+                  family="flaticon"
+                  style={styles.inputIcons}
+                />
+              }
+              onChangeText={value =>
+                this.props.fillSignUpForm({ key: 'name', value })
+              }
+              value={this.props.name}
             />
-          </Block>
-        </Block>
-      </Block>
+          </View>
+          <View
+            style={{
+              justifyContent: 'center',
+              alignItems: 'center',
+              width: '100%'
+            }}
+          >
+            <View
+              style={{
+                ...styles.phoneContainer,
+                ...this.phoneInputBorderColor()
+              }}
+            >
+              <PhoneInput
+                ref={ref => {
+                  this.phone = ref;
+                }}
+                initialCountry="eg"
+                onPressFlag={this.onPressFlag}
+                textProps={{
+                  onBlur: this.losePhoneFocus.bind(this),
+                  placeholder: t.PhoneNumber
+                }}
+                style={{ flex: 1, width: '100%' }}
+              />
+              <ModalPickerImage
+                ref={ref => {
+                  this.myCountryPicker = ref;
+                }}
+                data={this.state.pickerData}
+                onChange={country => {
+                  this.selectCountry(country);
+                }}
+                cancelText="Cancel"
+              />
+            </View>
+          </View>
+          <View
+            style={{
+              marginHorizontal: 15,
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+          >
+            <Input
+              password
+              error={this.props.isErrorPass}
+              success={this.props.isSuccessPass}
+              placeholder={t.Password}
+              onBlur={() =>
+                this.props.fillSignUpForm({
+                  key: 'password',
+                  value: this.props.password
+                })
+              }
+              iconContent={
+                <Icon
+                  size={16}
+                  color={Colors.BLACK}
+                  name="padlock"
+                  family="flaticon"
+                  style={styles.inputIcons}
+                />
+              }
+              onChangeText={this.onChangePassword.bind(this)}
+              value={this.props.password}
+            />
+          </View>
+          <View
+            style={{
+              marginHorizontal: 15,
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+          >
+            <Input
+              password
+              error={this.props.isErrorPassMatch}
+              success={
+                this.props.isSuccessPassMatch && this.props.confirmPassword
+              }
+              placeholder={t.ConfirmPassword}
+              onBlur={this.loseConfirmPasswordFocus.bind(this)}
+              iconContent={
+                <Icon
+                  size={16}
+                  color={Colors.BLACK}
+                  name="padlock"
+                  family="flaticon"
+                  style={styles.inputIcons}
+                />
+              }
+              onChangeText={value =>
+                this.props.fillSignUpForm({
+                  key: 'confirmPassword',
+                  value
+                })
+              }
+              value={this.props.confirmPassword}
+            />
+            <View row style={styles.passwordCheck}>
+              <Text size={12} color={Colors.MUTED}>
+                {t.PasswordStrength}
+              </Text>
+              <Text
+                bold
+                size={12}
+                style={{ color: this.props.passStrengthColor }}
+              >
+                {' '}
+                {this.props.passStrengthText}
+              </Text>
+            </View>
+          </View>
+          <View
+            style={{
+              marginTop: 15,
+              marginHorizontal: 15,
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
+          >
+            <View
+              style={{
+                borderRadius: 30,
+                flexDirection: 'row',
+                marginBottom: 15,
+                backgroundColor: Colors.WHITE,
+                paddingLeft: 20
+              }}
+            >
+              <Icon
+                size={20}
+                color={Colors.BLACK}
+                name="calendar-full"
+                family="LinearIcon"
+                style={{ alignSelf: 'center' }}
+              />
+              {/* <Text style={styles.hardText}>Birthday:</Text> */}
+              <DatePicker
+                style={{ width: 140 }}
+                date={this.state.birthday}
+                mode="date"
+                placeholder={t.Birthday}
+                format="DD-MM-YYYY"
+                minDate="01-01-1920"
+                maxDate={this.state.todayDate}
+                confirmBtnText="Confirm"
+                cancelBtnText="Cancel"
+                showIcon={false}
+                customStyles={{
+                  dateTouchBody: {},
+                  placeholderText: t.Birthday,
+                  dateText: {
+                    fontSize: 18,
+                    fontWeight: 'bold',
+                    color: 'gray'
+                  },
+                  dateInput: {
+                    borderWidth: 0
+                  }
+                }}
+                onDateChange={date => {
+                  this.setState({ ...this.state, birthday: date });
+                }}
+              />
+            </View>
+            <View
+              style={{
+                flexDirection: 'row',
+                flexWrap: 'wrap',
+                marginBottom: 15,
+                marginTop: 0,
+                padding: 0
+              }}
+            >
+              {/* <Text style={styles.hardText}>Gender:</Text> */}
+              <RadioGroup
+                size={20}
+                style={{ float: 'left', margin: 0, padding: 0 }}
+                thickness={2}
+                color={Colors.APP}
+                selectedIndex={0}
+                onSelect={(index, value) => this.onSelect(index, value)}
+                style={{
+                  flexDirection: 'row',
+                  flexWrap: 'wrap'
+                }}
+              >
+                <RadioButton
+                  style={{
+                    padding: 5,
+                    paddingRight: 10
+                  }}
+                  value={'male'}
+                >
+                  <Text>{t.Male}</Text>
+                </RadioButton>
+
+                <RadioButton
+                  style={{
+                    padding: 5
+                  }}
+                  value={'female'}
+                >
+                  <Text>{t.Female}</Text>
+                </RadioButton>
+              </RadioGroup>
+            </View>
+          </View>
+        </View>
+        <AwesomeAlert
+          show={this.state.showAlert}
+          showProgress={false}
+          title="Sign up failed"
+          message={this.errorMessage()}
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText="OK"
+          confirmButtonColor={Colors.APP}
+          onConfirmPressed={() => {
+            this.hideAlert();
+          }}
+        />
+        {this.isLoading()}
+      </KeyboardAvoidingView>
     );
   }
 }
@@ -500,8 +515,6 @@ const styles = StyleSheet.create({
   registerContainer: {
     width: width * 0.9,
     height: height * 0.8,
-    backgroundColor: '#F4F5F7',
-    borderRadius: 4,
     shadowColor: Colors.BLACK,
     shadowOffset: {
       width: 0,
@@ -514,7 +527,7 @@ const styles = StyleSheet.create({
   },
   socialConnect: {
     backgroundColor: Colors.WHITE,
-    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomWidth: 4,
     borderColor: '#8898AA'
   },
   socialButtons: {
@@ -540,9 +553,9 @@ const styles = StyleSheet.create({
     paddingRight: 12
   },
   passwordCheck: {
-    paddingLeft: 15,
-    paddingTop: 13,
-    paddingBottom: 10
+    paddingLeft: 10,
+    flexDirection: 'row',
+    width: '100%'
   },
   createButton: {
     width: width * 0.75,
@@ -550,17 +563,14 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.APP
   },
   phoneContainer: {
-    borderRadius: 4,
-    borderColor: Colors.BORDER,
+    paddingLeft: 15,
+    borderWidth: 0,
+    borderRadius: 30,
+    borderBottomColor: Colors.BORDER,
     height: 44,
     backgroundColor: '#FFFFFF',
-    shadowColor: Colors.BLACK,
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 2,
-    shadowOpacity: 0.05,
-    elevation: 2,
-    justifyContent: 'center',
-    paddingLeft: 10
+    marginHorizontal: 15,
+    marginVertical: 7
   },
   hardText: { fontSize: 20, marginRight: 10 },
   success: {
@@ -568,11 +578,39 @@ const styles = StyleSheet.create({
   },
   error: {
     borderColor: Colors.INPUT_ERROR
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    margin: 10,
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'flex-end'
+  },
+  buttonContainer: {
+    flex: 1,
+    padding: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  button: {
+    height: 44,
+    width: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 30,
+    flexDirection: 'row',
+    backgroundColor: Colors.APP
   }
 });
 
 const mapSateToProps = state => {
-  console.log('Register State: ', state);
+  // console.log('Register State: ', state);
   const { userType } = state.openApp;
   //add in the reducer signup (birthday)
   const {

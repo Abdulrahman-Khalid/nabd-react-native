@@ -3,13 +3,15 @@ import {
   REQUEST_LOCATION_PERMISSION,
   UPDATE_LOCATION
 } from '../actions/types';
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
+import { persistReducer } from 'redux-persist'
 
 const INTIAL_STATE = {
   position: null,
   permissionGranted: false
 };
 
-export default (state = INTIAL_STATE, action) => {
+locationReducer = (state = INTIAL_STATE, action) => {
   switch (action.type) {
     case GET_LOCATION:
       return { ...state, position: action.payload };
@@ -21,3 +23,11 @@ export default (state = INTIAL_STATE, action) => {
       return state;
   }
 };
+
+const persistConfig = {
+  key: 'location',
+  storage: storage,
+  whitelist: ['permissionGranted']
+};
+
+export default persistReducer(persistConfig, locationReducer);

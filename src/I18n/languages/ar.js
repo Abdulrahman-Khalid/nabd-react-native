@@ -16,6 +16,8 @@ export default ar = {
   EmailTitle: 'تطبيق نبض',
   Settings: 'الإعدادات',
   FirstAid: 'الإسعافات الأولية',
+  AmbulanceDriver: 'سائق عربة الإسعاف',
+  Aide: 'مساعدة عاجلة',
 
   Bleeding: ' النزيف الحاد ',
   Burns: 'الحروق',

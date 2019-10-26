@@ -7,7 +7,8 @@ import { connect } from 'react-redux';
 import {
   selectHelperType,
   requestHelp,
-  requestLocationPermission
+  requestLocationPermission,
+  updateLocation
 } from '../../actions';
 import {
   Alert,
@@ -19,7 +20,9 @@ import {
   ScrollView,
   Modal,
   Platform,
-  Switch
+  Switch,
+  DeviceEventEmitter,
+  ActivityIndicator
 } from 'react-native';
 import {
   Card,
@@ -37,6 +40,8 @@ import RNSwipeVerify from 'react-native-swipe-verify';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { openSettings } from 'react-native-permissions';
 import t from '../../I18n';
+import RNSettings from 'react-native-settings';
+import Geolocation from 'react-native-geolocation-service';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -56,18 +61,14 @@ const buttons = [
   }
 ];
 
-const ambulanceRequestTypes = [
-  { label: 'Send Current Location', value: 0 },
-  { label: 'Set Location Manually', value: 1 }
-];
-
-class UserAndDoctorHome extends Component {
+class UserHome extends Component {
   constructor(props) {
     super();
     this.state = {
-      ambulanceRequestType: 0,
       modalVisible: false,
-      switchValue: true
+      switchValue: true,
+      gpsOffModal: false,
+      startedWatch: false
     };
     props.selectHelperType('doctor');
     // Init PubNub. Use your subscribe key here.
@@ -75,18 +76,101 @@ class UserAndDoctorHome extends Component {
       subscribeKey: 'sub-key'
     });
     this.pubnub.init(this);
+    this.requestAmbulance = this.requestAmbulance.bind(this);
   }
 
   componentDidMount() {
-    this.props.requestLocationPermission();
+    if (Platform.OS === 'android') {
+      this.setState({ gpsOffModal: true });
+      RNSettings.getSetting(RNSettings.LOCATION_SETTING).then(result => {
+        if (result == RNSettings.ENABLED) {
+          this.setState({ gpsOffModal: false });
+        }
+      });
+    } else {
+      this.props.requestLocationPermission();
+      console.log(this.props.permissionGranted);
+    }
+    DeviceEventEmitter.addListener(
+      RNSettings.GPS_PROVIDER_EVENT,
+      this.handleGPSProviderEvent
+    );
+  }
+
+  componentDidUpdate() {
+    if (this.props.permissionGranted) {
+      Geolocation.setRNConfiguration({
+        skipPermissionRequests: false,
+        authorizationLevel: 'always'
+      });
+      Geolocation.requestAuthorization();
+      this.watchID = Geolocation.watchPosition(
+        position => {
+          this.props.updateLocation(position);
+        },
+        error => {
+          switch (error.code) {
+            case 1:
+              Alert.alert('Error', 'Location permission is not granted');
+              break;
+            case 2:
+              Alert.alert('Error', 'Location provider not available');
+              break;
+            case 3:
+              Alert.alert('Error', 'Location request timed out');
+              break;
+            case 4:
+              Alert.alert(
+                'Error',
+                'Google play service is not installed or has an older version'
+              );
+              break;
+            case 5:
+              Alert.alert(
+                'Error',
+                'Location service is not enabled or location mode is not appropriate for the current request'
+              );
+              break;
+            default:
+              Alert.alert('Error', 'Please try again');
+              break;
+          }
+        },
+        { enableHighAccuracy: true }
+      );
+    }
+  }
+
+  componentWillUnmount() {
+    Geolocation.clearWatch(this.watchID);
   }
 
   setModalVisible(visible) {
     this.setState({ modalVisible: visible });
   }
 
+  handleGPSProviderEvent = e => {
+    if (e[RNSettings.LOCATION_SETTING] === RNSettings.DISABLED) {
+      this.setState({
+        gpsOffModal: true
+      });
+    }
+    if (e[RNSettings.LOCATION_SETTING] === RNSettings.ENABLED) {
+      this.setState({
+        gpsOffModal: false
+      });
+    }
+  };
+
   requestAmbulance() {
-    console.log('ambulance Request');
+    if (!this.state.switchValue) {
+      this.setState({
+        modalVisible: false
+      });
+      Actions.waitForAmbulance();
+    } else {
+      console.log('send current position');
+    }
   }
 
   renderModal() {
@@ -154,12 +238,75 @@ class UserAndDoctorHome extends Component {
     );
   }
 
-  renderLocationPermissionRequestModal() {
+  // renderLocationPermissionRequestModal() {
+  //   return (
+  //     <Modal visible={!this.props.permissionGranted} animationType="fade">
+  //       <View style={styles.locationPermissionModalContainer}>
+  //         <Image
+  //           style={styles.locationPermissionImage}
+  //           source={Images.locationPermission}
+  //           resizeMode="contain"
+  //         />
+  //         <View style={styles.locationPermissionModalTitleContainer}>
+  //           <Text style={styles.locationPermissionModalTitle}>
+  //             Nabd requires access to your location
+  //           </Text>
+  //         </View>
+  //         <Text style={styles.locationPermissionModalDescription}>
+  //           {Platform.OS === 'android'
+  //             ? `In order to have help at your fingertips, location access is required. Press 'Open Settings' > Permissions > Location > Allow all the time > Go back to Nabd > Press 'Refresh'`
+  //             : `In order to have help at your fingertips, location access is required. Press 'Open Settings' > Location > Always > Go back to Nabd > Press 'Refresh'`}
+  //         </Text>
+  //         <View style={styles.permissionModalButtons}>
+  //           <TouchableOpacity
+  //             style={styles.permissionModalButtonContainer}
+  //             onPress={() => {
+  //               openSettings().catch(() =>
+  //                 Alert.alert('Error', 'Cannot open settings')
+  //               );
+  //             }}
+  //           >
+  //             <View
+  //               style={[
+  //                 styles.permissionModalButton,
+  //                 {
+  //                   backgroundColor: '#f6f6f4'
+  //                 }
+  //               ]}
+  //             >
+  //               <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
+  //                 Open Settings
+  //               </Text>
+  //             </View>
+  //           </TouchableOpacity>
+  //           <TouchableOpacity
+  //             style={styles.permissionModalButtonContainer}
+  //             onPress={() => {
+  //               this.props.requestLocationPermission();
+  //             }}
+  //           >
+  //             <View
+  //               style={[
+  //                 styles.permissionModalButton,
+  //                 {
+  //                   backgroundColor: '#fdeaec'
+  //                 }
+  //               ]}
+  //             >
+  //               <Text style={{ color: '#d76674', fontFamily: 'Manjari-Bold' }}>
+  //                 Refresh
+  //               </Text>
+  //             </View>
+  //           </TouchableOpacity>
+  //         </View>
+  //       </View>
+  //     </Modal>
+  //   );
+  // }
+
+  renderGPSOffModal() {
     return (
-      <Modal
-        visible={!this.props.locationPermissionGranted}
-        animationType="fade"
-      >
+      <Modal visible={this.state.gpsOffModal} animationType="fade">
         <View style={styles.locationPermissionModalContainer}>
           <Image
             style={styles.locationPermissionImage}
@@ -172,52 +319,8 @@ class UserAndDoctorHome extends Component {
             </Text>
           </View>
           <Text style={styles.locationPermissionModalDescription}>
-            {Platform.OS === 'android'
-              ? `In order to have help at your fingertips, location access is required. Press 'Open Settings' > Permissions > Location > Allow all the time > Go back to Nabd > Press 'Refresh'`
-              : `In order to have help at your fingertips, location access is required. Press 'Open Settings' > Location > Always > Go back to Nabd > Press 'Refresh'`}
+            Enable location services for a better experience
           </Text>
-          <View style={styles.permissionModalButtons}>
-            <TouchableOpacity
-              style={styles.permissionModalButtonContainer}
-              onPress={() => {
-                openSettings().catch(() =>
-                  Alert.alert('Error', 'Cannot open settings')
-                );
-              }}
-            >
-              <View
-                style={[
-                  styles.permissionModalButton,
-                  {
-                    backgroundColor: '#f6f6f4'
-                  }
-                ]}
-              >
-                <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
-                  Open Settings
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.permissionModalButtonContainer}
-              onPress={() => {
-                this.props.requestLocationPermission();
-              }}
-            >
-              <View
-                style={[
-                  styles.permissionModalButton,
-                  {
-                    backgroundColor: '#fdeaec'
-                  }
-                ]}
-              >
-                <Text style={{ color: '#d76674', fontFamily: 'Manjari-Bold' }}>
-                  Refresh
-                </Text>
-              </View>
-            </TouchableOpacity>
-          </View>
         </View>
       </Modal>
     );
@@ -231,7 +334,7 @@ class UserAndDoctorHome extends Component {
   }
 
   renderButtons() {
-    return (
+    return this.props.position ? (
       <View
         style={{
           flex: 1,
@@ -316,13 +419,19 @@ class UserAndDoctorHome extends Component {
           </View>
         </View>
       </View>
+    ) : (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" style={{ marginBottom: 20 }} />
+        <Text style={{ fontSize: 20 }}>Fetching your location</Text>
+      </View>
     );
   }
 
   render() {
     return (
       <View style={styles.home}>
-        {this.renderLocationPermissionRequestModal()}
+        {this.renderGPSOffModal()}
+        {/* {this.renderLocationPermissionRequestModal()} */}
         {this.renderButtons()}
         {this.renderModal()}
       </View>
@@ -401,11 +510,11 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => {
   const { helperType, helperName } = state.requestHelp;
-  const locationPermissionGranted = state.location.permissionGranted;
-  return { helperType, helperName, locationPermissionGranted };
+  const { permissionGranted, position } = state.location;
+  return { helperType, helperName, permissionGranted, position };
 };
 
 export default connect(
   mapStateToProps,
-  { selectHelperType, requestHelp, requestLocationPermission }
-)(UserAndDoctorHome);
+  { selectHelperType, requestHelp, requestLocationPermission, updateLocation }
+)(UserHome);

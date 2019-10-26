@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import { Image, TouchableOpacity } from 'react-native';
-import { Button } from '../../components';
-import { Block, Text, Button as GaButton, theme } from 'galio-framework';
+import { Image, TouchableOpacity, Text } from 'react-native';
+import { Button, Icon } from '../../components';
+import { theme } from 'galio-framework';
 import { Actions } from 'react-native-router-flux';
 import { View, StyleSheet, Dimensions } from 'react-native';
 import { Colors, Images } from '../../constants';
@@ -56,122 +56,123 @@ class WhoAmI extends Component {
 
   render() {
     return (
-      <Block flex style={{ backgroundColor: '#ffffff' }}>
-        <Block center>
-          <Block center>
-            <Image
-              style={styles.image}
-              source={require('../../assets/imgs/black-logo.png')}
-            />
-          </Block>
-          {/* <Block center style={{ marginBottom: 10 }}>
-            <Text style={{ fontSize: 20, fontWeight: '700' }}>Nabd Egypt</Text>
-          </Block> */}
-        </Block>
-        <Block>
-          <Block>
-            <Block
-              style={{
-                flexWrap: 'wrap',
-                left: 15,
-                top: 15
-              }}
-            >
-              <Block>
-                <Block center style={{ marginBottom: 4 }}>
-                  <Text style={styles.numberText}>
-                    {this.props.numberUsers}
-                  </Text>
-                  <Text style={styles.textStyle}>{t.User}</Text>
-                </Block>
-              </Block>
-              <Block>
-                <Block center>
-                  <Text style={styles.numberText}>
-                    {this.props.numberDoctors}
-                  </Text>
-                  <Text style={styles.textStyle}>{t.Doctor}</Text>
-                </Block>
-              </Block>
-            </Block>
-            <Block style={{ position: 'absolute', right: 15, top: 15 }}>
-              <Block>
-                <Block center tyle={{ marginBottom: 4 }}>
-                  <Text style={styles.numberText}>
-                    {this.props.numberParamedics}
-                  </Text>
-                  <Text style={styles.textStyle}>{t.Paramedic}</Text>
-                </Block>
-              </Block>
-              <Block>
-                <Block center>
-                  <Text style={styles.numberText}>
-                    {this.props.numberAmbulance}
-                  </Text>
-                  <Text style={styles.textStyle}>{t.Ambulance}</Text>
-                </Block>
-              </Block>
-            </Block>
-          </Block>
-        </Block>
-        <Block center style={{ position: 'absolute', bottom: 10 }}>
-          <Button
-            color="warning"
-            style={styles.button}
-            textStyle={styles.buttonText}
+      <View style={styles.mainContainer}>
+        <Image
+          style={styles.image}
+          source={Images.accountType}
+          resizeMode="contain"
+        />
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>Choose a Suitable Account Type</Text>
+        </View>
+        <View style={styles.switch}></View>
+        <View style={styles.buttonsContainer}>
+          <TouchableOpacity
+            style={styles.buttonContainer}
             onPress={this.user.bind(this)}
           >
-            {t.iUser}
-          </Button>
-          <Button
-            color="warning"
-            style={styles.button}
-            textStyle={styles.buttonText}
+            <View style={styles.button}>
+              <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
+                {t.User}
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.buttonContainer}
             onPress={this.doctor.bind(this)}
           >
-            {t.iDoctor}
-          </Button>
-          <Button
-            color="warning"
-            style={styles.button}
-            textStyle={styles.buttonText}
+            <View style={styles.button}>
+              <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
+                {t.Doctor}
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.buttonContainer}
             onPress={this.paramedic.bind(this)}
           >
-            {t.iParamedic}
-          </Button>
-          <Button
-            color="warning"
-            style={styles.button}
-            textStyle={styles.buttonText}
+            <View style={styles.button}>
+              <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
+                {t.Paramedic}
+              </Text>
+            </View>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.buttonContainer}
             onPress={this.ambulance.bind(this)}
           >
-            {t.Ambulance}
-          </Button>
-        </Block>
-      </Block>
+            <View style={styles.button}>
+              <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
+                {t.AmbulanceDriver}
+              </Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  button: {
-    marginBottom: theme.SIZES.BASE,
-    width: width - theme.SIZES.BASE * 2,
-    height: height / 15,
-    backgroundColor: Colors.APP,
-    borderRadius: 5
+  mainContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
   },
-  buttonText: { fontSize: 20, fontWeight: '700' },
-  numberText: { fontSize: 20, color: '#000' },
-  typeText: { fontSize: 18, color: '#A9A9A9' },
   image: {
-    paddingTop: '5%',
-    width: 250,
-    height: 250,
-    resizeMode: 'center'
+    width: 200,
+    height: 200,
+    margin: 12,
+    flex: 1
   },
-  textStyle: {
-    color: '#484848'
+  titleContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'center'
+  },
+  title: {
+    fontSize: 30,
+    textAlign: 'center',
+    fontFamily: 'Manjari-Regular',
+    marginLeft: theme.SIZES.BASE * 2,
+    marginRight: theme.SIZES.BASE * 2
+  },
+  description: {
+    fontSize: 15,
+    color: 'gray',
+    textAlign: 'center',
+    fontFamily: 'Manjari-Regular',
+    marginLeft: theme.SIZES.BASE * 2,
+    marginRight: theme.SIZES.BASE * 2
+  },
+  buttonsContainer: {
+    flex: 1.2,
+    flexDirection: 'column',
+    margin: 10,
+    width: '100%'
+  },
+  buttonContainer: {
+    flex: 1,
+    alignItems: 'center',
+    paddingLeft: 10,
+    paddingRight: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5
+  },
+  button: {
+    width: '100%',
+    height: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 30,
+    flexDirection: 'row',
+    backgroundColor: Colors.APP
   }
 });
 

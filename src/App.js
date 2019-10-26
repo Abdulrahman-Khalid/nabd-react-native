@@ -6,7 +6,13 @@ import SplashScreen from 'react-native-splash-screen';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { persistStore } from 'redux-persist';
 import Languages from './I18n';
-import { ActivityIndicator, View, StyleSheet, StatusBar } from 'react-native';
+import {
+  ActivityIndicator,
+  View,
+  StyleSheet,
+  StatusBar,
+  NativeModules
+} from 'react-native';
 import CreateStore from './config/CreateStore';
 import { Colors } from './constants';
 import {
@@ -15,6 +21,7 @@ import {
   setCustomView
 } from 'react-native-global-props';
 import { Provider as PaperProvider } from 'react-native-paper';
+import RNRestart from 'react-native-restart';
 
 const { store } = CreateStore();
 let persistor;
@@ -30,6 +37,13 @@ class App extends Component {
       let customProps;
       // // set default Language for App
       Languages.setLanguage(language.lang);
+      if (NativeModules.I18nManager.isRTL == false && language.lang == 'ar') {
+        NativeModules.I18nManager.forceRTL(true);
+        setTimeout(() => {
+          RNRestart.Restart();
+        }, 500);
+      }
+
       switch (language.lang) {
         case 'en':
           customProps = {
@@ -77,9 +91,7 @@ class App extends Component {
         <PersistGate persistor={persistor}>
           <PaperProvider>
             <StatusBar backgroundColor={Colors.APP} barStyle="light-content" />
-            <Block flex>
               <RouterComponent />
-            </Block>
           </PaperProvider>
         </PersistGate>
       </Provider>

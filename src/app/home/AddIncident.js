@@ -5,16 +5,18 @@ import {
   TouchableOpacity,
   Image,
   StyleSheet,
-  ToastAndroid,
   Modal,
-  KeyboardAvoidingView
+  KeyboardAvoidingView,
+  Platform
 } from 'react-native';
 import axios from 'axios';
 import ImagePicker from 'react-native-image-picker';
 import { Actions } from 'react-native-router-flux';
-import { TextInput, Button } from 'react-native-paper';
+import { HelperText, TextInput, Button } from 'react-native-paper';
 import ActionSheet from 'react-native-action-sheet';
-import { LocationPicker } from '../../components';
+import { LocationPicker, Icon } from '../../components';
+import { Colors } from '../../constants';
+import { connect } from 'react-redux';
 import t from '../../I18n';
 
 const actionSheetButtons = [
@@ -22,14 +24,35 @@ const actionSheetButtons = [
   'Choose a picture from my gallery'
 ];
 
-export default class AddIncident extends Component {
+class AddIncident extends Component {
   state = {
+    userID: '201140028533',
     text: '',
     numberToCall: null,
+    location: {
+      latitude: this.props.position.coords.latitude,
+      longitude: this.props.position.coords.longitude
+    },
     photo: null,
     media: null,
-    modalVisible: false
+    modalVisible: false,
+    descriptionFieldError: false,
+    numberFieldError: false,
+    loading: false
   };
+
+  componentDidUpdate(prevProps, prevState) {
+    if (this.state.text != '' && this.state.descriptionFieldError) {
+      this.setState({
+        descriptionFieldError: false
+      });
+    }
+    if (this.state.numberToCall != prevState.numberToCall) {
+      this.setState({
+        numberFieldError: false
+      });
+    }
+  }
 
   /**
    * open gallery to upload photo
@@ -78,14 +101,14 @@ export default class AddIncident extends Component {
       });
       axios({
         method: 'post',
-        url: 'media/',
+        url: '/media',
         data: formData,
         config: { headers: { 'Content-Type': 'multipart/form-data' } }
       })
         .then(response => {
           console.log(response.status);
-          console.log(response.data.media_id);
-          this.setState({ media: response.data.media_id });
+          console.log(response.data.id);
+          this.setState({ media: response.data.id });
         })
 
         .catch(err => {
@@ -98,14 +121,16 @@ export default class AddIncident extends Component {
         .then(() => {
           // always executed
           axios
-            .post('kweeks/', {
-              text: this.state.text,
-              media_id: this.state.media
+            .post('/incident', {
+              userID: this.state.userID,
+              description: this.state.text,
+              date: new Date(),
+              image: this.state.media,
+              location: this.state.location,
+              numberToCall: this.state.numberToCall
             })
             .then(response => {
               console.log(response.status);
-              console.log(kweekId);
-              //this.props.navigation.navigate('Home');
             })
             .catch(err => {
               // handle error
@@ -118,19 +143,19 @@ export default class AddIncident extends Component {
               Actions.Incidents();
             });
         });
-      ToastAndroid.show('Loading', ToastAndroid.LONG);
     }
     if (this.state.photo === null) {
       axios
-        .post('kweeks/', {
-          text: this.state.text,
-          reply_to: kweekId === null ? null : kweekId,
-          media_id: null
+        .post('/incident', {
+          userID: this.state.userID,
+          description: this.state.text,
+          date: new Date(),
+          image: null,
+          location: this.state.location,
+          numberToCall: this.state.numberToCall
         })
         .then(response => {
           console.log(response.status);
-          console.log(kweekId);
-          //this.props.navigation.navigate('Home');
         })
         .catch(err => {
           // handle error
@@ -143,7 +168,9 @@ export default class AddIncident extends Component {
           Actions.Incidents();
         });
     }
-    ToastAndroid.show('Loading', ToastAndroid.SHORT);
+    this.setState({
+      loading: true
+    });
   }
 
   modalCancelOnPress = () => {
@@ -152,21 +179,41 @@ export default class AddIncident extends Component {
     });
   };
 
+  modalOnPressSubmit = () => {
+    this.submitIncident();
+  };
+
   render() {
     const maxLength = 240;
     return (
-      <KeyboardAvoidingView style={{ flex: 1 }} behavior="padding" enabled>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={Platform.OS == 'ios' ? 'padding' : null}
+        enabled
+      >
         <Modal
           visible={this.state.modalVisible}
           onRequestClose={this.modalCancelOnPress}
         >
-          <LocationPicker cancelOnPress={this.modalCancelOnPress} />
+          <LocationPicker
+            onValueChange={region => {
+              this.setState({
+                location: {
+                  latitude: region.latitude,
+                  longitude: region.longitude
+                }
+              });
+            }}
+            cancelOnPress={this.modalCancelOnPress}
+            onPressSubmit={this.modalOnPressSubmit}
+            loading={this.state.loading}
+          />
         </Modal>
         <View
           style={{
             flex: 1,
             flexDirection: 'column',
-            justifyContent: 'center',
+            justifyContent: 'space-around',
             alignItems: 'stretch',
             padding: 20
           }}
@@ -223,11 +270,11 @@ export default class AddIncident extends Component {
             )}
           </TouchableOpacity>
           <View
-            style={{ flex: 0.5, marginBottom: 20, justifyContent: 'center' }}
+            style={{ flex: 0.5, marginVertical: 20, justifyContent: 'center' }}
           >
             <TextInput
               label={t.NumberToCallOpt}
-              mode="outlined"
+              mode="flat"
               value={this.state.numberToCall}
               onChangeText={t => {
                 this.setState({ numberToCall: t });
@@ -235,42 +282,71 @@ export default class AddIncident extends Component {
               dataDetectorTypes="phoneNumber"
               placeholder={t.NumberToCall}
               style={{ fontSize: 18 }}
-              theme={{ colors: { background: '#EAE9EF' } }}
+              theme={{
+                colors: { background: '#EAE9EF', primary: Colors.WARNING },
+                roundness: 30
+              }}
               keyboardType="phone-pad"
               textContentType="telephoneNumber"
+              underlineColor={Colors.BLACK}
+              error={this.state.numberFieldError}
             />
+            <HelperText type="error" visible={this.state.numberFieldError}>
+              Please enter a valid number
+            </HelperText>
           </View>
-          <View style={{ flex: 2, marginBottom: 10 }}>
+          <View style={{ flex: 2, marginBottom: 10, justifyContent: 'center' }}>
             <TextInput
               label={t.IncidentDescriptionReq}
-              mode="outlined"
+              mode="flat"
               value={this.state.text}
               onChangeText={text => {
                 this.setState({ text });
               }}
               placeholder={t.IncidentDescription}
-              style={{ fontSize: 18, height: '100%' }}
-              theme={{ colors: { background: '#EAE9EF' } }}
+              style={{ fontSize: 18, height: '70%' }}
+              theme={{
+                colors: { background: '#EAE9EF', primary: Colors.WARNING },
+                roundness: 30
+              }}
               multiline
               maxLength={maxLength}
+              error={this.state.descriptionFieldError}
+              underlineColor={Colors.BLACK}
             />
+            <HelperText type="error" visible={this.state.descriptionFieldError}>
+              This field is required
+            </HelperText>
           </View>
           <View style={styles.buttonsContainer}>
-            <Button
-              mode="contained"
+            <TouchableOpacity
+              style={styles.buttonContainer}
               onPress={() => {
-                this.setState({
-                  modalVisible: true
-                });
+                if (this.state.text == '' || isNaN(this.state.numberToCall)) {
+                  if (this.state.text == '') {
+                    this.setState({
+                      descriptionFieldError: true
+                    });
+                  }
+                  if (isNaN(this.state.numberToCall))
+                    this.setState({
+                      numberFieldError: true
+                    });
+                } else {
+                  this.setState({
+                    modalVisible: true
+                  });
+                }
               }}
-              color="#FFFF"
-              style={{ borderRadius: 30, flex: 1 }}
-              touchableStyle={{ borderRadius: 30 }}
             >
-              <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
-                {t.Next}
-              </Text>
-            </Button>
+              <View style={styles.button}>
+                <Text
+                  style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}
+                >
+                  {t.Next}
+                </Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
       </KeyboardAvoidingView>
@@ -281,22 +357,27 @@ export default class AddIncident extends Component {
 const styles = StyleSheet.create({
   buttonsContainer: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'flex-end',
-    justifyContent: 'center'
+    justifyContent: 'flex-end',
+    alignItems: 'center'
   },
   buttonContainer: {
-    flex: 1,
-    alignItems: 'center',
-    paddingLeft: 10,
-    paddingRight: 10
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 2
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 3.84,
+    elevation: 5,
+    width: '100%'
   },
   button: {
-    width: '100%',
-    height: 40,
+    height: 55,
     alignItems: 'center',
     justifyContent: 'center',
-    borderRadius: 30
+    borderRadius: 30,
+    flexDirection: 'row',
+    backgroundColor: Colors.APP
   },
   imageInputContainerEmpty: {
     flex: 3,
@@ -304,7 +385,7 @@ const styles = StyleSheet.create({
     borderStyle: 'dashed',
     borderWidth: 2.5,
     borderRadius: 20,
-    borderColor: 'gray',
+    borderColor: 'black',
     justifyContent: 'center',
     alignItems: 'center'
   },
@@ -316,3 +397,10 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 });
+
+const mapStateToProps = state => ({ position: state.location.position });
+
+export default connect(
+  mapStateToProps,
+  null
+)(AddIncident);

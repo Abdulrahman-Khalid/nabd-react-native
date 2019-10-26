@@ -59,7 +59,6 @@ export const getLocation = () => {
 };
 
 export const requestLocationPermission = () => {
-  var flag;
   console.log('requesting location permission');
   return async dispatch => {
     if (Platform.OS === 'ios') {
@@ -103,36 +102,6 @@ export const requestLocationPermission = () => {
               console.log(
                 'This feature is not available (on this device / in this context)'
               );
-              flag = false;
-              break;
-            case RESULTS.DENIED:
-              console.log(
-                'The permission has not been requested / is denied but requestable'
-              );
-              flag = false;
-              break;
-            case RESULTS.GRANTED:
-              console.log('The permission is granted');
-              flag = true;
-              break;
-            case RESULTS.BLOCKED:
-              console.log(
-                'The permission is denied and not requestable anymore'
-              );
-              flag = false;
-              break;
-          }
-        })
-        .catch(error => {
-          console.log('Error requesting location permission');
-        });
-      await request(PERMISSIONS.ANDROID.ACCESS_BACKGROUND_LOCATION)
-        .then(result => {
-          switch (result) {
-            case RESULTS.UNAVAILABLE:
-              console.log(
-                'This feature is not available (on this device / in this context)'
-              );
               dispatch({ type: REQUEST_LOCATION_PERMISSION, payload: false });
               break;
             case RESULTS.DENIED:
@@ -145,7 +114,7 @@ export const requestLocationPermission = () => {
               console.log('The permission is granted');
               dispatch({
                 type: REQUEST_LOCATION_PERMISSION,
-                payload: true && flag
+                payload: true
               });
               break;
             case RESULTS.BLOCKED:

@@ -8,37 +8,26 @@ import {
   Picker,
   TouchableOpacity,
   TouchableNativeFeedback,
-  NativeModules
+  NativeModules,
 } from 'react-native';
 import { connect } from 'react-redux';
 import RNRestart from 'react-native-restart';
-import { Colors } from '../../constants';
+import { Colors, Images } from '../../constants';
 import { switchLanguage } from '../../actions';
 import { Icon } from '../../components';
 import t from '../../I18n';
 import { Actions } from 'react-native-router-flux';
-import { Button } from '../../components';
+import { Button, SwitchButton } from '../../components';
+import { theme } from 'galio-framework';
+import { FAB } from 'react-native-paper';
 
 class LanguageSelection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOption: this.props.language.lang
+      selectedOption: "ar",
     };
   }
-  _renderDoneButton = () => {
-    return (
-      <View style={styles.buttonContainer}>
-        <Button
-          color="white"
-          textStyle={{ color: Colors.BLACK }}
-          onPress={this._handlePress}
-        >
-          {t.GetStarted}
-        </Button>
-      </View>
-    );
-  };
 
   _handlePress = () => {
     const { switchLanguage, language } = this.props;
@@ -54,76 +43,86 @@ class LanguageSelection extends Component {
       }, 500);
       return;
     }
-    Actions.typeSelection();
+    Actions.whoRU();
   };
 
   render() {
+    const isRtl = this.props.language.lang === 'ar' ? 'rtl' : 'ltr';
     return (
-      <View style={styles.mainContent}>
+      <View style={styles.mainContainer}>
         <Image
-          source={require('../../assets/imgs/white-logo.png')}
           style={styles.image}
+          source={Images.language}
           resizeMode="contain"
         />
-        <Text style={styles.title}>{t.LanguageScreenTitle}</Text>
-        <View style={{ flex: 1 }}>
-          <Picker
-            selectedValue={this.state.selectedOption}
-            style={styles.languagePicker}
-            mode="dropdown"
-            onValueChange={(itemValue, itemIndex) =>
-              this.setState({ selectedOption: itemValue })
-            }
-          >
-            <Picker.Item label="🇪🇬 العربية" value="ar" />
-            <Picker.Item label="🇬🇧 English" value="en" />
-          </Picker>
+        <View style={styles.titleContainer}>
+          <Text style={styles.title}>{t.LanguageScreenTitle}</Text>
+          <Text style={styles.description}>
+            You can also change it later in Settings
+          </Text>
         </View>
-        {this._renderDoneButton()}
+        <View style={styles.switch}>
+          <SwitchButton
+            text1="Arabic"
+            text2="English"
+            onValueChange={val => this.setState({ selectedOption: val == 1 ? "ar" : "en" })}
+            fontColor="#817d84"
+            activeFontColor="black"
+            switchdirection={isRtl}
+          />
+        </View>
+        <FAB
+          style={styles.nextButton}
+          icon={isRtl === 'ltr' ? "chevron-right" : "chevron-left"}
+          onPress={this._handlePress}
+        />
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  mainContent: {
+  mainContainer: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-around',
-    backgroundColor: Colors.APP
+    justifyContent: 'center',
+    alignItems: 'center'
   },
   image: {
+    width: 200,
+    height: 200,
+    margin: 12,
     flex: 1,
-    width: '100%',
-    height: '100%'
   },
-  text: {
-    color: 'rgba(255, 255, 255, 0.8)',
-    backgroundColor: 'transparent',
-    textAlign: 'center',
-    paddingHorizontal: 16
+  titleContainer: {
+    flex: 0.5,
+    flexDirection: 'column',
+    justifyContent: 'center',
   },
   title: {
-    fontSize: 20,
-    color: 'white',
-    backgroundColor: 'transparent',
+    fontSize: 30,
     textAlign: 'center',
-    marginBottom: 16,
-    marginTop: 30
+    fontFamily: 'Manjari-Regular',
+    marginLeft: theme.SIZES.BASE * 2,
+    marginRight: theme.SIZES.BASE * 2
   },
-  buttonContainer: {
-    flex: 0.375,
-    width: '100%',
-    height: '100%',
-    justifyContent: 'center',
-    alignItems: 'flex-end',
-    paddingRight: 15
+  description: {
+    fontSize: 15,
+    color: 'gray',
+    textAlign: 'center',
+    fontFamily: 'Manjari-Regular',
+    marginLeft: theme.SIZES.BASE * 2,
+    marginRight: theme.SIZES.BASE * 2
   },
-  languagePicker: {
-    marginTop: 30,
-    width: 150,
-    backgroundColor: '#FFFF'
-  }
+  switch: {
+    flex: 1
+  },
+  nextButton: {
+    position: 'absolute',
+    margin: 16,
+    right: 0,
+    bottom: 0,
+    backgroundColor: Colors.APP
+  },
 });
 
 const mapStateToProps = state => ({ language: state.language });

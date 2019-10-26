@@ -12,13 +12,9 @@ import styles, {
   NOT_EMPTY_CELL_BG_COLOR
 } from './styles';
 import { Actions } from 'react-native-router-flux';
+import { Images } from '../../../../constants';
 
 const codeLength = 4;
-
-const source = {
-  uri:
-    'https://user-images.githubusercontent.com/4661784/56352614-4631a680-61d8-11e9-880d-86ecb053413d.png'
-};
 
 export default class AnimatedExample extends Component {
   _animationsColor = [...new Array(codeLength)].map(
@@ -139,9 +135,9 @@ export default class AnimatedExample extends Component {
       <Block flex>
         <View style={styles.inputWrapper}>
           <Text style={styles.inputLabel}>Verification</Text>
-          <Image style={styles.icon} source={source} />
+          <Image style={styles.icon} source={Images.verification} resizeMode="contain" />
           <Text style={styles.inputSubLabel}>
-            {'Please enter the verification code\nwe send to '}
+            {'Please enter the verification code\nwe sent to '}
             {this.props.phoneNum}
           </Text>
           <Block center>

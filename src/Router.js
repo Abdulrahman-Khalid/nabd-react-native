@@ -9,7 +9,8 @@ import Register from './app/welcome/Register';
 import VerifySignup from './app/welcome/PhoneVerification/Animated';
 import SignIn from './app/welcome/SignIn';
 import LanguageSelection from './app/welcome/LanguageSelection';
-import UserAndDoctorHome from './app/home/UserAndDoctorHome';
+import UserHome from './app/home/UserHome';
+import WaitForAmbulance from './app/home/WaitForAmbulance';
 import ParamedicHome from './app/home/ParamedicHome';
 import AmbulanceHome from './app/home/AmbulanceHome';
 import Incidents from './app/home/Incidents';
@@ -84,9 +85,12 @@ class RouterComponent extends Component {
               component={LanguageSelection}
               hideNavBar={true}
             />
-          </Scene>
-          <Scene key="typeSelection">
-            <Scene key="whoRU" component={WhoAmI} hideNavBar={true} />
+            <Scene
+              key="whoRU"
+              component={WhoAmI}
+              title="Nabd"
+              hideNavBar={false}
+            />
             <Scene key="iUser" component={IamUser} title={t.User} />
             <Scene key="iDoctor" component={IamDoctor} title={t.Doctor} />
             <Scene
@@ -121,41 +125,9 @@ class RouterComponent extends Component {
               title={t.Verify}
             />
           </Scene>
-
-          <Tabs
-            key="home"
-            // headerLayoutPreset="left"
-            initial
-            lazy={true}
-            swipeEnabled={true}
-            renderRightButton={this._renderSettingsButton}
-            titleStyle={{ color: '#000', fontFamily: 'Manjari-Bold' }}
-          >
-            <Scene
-              key="userAndDoctorHome"
-              component={UserAndDoctorHome}
-              title={t.Home}
-              icon={() => <Icon name="home" size={25} />}
-            />
-            <Scene
-              key="Incidents"
-              component={Incidents}
-              title={t.Incidents}
-              icon={() => <Icon name="lifebuoy" size={25} />}
-            />
-            <Scene
-              key="FirstAid"
-              component={Incidents}
-              title={t.FirstAid}
-              icon={() => <Icon name="hospital" size={25} />}
-              initial
-            />
-          </Tabs>
-
-          <Scene key="userAndDoctor" initial hideNavBar={true}>
+          <Scene key="userHome" hideNavBar={true}>
             <Tabs
               key="tabBar"
-              // headerLayoutPreset="left"
               initial
               lazy={true}
               tabBarComponent={TabBar}
@@ -163,7 +135,7 @@ class RouterComponent extends Component {
             >
               <Scene
                 key="Home"
-                component={UserAndDoctorHome}
+                component={UserHome}
                 title={t.Home}
                 icon={() => <Icon name="home" size={25} />}
               />
@@ -188,6 +160,12 @@ class RouterComponent extends Component {
               </Scene>
             </Tabs>
 
+            <Scene
+              key="waitForAmbulance"
+              component={WaitForAmbulance}
+              title="Choose Pickup Location"
+              hideNavBar={false}
+            />
             <Scene
               key="UserSettings"
               component={UserSettings}

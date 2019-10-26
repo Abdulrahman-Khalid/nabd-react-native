@@ -53,23 +53,25 @@ ArInput.propTypes = {
 
 const styles = StyleSheet.create({
   input: {
-    borderRadius: 4,
-    borderColor: Colors.BORDER,
+    borderWidth: 0,
+    borderBottomWidth: 4,
+    borderRadius: 30,
+    borderBottomColor: Colors.BORDER,
     height: 44,
     backgroundColor: '#FFFFFF'
   },
   success: {
-    borderColor: Colors.INPUT_SUCCESS,
+    borderBottomColor: Colors.INPUT_SUCCESS,
   },
   error: {
-    borderColor: Colors.INPUT_ERROR,
+    borderBottomColor: Colors.INPUT_ERROR,
   },
   shadow: {
-    shadowColor: Colors.BLACK,
-    shadowOffset: { width: 0, height: 1 },
-    shadowRadius: 2,
-    shadowOpacity: 0.05,
-    elevation: 2,
+    // shadowColor: Colors.BLACK,
+    // shadowOffset: { width: 0, height: 1 },
+    // shadowRadius: 2,
+    // shadowOpacity: 0.05,
+    // elevation: 2,
   }
 });
 

@@ -11,6 +11,7 @@ const androidLogo = require('../assets/imgs/android.png');
 
 const welcome = require('../assets/imgs/heart.png');
 const user = require('../assets/imgs/user.png');
+const accountType = require('../assets/imgs/account-type.png');
 const doctor = require('../assets/imgs/doctor.png');
 const paramedic = require('../assets/imgs/paramedic.png');
 const ambulance = require('../assets/imgs/ambulance.png');
@@ -46,6 +47,11 @@ const ambulanceCard = require('../assets/imgs/ambulance-card.jpg');
 const locationPermission = require('../assets/imgs/location-permission.png');
 
 const locationMarker = require('../assets/imgs/location-marker.png');
+
+const gpsOff = require('../assets/imgs/gps.png');
+const language = require('../assets/imgs/language.png');
+
+const verification = require('../assets/imgs/verification.png');
 // internet imgs
 
 const ProfilePicture =
@@ -109,5 +115,9 @@ export default {
   doctorCard,
   ambulanceCard,
   locationPermission,
-  locationMarker
+  locationMarker,
+  gpsOff,
+  language,
+  accountType,
+  verification
 };
