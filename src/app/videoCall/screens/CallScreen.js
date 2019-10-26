@@ -277,8 +277,8 @@ export default class CallScreen extends React.Component {
       const notificationConfig = {
         channelId: 'ForegroundServiceChannel',
         id: 3456,
-        title: 'Voximplant',
-        text: 'Call in progress',
+        title: 'Nabd',
+        text: 'someone needs your help',
         icon: 'ic_vox_notification'
       };
       (async () => {
@@ -467,11 +467,11 @@ export default class CallScreen extends React.Component {
                   buttonPressed={() => this.muteAudio()}
                 />
               )}
-              <CallButton
+              {/* <CallButton
                 icon_name="dialpad"
                 color={COLOR.ACCENT}
                 buttonPressed={() => this.switchKeypad()}
-              />
+              /> */}
               <CallButton
                 icon_name={this.state.audioDeviceIcon}
                 color={COLOR.ACCENT}

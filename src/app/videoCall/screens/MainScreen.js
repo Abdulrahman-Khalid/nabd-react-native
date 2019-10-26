@@ -131,7 +131,7 @@ class MainScreen extends React.Component {
       if (callSettings.setupCallKit) {
         callManager.startOutgoingCallViaCallKit(isVideoCall, this.numbers[0]);
       }
-      Actions.Call({
+      Actions.CallScreen({
         callId: call.callId,
         isVideo: isVideoCall,
         isIncoming: false

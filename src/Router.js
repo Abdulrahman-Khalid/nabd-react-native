@@ -133,8 +133,8 @@ class RouterComponent extends Component {
             />
           </Scene>
 
-          {/* <Scene key="CallScreen" component={CallScreen} hideNavBar={true} /> */}
-          <Scene key="Call" component={Call} hideNavBar={true} />
+          <Scene key="CallScreen" component={CallScreen} hideNavBar={true} />
+          {/* <Scene key="Call" component={Call} hideNavBar={true} /> */}
           {/* <Scene
             key="OutGoingCall"
             component={OutGoingCallScreen}
