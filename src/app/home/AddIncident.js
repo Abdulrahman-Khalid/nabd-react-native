@@ -267,26 +267,10 @@ export default class AddIncident extends Component {
               style={{ borderRadius: 30, flex: 1 }}
               touchableStyle={{ borderRadius: 30 }}
             >
-<<<<<<< HEAD
-              <View
-                style={[
-                  styles.button,
-                  {
-                    backgroundColor: '#FFFF'
-                  }
-                ]}
-              >
-                <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
-                  {t.Next}
-                </Text>
-              </View>
-            </TouchableOpacity>
-=======
               <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
-                Next
+                {t.Next}
               </Text>
             </Button>
->>>>>>> aa733a8d39e27182d190f6e552b25e82991fdde9
           </View>
         </View>
       </KeyboardAvoidingView>
