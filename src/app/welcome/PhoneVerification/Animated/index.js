@@ -66,7 +66,7 @@ export default class AnimatedExample extends Component {
             info.appId
         )
           .then(response => {
-            this.props.cacheUserId(response.data.user_id);
+            // this.props.cacheUserId(response.data.user_id);
             console.log(response);
           })
           .catch(error => {
@@ -199,10 +199,7 @@ const mapSateToProps = ({ signup }) => {
   };
 };
 
-export default connect(
-  mapSateToProps,
-  cacheUserId
-)(AnimatedExample);
+export default connect(mapSateToProps)(AnimatedExample);
 // const apiKey = 'a70036fa-792b-4f9c-a13a-ba6a0dd606f5';
 // const accountId = '3233280';
 // const userPass = 'nabd_app';
