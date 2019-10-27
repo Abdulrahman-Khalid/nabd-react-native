@@ -141,13 +141,6 @@ class MainScreen extends React.Component {
     }
   }
 
-  logoutButtonPressed() {
-    axios.defaults.headers.common['TOKEN'] = '';
-    AsyncStorage.clear()
-      .then(() => Actions.welcome())
-      .catch(() => {});
-  }
-
   renderHeader() {
     return (
       <View style={styles.headerFooterContainer}>

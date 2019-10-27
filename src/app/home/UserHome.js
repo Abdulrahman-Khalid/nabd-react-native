@@ -320,13 +320,6 @@ class UserHome extends Component {
     );
   }
 
-  logoutButtonPressed() {
-    axios.defaults.headers.common['TOKEN'] = '';
-    AsyncStorage.clear()
-      .then(() => Actions.welcome())
-      .catch(() => {});
-  }
-
   renderButtons() {
     return this.props.position ? (
       <View

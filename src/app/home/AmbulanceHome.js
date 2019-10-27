@@ -11,13 +11,6 @@ import t from '../../I18n';
 const { width, height } = Dimensions.get('screen');
 
 export default class AmbulanceHome extends Component {
-  logoutButtonPressed() {
-    axios.defaults.headers.common['TOKEN'] = '';
-    AsyncStorage.clear()
-      .then(() => Actions.welcome())
-      .catch(() => {});
-  }
-
   render() {
     return (
       <Block center>
@@ -46,9 +39,9 @@ export default class AmbulanceHome extends Component {
           >
             {t.RequestAmbulance}
           </Button>
-          <Button color="warning" onPress={this.logoutButtonPressed}>
+          {/* <Button color="warning" onPress={this.logoutButtonPressed}>
             <Text>{t.LogOut}</Text>
-          </Button>
+          </Button> */}
         </Block>
       </Block>
     );
