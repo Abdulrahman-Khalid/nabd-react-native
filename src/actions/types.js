@@ -32,3 +32,5 @@ export const SWITCH_LANGUAGE = "SWITCH_LANGUAGE";
 export const GET_LOCATION = "get_location";
 export const REQUEST_LOCATION_PERMISSION = "request_location_permission";
 export const UPDATE_LOCATION = "update_location";
+// Incidents
+export const ADDED_NEW_INCIDENT = "added_new_incident";
