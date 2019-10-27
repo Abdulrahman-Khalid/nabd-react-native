@@ -200,22 +200,3 @@ const mapSateToProps = ({ signup }) => {
 };
 
 export default connect(mapSateToProps)(AnimatedExample);
-// const apiKey = 'a70036fa-792b-4f9c-a13a-ba6a0dd606f5';
-// const accountId = '3233280';
-// const userPass = 'nabd_app';
-// const appId = '7423899';
-// axios
-//   .post('https://api.voximplant.com/platform_api/AddUser/', {
-//     account_id: accountId,
-//     api_key: apiKey,
-//     user_name: '201011315175',
-//     user_display_name: 'Abdulrahman Khalid',
-//     user_password: userPass,
-//     application_id: appId
-//   })
-//   .then(function(response) {
-//     console.log(response);
-//   })
-//   .catch(function(error) {
-//     console.log(error);
-//   });
