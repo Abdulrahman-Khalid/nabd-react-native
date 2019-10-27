@@ -1,27 +1,35 @@
+'use strict';
 import React, { Component } from 'react';
-import AsyncStorage from '@react-native-community/async-storage';
-import { Block, Text, Button as GaButton, theme } from 'galio-framework';
-import { Actions } from 'react-native-router-flux';
-import { Colors, Images } from '../../constants';
-import { connect } from 'react-redux';
-import { selectHelperType, requestHelp } from '../../actions';
 import {
+  View,
   Alert,
   StyleSheet,
   TouchableOpacity,
-  View,
+  PermissionsAndroid,
+  Platform,
+  YellowBox,
   Dimensions,
   Image
 } from 'react-native';
-import { Icon, Card } from '../../components';
+import { Icon, Card } from '../../../components';
+import AsyncStorage from '@react-native-community/async-storage';
+import LoginManager from '../manager/LoginManager';
+import CallManager from '../manager/CallManager';
 import RadioForm, { RadioButton } from 'react-native-simple-radio-button';
-import axios from 'axios';
 import { CustomPicker } from 'react-native-custom-picker';
+import { Voximplant } from 'react-native-voximplant';
+import { Actions } from 'react-native-router-flux';
+import axios from 'axios';
+import { Block, Text, Button as GaButton, theme } from 'galio-framework';
+import { argonTheme, Images, info } from '../../../constants';
+import { connect } from 'react-redux';
+import { selectHelperType, requestHelp } from '../../../actions';
 
 const { width, height } = Dimensions.get('screen');
 
-class Incidents extends Component {
+class MainScreen extends React.Component {
   constructor(props) {
+    super(props);
     super();
     this.state = {
       type: [
@@ -30,9 +38,107 @@ class Incidents extends Component {
         { label: 'Ambulance', value: 'ambulance' }
       ],
       valueIndex: 0,
-      value: 'doctor'
+      value: 'doctor',
+      client: Voximplant.getInstance(),
+      currentCall: null
     };
     props.selectHelperType('doctor');
+
+    this.number = '';
+    this.numbers = ['test2', '412412']; //todo fill it from the backend
+    YellowBox.ignoreWarnings([
+      'Warning: componentWillMount is deprecated',
+      'Warning: componentWillReceiveProps is deprecated'
+    ]);
+  }
+
+  componentDidMount() {
+    LoginManager.getInstance().on('onConnectionClosed', this._connectionClosed);
+  }
+
+  componentWillUnmount() {
+    LoginManager.getInstance().off(
+      'onConnectionClosed',
+      this._connectionClosed
+    );
+  }
+
+  _connectionClosed = () => {
+    //todo
+    // this.props.navigation.navigate('Login');
+  };
+
+  async makeCall(isVideoCall) {
+    console.log(
+      'MainScreen: make call: ' + this.number + ', isVideo:' + isVideoCall
+    );
+    try {
+      if (Platform.OS === 'android') {
+        let permissions = [PermissionsAndroid.PERMISSIONS.RECORD_AUDIO];
+        if (isVideoCall) {
+          permissions.push(PermissionsAndroid.PERMISSIONS.CAMERA);
+        }
+        const granted = await PermissionsAndroid.requestMultiple(permissions);
+        const recordAudioGranted =
+          granted['android.permission.RECORD_AUDIO'] === 'granted';
+        const cameraGranted =
+          granted['android.permission.CAMERA'] === 'granted';
+        if (recordAudioGranted) {
+          if (isVideoCall && !cameraGranted) {
+            console.warn(
+              'MainScreen: makeCall: camera permission is not granted'
+            );
+            return;
+          }
+        } else {
+          console.warn(
+            'MainScreen: makeCall: record audio permission is not granted'
+          );
+          return;
+        }
+      }
+      const callSettings = {
+        video: {
+          sendVideo: isVideoCall,
+          receiveVideo: isVideoCall
+        }
+      };
+      if (Platform.OS === 'ios' && parseInt(Platform.Version, 10) >= 10) {
+        const useCallKitString = await AsyncStorage.getItem('useCallKit');
+        callSettings.setupCallKit = JSON.parse(useCallKitString);
+      }
+
+      // let calls = [];
+      // for (let i = 0; i < this.numbers.length; i++) {
+      //   let call = await Voximplant.getInstance().call(
+      //     this.numbers[i],
+      //     callSettings
+      //   );
+      //   let callManager = CallManager.getInstance();
+      //   callManager.addCall(call);
+      //   calls.push(call);
+      //   if (callSettings.setupCallKit) {
+      //     callManager.startOutgoingCallViaCallKit(isVideoCall, this.numbers[i]);
+      //   }
+      // }
+      // console.log(calls);
+      let call = await Voximplant.getInstance().call(
+        this.numbers[0],
+        callSettings
+      );
+      let callManager = CallManager.getInstance();
+      callManager.addCall(call);
+      if (callSettings.setupCallKit) {
+        callManager.startOutgoingCallViaCallKit(isVideoCall, this.numbers[0]);
+      }
+      Actions.CallScreen({
+        callId: call.callId,
+        isVideo: isVideoCall,
+        isIncoming: false
+      });
+    } catch (e) {
+      console.warn('MainScreen: makeCall failed: ' + e);
+    }
   }
 
   logoutButtonPressed() {
@@ -253,6 +359,27 @@ class Incidents extends Component {
     }
   }
 
+  async videoCall() {
+    // try {
+    //   let s = await client.getClientState();
+    //   if (s === Voximplant.ClientState.DISCONNECTED) {
+    //     await client.connect();
+    //   }
+    //   let authResult = await this.state.client.login('412412', info.userPass);
+    //   // Alert.alert('Selected Item', authResult);
+    // } catch (e) {
+    //   console.log(e.name + e.message);
+    // }
+    // Alert.alert('Welcome', 'Hello');
+
+    await LoginManager.getInstance().loginWithPassword(
+      '201011315175@nabd.abdulrahman.elshafei98.voximplant.com',
+      info.userPass
+    );
+    // Alert.alert('Welcome', 'Hello');
+    this.makeCall(true);
+  }
+
   render() {
     return (
       <View
@@ -261,7 +388,7 @@ class Incidents extends Component {
           flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: Colors.BACKGROUND
+          backgroundColor: argonTheme.COLORS.BACKGROUND
         }}
       >
         <View></View>
@@ -284,7 +411,7 @@ class Incidents extends Component {
                       obj={obj}
                       index={i}
                       labelHorizontal={false}
-                      buttonColor={Colors.APP}
+                      buttonColor={argonTheme.COLORS.APP}
                       labelColor={'#000'}
                       style={[
                         i !== this.state.type.length - 1 && styles.radioStyle
@@ -303,10 +430,15 @@ class Incidents extends Component {
           </View>
           <View>{this.isDoctorSelected()}</View>
 
-          <TouchableOpacity style={styles.circleStyle}>
+          <TouchableOpacity
+            onPress={() => {
+              this.videoCall();
+            }}
+            style={styles.circleStyle}
+          >
             <Icon
               size={50}
-              color={Colors.WHITE}
+              color={argonTheme.COLORS.WHITE}
               name="camera-video"
               family="LinearIcon"
               style={{
@@ -335,7 +467,7 @@ const styles = StyleSheet.create({
   },
   radioStyle: {
     borderRightWidth: 2,
-    borderColor: Colors.APP,
+    borderColor: argonTheme.COLORS.APP,
     paddingRight: 20
   },
   radioButtonWrap: {
@@ -346,7 +478,7 @@ const styles = StyleSheet.create({
   circleStyle: {
     padding: 10,
     margin: 20,
-    backgroundColor: Colors.APP,
+    backgroundColor: argonTheme.COLORS.APP,
     borderRadius: 50,
     width: 100,
     height: 100,
@@ -456,4 +588,4 @@ const mapStateToProps = state => {
 export default connect(
   mapStateToProps,
   { selectHelperType, requestHelp }
-)(Incidents);
+)(MainScreen);

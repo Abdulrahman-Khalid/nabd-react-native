@@ -26,9 +26,24 @@ export const SELECT_HELPER_SPECIALIZATION = 'select_helper_specialization';
 export const REQUSET_DOCTOR = 'request_doctor';
 export const REQUSET_PARAMEDIC = 'request_paramedic';
 export const REQUSET_AMBULANCE = 'request_ambulance';
+<<<<<<< HEAD
 // Language
 export const SWITCH_LANGUAGE = "SWITCH_LANGUAGE";
 // Location
 export const GET_LOCATION = "get_location";
 export const REQUEST_LOCATION_PERMISSION = "request_location_permission";
 export const UPDATE_LOCATION = "update_location";
+=======
+// Language Redux
+export const SWITCH_LANGUAGE = 'SWITCH_LANGUAGE';
+//cache
+export const CACHE_USER_ID = 'cache_user_id';
+//call
+export const TOGGLE_AUDIO_STATE = 'toggle_audio_state';
+export const TOGGLE_VIDEO_STATE = 'toggle_video_state';
+export const SET_LOCAL_VIDEO_STREAM_ID = 'set_local_video_stream_id';
+export const SET_REMOTE_VIDEO_STREAM_ID = 'set_remote_video_stream_id';
+export const SET_CALLING_COUNTER = 'set_calling_counter';
+export const DEC_CALLING_COUNTER = 'dec_calling_counter';
+export const RESET_CALL_OPTIONS = 'reset_call_options';
+>>>>>>> videoC

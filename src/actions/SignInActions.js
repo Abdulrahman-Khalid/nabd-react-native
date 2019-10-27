@@ -6,8 +6,10 @@ import {
   RESET_SIGNIN_REDUCER_STATE
 } from './types';
 import axios from 'axios';
+import { info } from '../constants';
 import { Actions } from 'react-native-router-flux';
 import AsyncStorage from '@react-native-community/async-storage';
+import { Voximplant } from 'react-native-voximplant';
 
 export const resetSignInReducerState = () => {
   return {
@@ -51,6 +53,7 @@ export const signInAttempt = signInInfo => {
               });
           })
           .catch(error => {});
+        loginVoximplant(phone);
         console.log(response);
         dispatch({
           type: SIGNIN_SUCCESS
@@ -65,3 +68,16 @@ export const signInAttempt = signInInfo => {
       });
   };
 };
+
+async function loginVoximplant(phone) {
+  const client = Voximplant.getInstance();
+  try {
+    let state = await client.getClientState();
+    if (state === Voximplant.ClientState.DISCONNECTED) {
+      await client.connect();
+    }
+    let authResult = await client.login(phone, info.userPass);
+  } catch (e) {
+    console.log(e.name + e.message);
+  }
+}

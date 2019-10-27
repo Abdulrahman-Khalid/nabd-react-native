@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React, { Component } from "react";
 import {
   View,
   Image,
@@ -11,24 +11,24 @@ import {
   ActivityIndicator,
   Text,
   Animated
-} from 'react-native';
-import IncidentCard from '../../components/IncidentCard';
-import { Colors, Images } from '../../constants';
-import { theme, Block } from 'galio-framework';
-import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
-import { connect } from 'react-redux';
-import { Actions } from 'react-native-router-flux';
-import { FAB } from 'react-native-paper';
-import { SkeletonCard, Icon as CustomIcon } from '../../components';
-import { isIphoneX } from 'react-native-iphone-x-helper';
-import axios from 'axios';
+} from "react-native";
+import IncidentCard from "../../components/IncidentCard";
+import { Colors, Images } from "../../constants";
+import { theme, Block } from "galio-framework";
+import Icon from "react-native-vector-icons/dist/MaterialCommunityIcons";
+import { connect } from "react-redux";
+import { Actions } from "react-native-router-flux";
+import { FAB } from "react-native-paper";
+import { SkeletonCard, Icon as CustomIcon } from "../../components";
+import { isIphoneX } from "react-native-iphone-x-helper";
+import axios from "axios";
 
-const { width, height } = Dimensions.get('screen');
+const { width, height } = Dimensions.get("screen");
 
 const incidentsDummyData = [
   {
-    userID: '01001796904',
-    description: 'Accident on ElSahrawy road',
+    userID: "01001796904",
+    description: "Accident on ElSahrawy road",
     date: new Date(+new Date() - Math.floor(Math.random() * 10000000000)),
     image: Images.aideCard,
     location: {
@@ -38,48 +38,48 @@ const incidentsDummyData = [
     numberToCall: null
   },
   {
-    userID: '01001796905',
-    description: 'انفجار مغسلة في حي المعادي',
+    userID: "01001796905",
+    description: "انفجار مغسلة في حي المعادي",
     date: new Date(+new Date() - Math.floor(Math.random() * 10000000000)),
     image: null,
     location: {
       latitude: -33.8600024,
       longitude: 18.697459
     },
-    numberToCall: '01001796904'
+    numberToCall: "01001796904"
   },
   {
-    userID: '01001796906',
-    description: 'طلب كيس دم ضروري في مستشفي الدفاع الجوي التخصصي',
+    userID: "01001796906",
+    description: "طلب كيس دم ضروري في مستشفي الدفاع الجوي التخصصي",
     date: new Date(+new Date() - Math.floor(Math.random() * 10000000000)),
     image: Images.ambulanceCard,
     location: {
       latitude: -33.8600024,
       longitude: 18.697459
     },
-    numberToCall: '01001796904'
+    numberToCall: "01001796904"
   },
   {
-    userID: '01001796906',
-    description: 'طلب كيس دم ضروري في مستشفي الدفاع الجوي التخصصي',
+    userID: "01001796906",
+    description: "طلب كيس دم ضروري في مستشفي الدفاع الجوي التخصصي",
     date: new Date(+new Date() - Math.floor(Math.random() * 10000000000)),
     image: Images.ambulanceCard,
     location: {
       latitude: -33.8600024,
       longitude: 18.697459
     },
-    numberToCall: '01001796904'
+    numberToCall: "01001796904"
   },
   {
-    userID: '01001796906',
-    description: 'طلب كيس دم ضروري في مستشفي الدفاع الجوي التخصصي',
+    userID: "01001796906",
+    description: "طلب كيس دم ضروري في مستشفي الدفاع الجوي التخصصي",
     date: new Date(+new Date() - Math.floor(Math.random() * 10000000000)),
     image: Images.ambulanceCard,
     location: {
       latitude: -33.8600024,
       longitude: 18.697459
     },
-    numberToCall: '01001796904'
+    numberToCall: "01001796904"
   }
 ];
 
@@ -89,7 +89,7 @@ export class Incidents extends Component {
     this.state = {
       IncidentCards: [],
       // IncidentCards: incidentsDummyData,
-      userID: '201140028533',
+      userID: "201140028533",
       refreshing: false,
       scrollOffset: new Animated.Value(0),
       titleWidth: 0
@@ -135,7 +135,7 @@ export class Incidents extends Component {
   updateIncidentCards(id = null, username = null) {
     console.log(id);
     axios
-      .get('/incident/', {
+      .get("/incident/", {
         params: {
           incidentId: id
         }
@@ -153,7 +153,7 @@ export class Incidents extends Component {
         this.setState({ refreshing: false });
       })
       .catch(() => {
-        console.log('catch');
+        console.log("catch");
       })
       .then(() => {
         console.log(this.state.IncidentCards);
@@ -161,6 +161,19 @@ export class Incidents extends Component {
     console.log(this.state.refreshing);
     console.log(this.state.IncidentCards.length);
     console.log(!this.state.refreshing && this.state.IncidentCards.length == 0);
+  }
+
+  async videoCall() {
+    try {
+      let s = await client.getClientState();
+      if (s === Voximplant.ClientState.DISCONNECTED) {
+        await client.connect();
+      }
+      let authResult = await this.state.client.login("412412", info.userPass);
+      // Alert.alert('Selected Item', authResult);
+    } catch (e) {
+      console.log(e.name + e.message);
+    }
   }
 
   render() {
@@ -178,30 +191,31 @@ export class Incidents extends Component {
                   ? scrollOffset.interpolate({
                       inputRange: [0, 200],
                       outputRange: [124, 104],
-                      extrapolate: 'clamp'
+                      extrapolate: "clamp"
                     })
                   : scrollOffset.interpolate({
                       inputRange: [0, 200],
                       outputRange: [80, 60],
-                      extrapolate: 'clamp'
+                      extrapolate: "clamp"
                     }),
                 backgroundColor: scrollOffset.interpolate({
                   inputRange: [0, 200],
-                  outputRange: ['#E9E9EF', Colors.APP],
-                  extrapolate: 'clamp'
+                  outputRange: ["#E9E9EF", Colors.APP],
+                  extrapolate: "clamp"
                 }),
                 borderBottomLeftRadius: scrollOffset.interpolate({
                   inputRange: [0, 200],
                   outputRange: [0, 30],
-                  extrapolate: 'clamp'
+                  extrapolate: "clamp"
                 }),
                 borderBottomRightRadius: scrollOffset.interpolate({
                   inputRange: [0, 200],
                   outputRange: [0, 30],
-                  extrapolate: 'clamp'
+                  extrapolate: "clamp"
                 })
               }
             ]}
+            z
           >
             <Animated.Text
               onLayout={e => {
@@ -211,16 +225,16 @@ export class Incidents extends Component {
                 }
               }}
               style={{
-                fontWeight: 'bold',
+                fontWeight: "bold",
                 fontSize: scrollOffset.interpolate({
                   inputRange: [0, 200],
                   outputRange: [26, 20],
-                  extrapolate: 'clamp'
+                  extrapolate: "clamp"
                 }),
                 color: scrollOffset.interpolate({
                   inputRange: [0, 200],
-                  outputRange: ['black', 'white'],
-                  extrapolate: 'clamp'
+                  outputRange: ["black", "white"],
+                  extrapolate: "clamp"
                 })
               }}
             >
@@ -229,7 +243,7 @@ export class Incidents extends Component {
             <TouchableOpacity
               onPress={() => Actions.UserSettings()}
               style={{
-                position: 'absolute',
+                position: "absolute",
                 right: 0,
                 marginRight: 20
               }}
@@ -241,13 +255,13 @@ export class Incidents extends Component {
                 style={{
                   color: scrollOffset.interpolate({
                     inputRange: [0, 200],
-                    outputRange: ['black', 'white'],
-                    extrapolate: 'clamp'
+                    outputRange: ["black", "white"],
+                    extrapolate: "clamp"
                   }),
                   fontSize: scrollOffset.interpolate({
                     inputRange: [0, 200],
                     outputRange: [25, 20],
-                    extrapolate: 'clamp'
+                    extrapolate: "clamp"
                   })
                 }}
               />
@@ -257,7 +271,7 @@ export class Incidents extends Component {
                 width: scrollOffset.interpolate({
                   inputRange: [0, 200],
                   outputRange: [width * 0.9 - this.state.titleWidth, 0],
-                  extrapolate: 'clamp'
+                  extrapolate: "clamp"
                 })
               }}
             />
@@ -285,7 +299,7 @@ export class Incidents extends Component {
                 key={index}
                 item={item}
                 onPressRemove={() => {
-                  console.log('Remove Pressed');
+                  console.log("Remove Pressed");
                 }}
                 renderRemove={this.state.userID === item.userID}
                 style={styles.incidents}
@@ -317,11 +331,11 @@ const styles = StyleSheet.create({
   },
   mainContainer: {
     flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center"
   },
   addIncidentButton: {
-    position: 'absolute',
+    position: "absolute",
     margin: 16,
     right: 0,
     bottom: 0,
@@ -329,14 +343,14 @@ const styles = StyleSheet.create({
   },
   skeletonCardsContainer: {
     flex: 1,
-    flexDirection: 'column',
-    justifyContent: 'space-evenly',
-    alignItems: 'center'
+    flexDirection: "column",
+    justifyContent: "space-evenly",
+    alignItems: "center"
   },
   header: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     paddingTop: isIphoneX() ? 44 : 0
   }
 });

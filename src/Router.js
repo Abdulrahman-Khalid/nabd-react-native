@@ -13,7 +13,7 @@ import UserHome from './app/home/UserHome';
 import WaitForAmbulance from './app/home/WaitForAmbulance';
 import ParamedicHome from './app/home/ParamedicHome';
 import AmbulanceHome from './app/home/AmbulanceHome';
-import Incidents from './app/home/Incidents';
+import MainScreen from './app/videoCall/screens/MainScreen';
 import UserSettings from './app/settings/UserSettings';
 import AddIncident from './app/home/AddIncident';
 import { Colors } from './constants';
@@ -26,6 +26,10 @@ import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { TouchableOpacity, Text } from 'react-native';
 import { TabBar, Icon as CustomIcon } from './components';
 import t from './I18n';
+import IncomingCallScreen from './app/videoCall/screens/IncomingCallScreen';
+import CallScreen from './app/videoCall/screens/CallScreen';
+import Call from './app/videoCall/screens/Call';
+import OutGoingCallScreen from './app/videoCall/screens/OutGoingCallScreen';
 
 class RouterComponent extends Component {
   _renderSettingsButton() {
@@ -174,15 +178,28 @@ class RouterComponent extends Component {
               title={t.Settings}
               hideNavBar={false}
             />
-            <Scene
-              key="AddIncident"
-              component={AddIncident}
-              title={t.AddIncident}
-              hideNavBar={false}
-            />
+            <Scene key="AddIncident" title={t.AddIncident} hideNavBar={false} />
           </Scene>
+          <Scene
+            key="main"
+            component={MainScreen}
+            title="Incidents"
+            icon={() => <Icon name="lifebuoy" size={25} />}
+          />
           <Scene key="paramedicHome" component={ParamedicHome} title={t.Home} />
           <Scene key="ambulanceHome" component={AmbulanceHome} title={t.Home} />
+          <Scene key="CallScreen" component={CallScreen} hideNavBar={true} />
+          {/* <Scene key="Call" component={Call} hideNavBar={true} /> */}
+          {/* <Scene
+            key="OutGoingCall"
+            component={OutGoingCallScreen}
+          /> */}
+
+          <Scene
+            key="IncomingCall"
+            component={IncomingCallScreen}
+            hideNavBar={true}
+          />
         </Scene>
       </Router>
     );
