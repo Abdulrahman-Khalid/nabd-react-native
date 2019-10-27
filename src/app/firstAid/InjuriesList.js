@@ -51,7 +51,7 @@ class InjuriesList extends Component {
     const { scrollOffset } = this.state;
     const { INJURY_BUTTON, INJURY_BUTTON_TWO } = Colors;
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <Animated.View
           style={[
             styles.header,
