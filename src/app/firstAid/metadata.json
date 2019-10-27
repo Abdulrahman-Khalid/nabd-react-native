@@ -1,0 +1,60 @@
+{
+  "bleeding": {
+    "value": "bleeding",
+    "count": "6"
+  },
+  "burns": {
+    "value": "burns",
+    "count": "10"
+  },
+  "chemical_poisoning": {
+    "value": "chemical_poisoning"
+  },
+  "cpr": {
+    "value": "cpr",
+    "count": "8"
+  },
+  "seizure": {
+    "value": "seizure",
+    "count": "6"
+  },
+  "cuts": {
+    "value": "cuts",
+    "count": "8"
+  },
+  "eye_injury": {
+    "value": "eye_injury"
+  },
+  "fractures": {
+    "value": "fractures",
+    "count": "5"
+  },
+  "head_injury": {
+    "value": "head_injury",
+    "count": "7"
+  },
+  "nosebleed": {
+    "value": "nosebleed",
+    "count": "5"
+  },
+  "tooth_injury": {
+    "value": "tooth_injury",
+    "count": "5"
+  },
+  "eye_injury_puncture": {
+    "value": "eye_injury_puncture",
+    "count": "5"
+  },
+  "eye_injury_scratch": {
+    "value": "eye_injury_scratch",
+    "count": "6"
+  },
+  "chemical_poisoning_inhaling": {
+    "value": "chemical_poisoning_inhaling",
+    "count": "5"
+  },
+  "chemical_poisoning_swallowing": {
+    "value": "chemical_poisoning_swallowing",
+    "count": "5"
+  }
+}
