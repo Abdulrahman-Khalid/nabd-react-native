@@ -19,7 +19,7 @@ import { Block, Text } from 'galio-framework';
 import { Colors } from '../../constants';
 import PhoneInput from 'react-native-phone-input';
 import ModalPickerImage from './ModalPickerImage';
-import { signInAttempt, fillSignInForm } from '../../actions';
+import { signInAttempt, fillSignInReducer } from '../../actions';
 import { connect } from 'react-redux';
 import t from '../../I18n';
 import { Actions } from 'react-native-router-flux';
@@ -111,7 +111,7 @@ class SignIn extends Component {
                 initialCountry="eg"
                 offset={22}
                 onChangePhoneNumber={value => {
-                  this.props.fillSignInForm({
+                  this.props.fillSignInReducer({
                     key: 'phone',
                     value
                   });
@@ -148,7 +148,7 @@ class SignIn extends Component {
                 secureTextEntry={true}
                 underlineColorAndroid="transparent"
                 onChangeText={value =>
-                  this.props.fillSignInForm({
+                  this.props.fillSignInReducer({
                     key: 'password',
                     value
                   })
@@ -271,5 +271,5 @@ const mapSateToProps = state => {
 
 export default connect(
   mapSateToProps,
-  { signInAttempt, fillSignInForm }
+  { signInAttempt, fillSignInReducer }
 )(SignIn);

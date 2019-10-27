@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Linking, Share,I18nManager } from 'react-native';
+import { Linking, Share, I18nManager } from 'react-native';
 import ReactNativeSettingsPage, {
   SectionRow,
   NavigateRow
@@ -12,6 +12,8 @@ import TextDisplay from './TextDisplay';
 import { View, Picker } from 'react-native';
 import t from '../../I18n';
 import email from 'react-native-email';
+import { resetSignInReducerState } from '../../actions/';
+import { TouchableHighlight } from 'react-native-gesture-handler';
 
 class UserSettings extends Component {
   constructor(props) {
@@ -37,13 +39,19 @@ class UserSettings extends Component {
   //   }
   // };
 
+  logoutButtonPressed() {
+    axios.defaults.headers.common['TOKEN'] = '';
+    this.props.resetSignInReducerState();
+    Actions.welcome();
+  }
+
   render() {
     return (
-      <ReactNativeSettingsPage >
+      <ReactNativeSettingsPage>
         <SectionRow text={t.Profile}>
           <TextDisplay iconName="user" text={t.Username} />
-          <TextDisplay iconName="lock" text={t.Password}  />
-          <TextDisplay iconName="phone" text={t.PhoneNumber}  />
+          <TextDisplay iconName="lock" text={t.Password} />
+          <TextDisplay iconName="phone" text={t.PhoneNumber} />
         </SectionRow>
         <SectionRow text={t.Language}>
           <View style={{ flex: 1 }}>
@@ -100,6 +108,11 @@ class UserSettings extends Component {
             }}
           />
         </SectionRow>
+        <SectionRow>
+          <TouchableHighlight onPress={this.logoutButtonPressed()}>
+            <TextDisplay text={t.LogOut} />
+          </TouchableHighlight>
+        </SectionRow>
       </ReactNativeSettingsPage>
     );
   }
@@ -109,5 +122,5 @@ const mapStateToProps = state => ({ language: state.language });
 
 export default connect(
   mapStateToProps,
-  { switchLanguage }
+  { switchLanguage, resetSignInReducerState }
 )(UserSettings);

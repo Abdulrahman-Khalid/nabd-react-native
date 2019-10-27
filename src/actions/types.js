@@ -13,7 +13,7 @@ export const CHECK_BIRTHDAY = 'check_birthday';
 export const CHECK_PHONE = 'check_phone';
 export const RESET_SIGNUP_REDUCER_STATE = 'reset_signup_reducer_state';
 //sign in
-export const FILL_SIGNIN_FORM = 'fill_signin_form';
+export const FILL_SIGNIN_REDUCER = 'fill_signin_reducer';
 export const SIGNIN_ATTEMPT = 'signin_attempt';
 export const SIGNIN_SUCCESS = 'signin_success';
 export const SIGNIN_FAIL = 'signin_fail';
@@ -26,18 +26,12 @@ export const SELECT_HELPER_SPECIALIZATION = 'select_helper_specialization';
 export const REQUSET_DOCTOR = 'request_doctor';
 export const REQUSET_PARAMEDIC = 'request_paramedic';
 export const REQUSET_AMBULANCE = 'request_ambulance';
-<<<<<<< HEAD
 // Language
-export const SWITCH_LANGUAGE = "SWITCH_LANGUAGE";
-// Location
-export const GET_LOCATION = "get_location";
-export const REQUEST_LOCATION_PERMISSION = "request_location_permission";
-export const UPDATE_LOCATION = "update_location";
-=======
-// Language Redux
 export const SWITCH_LANGUAGE = 'SWITCH_LANGUAGE';
-//cache
-export const CACHE_USER_ID = 'cache_user_id';
+// Location
+export const GET_LOCATION = 'get_location';
+export const REQUEST_LOCATION_PERMISSION = 'request_location_permission';
+export const UPDATE_LOCATION = 'update_location';
 //call
 export const TOGGLE_AUDIO_STATE = 'toggle_audio_state';
 export const TOGGLE_VIDEO_STATE = 'toggle_video_state';
@@ -46,4 +40,3 @@ export const SET_REMOTE_VIDEO_STREAM_ID = 'set_remote_video_stream_id';
 export const SET_CALLING_COUNTER = 'set_calling_counter';
 export const DEC_CALLING_COUNTER = 'dec_calling_counter';
 export const RESET_CALL_OPTIONS = 'reset_call_options';
->>>>>>> videoC

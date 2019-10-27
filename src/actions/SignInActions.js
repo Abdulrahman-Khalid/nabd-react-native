@@ -1,5 +1,5 @@
 import {
-  FILL_SIGNIN_FORM,
+  FILL_SIGNIN_REDUCER,
   SIGNIN_ATTEMPT,
   SIGNIN_SUCCESS,
   SIGNIN_FAIL,
@@ -17,9 +17,9 @@ export const resetSignInReducerState = () => {
   };
 };
 
-export const fillSignInForm = keyAndValue => {
+export const fillSignInReducer = keyAndValue => {
   return {
-    type: FILL_SIGNIN_FORM,
+    type: FILL_SIGNIN_REDUCER,
     payload: keyAndValue
   };
 };

@@ -1,5 +1,5 @@
 import {
-  FILL_SIGNIN_FORM,
+  FILL_SIGNIN_REDUCER,
   SIGNIN_ATTEMPT,
   SIGNIN_SUCCESS,
   SIGNIN_FAIL,
@@ -10,14 +10,15 @@ const INTIAL_STATE = {
   phone: '',
   password: '',
   loading: false,
-  userName: ''
+  userName: '',
+  userType: ''
 };
 
 signInReducer = (state = INTIAL_STATE, action) => {
   switch (action.type) {
     case RESET_SIGNIN_REDUCER_STATE:
       return INTIAL_STATE;
-    case FILL_SIGNIN_FORM:
+    case FILL_SIGNIN_REDUCER:
       const { key, value } = action.payload;
       return { ...state, [key]: value };
     case SIGNIN_ATTEMPT:

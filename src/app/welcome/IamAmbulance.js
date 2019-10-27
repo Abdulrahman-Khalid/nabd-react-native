@@ -21,18 +21,7 @@ class IamAmbulance extends Component {
             industry Lorem Ipsum
           </Text>
         </View>
-        <View style={styles.buttonsContainer}>
-          <TouchableOpacity
-            style={styles.buttonContainer}
-            onPress={() => Actions.signin()}
-          >
-            <View style={styles.button}>
-              <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
-                {t.SignIn}
-              </Text>
-            </View>
-          </TouchableOpacity>
-        </View>
+        <CommonButtons />
       </View>
     );
   }
