@@ -21,7 +21,7 @@ import { Voximplant } from 'react-native-voximplant';
 import { Actions } from 'react-native-router-flux';
 import axios from 'axios';
 import { Block, Text, Button as GaButton, theme } from 'galio-framework';
-import { argonTheme, Images, info } from '../../../constants';
+import { Colors, Images, info } from '../../../constants';
 import { connect } from 'react-redux';
 import { selectHelperType, requestHelp } from '../../../actions';
 
@@ -388,7 +388,7 @@ class MainScreen extends React.Component {
           flex: 1,
           justifyContent: 'center',
           alignItems: 'center',
-          backgroundColor: argonTheme.COLORS.BACKGROUND
+          backgroundColor: Colors.BACKGROUND
         }}
       >
         <View></View>
@@ -411,7 +411,7 @@ class MainScreen extends React.Component {
                       obj={obj}
                       index={i}
                       labelHorizontal={false}
-                      buttonColor={argonTheme.COLORS.APP}
+                      buttonColor={Colors.APP}
                       labelColor={'#000'}
                       style={[
                         i !== this.state.type.length - 1 && styles.radioStyle
@@ -438,7 +438,7 @@ class MainScreen extends React.Component {
           >
             <Icon
               size={50}
-              color={argonTheme.COLORS.WHITE}
+              color={Colors.WHITE}
               name="camera-video"
               family="LinearIcon"
               style={{
@@ -467,7 +467,7 @@ const styles = StyleSheet.create({
   },
   radioStyle: {
     borderRightWidth: 2,
-    borderColor: argonTheme.COLORS.APP,
+    borderColor: Colors.APP,
     paddingRight: 20
   },
   radioButtonWrap: {
@@ -478,7 +478,7 @@ const styles = StyleSheet.create({
   circleStyle: {
     padding: 10,
     margin: 20,
-    backgroundColor: argonTheme.COLORS.APP,
+    backgroundColor: Colors.APP,
     borderRadius: 50,
     width: 100,
     height: 100,

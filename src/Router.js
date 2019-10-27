@@ -20,6 +20,7 @@ import { Colors } from './constants';
 import InjuriesList from './app/firstAid/InjuriesList';
 import FirstAidDetails from './app/firstAid/FirstAidDetails';
 import FirstAidDetailsWithButtons from './app/firstAid/FirstAidDetailsWithButtons';
+import Incidents from './app/home/Incidents';
 import { connect } from 'react-redux';
 import { resetSignInReducerState, resetSignUpReducerState } from './actions';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
@@ -178,7 +179,12 @@ class RouterComponent extends Component {
               title={t.Settings}
               hideNavBar={false}
             />
-            <Scene key="AddIncident" title={t.AddIncident} hideNavBar={false} />
+            <Scene
+              key="AddIncident"
+              component={AddIncident}
+              title={t.AddIncident}
+              hideNavBar={false}
+            />
           </Scene>
           <Scene
             key="main"

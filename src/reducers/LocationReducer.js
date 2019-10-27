@@ -3,8 +3,8 @@ import {
   REQUEST_LOCATION_PERMISSION,
   UPDATE_LOCATION
 } from '../actions/types';
-import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
-import { persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
+import { persistReducer } from 'redux-persist';
 
 const INTIAL_STATE = {
   position: null,

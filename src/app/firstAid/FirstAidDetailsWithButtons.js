@@ -10,7 +10,6 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { InjuryButtonPressed } from '../../actions';
 import data from './metadata.json';
-import { argonTheme } from '../../constants';
 import t from '../../I18n';
 import { Colors } from '../../constants';
 
@@ -86,7 +85,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    justifyContent: 'space-around',
+    justifyContent: 'space-around'
   },
   button: {
     marginBottom: 30,

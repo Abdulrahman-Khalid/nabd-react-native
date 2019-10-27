@@ -3,6 +3,7 @@ import { Alert, Animated, Image, Text, View } from 'react-native';
 import { Block } from 'galio-framework';
 import { Button } from '../../../../components';
 import axios from 'axios';
+import { connect } from 'react-redux';
 import CodeInput from 'react-native-confirmation-code-field';
 import styles, {
   ACTIVE_CELL_BG_COLOR,
@@ -16,7 +17,7 @@ import { Images } from '../../../../constants';
 
 const codeLength = 4;
 
-export default class AnimatedExample extends Component {
+class AnimatedExample extends Component {
   _animationsColor = [...new Array(codeLength)].map(
     () => new Animated.Value(0)
   );
@@ -163,7 +164,11 @@ export default class AnimatedExample extends Component {
       <Block flex>
         <View style={styles.inputWrapper}>
           <Text style={styles.inputLabel}>Verification</Text>
-          <Image style={styles.icon} source={Images.verification} resizeMode="contain" />
+          <Image
+            style={styles.icon}
+            source={Images.verification}
+            resizeMode="contain"
+          />
           <Text style={styles.inputSubLabel}>
             {'Please enter the verification code\nwe sent to '}
             {this.props.phoneNum}

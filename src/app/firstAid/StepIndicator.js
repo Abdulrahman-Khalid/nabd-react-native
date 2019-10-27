@@ -3,7 +3,6 @@ import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
 import Steps from 'react-native-steps';
 import data from './FirstAidData';
 import metadata from './metadata.json';
-import { argonTheme } from '../../constants';
 import t from '../../I18n';
 import { Colors } from '../../constants';
 

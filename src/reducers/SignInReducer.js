@@ -5,7 +5,8 @@ import {
   SIGNIN_FAIL,
   RESET_SIGNIN_REDUCER_STATE
 } from '../actions/types';
-
+import storage from 'redux-persist/lib/storage';
+import { persistReducer } from 'redux-persist';
 const INTIAL_STATE = {
   phone: '',
   password: '',

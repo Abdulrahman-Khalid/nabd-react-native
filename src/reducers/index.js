@@ -6,7 +6,6 @@ import FirstAidReducer from './FirstAidReducer';
 import RequestHelpReducer from './RequestHelpReducer';
 import LanguageReducer from './LanguageReducer';
 import LocationReducer from './LocationReducer';
-import CachedReducer from './CachedReducer';
 import CallReducer from './CallReducer';
 
 export default combineReducers({

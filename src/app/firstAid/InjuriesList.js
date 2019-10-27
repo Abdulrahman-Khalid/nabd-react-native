@@ -11,7 +11,6 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { InjuryButtonPressed } from '../../actions';
 import InjuryButton from './InjuryButton';
-import { argonTheme } from '../../constants';
 import t from '../../I18n';
 import data from './metadata.json';
 import { Colors } from '../../constants';

@@ -30,7 +30,6 @@ import {
   Icon as CustomIcon
 } from '../../components';
 import axios from 'axios';
-import PubNubReact from 'pubnub-react';
 import RadioForm, {
   RadioButton,
   RadioButtonInput,
@@ -71,11 +70,6 @@ class UserHome extends Component {
       startedWatch: false
     };
     props.selectHelperType('doctor');
-    // Init PubNub. Use your subscribe key here.
-    this.pubnub = new PubNubReact({
-      subscribeKey: 'sub-key'
-    });
-    this.pubnub.init(this);
     this.requestAmbulance = this.requestAmbulance.bind(this);
   }
 

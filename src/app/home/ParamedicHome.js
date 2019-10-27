@@ -20,7 +20,6 @@ import axios from 'axios';
 import { CustomPicker } from 'react-native-custom-picker';
 import t from '../../I18n';
 
-
 const { width, height } = Dimensions.get('screen');
 
 class ParamedicHome extends Component {
@@ -34,7 +33,6 @@ class ParamedicHome extends Component {
       valueIndex: 0
     };
     props.selectHelperType('doctor');
-    // Init PubNub. Use your subscribe key here.
   }
 
   logoutButtonPressed() {
