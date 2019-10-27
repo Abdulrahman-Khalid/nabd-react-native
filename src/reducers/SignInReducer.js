@@ -9,10 +9,11 @@ import {
 const INTIAL_STATE = {
   phone: '',
   password: '',
-  loading: false
+  loading: false,
+  userName: ''
 };
 
-export default (state = INTIAL_STATE, action) => {
+signInReducer = (state = INTIAL_STATE, action) => {
   switch (action.type) {
     case RESET_SIGNIN_REDUCER_STATE:
       return INTIAL_STATE;
@@ -32,3 +33,11 @@ export default (state = INTIAL_STATE, action) => {
       return state;
   }
 };
+
+const persistConfig = {
+  key: 'signin',
+  storage: storage,
+  whitelist: ['phone', 'password', 'userName']
+};
+
+export default persistReducer(persistConfig, signInReducer);
