@@ -6,6 +6,7 @@ import { Actions } from 'react-native-router-flux';
 import { StyleSheet, Dimensions } from 'react-native';
 import { Colors } from '../../constants';
 import axios from 'axios';
+import t from '../../I18n';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -27,7 +28,7 @@ export default class AmbulanceHome extends Component {
             textStyle={styles.buttonText}
             // onPress={this.requestDoctor.bind(this)}
           >
-            Request doctor
+            {t.RequestDoctor}
           </Button>
           <Button
             color="warning"
@@ -35,7 +36,7 @@ export default class AmbulanceHome extends Component {
             textStyle={styles.buttonText}
             // onPress={this.requestParamedic.bind(this)}
           >
-            Request paramedic
+            {t.Requestaramedic}
           </Button>
           <Button
             color="warning"
@@ -43,10 +44,10 @@ export default class AmbulanceHome extends Component {
             textStyle={styles.buttonText}
             // onPress={this.requestAmbulance.bind(this)}
           >
-            Request ambulance
+            {t.RequestAmbulance}
           </Button>
           <Button color="warning" onPress={this.logoutButtonPressed}>
-            <Text>Log out</Text>
+            <Text>{t.LogOut}</Text>
           </Button>
         </Block>
       </Block>

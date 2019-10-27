@@ -20,6 +20,7 @@ import Menu, { MenuItem } from 'react-native-material-menu';
 import CustomIcon from './Icon';
 import LinearGradient from 'react-native-linear-gradient';
 import { Images } from '../constants';
+import t from '../I18n';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -79,20 +80,7 @@ class IncidentCard extends React.Component {
 
   calculateDateAndTime = () => {
     const now = new Date();
-    const months = [
-      ' Jan',
-      ' Feb',
-      ' Mar',
-      ' Apr',
-      ' May',
-      ' Jun',
-      ' Jul',
-      ' Aug',
-      ' Sep',
-      ' Oct',
-      ' Nov',
-      ' Dec'
-    ];
+    const months = t.Months;
     const dateTime = new Date(this.props.item.date);
     const day = dateTime.getDate();
     const year = dateTime.getFullYear();
@@ -196,14 +184,14 @@ class IncidentCard extends React.Component {
             >
               <CustomIcon family="flaticon" name="share" size={17}>
                 {' '}
-                Share
+                {t.Share}
               </CustomIcon>
             </MenuItem>
             {renderRemove ? (
               <MenuItem onPress={onPressRemove}>
                 <CustomIcon name="garbage" family="flaticon" size={17}>
                   {' '}
-                  Remove
+                  {t.Remove}
                 </CustomIcon>
               </MenuItem>
             ) : null}
@@ -234,9 +222,9 @@ class IncidentCard extends React.Component {
         </View>
         <Text style={styles.dateAndDistance}>
           {this.calculateDateAndTime() +
-            ' • ' +
+            ' • ' + t.Away +
             this.state.distanceFromUser +
-            ' km away'}
+            t.Km}
         </Text>
         <View style={styles.hr} />
         <View style={styles.buttonsContainer}>
@@ -260,7 +248,7 @@ class IncidentCard extends React.Component {
                 size={17}
               />
               <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
-                Get Directions
+                {t.GetDirections}
               </Text>
             </View>
           </TouchableOpacity>
@@ -287,7 +275,7 @@ class IncidentCard extends React.Component {
                   size={17}
                 />
                 <Text style={{ color: '#d76674', fontFamily: 'Manjari-Bold' }}>
-                  Call
+                 {t.Call}
                 </Text>
               </View>
             </TouchableOpacity>

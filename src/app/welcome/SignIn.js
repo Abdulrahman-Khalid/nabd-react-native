@@ -21,6 +21,7 @@ import PhoneInput from 'react-native-phone-input';
 import ModalPickerImage from './ModalPickerImage';
 import { signInAttempt, fillSignInForm } from '../../actions';
 import { connect } from 'react-redux';
+import t from '../../I18n';
 import { Actions } from 'react-native-router-flux';
 import { Spinner } from '../../components/Spinner';
 
@@ -75,7 +76,7 @@ class SignIn extends Component {
               <Spinner color={Colors.WHITE} size="small" />
             ) : (
               <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
-                Log In
+                {t.LogIn}
               </Text>
             )}
           </View>
@@ -118,7 +119,7 @@ class SignIn extends Component {
                 onPressFlag={this.onPressFlag}
                 style={{ paddingLeft: 13 }}
                 textProps={{
-                  placeholder: 'Phone'
+                  placeholder: t.PhoneNumber
                 }}
               />
 
@@ -143,7 +144,7 @@ class SignIn extends Component {
               />
               <TextInput
                 style={styles.inputs}
-                placeholder="Password"
+                placeholder={t.Password}
                 secureTextEntry={true}
                 underlineColorAndroid="transparent"
                 onChangeText={value =>
@@ -161,13 +162,13 @@ class SignIn extends Component {
           style={styles.textButtonContainer}
           onPress={() => console.log('restore_password')}
         >
-          <Text>Forgot your password?</Text>
+          <Text>{t.ForgotPassword}</Text>
         </TouchableOpacity>
         <TouchableOpacity
           style={styles.textButtonContainer}
           onPress={() => Actions.signup()}
         >
-          <Text>Register</Text>
+          <Text>{SignUp}</Text>
         </TouchableOpacity>
       </View>
     );
@@ -204,7 +205,7 @@ const styles = StyleSheet.create({
   inputs: {
     height: 55,
     borderBottomColor: '#FFFFFF',
-    flex: 1,
+    flex: 1
   },
   inputIcons: {
     alignSelf: 'center',

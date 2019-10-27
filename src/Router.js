@@ -25,6 +25,7 @@ import { resetSignInReducerState, resetSignUpReducerState } from './actions';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { TouchableOpacity, Text } from 'react-native';
 import { TabBar, Icon as CustomIcon } from './components';
+import t from './I18n';
 
 class RouterComponent extends Component {
   _renderSettingsButton() {
@@ -41,6 +42,17 @@ class RouterComponent extends Component {
             color: 'white'
           }}
         />
+      </TouchableOpacity>
+    );
+  }
+
+  _renderBackButton() {
+    return (
+      <TouchableOpacity
+        onPress={() => Actions.pop()}
+        style={{ marginLeft: 10 }}
+      >
+        <Icon name="arrow-left" color={Colors.APP} size={25} />
       </TouchableOpacity>
     );
   }
@@ -73,18 +85,23 @@ class RouterComponent extends Component {
               component={LanguageSelection}
               hideNavBar={true}
             />
-            <Scene key="whoRU" component={WhoAmI} title="Nabd" hideNavBar={false}/>
-            <Scene key="iUser" component={IamUser} title="User" />
-            <Scene key="iDoctor" component={IamDoctor} title="Doctor" />
+            <Scene
+              key="whoRU"
+              component={WhoAmI}
+              title="Nabd"
+              hideNavBar={false}
+            />
+            <Scene key="iUser" component={IamUser} title={t.User} />
+            <Scene key="iDoctor" component={IamDoctor} title={t.Doctor} />
             <Scene
               key="iParamedic"
               component={IamParamedic}
-              title="Paramedic"
+              title={t.Paramedic}
             />
             <Scene
               key="iAmbulance"
               component={IamAmbulance}
-              title="Ambulance"
+              title={t.Ambulance}
             />
             <Scene
               key="signup"
@@ -92,7 +109,7 @@ class RouterComponent extends Component {
               onExit={() => {
                 this.props.resetSignUpReducerState();
               }}
-              title="Sign up"
+              title={t.SignUp}
             />
             <Scene
               key="signin"
@@ -100,9 +117,13 @@ class RouterComponent extends Component {
               onExit={() => {
                 this.props.resetSignInReducerState();
               }}
-              title="Sign in"
+              title={t.SignIn}
             />
-            <Scene key="verifySignup" component={VerifySignup} title="Verify" />
+            <Scene
+              key="verifySignup"
+              component={VerifySignup}
+              title={t.Verify}
+            />
           </Scene>
           <Scene key="userHome" hideNavBar={true}>
             <Tabs
@@ -115,19 +136,19 @@ class RouterComponent extends Component {
               <Scene
                 key="Home"
                 component={UserHome}
-                title="Home"
+                title={t.Home}
                 icon={() => <Icon name="home" size={25} />}
               />
               <Scene
                 key="Incidents"
                 component={Incidents}
-                title="Incidents"
+                title={t.Incidents}
                 hideNavBar
                 icon={() => <Icon name="lifebuoy" size={25} />}
               />
               <Scene
                 key="FirstAid"
-                title="First Aid"
+                title={t.FirstAid}
                 icon={() => <Icon name="hospital" size={25} />}
               >
                 <Scene hideNavBar key="InjuriesList" component={InjuriesList} />
@@ -138,6 +159,7 @@ class RouterComponent extends Component {
                 />
               </Scene>
             </Tabs>
+
             <Scene
               key="waitForAmbulance"
               component={WaitForAmbulance}
@@ -147,19 +169,20 @@ class RouterComponent extends Component {
             <Scene
               key="UserSettings"
               component={UserSettings}
-              title="Settings"
+              title={t.Settings}
+              renderLeftButton={this._renderBackButton}
+              title={t.Settings}
               hideNavBar={false}
             />
             <Scene
               key="AddIncident"
               component={AddIncident}
-              title="Add Incident"
+              title={t.AddIncident}
               hideNavBar={false}
             />
           </Scene>
-
-          <Scene key="paramedicHome" component={ParamedicHome} title="Home" />
-          <Scene key="ambulanceHome" component={AmbulanceHome} title="Home" />
+          <Scene key="paramedicHome" component={ParamedicHome} title={t.Home} />
+          <Scene key="ambulanceHome" component={AmbulanceHome} title={t.Home} />
         </Scene>
       </Router>
     );

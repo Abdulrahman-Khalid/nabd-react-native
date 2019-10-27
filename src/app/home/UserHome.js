@@ -39,6 +39,7 @@ import RadioForm, {
 import RNSwipeVerify from 'react-native-swipe-verify';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { openSettings } from 'react-native-permissions';
+import t from '../../I18n';
 import RNSettings from 'react-native-settings';
 import Geolocation from 'react-native-geolocation-service';
 
@@ -46,15 +47,15 @@ const { width, height } = Dimensions.get('screen');
 
 const buttons = [
   {
-    title: 'Request an Aide',
+    title: t.RequestHelp,
     image: Images.aideCard
   },
   {
-    title: 'Request a Doctor',
+    title: t.RequestDoctor,
     image: Images.doctorCard
   },
   {
-    title: 'Request an Ambulance',
+    title: t.RequestAmbulance,
     image: Images.ambulanceCard,
     horizontal: true
   }
@@ -88,7 +89,7 @@ class UserHome extends Component {
       });
     } else {
       this.props.requestLocationPermission();
-      console.log(this.props.permissionGranted)
+      console.log(this.props.permissionGranted);
     }
     DeviceEventEmitter.addListener(
       RNSettings.GPS_PROVIDER_EVENT,
@@ -97,46 +98,46 @@ class UserHome extends Component {
   }
 
   componentDidUpdate() {
-    if(this.props.permissionGranted) {
+    if (this.props.permissionGranted) {
       Geolocation.setRNConfiguration({
-      skipPermissionRequests: false,
-      authorizationLevel: 'always'
-    });
-    Geolocation.requestAuthorization();
-    this.watchID = Geolocation.watchPosition(
-      position => {
-        this.props.updateLocation(position);
-      },
-      error => {
-        switch (error.code) {
-          case 1:
-            Alert.alert('Error', 'Location permission is not granted');
-            break;
-          case 2:
-            Alert.alert('Error', 'Location provider not available');
-            break;
-          case 3:
-            Alert.alert('Error', 'Location request timed out');
-            break;
-          case 4:
-            Alert.alert(
-              'Error',
-              'Google play service is not installed or has an older version'
-            );
-            break;
-          case 5:
-            Alert.alert(
-              'Error',
-              'Location service is not enabled or location mode is not appropriate for the current request'
-            );
-            break;
-          default:
-            Alert.alert('Error', 'Please try again');
-            break;
-        }
-      },
-      { enableHighAccuracy: true }
-    );
+        skipPermissionRequests: false,
+        authorizationLevel: 'always'
+      });
+      Geolocation.requestAuthorization();
+      this.watchID = Geolocation.watchPosition(
+        position => {
+          this.props.updateLocation(position);
+        },
+        error => {
+          switch (error.code) {
+            case 1:
+              Alert.alert('Error', 'Location permission is not granted');
+              break;
+            case 2:
+              Alert.alert('Error', 'Location provider not available');
+              break;
+            case 3:
+              Alert.alert('Error', 'Location request timed out');
+              break;
+            case 4:
+              Alert.alert(
+                'Error',
+                'Google play service is not installed or has an older version'
+              );
+              break;
+            case 5:
+              Alert.alert(
+                'Error',
+                'Location service is not enabled or location mode is not appropriate for the current request'
+              );
+              break;
+            default:
+              Alert.alert('Error', 'Please try again');
+              break;
+          }
+        },
+        { enableHighAccuracy: true }
+      );
     }
   }
 
@@ -167,8 +168,9 @@ class UserHome extends Component {
         modalVisible: false
       });
       Actions.waitForAmbulance();
+    } else {
+      console.log('send current position');
     }
-    else { console.log("send current position") }
   }
 
   renderModal() {
@@ -238,10 +240,7 @@ class UserHome extends Component {
 
   renderLocationPermissionRequestModal() {
     return (
-      <Modal
-        visible={!this.props.permissionGranted}
-        animationType="fade"
-      >
+      <Modal visible={!this.props.permissionGranted} animationType="fade">
         <View style={styles.locationPermissionModalContainer}>
           <Image
             style={styles.locationPermissionImage}
@@ -422,7 +421,7 @@ class UserHome extends Component {
       </View>
     ) : (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-        <ActivityIndicator size='large' style={{ marginBottom: 20 }} />
+        <ActivityIndicator size="large" style={{ marginBottom: 20 }} />
         <Text style={{ fontSize: 20 }}>Fetching your location</Text>
       </View>
     );

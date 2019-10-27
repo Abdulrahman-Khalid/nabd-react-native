@@ -11,6 +11,8 @@ import { Actions } from 'react-native-router-flux';
 import { connect } from 'react-redux';
 import { InjuryButtonPressed } from '../../actions';
 import InjuryButton from './InjuryButton';
+import { argonTheme } from '../../constants';
+import t from '../../I18n';
 import data from './metadata.json';
 import { Colors } from '../../constants';
 import { theme } from 'galio-framework';
@@ -157,7 +159,7 @@ class InjuriesList extends Component {
             <InjuryButton
               src={'cpr'}
               backgroundClr="#63B8B1"
-              txt={data.cpr.arValue}
+              txt={t.CPR}
               onPress={this.onButtonPress.bind(this, 'cpr')}
             />
           </View>
@@ -166,7 +168,7 @@ class InjuriesList extends Component {
             <InjuryButton
               src={'bleeding'}
               backgroundClr="#FFE0B2"
-              txt={data.bleeding.arValue}
+              txt={t.Bleeding}
               onPress={this.onButtonPress.bind(this, 'bleeding')}
             />
           </View>
@@ -175,7 +177,7 @@ class InjuriesList extends Component {
             <InjuryButton
               src={'cuts'}
               backgroundClr="#B9917C"
-              txt={data.cuts.arValue}
+              txt={t.Cuts}
               onPress={this.onButtonPress.bind(this, 'cuts')}
             />
           </View>
@@ -184,7 +186,7 @@ class InjuriesList extends Component {
             <InjuryButton
               src={'head_injury'}
               backgroundClr="#E5C7BD"
-              txt={data.head_injury.arValue}
+              txt={t.HeadInjury}
               onPress={this.onButtonPress.bind(this, 'head_injury')}
             />
           </View>
@@ -193,7 +195,7 @@ class InjuriesList extends Component {
             <InjuryButton
               src={'burns'}
               backgroundClr="#F66775"
-              txt={data.burns.arValue}
+              txt={t.Burns}
               onPress={this.onButtonPress.bind(this, 'burns')}
             />
           </View>
@@ -202,7 +204,7 @@ class InjuriesList extends Component {
             <InjuryButton
               src={'eye_injury'}
               backgroundClr="#CCCBCB"
-              txt={data.eye_injury.arValue}
+              txt={t.EyeInjury}
               onPress={this.onButtonPress_.bind(this, 'eye_injury')}
             />
           </View>
@@ -211,7 +213,7 @@ class InjuriesList extends Component {
             <InjuryButton
               src={'fractures'}
               backgroundClr="#FAEBC7"
-              txt={data.fractures.arValue}
+              txt={t.Fractures}
               onPress={this.onButtonPress.bind(this, 'fractures')}
             />
           </View>
@@ -220,7 +222,7 @@ class InjuriesList extends Component {
             <InjuryButton
               src={'tooth_injury'}
               backgroundClr="#DB527D"
-              txt={data.tooth_injury.arValue}
+              txt={t.ToothInjury}
               onPress={this.onButtonPress.bind(this, 'tooth_injury')}
             />
           </View>
@@ -229,7 +231,7 @@ class InjuriesList extends Component {
             <InjuryButton
               src={'nosebleeding'}
               backgroundClr="#FFE0B2"
-              txt={data.nosebleeding.arValue}
+              txt={t.Nosebleed}
               onPress={this.onButtonPress.bind(this, 'nosebleeding')}
             />
           </View>
@@ -238,7 +240,7 @@ class InjuriesList extends Component {
             <InjuryButton
               src={'seizure'}
               backgroundClr="#F6494C"
-              txt={data.seizure.arValue}
+              txt={t.Seizure}
               onPress={this.onButtonPress.bind(this, 'seizure')}
             />
           </View>
@@ -247,7 +249,7 @@ class InjuriesList extends Component {
             <InjuryButton
               src={'chemical_poisoning'}
               backgroundClr="#B289C9"
-              txt={data.chemical_poisoning.arValue}
+              txt={t.ChemicalPoisoning}
               onPress={this.onButtonPress_.bind(this, 'chemical_poisoning')}
             />
           </View>

@@ -17,6 +17,7 @@ import ActionSheet from 'react-native-action-sheet';
 import { LocationPicker, Icon } from '../../components';
 import { Colors } from '../../constants';
 import { connect } from 'react-redux';
+import t from '../../I18n';
 
 const actionSheetButtons = [
   'Take a picture',
@@ -272,13 +273,14 @@ class AddIncident extends Component {
             style={{ flex: 0.5, marginVertical: 20, justifyContent: 'center' }}
           >
             <TextInput
-              label="Number to Call (optional)"
+              label={t.NumberToCallOpt}
               mode="flat"
               value={this.state.numberToCall}
               onChangeText={t => {
                 this.setState({ numberToCall: t });
               }}
               dataDetectorTypes="phoneNumber"
+              placeholder={t.NumberToCall}
               style={{ fontSize: 18 }}
               theme={{
                 colors: { background: '#EAE9EF', primary: Colors.WARNING },
@@ -295,13 +297,13 @@ class AddIncident extends Component {
           </View>
           <View style={{ flex: 2, marginBottom: 10, justifyContent: 'center' }}>
             <TextInput
-              label="Description (required)"
+              label={t.IncidentDescriptionReq}
               mode="flat"
               value={this.state.text}
               onChangeText={text => {
                 this.setState({ text });
               }}
-              placeholder="What's happening?"
+              placeholder={t.IncidentDescription}
               style={{ fontSize: 18, height: '70%' }}
               theme={{
                 colors: { background: '#EAE9EF', primary: Colors.WARNING },
@@ -341,7 +343,7 @@ class AddIncident extends Component {
                 <Text
                   style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}
                 >
-                  Next
+                  {t.Next}
                 </Text>
               </View>
             </TouchableOpacity>

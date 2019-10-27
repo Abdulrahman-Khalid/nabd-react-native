@@ -19,6 +19,8 @@ import RadioForm, { RadioButton } from 'react-native-simple-radio-button';
 import axios from 'axios';
 import PubNubReact from 'pubnub-react';
 import { CustomPicker } from 'react-native-custom-picker';
+import t from '../../I18n';
+
 
 const { width, height } = Dimensions.get('screen');
 
@@ -50,7 +52,7 @@ class ParamedicHome extends Component {
   renderHeader() {
     return (
       <View style={styles.headerFooterContainer}>
-        <Text style={{ fontSize: 20 }}>Doctor specialization</Text>
+        <Text style={{ fontSize: 20 }}>{t.DoctorSpecialization}</Text>
       </View>
     );
   }
@@ -63,7 +65,7 @@ class ParamedicHome extends Component {
           action.close();
         }}
       >
-        <Text>close</Text>
+        <Text>{t.close}</Text>
       </TouchableOpacity>
     );
   }

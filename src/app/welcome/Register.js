@@ -28,6 +28,7 @@ import {
   validatePhone
 } from '../../actions';
 import AwesomeAlert from 'react-native-awesome-alerts';
+import t from '../../I18n';
 import { TextInput } from 'react-native-paper';
 
 const { width, height } = Dimensions.get('screen');
@@ -126,7 +127,7 @@ class Register extends React.Component {
               <Spinner color={Colors.WHITE} size="small" />
             ) : (
               <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
-                Create Account
+                {t.CreateAccount}
               </Text>
             )}
           </View>
@@ -259,7 +260,7 @@ class Register extends React.Component {
               Create{'\n'}Account
             </Text>
             <Input
-              placeholder="Name"
+              placeholder={t.Username}
               error={this.props.isErrorName}
               success={this.props.isSuccessName}
               onBlur={this.loseNameFocus.bind(this)}
@@ -299,7 +300,7 @@ class Register extends React.Component {
                 onPressFlag={this.onPressFlag}
                 textProps={{
                   onBlur: this.losePhoneFocus.bind(this),
-                  placeholder: 'Phone'
+                  placeholder: t.PhoneNumber
                 }}
                 style={{ flex: 1, width: '100%' }}
               />
@@ -326,7 +327,7 @@ class Register extends React.Component {
               password
               error={this.props.isErrorPass}
               success={this.props.isSuccessPass}
-              placeholder="Password"
+              placeholder={t.Password}
               onBlur={() =>
                 this.props.fillSignUpForm({
                   key: 'password',
@@ -359,7 +360,7 @@ class Register extends React.Component {
               success={
                 this.props.isSuccessPassMatch && this.props.confirmPassword
               }
-              placeholder="Confirm Password"
+              placeholder={t.ConfirmPassword}
               onBlur={this.loseConfirmPasswordFocus.bind(this)}
               iconContent={
                 <Icon
@@ -380,7 +381,7 @@ class Register extends React.Component {
             />
             <View row style={styles.passwordCheck}>
               <Text size={12} color={Colors.MUTED}>
-                Password strength:
+                {t.PasswordStrength}
               </Text>
               <Text
                 bold
@@ -421,7 +422,7 @@ class Register extends React.Component {
                 style={{ width: 140 }}
                 date={this.state.birthday}
                 mode="date"
-                placeholder="Birthday"
+                placeholder={t.Birthday}
                 format="DD-MM-YYYY"
                 minDate="01-01-1920"
                 maxDate={this.state.todayDate}
@@ -430,7 +431,7 @@ class Register extends React.Component {
                 showIcon={false}
                 customStyles={{
                   dateTouchBody: {},
-                  placeholderText: 'Select your birthdate',
+                  placeholderText: t.Birthday,
                   dateText: {
                     fontSize: 18,
                     fontWeight: 'bold',
@@ -474,7 +475,7 @@ class Register extends React.Component {
                   }}
                   value={'male'}
                 >
-                  <Text>Male</Text>
+                  <Text>{t.Male}</Text>
                 </RadioButton>
 
                 <RadioButton
@@ -483,7 +484,7 @@ class Register extends React.Component {
                   }}
                   value={'female'}
                 >
-                  <Text>Female</Text>
+                  <Text>{t.Female}</Text>
                 </RadioButton>
               </RadioGroup>
             </View>

@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   },
   iconLeft: {
     flex: 1,
-    textAlign: 'center'
+    textAlign: 'center',
   },
   text: {
     flex: 6,

@@ -3,6 +3,7 @@ import { Image, View, Text, TouchableOpacity } from 'react-native';
 import CommonButtons from './CommonButtons';
 import { theme } from 'galio-framework';
 import { Colors, Images } from '../../constants';
+import t from '../../I18n';
 
 class IamUser extends Component {
   render() {
@@ -10,7 +11,7 @@ class IamUser extends Component {
       <View style={styles.mainContainer}>
         <Image style={styles.image} source={Images.user} resizeMode="contain" />
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>User</Text>
+          <Text style={styles.title}>{t.User}</Text>
           <Text style={styles.description}>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry Lorem Ipsum

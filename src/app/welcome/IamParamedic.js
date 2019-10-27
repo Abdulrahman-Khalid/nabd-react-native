@@ -3,14 +3,19 @@ import { Image, View, Text, TouchableOpacity } from 'react-native';
 import CommonButtons from './CommonButtons';
 import { theme } from 'galio-framework';
 import { Colors, Images } from '../../constants';
+import t from '../../I18n';
 
 class IamParamedic extends Component {
   render() {
     return (
       <View style={styles.mainContainer}>
-        <Image style={styles.image} source={Images.paramedic} resizeMode="contain" />
+        <Image
+          style={styles.image}
+          source={Images.paramedic}
+          resizeMode="contain"
+        />
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>Aide</Text>
+          <Text style={styles.title}>{t.Aide}</Text>
           <Text style={styles.description}>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry Lorem Ipsum

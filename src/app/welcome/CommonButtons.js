@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { Colors } from '../../constants';
 import { Dimensions, View, TouchableOpacity, Text } from 'react-native';
-
+import t from '../../I18n';
 const { width, height } = Dimensions.get('screen');
 
 export default class CommonButtons extends Component {
@@ -15,7 +15,7 @@ export default class CommonButtons extends Component {
         >
           <View style={styles.button}>
             <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
-              I'm new
+              {t.CreateAccount}
             </Text>
           </View>
         </TouchableOpacity>
@@ -30,7 +30,7 @@ export default class CommonButtons extends Component {
                 fontFamily: 'Manjari-Bold'
               }}
             >
-              Sign in
+              {t.SignIn}
             </Text>
           </View>
         </TouchableOpacity>

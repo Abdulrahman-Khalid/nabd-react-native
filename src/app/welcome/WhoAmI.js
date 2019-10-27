@@ -9,6 +9,7 @@ import { connect } from 'react-redux';
 import { setUserType, getWelcomeInfo } from '../../actions';
 import AsyncStorage from '@react-native-community/async-storage';
 import axios from 'axios';
+import t from '../../I18n';
 
 const { width, height } = Dimensions.get('screen');
 class WhoAmI extends Component {
@@ -72,7 +73,7 @@ class WhoAmI extends Component {
           >
             <View style={styles.button}>
               <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
-                User
+                {t.User}
               </Text>
             </View>
           </TouchableOpacity>
@@ -82,7 +83,7 @@ class WhoAmI extends Component {
           >
             <View style={styles.button}>
               <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
-                Doctor
+                {t.Doctor}
               </Text>
             </View>
           </TouchableOpacity>
@@ -92,7 +93,7 @@ class WhoAmI extends Component {
           >
             <View style={styles.button}>
               <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
-                Aide
+                {t.Paramedic}
               </Text>
             </View>
           </TouchableOpacity>
@@ -102,7 +103,7 @@ class WhoAmI extends Component {
           >
             <View style={styles.button}>
               <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
-                Ambulance Driver
+                {t.AmbulanceDriver}
               </Text>
             </View>
           </TouchableOpacity>

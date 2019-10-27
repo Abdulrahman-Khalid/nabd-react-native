@@ -3,6 +3,7 @@ import { Image, View, Text, TouchableOpacity } from 'react-native';
 import CommonButtons from './CommonButtons';
 import { theme } from 'galio-framework';
 import { Colors, Images } from '../../constants';
+import t from '../../I18n';
 
 class IamDoctor extends Component {
   render() {
@@ -14,7 +15,7 @@ class IamDoctor extends Component {
           resizeMode="contain"
         />
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>Doctor</Text>
+          <Text style={styles.title}>{t.Doctor}</Text>
           <Text style={styles.description}>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry Lorem Ipsum

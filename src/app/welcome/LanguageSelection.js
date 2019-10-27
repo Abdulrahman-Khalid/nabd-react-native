@@ -8,7 +8,7 @@ import {
   Picker,
   TouchableOpacity,
   TouchableNativeFeedback,
-  NativeModules,
+  NativeModules
 } from 'react-native';
 import { connect } from 'react-redux';
 import RNRestart from 'react-native-restart';
@@ -25,7 +25,7 @@ class LanguageSelection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOption: "ar",
+      selectedOption: 'ar'
     };
   }
 
@@ -65,7 +65,9 @@ class LanguageSelection extends Component {
           <SwitchButton
             text1="Arabic"
             text2="English"
-            onValueChange={val => this.setState({ selectedOption: val == 1 ? "ar" : "en" })}
+            onValueChange={val =>
+              this.setState({ selectedOption: val == 1 ? 'ar' : 'en' })
+            }
             fontColor="#817d84"
             activeFontColor="black"
             switchdirection={isRtl}
@@ -73,7 +75,7 @@ class LanguageSelection extends Component {
         </View>
         <FAB
           style={styles.nextButton}
-          icon={isRtl === 'ltr' ? "chevron-right" : "chevron-left"}
+          icon={isRtl === 'ltr' ? 'chevron-right' : 'chevron-left'}
           onPress={this._handlePress}
         />
       </View>
@@ -91,12 +93,12 @@ const styles = StyleSheet.create({
     width: 200,
     height: 200,
     margin: 12,
-    flex: 1,
+    flex: 1
   },
   titleContainer: {
     flex: 0.5,
     flexDirection: 'column',
-    justifyContent: 'center',
+    justifyContent: 'center'
   },
   title: {
     fontSize: 30,
@@ -122,7 +124,7 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     backgroundColor: Colors.APP
-  },
+  }
 });
 
 const mapStateToProps = state => ({ language: state.language });

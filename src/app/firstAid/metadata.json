@@ -1,48 +1,60 @@
 {
-  "bleeding": { "value": "bleeding", "arValue": "النزيف الحاد", "count": "6" },
-  "burns": { "value": "burns", "arValue": "الحروق", "count": "10" },
-  "chemical_poisoning": {
-    "value": "chemical_poisoning",
-    "arValue": "التسمم الكيميائي"
+  "bleeding": {
+    "value": "bleeding",
+    "count": "6"
   },
-  "cpr": { "value": "cpr", "arValue": "الإنعاش القلبي الرئوي", "count": "8" },
-  "seizure": { "value": "seizure", "arValue": "التشنجات", "count": "6" },
-  "cuts": { "value": "cuts", "arValue": "الجروح", "count": "8" },
-  "eye_injury": { "value": "eye_injury", "arValue": "إصابات العين" },
-  "fractures": { "value": "fractures", "arValue": "الكسور", "count": "5" },
+  "burns": {
+    "value": "burns",
+    "count": "10"
+  },
+  "chemical_poisoning": {
+    "value": "chemical_poisoning"
+  },
+  "cpr": {
+    "value": "cpr",
+    "count": "8"
+  },
+  "seizure": {
+    "value": "seizure",
+    "count": "6"
+  },
+  "cuts": {
+    "value": "cuts",
+    "count": "8"
+  },
+  "eye_injury": {
+    "value": "eye_injury"
+  },
+  "fractures": {
+    "value": "fractures",
+    "count": "5"
+  },
   "head_injury": {
     "value": "head_injury",
-    "arValue": "إصابات الرأس",
     "count": "7"
   },
-  "nosebleeding": {
-    "value": "nosebleeding",
-    "arValue": "الرعاف",
+  "nosebleed": {
+    "value": "nosebleed",
     "count": "5"
   },
   "tooth_injury": {
     "value": "tooth_injury",
-    "arValue": "إصابات الأسنان",
     "count": "5"
   },
   "eye_injury_puncture": {
     "value": "eye_injury_puncture",
-    "arValue": "قطع/ثقب العين",
     "count": "5"
   },
   "eye_injury_scratch": {
     "value": "eye_injury_scratch",
-    "arValue": "خدوش العين",
     "count": "6"
   },
   "chemical_poisoning_inhaling": {
     "value": "chemical_poisoning_inhaling",
-    "arValue": "التسمم بالاستنشاق",
     "count": "5"
   },
   "chemical_poisoning_swallowing": {
     "value": "chemical_poisoning_swallowing",
-    "arValue": "التسمم بالبلع",
     "count": "5"
   }
 }

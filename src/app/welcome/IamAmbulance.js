@@ -3,6 +3,7 @@ import { Image, View, Text, TouchableOpacity } from 'react-native';
 import CommonButtons from './CommonButtons';
 import { theme } from 'galio-framework';
 import { Colors, Images } from '../../constants';
+import t from '../../I18n';
 
 class IamAmbulance extends Component {
   render() {
@@ -14,7 +15,7 @@ class IamAmbulance extends Component {
           resizeMode="contain"
         />
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>Ambulance Driver</Text>
+          <Text style={styles.title}>{t.AmbulanceDriver}</Text>
           <Text style={styles.description}>
             Lorem Ipsum is simply dummy text of the printing and typesetting
             industry Lorem Ipsum
@@ -27,7 +28,7 @@ class IamAmbulance extends Component {
           >
             <View style={styles.button}>
               <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
-                Sign in
+                {t.SignIn}
               </Text>
             </View>
           </TouchableOpacity>
@@ -76,7 +77,7 @@ const styles = {
     margin: 10,
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'flex-end',
+    alignItems: 'flex-end'
   },
   buttonContainer: {
     flex: 1,

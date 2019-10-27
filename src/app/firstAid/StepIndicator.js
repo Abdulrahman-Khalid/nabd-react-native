@@ -3,6 +3,8 @@ import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
 import Steps from 'react-native-steps';
 import data from './FirstAidData';
 import metadata from './metadata.json';
+import { argonTheme } from '../../constants';
+import t from '../../I18n';
 import { Colors } from '../../constants';
 
 const { APP, BACKGROUND } = Colors;
@@ -50,7 +52,7 @@ export default class StepIndicator extends Component {
         </View>
         <FlatList
           style={{ flexGrow: 1 }}
-          data={data[this.props.injury]}
+          data={t[this.props.injury]}
           renderItem={this.renderPage}
           onViewableItemsChanged={this.onViewableItemsChanged}
           viewabilityConfig={this.viewabilityConfig}
@@ -64,7 +66,7 @@ export default class StepIndicator extends Component {
     const item = rowData.item;
     return (
       <View style={styles.rowItem}>
-        <Text style={styles.body}>{item.body}</Text>
+        <Text style={styles.body}>{item}</Text>
         <View style={styles.imageContainer}>
           <Image style={styles.image} source={item.image} />
         </View>
@@ -85,7 +87,7 @@ export default class StepIndicator extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row-reverse',
+    flexDirection: 'row-reverse'
   },
   stepIndicator: {
     marginVertical: 20, // 50
