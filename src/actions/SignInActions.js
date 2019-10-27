@@ -38,25 +38,16 @@ export const signInAttempt = signInInfo => {
         password: password
       })
       .then(response => {
-        AsyncStorage.multiSet([
-          ['@app:session', response.data.token],
-          ['@app:userType', userType]
-        ])
-          .then(() => {
-            AsyncStorage.getItem('@app:session')
-              .then(token => {
-                axios.defaults.headers.common['TOKEN'] = token;
-              })
-              .catch(error => {})
-              .then(() => {
-                if (userType) Actions.home();
-              });
-          })
-          .catch(error => {});
         loginVoximplant(phone);
         console.log(response);
+        axios.defaults.headers.common['TOKEN'] = response.data.token;
         dispatch({
-          type: SIGNIN_SUCCESS
+          type: SIGNIN_SUCCESS,
+          payload: {
+            token: response.data.token,
+            userName: response.data.userName,
+            userType
+          }
         });
       })
       .catch(error => {
