@@ -18,6 +18,7 @@ import { LocationPicker, Icon } from '../../components';
 import { Colors } from '../../constants';
 import { connect } from 'react-redux';
 import t from '../../I18n';
+import { addedNewIncident } from '../../actions';
 
 const actionSheetButtons = [
   'Take a picture',
@@ -140,6 +141,7 @@ class AddIncident extends Component {
               console.log(error.response.status);
             })
             .then(() => {
+              this.props.addedNewIncident();
               Actions.Incidents();
             });
         });
@@ -154,17 +156,14 @@ class AddIncident extends Component {
           location: this.state.location,
           numberToCall: this.state.numberToCall
         })
-        .then(response => {
-          console.log(response.status);
-        })
+        .then(response => {})
         .catch(err => {
           // handle error
           let error = JSON.stringify(err);
           error = JSON.parse(error);
-          console.log(error);
-          console.log(error.response.status);
         })
         .then(() => {
+          this.props.addedNewIncident();
           Actions.Incidents();
         });
     }
@@ -402,5 +401,5 @@ const mapStateToProps = state => ({ position: state.location.position });
 
 export default connect(
   mapStateToProps,
-  null
+  { addedNewIncident }
 )(AddIncident);
