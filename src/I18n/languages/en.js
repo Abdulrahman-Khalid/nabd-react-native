@@ -102,7 +102,7 @@ export default en = {
     'When the tooth cannot be restored, it should be placed in a cup of milk, or placed in the mouth next to the cheek, but the tooth should not be kept in water.',
     'Go to the doctor in thirty minutes for rapid intervention.'
   ],
-  nosebleeding: [
+  nosebleed: [
     'Leaning forward slightly while sitting or standing, avoiding lying down, or tilting the head backwards, as this will cause swallowing of blood and vomiting.',
 
     'Hold the nose from the soft (not bony) part of both sides, avoiding pressure on only one side, even if the bleeding is on only one side.',
