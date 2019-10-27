@@ -46,13 +46,31 @@ class RouterComponent extends Component {
     );
   }
 
+    _renderFirstAidButton() {
+    return (
+      <TouchableOpacity
+        onPress={() => Actions.FirstAid_()}
+        style={{ marginRight: 20 }}
+      >
+        <CustomIcon
+          name="hospital"
+          family="flaticon"
+          size={25}
+          style={{
+            color: 'white'
+          }}
+        />
+      </TouchableOpacity>
+    );
+  }
+
   _renderBackButton() {
     return (
       <TouchableOpacity
         onPress={() => Actions.pop()}
         style={{ marginLeft: 10 }}
       >
-        <Icon name="arrow-left" color={Colors.APP} size={25} />
+        <Icon name="arrow-left" color={Colors.WHITE} size={25} />
       </TouchableOpacity>
     );
   }
@@ -90,7 +108,19 @@ class RouterComponent extends Component {
               component={WhoAmI}
               title="Nabd"
               hideNavBar={false}
+              renderRightButton={this._renderFirstAidButton}
             />
+            <Scene
+              key="FirstAid_"
+              title={t.FirstAid}
+            >
+                <Scene hideNavBar key="InjuriesList" component={InjuriesList} />
+                <Scene key="FirstAidDetails" component={FirstAidDetails} hideNavBar />
+                <Scene
+                  key="FirstAidDetailsWithButtons"
+                  component={FirstAidDetailsWithButtons}
+                />
+              </Scene>
             <Scene key="iUser" component={IamUser} title={t.User} />
             <Scene key="iDoctor" component={IamDoctor} title={t.Doctor} />
             <Scene
@@ -124,6 +154,7 @@ class RouterComponent extends Component {
               component={VerifySignup}
               title={t.Verify}
             />
+
           </Scene>
           <Scene key="userHome" hideNavBar={true}>
             <Tabs

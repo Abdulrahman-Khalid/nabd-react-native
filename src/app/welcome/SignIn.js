@@ -168,7 +168,7 @@ class SignIn extends Component {
           style={styles.textButtonContainer}
           onPress={() => Actions.signup()}
         >
-          <Text>{SignUp}</Text>
+          <Text>{t.SignUp}</Text>
         </TouchableOpacity>
       </View>
     );

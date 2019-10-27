@@ -232,7 +232,7 @@ class InjuriesList extends Component {
               src={'nosebleeding'}
               backgroundClr="#FFE0B2"
               txt={t.Nosebleed}
-              onPress={this.onButtonPress.bind(this, 'nosebleeding')}
+              onPress={this.onButtonPress.bind(this, 'nosebleed')}
             />
           </View>
 
