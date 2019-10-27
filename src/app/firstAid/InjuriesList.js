@@ -15,7 +15,8 @@ import t from '../../I18n';
 import data from './metadata.json';
 import { Colors } from '../../constants';
 import { theme } from 'galio-framework';
-import { Icon } from '../../components';
+import { Icon as CustomIcon } from '../../components';
+import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 
 const { width, height } = Dimensions.get('screen');
@@ -39,12 +40,73 @@ class InjuriesList extends Component {
   onButtonPress(text) {
     const { injury } = this.props;
     this.props.InjuryButtonPressed(text);
-    Actions.FirstAidDetails();
+    Actions.FirstAidDetails({ hideNavBar: false });
   }
   onButtonPress_(text) {
     const { injury } = this.props;
     this.props.InjuryButtonPressed(text);
-    Actions.FirstAidDetailsWithButtons();
+    Actions.FirstAidDetailsWithButtons({ hideNavBar: false });
+  }
+
+  renderNavbarButton(scrollOffset) {
+    if (this.props.quickAccess) {
+      return (
+        <TouchableOpacity
+          onPress={() => Actions.pop()}
+          style={{
+            position: 'absolute',
+            right: 0,
+            marginRight: 20
+          }}
+        >
+          <CustomIcon
+            name="back"
+            family="animatedFlaticon"
+            size={25}
+            style={{
+              color: scrollOffset.interpolate({
+                inputRange: [0, 200],
+                outputRange: ['black', 'white'],
+                extrapolate: 'clamp'
+              }),
+              fontSize: scrollOffset.interpolate({
+                inputRange: [0, 200],
+                outputRange: [25, 20],
+                extrapolate: 'clamp'
+              })
+            }}
+          />
+        </TouchableOpacity>
+      );
+    }
+    return (
+      <TouchableOpacity
+        onPress={() => Actions.UserSettings()}
+        style={{
+          position: 'absolute',
+          right: 0,
+          marginRight: 20
+        }}
+      >
+        <CustomIcon
+          name="gear-option"
+          family="animatedFlaticon"
+          size={25}
+          style={{
+            color: scrollOffset.interpolate({
+              inputRange: [0, 200],
+              outputRange: ['black', 'white'],
+              extrapolate: 'clamp'
+            }),
+            fontSize: scrollOffset.interpolate({
+              inputRange: [0, 200],
+              outputRange: [25, 20],
+              extrapolate: 'clamp'
+            })
+          }}
+        />
+      </TouchableOpacity>
+    );
   }
   render() {
     const { scrollOffset } = this.state;
@@ -109,32 +171,7 @@ class InjuriesList extends Component {
           >
             First Aid
           </Animated.Text>
-          <TouchableOpacity
-            onPress={() => Actions.UserSettings()}
-            style={{
-              position: 'absolute',
-              right: 0,
-              marginRight: 20
-            }}
-          >
-            <Icon
-              name="gear-option"
-              family="animatedFlaticon"
-              size={25}
-              style={{
-                color: scrollOffset.interpolate({
-                  inputRange: [0, 200],
-                  outputRange: ['black', 'white'],
-                  extrapolate: 'clamp'
-                }),
-                fontSize: scrollOffset.interpolate({
-                  inputRange: [0, 200],
-                  outputRange: [25, 20],
-                  extrapolate: 'clamp'
-                })
-              }}
-            />
-          </TouchableOpacity>
+          {this.renderNavbarButton(scrollOffset)}
           <Animated.View
             style={{
               width: scrollOffset.interpolate({

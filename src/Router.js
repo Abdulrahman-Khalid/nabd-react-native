@@ -54,7 +54,9 @@ class RouterComponent extends Component {
   _renderFirstAidButton() {
     return (
       <TouchableOpacity
-        onPress={() => Actions.FirstAid_()}
+        onPress={() =>
+          Actions.FirstAid_({ quickAccess: true, hideNavBar: true })
+        }
         style={{ marginRight: 20 }}
       >
         <CustomIcon
@@ -75,7 +77,7 @@ class RouterComponent extends Component {
         onPress={() => Actions.pop()}
         style={{ marginLeft: 10 }}
       >
-        <Icon name="arrow-left" color={Colors.WHITE} size={25} />
+        <CustomIcon name="arrow-left" color={Colors.WHITE} size={25} />
       </TouchableOpacity>
     );
   }
@@ -118,9 +120,9 @@ class RouterComponent extends Component {
             <Scene key="FirstAid_" title={t.FirstAid}>
               <Scene hideNavBar key="InjuriesList" component={InjuriesList} />
               <Scene
+                hideNavBar
                 key="FirstAidDetails"
                 component={FirstAidDetails}
-                hideNavBar
               />
               <Scene
                 key="FirstAidDetailsWithButtons"
@@ -161,7 +163,7 @@ class RouterComponent extends Component {
               title={t.Verify}
             />
           </Scene>
-          <Scene key="userHome" hideNavBar={true}>
+          <Scene key="userHome" hideNavBar={true} initial>
             <Tabs
               key="tabBar"
               initial
