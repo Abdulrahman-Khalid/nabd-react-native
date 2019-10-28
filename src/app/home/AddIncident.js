@@ -139,6 +139,7 @@ class AddIncident extends Component {
               error = JSON.parse(error);
               console.log(error);
               console.log(error.response.status);
+              Actions.Incidents();
             })
             .then(() => {
               this.props.addedNewIncident();
@@ -161,6 +162,7 @@ class AddIncident extends Component {
           // handle error
           let error = JSON.stringify(err);
           error = JSON.parse(error);
+          Actions.Incidents();
         })
         .then(() => {
           this.props.addedNewIncident();
@@ -232,7 +234,6 @@ class AddIncident extends Component {
                   tintColor: 'blue'
                 },
                 buttonIndex => {
-                  console.log('button clicked :', buttonIndex);
                   switch (buttonIndex) {
                     case 0:
                       this.handleCam();
