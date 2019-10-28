@@ -1,4 +1,46 @@
 export default ar = {
+  InternalMedicine: 'الباطنة والأمراض الصدرية',
+  Cardiology: 'أمراض القلب والأوعية الدموية',
+  Neurology: 'مخ و أعصاب',
+  Orthopaedic: 'العظام',
+  Urology: 'المسالك بولية و التناسلية',
+  OBGYN: 'النساء والتوليد',
+  Dermatology: 'الجلدية',
+  Ophthalmology: 'طب وجراحةالعيون',
+  Pediatrics: 'أطفال',
+  Otorhinolaryngology: 'أنف وأذن وحنجرة',
+
+  ChooseLocation: 'اختر موقعك',
+  CallFailed: 'فشل الاتصال : ',
+
+  Info: 'معلومات',
+  AmbulanceInfo: 'سجل عربة إسعاف لتستطيع تحديد موقع الطلب بدقة',
+  DoctorInfo:
+    ' أنقذ حياة! سجل حساب طبيب لتلقي مكالمات الفيديو من المرضى ومساعدتهم في حالات الطوارئ',
+
+  ParamedicInfo:
+    ' أنقذ حياة! سجل حساب مسعف لتلقي مكالمات الفيديو من المرضى ومساعدتهم في حالات الطوارئ',
+
+  UserInfo:
+    ' سجل ليكون باستطاعتك تتبع موقع عربة الإسعاف وبدء مكالمات الفيديو مع الأطباء والمسعفين في حالات الطوارئ',
+
+  ParamedicAlert: '.ابدأ مكالمة فيديو مع مسعف',
+  DoctorAlert: '.ابدأ مكالمة فيديو مع أطباء من مختلف التخصصات',
+  AmbulanceAlert: 'طلب عربة إسعاف وتتبع موقعها.',
+  Available: 'متاح الآن',
+  Refresh: 'إعادة التحميل',
+  AllFine: 'يبدو أن كل شيءٍ على ما يرام!',
+  RequiredField: 'هذا الحقل مطلوب',
+  NumberUnvalid: 'الرجاء إدخال رقم صحيح',
+  ActionSheetButtons: ['التقاط صورة', 'رفع صورة من معرض الصور'],
+  FetchingLocation: 'جاري التعرف على موقعك',
+  Create: 'إنشاء',
+  Account: 'حساب',
+  Welcome: 'مرحبًا بك',
+  Back: 'مجددًا!',
+  Nabd: 'نبض',
+  LangNote: 'يمكنك تغيير اللغة لاحقًا من الإعدادات',
+  AccountType: 'اختر نوع الحساب',
   LanguageScreenTitle: 'اختر لغتك',
   GetStarted: 'استمر',
   Profile: 'معلومات الحساب',

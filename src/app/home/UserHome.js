@@ -250,10 +250,7 @@ class UserHome extends Component {
         //   this.props.selectHelperType('aide');
         // }}
         onPressInfo={() => {
-          Alert.alert(
-            'Info',
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
-          );
+          Alert.alert(t.Info, t.DoctorAlert);
         }}
       />
     );
@@ -286,61 +283,61 @@ class UserHome extends Component {
     const options = [
       {
         color: '#051C2B',
-        label: 'الباطنة والأمراض الصدرية',
+        label: t.InternalMedicine,
         img: Images.lungIcon,
         value: 1
       },
       {
         color: '#051C2B',
-        label: 'أمراض القلب والأوعية الدموية',
+        label: t.Cardiology,
         img: Images.heartIcon,
         value: 2
       },
       {
         color: '#051C2B',
-        label: 'مخ و أعصاب',
+        label: t.Neurology,
         img: Images.brainIcon,
         value: 3
       },
       {
         color: '#051C2B',
-        label: 'العظام',
+        label: t.Orthopaedic,
         img: Images.boneIcon,
         value: 4
       },
       {
         color: '#051C2B',
-        label: 'المسالك بولية و التناسلية',
+        label: t.Urology,
         img: Images.bladderIcon,
         value: 5
       },
       {
         color: '#051C2B',
-        label: 'النساء والتوليد',
+        label: t.OBGYN,
         img: Images.pregnantIcon,
         value: 6
       },
       {
         color: '#051C2B',
-        label: 'الجلدية',
+        label: t.Dermatology,
         img: Images.skinIcon,
         value: 7
       },
       {
         color: '#051C2B',
-        label: 'طب وجراحةالعيون',
+        label: t.Ophthalmology,
         img: Images.eyeIcon,
         value: 8
       },
       {
         color: '#051C2B',
-        label: 'أطفال',
+        label: t.Pediatrics,
         img: Images.childIcon,
         value: 9
       },
       {
         color: '#051C2B',
-        label: 'أنف و أذن و حنجرة',
+        label: t.Otorhinolaryngology,
         img: Images.throatIcon,
         value: 10
       }
@@ -621,10 +618,7 @@ class UserHome extends Component {
                 this.videoCall('paramedic', null);
               }}
               onPressInfo={() => {
-                Alert.alert(
-                  'Info',
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
-                );
+                Alert.alert(t.Info, t.ParamedicAlert);
               }}
             />
             {this.renderRequestDoctorCard()}
@@ -650,10 +644,7 @@ class UserHome extends Component {
                 this.setModalVisible(true);
               }}
               onPressInfo={() => {
-                Alert.alert(
-                  'Info',
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
-                );
+                Alert.alert(t.Info, t.AmbulanceAlert);
               }}
             />
           </View>
@@ -662,7 +653,7 @@ class UserHome extends Component {
     ) : (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" style={{ marginBottom: 20 }} />
-        <Text style={{ fontSize: 20 }}>Fetching your location</Text>
+        <Text style={{ fontSize: 20 }}>{t.FetchingLocation}</Text>
       </View>
     );
   }

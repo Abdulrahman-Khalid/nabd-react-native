@@ -435,7 +435,9 @@ class Register extends React.Component {
                 alignSelf: 'flex-start'
               }}
             >
-              Create{'\n'}Account
+              {t.Create}
+              {'\n'}
+              {t.Account}
             </Text>
             <Input
               placeholder={t.Username}

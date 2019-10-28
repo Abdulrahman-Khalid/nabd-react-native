@@ -58,13 +58,11 @@ class LanguageSelection extends Component {
         />
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{t.LanguageScreenTitle}</Text>
-          <Text style={styles.description}>
-            You can also change it later in Settings
-          </Text>
+          <Text style={styles.description}>{t.LangNote}</Text>
         </View>
         <View style={styles.switch}>
           <SwitchButton
-            text1="Arabic"
+            text1="العربية"
             text2="English"
             onValueChange={val =>
               this.setState({ selectedOption: val == 1 ? 'ar' : 'en' })

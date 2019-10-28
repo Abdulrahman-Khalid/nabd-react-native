@@ -86,7 +86,7 @@ export default class StepIndicator extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row-reverse'
+    flexDirection: 'row'
   },
   stepIndicator: {
     marginVertical: 20, // 50

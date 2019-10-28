@@ -52,7 +52,7 @@ class WhoAmI extends Component {
           resizeMode="contain"
         />
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>Choose a Suitable Account Type</Text>
+          <Text style={styles.title}>{t.AccountType}</Text>
         </View>
         <View style={styles.switch}></View>
         <View style={styles.buttonsContainer}>

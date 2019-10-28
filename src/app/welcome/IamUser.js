@@ -12,10 +12,7 @@ class IamUser extends Component {
         <Image style={styles.image} source={Images.user} resizeMode="contain" />
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{t.User}</Text>
-          <Text style={styles.description}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry Lorem Ipsum
-          </Text>
+          <Text style={styles.description}>{t.UserInfo}</Text>
         </View>
         <CommonButtons />
       </View>
