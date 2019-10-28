@@ -163,7 +163,7 @@ class RouterComponent extends Component {
               title={t.Verify}
             />
           </Scene>
-          <Scene key="userHome" hideNavBar={true} initial>
+          <Scene key="userHome" hideNavBar={true}>
             <Tabs
               key="tabBar"
               initial
@@ -226,6 +226,7 @@ class RouterComponent extends Component {
             icon={() => <Icon name="lifebuoy" size={25} />}
           />
           <Scene key="paramedicHome" component={ParamedicHome} title={t.Home} />
+          <Scene key="docotrHome" component={ParamedicHome} title={t.Home} />
           <Scene key="ambulanceHome" component={AmbulanceHome} title={t.Home} />
           <Scene key="CallScreen" component={CallScreen} hideNavBar={true} />
           {/* <Scene key="Call" component={Call} hideNavBar={true} /> */}

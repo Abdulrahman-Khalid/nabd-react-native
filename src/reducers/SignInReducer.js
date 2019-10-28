@@ -32,9 +32,9 @@ signInReducer = (state = INTIAL_STATE, action) => {
       return {
         ...state,
         loading: false,
-        userName: payload.userName,
-        token: payload.token,
-        userType: payload.userType
+        userName: action.payload.userName,
+        token: action.payload.token,
+        userType: action.payload.userType
       };
     case SIGNIN_FAIL:
       return { ...state, loading: false, error: action.payload };
