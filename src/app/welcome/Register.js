@@ -44,13 +44,13 @@ class Register extends React.Component {
 
     this.onPressFlag = this.onPressFlag.bind(this);
     this.selectCountry = this.selectCountry.bind(this);
-
     this.state = {
       pickerData: null,
       todayDate: year + '-' + month + '-' + date,
       birthday: year + '-' + month + '-' + date,
       gender: 'male',
-      showAlert: false
+      showAlert: false,
+      specialization: null
     };
   }
 
@@ -112,7 +112,7 @@ class Register extends React.Component {
         password: this.props.password,
         confirmPassword: this.props.confirmPassword,
         userType: this.props.userType,
-        specialization: null
+        specialization: this.state.specialization
       });
     }
   };
@@ -261,13 +261,21 @@ class Register extends React.Component {
           )}
           {selectedItem && (
             <View style={styles.innerContainer}>
-              <TouchableOpacity onPress={clear}>
+              <TouchableOpacity
+                onPress={() => {
+                  this.setState({
+                    ...this.state,
+                    specialization: null
+                  });
+                }}
+              >
                 <Image
                   style={[
                     {
                       width: 12,
                       height: 12,
-                      margin: 12
+                      margin: 12,
+                      color: red
                     },
                     styles.shadow
                   ]}
@@ -385,7 +393,12 @@ class Register extends React.Component {
           footerTemplate={this.renderFooter}
           modalAnimationType="slide"
           onValueChange={item => {
-            this.videoCall('doctor', item.value);
+            if (item) {
+              this.setState({
+                ...this.state,
+                specialization: item.value
+              });
+            }
           }}
         />
       );
@@ -772,6 +785,42 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     flexDirection: 'row',
     backgroundColor: Colors.APP
+  },
+  container: {
+    borderColor: 'grey',
+    borderWidth: 1,
+    padding: 15
+  },
+  innerContainer: {
+    flexDirection: 'row',
+    alignItems: 'stretch'
+  },
+  headerFooterContainer: {
+    padding: 10,
+    alignItems: 'center',
+    fontSize: 20
+  },
+  clearButton: {
+    backgroundColor: 'grey',
+    borderRadius: 5,
+    marginRight: 10,
+    padding: 5
+  },
+  optionContainer: {
+    padding: 10,
+    borderBottomColor: 'grey',
+    borderBottomWidth: 1
+  },
+  optionInnerContainer: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  imageIconWrapper: {
+    backgroundColor: '#E8E6E3',
+    width: 32,
+    height: 32,
+    borderRadius: 32 / 2,
+    margin: 5
   }
 });
 
