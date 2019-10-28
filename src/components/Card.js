@@ -46,7 +46,7 @@ class Card extends React.Component {
               position: 'absolute',
               bottom: 0,
               fontWeight: '900',
-              fontFamily: 'Manjari-Bold',
+              fontFamily: 'IstokWeb-Bold',
               marginLeft: 15
             }}
           >

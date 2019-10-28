@@ -75,7 +75,7 @@ class SignIn extends Component {
             {this.props.loading ? (
               <Spinner color={Colors.WHITE} size="small" />
             ) : (
-              <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
+              <Text style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}>
                 {t.LogIn}
               </Text>
             )}

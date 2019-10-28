@@ -341,7 +341,7 @@ class AddIncident extends Component {
             >
               <View style={styles.button}>
                 <Text
-                  style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}
+                  style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
                 >
                   {t.Next}
                 </Text>

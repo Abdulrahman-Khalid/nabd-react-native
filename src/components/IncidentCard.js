@@ -247,7 +247,7 @@ class IncidentCard extends React.Component {
                 color="#b3b3b2"
                 size={17}
               />
-              <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
+              <Text style={{ color: '#b3b3b2', fontFamily: 'IstokWeb-Bold' }}>
                 {t.GetDirections}
               </Text>
             </View>
@@ -274,7 +274,7 @@ class IncidentCard extends React.Component {
                   color="#d76674"
                   size={17}
                 />
-                <Text style={{ color: '#d76674', fontFamily: 'Manjari-Bold' }}>
+                <Text style={{ color: '#d76674', fontFamily: 'IstokWeb-Bold' }}>
                  {t.Call}
                 </Text>
               </View>

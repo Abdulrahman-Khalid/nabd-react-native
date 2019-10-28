@@ -538,7 +538,7 @@ class UserHome extends Component {
                   }
                 ]}
               >
-                <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
+                <Text style={{ color: '#b3b3b2', fontFamily: 'IstokWeb-Bold' }}>
                   Open Settings
                 </Text>
               </View>
@@ -557,7 +557,7 @@ class UserHome extends Component {
                   }
                 ]}
               >
-                <Text style={{ color: '#d76674', fontFamily: 'Manjari-Bold' }}>
+                <Text style={{ color: '#d76674', fontFamily: 'IstokWeb-Bold' }}>
                   Refresh
                 </Text>
               </View>
@@ -581,7 +581,9 @@ class UserHome extends Component {
             <Text style={styles.gpsOffModalTitle}>
               Nabd requires access to your location
             </Text>
-            <Text style={styles.gpsOffModalDescription}>Enable location services for a better experience</Text>
+            <Text style={styles.gpsOffModalDescription}>
+              Enable location services for a better experience
+            </Text>
           </View>
         </View>
       </Modal>
@@ -731,7 +733,7 @@ const styles = StyleSheet.create({
   locationPermissionModalTitle: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'Manjari-Regular',
+    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -740,7 +742,7 @@ const styles = StyleSheet.create({
     color: 'gray',
     textAlign: 'center',
     flex: 1,
-    fontFamily: 'Manjari-Regular',
+    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -753,7 +755,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: 200,
     height: 200,
-    margin: 12,
+    margin: 12
   },
   gpsOffModalTitleContainer: {
     flex: 1,
@@ -763,14 +765,14 @@ const styles = StyleSheet.create({
   gpsOffModalTitle: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'Manjari-Regular',
+    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
   gpsOffModalDescription: {
     fontSize: 15,
     color: 'gray',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   container: {
     borderColor: 'grey',
