@@ -89,11 +89,10 @@ export class Incidents extends Component {
     super(props);
     this.state = {
       IncidentCards: [],
-      // IncidentCards: incidentsDummyData,
-      userID: '201140028533',
       refreshing: false,
       scrollOffset: new Animated.Value(0),
-      titleWidth: 0
+      titleWidth: 0,
+      empty: true
     };
     this.offset = 0;
   }
@@ -149,14 +148,17 @@ export class Incidents extends Component {
         }
       })
       .then(response => {
-        if (!id) {
-          this.setState({
-            IncidentCards: response.data
-          });
-        } else {
-          this.setState(prevState => ({
-            IncidentCards: prevState.IncidentCards.concat(response.data)
-          }));
+        if (response.status != 404) {
+          if (!id) {
+            this.setState({
+              IncidentCards: response.data,
+              empty: false
+            });
+          } else {
+            this.setState(prevState => ({
+              IncidentCards: prevState.IncidentCards.concat(response.data)
+            }));
+          }
         }
         this.setState({ refreshing: false });
       })
@@ -166,22 +168,9 @@ export class Incidents extends Component {
       .then(() => {});
   }
 
-  async videoCall() {
-    try {
-      let s = await client.getClientState();
-      if (s === Voximplant.ClientState.DISCONNECTED) {
-        await client.connect();
-      }
-      let authResult = await this.state.client.login('412412', info.userPass);
-      // Alert.alert('Selected Item', authResult);
-    } catch (e) {
-      console.log(e.name + e.message);
-    }
-  }
-
   render() {
     const { scrollOffset } = this.state;
-    if (this.props.location.position) {
+    if (this.props.location.position || this.state.refreshing) {
       return (
         <View style={styles.mainContainer}>
           <Animated.View
@@ -279,36 +268,43 @@ export class Incidents extends Component {
               }}
             />
           </Animated.View>
-          <ScrollView
-            refreshControl={
-              <RefreshControl
-                refreshing={this.state.refreshing}
-                onRefresh={this.pullRefresh}
-              />
-            }
-            showsVerticalScrollIndicator={false}
-            contentContainerStyle={styles.buttons}
-            style={{ flex: 1 }}
-            onScroll={({ nativeEvent }) => {
-              const scrollSensitivity = 4 / 3;
-              const offset = nativeEvent.contentOffset.y / scrollSensitivity;
-              this.state.scrollOffset.setValue(offset);
-              this.moreIncidentCards(nativeEvent);
-            }}
-            scrollEventThrottle={20}
-          >
-            {this.state.IncidentCards.map((item, index) => (
-              <IncidentCard
-                key={index}
-                item={item}
-                onPressRemove={() => {
-                  console.log('Remove Pressed');
-                }}
-                renderRemove={this.state.userID === item.userID}
-                style={styles.incidents}
-              />
-            ))}
-          </ScrollView>
+          {this.state.empty ? (
+            <ScrollView
+              refreshControl={
+                <RefreshControl
+                  refreshing={this.state.refreshing}
+                  onRefresh={this.pullRefresh}
+                />
+              }
+              showsVerticalScrollIndicator={false}
+              contentContainerStyle={styles.buttons}
+              style={{ flex: 1 }}
+              onScroll={({ nativeEvent }) => {
+                const scrollSensitivity = 4 / 3;
+                const offset = nativeEvent.contentOffset.y / scrollSensitivity;
+                this.state.scrollOffset.setValue(offset);
+                this.moreIncidentCards(nativeEvent);
+              }}
+              scrollEventThrottle={20}
+            >
+              {this.state.IncidentCards.map((item, index) => (
+                <IncidentCard
+                  key={index}
+                  item={item}
+                  onPressRemove={() => {
+                    console.log('Remove Pressed');
+                  }}
+                  renderRemove={this.props.userID === item.userID}
+                  style={styles.incidents}
+                />
+              ))}
+            </ScrollView>
+          ) : (
+            <View>
+              <Text>Looks like everything is fine!</Text>
+              <TouchableOpacity onPress={this.updateIncidentCards}><Text>Refresh</Text></TouchableOpacity>
+            </View>
+          )}
           <FAB
             style={styles.addIncidentButton}
             icon="add"
@@ -454,7 +450,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   location: state.location,
-  addedNewIncidentFlag: state.incidents.addedNewIncidentFlag
+  addedNewIncidentFlag: state.incidents.addedNewIncidentFlag,
+  userID: state.signin.phone
 });
 
 export default connect(
