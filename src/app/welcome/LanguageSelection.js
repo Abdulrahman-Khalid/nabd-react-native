@@ -44,6 +44,7 @@ class LanguageSelection extends Component {
       return;
     }
     Actions.whoRU();
+    // Actions.userHome();
   };
 
   render() {

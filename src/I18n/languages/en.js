@@ -1,4 +1,7 @@
 export default en = {
+  RequiredField: 'This field is required',
+  NumberUnvalid: 'Please enter a valid number',
+  ActionSheetButtons: ['Take a picture', 'Choose a picture from my gallery'],
   FetchingLocation: 'Fetching your location',
   Create: 'Create',
   Account: 'Account',

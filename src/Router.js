@@ -209,8 +209,7 @@ class RouterComponent extends Component {
               key="settings"
               component={UserSettings}
               title={t.Settings}
-              renderLeftButton={this._renderBackButton}
-              title={t.Settings}
+              // renderLeftButton={this._renderBackButton}
               hideNavBar={false}
             />
             <Scene
@@ -266,7 +265,7 @@ class RouterComponent extends Component {
               key="settings"
               component={UserSettings}
               title={t.Settings}
-              renderLeftButton={this._renderBackButton}
+              // renderLeftButton={this._renderBackButton}
               title={t.Settings}
               hideNavBar={false}
             />

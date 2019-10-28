@@ -1,4 +1,7 @@
 export default ar = {
+  RequiredField: 'هذا الحقل مطلوب',
+  NumberUnvalid: 'الرجاء إدخال رقم صحيح',
+  ActionSheetButtons: ['التقاط صورة', 'اختيار صورة من معرض الصور'],
   FetchingLocation: 'جاري التعرف على موقعك',
   Create: 'إنشاء',
   Account: 'حساب',

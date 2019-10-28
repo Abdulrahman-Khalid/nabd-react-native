@@ -20,10 +20,7 @@ import { connect } from 'react-redux';
 import t from '../../I18n';
 import { addedNewIncident } from '../../actions';
 
-const actionSheetButtons = [
-  'Take a picture',
-  'Choose a picture from my gallery'
-];
+const actionSheetButtons = t.ActionSheetButtons;
 
 class AddIncident extends Component {
   state = {
@@ -291,7 +288,7 @@ class AddIncident extends Component {
               error={this.state.numberFieldError}
             />
             <HelperText type="error" visible={this.state.numberFieldError}>
-              Please enter a valid number
+              {t.NumberUnvalid}
             </HelperText>
           </View>
           <View style={{ flex: 2, marginBottom: 10, justifyContent: 'center' }}>
@@ -314,7 +311,7 @@ class AddIncident extends Component {
               underlineColor={Colors.BLACK}
             />
             <HelperText type="error" visible={this.state.descriptionFieldError}>
-              This field is required
+              {t.RequiredField}
             </HelperText>
           </View>
           <View style={styles.buttonsContainer}>
@@ -397,7 +394,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => ({ position: state.location.position, userID: state.signin.phone });
+const mapStateToProps = state => ({
+  position: state.location.position,
+  userID: state.signin.phone
+});
 
 export default connect(
   mapStateToProps,
