@@ -86,6 +86,7 @@
     "redux-persist": "^5.10.0",
     "redux-thunk": "^2.3.0",
     "rn-viewpager": "^1.2.9",
+    "socket.io-client": "^2.3.0",
     "uuid": "^3.3.3",
     "ws": "^7.1.2",
     "yarn": "^1.17.3"
