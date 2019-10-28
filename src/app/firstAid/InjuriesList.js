@@ -81,7 +81,7 @@ class InjuriesList extends Component {
     }
     return (
       <TouchableOpacity
-        onPress={() => Actions.UserSettings()}
+        onPress={() => Actions.settings()}
         style={{
           position: 'absolute',
           right: 0,
