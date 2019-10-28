@@ -208,7 +208,7 @@ class UserHome extends Component {
           action.close();
         }}
       >
-        <Text>close</Text>
+        <Text>اغلاق</Text>
       </TouchableOpacity>
     );
   }
