@@ -1,4 +1,15 @@
 export default en = {
+  InternalMedicine: ' Internal Medicine',
+  Cardiology: 'Cardiology',
+  Neurology: 'Neurology',
+  Orthopaedic: 'Orthopaedic',
+  Urology: 'Urology',
+  OBGYN: 'OB-GYN',
+  Dermatology: 'Dermatology',
+  Ophthalmology: ' Ophthalmology',
+  Pediatrics: 'Pediatrics',
+  Otorhinolaryngology: ' Otorhinolaryngology',
+
   AmbulanceInfo:
     'Register ambulances to recieve requests and get location of the patient.',
 

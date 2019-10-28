@@ -1,7 +1,17 @@
 export default ar = {
+  InternalMedicine: 'الباطنة والأمراض الصدرية',
+  Cardiology: 'أمراض القلب والأوعية الدموية',
+  Neurology: 'مخ و أعصاب',
+  Orthopaedic: 'العظام',
+  Urology: 'المسالك بولية و التناسلية',
+  OBGYN: 'النساء والتوليد',
+  Dermatology: 'الجلدية',
+  Ophthalmology: 'طب وجراحةالعيون',
+  Pediatrics: 'أطفال',
+  Otorhinolaryngology: 'أنف وأذن وحنجرة',
+
   Info: 'معلومات',
   AmbulanceInfo: 'سجل عربة إسعاف لتستطيع تحديد موقع الطلب بدقة',
-
   DoctorInfo:
     ' أنقذ حياة! سجل حساب طبيب لتلقي مكالمات الفيديو من المرضى ومساعدتهم في حالات الطوارئ',
 
