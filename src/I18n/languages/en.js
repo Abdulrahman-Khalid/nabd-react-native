@@ -1,4 +1,11 @@
 export default en = {
+  Create: 'Create',
+  Account: 'Account',
+  Weclome: 'Welcome',
+  Back: 'Back!',
+  Nabd: 'Nabd',
+  LangNote: 'You can also change it later in Settings',
+  AccountType: 'Choose a Suitable Account Type',
   LanguageScreenTitle: 'Choose Your Language',
   GetStarted: 'Get Started',
   Profile: 'Profile',

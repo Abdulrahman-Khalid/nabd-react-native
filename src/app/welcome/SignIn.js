@@ -100,7 +100,9 @@ class SignIn extends Component {
               marginBottom: 25
             }}
           >
-            Welcome{'\n'}Back
+            {t.Welcome}
+            {'\n'}
+            {t.Back}
           </Text>
           <View>
             <View style={styles.inputContainer}>

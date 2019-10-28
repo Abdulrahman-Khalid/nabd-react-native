@@ -1,4 +1,11 @@
 export default ar = {
+  Create: 'إنشاء',
+  Account: 'حساب',
+  Welcome: 'مرحبًا بك',
+  Back: 'مجددًا!',
+  Nabd: 'نبض',
+  LangNote: 'يمكنك تغيير اللغة لاحقًا من الإعدادات',
+  AccountType: 'اختر نوع الحساب',
   LanguageScreenTitle: 'اختر لغتك',
   GetStarted: 'استمر',
   Profile: 'معلومات الحساب',

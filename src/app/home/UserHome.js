@@ -581,7 +581,9 @@ class UserHome extends Component {
             <Text style={styles.gpsOffModalTitle}>
               Nabd requires access to your location
             </Text>
-            <Text style={styles.gpsOffModalDescription}>Enable location services for a better experience</Text>
+            <Text style={styles.gpsOffModalDescription}>
+              Enable location services for a better experience
+            </Text>
           </View>
         </View>
       </Modal>
@@ -753,7 +755,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: 200,
     height: 200,
-    margin: 12,
+    margin: 12
   },
   gpsOffModalTitleContainer: {
     flex: 1,
@@ -770,7 +772,7 @@ const styles = StyleSheet.create({
   gpsOffModalDescription: {
     fontSize: 15,
     color: 'gray',
-    textAlign: 'center',
+    textAlign: 'center'
   },
   container: {
     borderColor: 'grey',

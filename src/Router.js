@@ -113,7 +113,7 @@ class RouterComponent extends Component {
             <Scene
               key="whoRU"
               component={WhoAmI}
-              title="Nabd"
+              title={t.Nabd}
               hideNavBar={false}
               renderRightButton={this._renderFirstAidButton}
             />
