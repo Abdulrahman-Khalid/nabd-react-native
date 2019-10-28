@@ -307,20 +307,18 @@ class UserHome extends Component {
   renderGPSOffModal() {
     return (
       <Modal visible={this.state.gpsOffModal} animationType="fade">
-        <View style={styles.locationPermissionModalContainer}>
+        <View style={styles.gpsOffModalContainer}>
           <Image
-            style={styles.locationPermissionImage}
-            source={Images.locationPermission}
+            style={styles.gpsOffImage}
+            source={Images.gpsOff}
             resizeMode="contain"
           />
-          <View style={styles.locationPermissionModalTitleContainer}>
-            <Text style={styles.locationPermissionModalTitle}>
+          <View style={styles.gpsOffModalTitleContainer}>
+            <Text style={styles.gpsOffModalTitle}>
               Nabd requires access to your location
             </Text>
+            <Text style={styles.gpsOffModalDescription}>Enable location services for a better experience</Text>
           </View>
-          <Text style={styles.locationPermissionModalDescription}>
-            Enable location services for a better experience
-          </Text>
         </View>
       </Modal>
     );
@@ -505,6 +503,34 @@ const styles = StyleSheet.create({
     fontFamily: 'Manjari-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
+  },
+  gpsOffModalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  gpsOffImage: {
+    flex: 1,
+    width: 200,
+    height: 200,
+    margin: 12,
+  },
+  gpsOffModalTitleContainer: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  gpsOffModalTitle: {
+    fontSize: 30,
+    textAlign: 'center',
+    fontFamily: 'Manjari-Regular',
+    marginLeft: theme.SIZES.BASE * 2,
+    marginRight: theme.SIZES.BASE * 2
+  },
+  gpsOffModalDescription: {
+    fontSize: 15,
+    color: 'gray',
+    textAlign: 'center',
   }
 });
 
