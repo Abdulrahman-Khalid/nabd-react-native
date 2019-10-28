@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import AsyncStorage from '@react-native-community/async-storage';
+import LoginManager from '../videoCall/manager/LoginManager';
+import CallManager from '../videoCall/manager/CallManager';
+import { Voximplant } from 'react-native-voximplant';
+import { CustomPicker } from 'react-native-custom-picker';
 import { Block, Text, Button, theme } from 'galio-framework';
 import { Actions } from 'react-native-router-flux';
 import { Colors, Images } from '../../constants';
@@ -29,12 +33,7 @@ import {
   Modal as CustomModal,
   Icon as CustomIcon
 } from '../../components';
-import axios from 'axios';
-import RadioForm, {
-  RadioButton,
-  RadioButtonInput,
-  RadioButtonLabel
-} from 'react-native-simple-radio-button';
+// import axios from 'axios';
 import RNSwipeVerify from 'react-native-swipe-verify';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { openSettings } from 'react-native-permissions';
@@ -67,13 +66,16 @@ class UserHome extends Component {
       modalVisible: false,
       switchValue: true,
       gpsOffModal: false,
-      startedWatch: false
+      startedWatch: false,
+      client: Voximplant.getInstance(),
+      currentCall: null
     };
     props.selectHelperType('doctor');
     this.requestAmbulance = this.requestAmbulance.bind(this);
   }
 
   componentDidMount() {
+    LoginManager.getInstance().on('onConnectionClosed', this._connectionClosed);
     if (Platform.OS === 'android') {
       this.setState({ gpsOffModal: true });
       RNSettings.getSetting(RNSettings.LOCATION_SETTING).then(result => {
@@ -88,6 +90,274 @@ class UserHome extends Component {
     DeviceEventEmitter.addListener(
       RNSettings.GPS_PROVIDER_EVENT,
       this.handleGPSProviderEvent
+    );
+  }
+
+  componentDidUnmount() {
+    LoginManager.getInstance().off(
+      'onConnectionClosed',
+      this._connectionClosed
+    );
+  }
+
+  _connectionClosed = () => {
+    // Actions.welcome();
+  };
+
+  async makeCall(isVideoCall, helperNumber) {
+    console.log(
+      'MainScreen: make call: ' + helperNumber + ', isVideo:' + isVideoCall
+    );
+    try {
+      if (Platform.OS === 'android') {
+        let permissions = [PermissionsAndroid.PERMISSIONS.RECORD_AUDIO];
+        if (isVideoCall) {
+          permissions.push(PermissionsAndroid.PERMISSIONS.CAMERA);
+        }
+        const granted = await PermissionsAndroid.requestMultiple(permissions);
+        const recordAudioGranted =
+          granted['android.permission.RECORD_AUDIO'] === 'granted';
+        const cameraGranted =
+          granted['android.permission.CAMERA'] === 'granted';
+        if (recordAudioGranted) {
+          if (isVideoCall && !cameraGranted) {
+            console.warn(
+              'MainScreen: makeCall: camera permission is not granted'
+            );
+            return;
+          }
+        } else {
+          console.warn(
+            'MainScreen: makeCall: record audio permission is not granted'
+          );
+          return;
+        }
+      }
+      const callSettings = {
+        video: {
+          sendVideo: isVideoCall,
+          receiveVideo: isVideoCall
+        }
+      };
+      if (Platform.OS === 'ios' && parseInt(Platform.Version, 10) >= 10) {
+        const useCallKitString = await AsyncStorage.getItem('useCallKit');
+        callSettings.setupCallKit = JSON.parse(useCallKitString);
+      }
+
+      let call = await Voximplant.getInstance().call(
+        helperNumber,
+        callSettings
+      );
+      let callManager = CallManager.getInstance();
+      callManager.addCall(call);
+      if (callSettings.setupCallKit) {
+        callManager.startOutgoingCallViaCallKit(isVideoCall, helperNumber);
+      }
+      Actions.CallScreen({
+        callId: call.callId,
+        isVideo: isVideoCall,
+        isIncoming: false
+      });
+    } catch (e) {
+      console.warn('MainScreen: makeCall failed: ' + e);
+    }
+  }
+
+  async videoCall(helperType, specialization) {
+    await LoginManager.getInstance()
+      .loginWithPassword(
+        this.props.phone.substring(1) +
+          '@nabd.abdulrahman.elshafei98.voximplant.com',
+        info.userPass
+      )
+      .then(() => {
+        axios
+          .post(
+            `request/${helperType}`,
+            helperType === 'doctor'
+              ? {
+                  specialization
+                }
+              : {}
+          )
+          .then(response => {
+            console.log(response);
+            if (response.data.helperNumber) this.makeCall(true, helperNumber);
+          })
+          .catch(error => {
+            console.log(error);
+            // alert try again later no user found
+          });
+      });
+    // Alert.alert('Welcome', 'Hello');
+  }
+
+  renderHeader() {
+    return (
+      <View style={styles.headerFooterContainer}>
+        <Text style={{ fontSize: 20 }}>تخصص الطبيب</Text>
+      </View>
+    );
+  }
+
+  renderFooter(action) {
+    return (
+      <TouchableOpacity
+        style={styles.headerFooterContainer}
+        onPress={() => {
+          action.close();
+        }}
+      >
+        <Text>اغلاق</Text>
+      </TouchableOpacity>
+    );
+  }
+
+  renderField(settings) {
+    const { selectedItem, defaultText, getLabel, clear } = settings;
+    return (
+      // <View
+      //   style={{
+      //     backgroundColor: 'red',
+      //     paddingTop: theme.SIZES.BASE,
+      //     paddingRight: theme.SIZES.BASE,
+      //     paddingLeft: theme.SIZES.BASE / 2,
+      //     paddingBottom: theme.SIZES.BASE / 2
+      //   }}
+      // ></View>
+      // <Image
+      //   source={buttons[1].image}
+      //   style={{
+      //     width: width / 2,
+      //     height: 200,
+      //     paddingTop: theme.SIZES.BASE,
+      //     paddingRight: theme.SIZES.BASE,
+      //     paddingLeft: theme.SIZES.BASE / 2,
+      //     paddingBottom: theme.SIZES.BASE / 2
+      //   }}
+      // />
+      <Card
+        item={buttons[1]}
+        style={{
+          width: width / 2,
+          height: height / 3,
+          paddingTop: theme.SIZES.BASE,
+          paddingRight: theme.SIZES.BASE,
+          paddingLeft: theme.SIZES.BASE / 2,
+          paddingBottom: theme.SIZES.BASE / 2
+        }}
+        // onPress={() => {
+        //   this.props.selectHelperType('aide');
+        // }}
+        onPressInfo={() => {
+          Alert.alert(
+            'Info',
+            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
+          );
+        }}
+      />
+    );
+  }
+
+  renderOption(settings) {
+    const { item, getLabel } = settings;
+    return (
+      <View style={styles.optionContainer}>
+        <View style={styles.innerContainer}>
+          {/* <View style={[styles.box, { backgroundColor: item.color }]} /> */}
+          <Image style={styles.imageIconWrapper} source={item.img} />
+          <Text
+            style={{
+              fontSize: 18,
+              padding: 8,
+              color: item.color,
+              alignSelf: 'flex-start'
+            }}
+          >
+            {getLabel(item)}
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
+  renderRequestDoctorCard() {
+    // return <Text>this.props.helperType</Text>;
+    const options = [
+      {
+        color: '#051C2B',
+        label: 'الباطنة والأمراض الصدرية',
+        img: Images.lungIcon,
+        value: 1
+      },
+      {
+        color: '#051C2B',
+        label: 'أمراض القلب والأوعية الدموية',
+        img: Images.heartIcon,
+        value: 2
+      },
+      {
+        color: '#051C2B',
+        label: 'مخ و أعصاب',
+        img: Images.brainIcon,
+        value: 3
+      },
+      {
+        color: '#051C2B',
+        label: 'العظام',
+        img: Images.boneIcon,
+        value: 4
+      },
+      {
+        color: '#051C2B',
+        label: 'المسالك بولية و التناسلية',
+        img: Images.bladderIcon,
+        value: 5
+      },
+      {
+        color: '#051C2B',
+        label: 'النساء والتوليد',
+        img: Images.pregnantIcon,
+        value: 6
+      },
+      {
+        color: '#051C2B',
+        label: 'الجلدية',
+        img: Images.skinIcon,
+        value: 7
+      },
+      {
+        color: '#051C2B',
+        label: 'طب وجراحةالعيون',
+        img: Images.eyeIcon,
+        value: 8
+      },
+      {
+        color: '#051C2B',
+        label: 'أطفال',
+        img: Images.childIcon,
+        value: 9
+      },
+      {
+        color: '#051C2B',
+        label: 'أنف و أذن و حنجرة',
+        img: Images.throatIcon,
+        value: 10
+      }
+    ];
+    return (
+      <CustomPicker
+        options={options}
+        getLabel={item => item.label}
+        fieldTemplate={this.renderField}
+        optionTemplate={this.renderOption}
+        headerTemplate={this.renderHeader}
+        footerTemplate={this.renderFooter}
+        modalAnimationType="slide"
+        onValueChange={item => {
+          this.videoCall('doctor', item.value);
+        }}
+      />
     );
   }
 
@@ -348,7 +618,7 @@ class UserHome extends Component {
                 paddingBottom: theme.SIZES.BASE / 2
               }}
               onPress={() => {
-                this.props.selectHelperType('aide');
+                this.videoCall('paramedic', null);
               }}
               onPressInfo={() => {
                 Alert.alert(
@@ -357,24 +627,7 @@ class UserHome extends Component {
                 );
               }}
             />
-            <Card
-              item={buttons[1]}
-              style={{
-                paddingTop: theme.SIZES.BASE,
-                paddingRight: theme.SIZES.BASE,
-                paddingLeft: theme.SIZES.BASE / 2,
-                paddingBottom: theme.SIZES.BASE / 2
-              }}
-              onPress={() => {
-                this.props.selectHelperType('doctor');
-              }}
-              onPressInfo={() => {
-                Alert.alert(
-                  'Info',
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
-                );
-              }}
-            />
+            {this.renderRequestDoctorCard()}
           </View>
           <View
             style={{
@@ -492,13 +745,50 @@ const styles = StyleSheet.create({
     fontFamily: 'Manjari-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
+  },
+  container: {
+    borderColor: 'grey',
+    borderWidth: 1,
+    padding: 15
+  },
+  innerContainer: {
+    flexDirection: 'row',
+    alignItems: 'stretch'
+  },
+  headerFooterContainer: {
+    padding: 10,
+    alignItems: 'center',
+    fontSize: 20
+  },
+  clearButton: {
+    backgroundColor: 'grey',
+    borderRadius: 5,
+    marginRight: 10,
+    padding: 5
+  },
+  optionContainer: {
+    padding: 10,
+    borderBottomColor: 'grey',
+    borderBottomWidth: 1
+  },
+  optionInnerContainer: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  imageIconWrapper: {
+    backgroundColor: '#E8E6E3',
+    width: 32,
+    height: 32,
+    borderRadius: 32 / 2,
+    margin: 5
   }
 });
 
 const mapStateToProps = state => {
   const { helperType, helperName } = state.requestHelp;
   const { permissionGranted, position } = state.location;
-  return { helperType, helperName, permissionGranted, position };
+  const { phone } = state.signin;
+  return { phone, helperType, helperName, permissionGranted, position };
 };
 
 export default connect(

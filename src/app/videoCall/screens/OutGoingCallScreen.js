@@ -1,6 +1,6 @@
-"use strict";
+'use strict';
 
-import React from "react";
+import React from 'react';
 import {
   Text,
   View,
@@ -12,8 +12,8 @@ import {
   StatusBar,
   FlatList,
   PermissionsAndroid
-} from "react-native";
-import { connect } from "react-redux";
+} from 'react-native';
+import { connect } from 'react-redux';
 import {
   toggleAudioState,
   toggleVideoState,
@@ -21,20 +21,20 @@ import {
   setCallingCounter,
   setLocalVideoStreamId,
   setRemoteVideoStreamId
-} from "../../../actions";
-import { Voximplant } from "react-native-voximplant";
-import CallButton from "../components/CallButton";
-import COLOR_SCHEME from "../styles/ColorScheme";
-import COLOR from "../styles/Color";
-import CallManager from "../manager/CallManager";
-import styles from "../styles/Styles";
-import { Actions } from "react-native-router-flux";
+} from '../../../actions';
+import { Voximplant } from 'react-native-voximplant';
+import CallButton from '../components/CallButton';
+import COLOR_SCHEME from '../styles/ColorScheme';
+import COLOR from '../styles/Color';
+import CallManager from '../manager/CallManager';
+import styles from '../styles/Styles';
+import { Actions } from 'react-native-router-flux';
 // import Call from './Call';
 
 const CALL_STATES = {
-  DISCONNECTED: "disconnected",
-  CONNECTING: "connecting",
-  CONNECTED: "connected"
+  DISCONNECTED: 'disconnected',
+  CONNECTING: 'connecting',
+  CONNECTED: 'connected'
 };
 
 class OutGoingCallScreen extends React.Component {
@@ -43,10 +43,10 @@ class OutGoingCallScreen extends React.Component {
 
     this.state = {
       isModalOpen: false,
-      modalText: "",
+      modalText: '',
       audioDeviceSelectionVisible: false,
       audioDevices: [],
-      audioDeviceIcon: "hearing"
+      audioDeviceIcon: 'hearing'
     };
 
     this.calls = [];
@@ -55,7 +55,7 @@ class OutGoingCallScreen extends React.Component {
       let c = CallManager.getInstance().getCallById(call.callId);
       this.calls.push(c);
     });
-    Alert.alert("calls counter", JSON.stringify(this.calls[0].callId));
+    Alert.alert('calls counter', JSON.stringify(this.calls[0].callId));
   }
 
   componentDidMount() {
@@ -63,7 +63,7 @@ class OutGoingCallScreen extends React.Component {
       if (call) {
         Object.keys(Voximplant.CallEvents).forEach(eventName => {
           const callbackName = `_onCall${eventName}`;
-          if (typeof this[callbackName] !== "undefined") {
+          if (typeof this[callbackName] !== 'undefined') {
             call.on(eventName, this[callbackName]);
           }
         });
@@ -77,7 +77,7 @@ class OutGoingCallScreen extends React.Component {
 
     Object.keys(Voximplant.Hardware.AudioDeviceEvents).forEach(eventName => {
       const callbackName = `_onAudio${eventName}`;
-      if (typeof this[callbackName] !== "undefined") {
+      if (typeof this[callbackName] !== 'undefined') {
         Voximplant.Hardware.AudioDeviceManager.getInstance().on(
           eventName,
           this[callbackName]
@@ -92,17 +92,17 @@ class OutGoingCallScreen extends React.Component {
       let currentAudioDevice = await Voximplant.Hardware.AudioDeviceManager.getInstance().getActiveDevice();
       switch (currentAudioDevice) {
         case Voximplant.Hardware.AudioDevice.BLUETOOTH:
-          this.setState({ audioDeviceIcon: "bluetooth-audio" });
+          this.setState({ audioDeviceIcon: 'bluetooth-audio' });
           break;
         case Voximplant.Hardware.AudioDevice.SPEAKER:
-          this.setState({ audioDeviceIcon: "volume-up" });
+          this.setState({ audioDeviceIcon: 'volume-up' });
           break;
         case Voximplant.Hardware.AudioDevice.WIRED_HEADSET:
-          this.setState({ audioDeviceIcon: "headset" });
+          this.setState({ audioDeviceIcon: 'headset' });
           break;
         case Voximplant.Hardware.AudioDevice.EARPIECE:
         default:
-          this.setState({ audioDeviceIcon: "hearing" });
+          this.setState({ audioDeviceIcon: 'hearing' });
           break;
       }
     })();
@@ -113,7 +113,7 @@ class OutGoingCallScreen extends React.Component {
       if (call) {
         Object.keys(Voximplant.CallEvents).forEach(eventName => {
           const callbackName = `_onCall${eventName}`;
-          if (typeof this[callbackName] !== "undefined") {
+          if (typeof this[callbackName] !== 'undefined') {
             call.off(eventName, this[callbackName]);
           }
         });
@@ -126,7 +126,7 @@ class OutGoingCallScreen extends React.Component {
     });
     Object.keys(Voximplant.Hardware.AudioDeviceEvents).forEach(eventName => {
       const callbackName = `_onAudio${eventName}`;
-      if (typeof this[callbackName] !== "undefined") {
+      if (typeof this[callbackName] !== 'undefined') {
         Voximplant.Hardware.AudioDeviceManager.getInstance().off(
           eventName,
           this[callbackName]
@@ -140,14 +140,14 @@ class OutGoingCallScreen extends React.Component {
     if (this.props.callingCounter == 0) {
       this.setState({
         isModalOpen: true,
-        modalText: "Called users couldnot answer now, try again later"
+        modalText: 'Called users couldnot answer now, try again later'
       });
     }
   }
 
   async sendVideo(doSend) {
     try {
-      if (doSend && Platform.OS === "android") {
+      if (doSend && Platform.OS === 'android') {
         const granted = await PermissionsAndroid.request(
           PermissionsAndroid.PERMISSIONS.CAMERA
         );
@@ -180,7 +180,7 @@ class OutGoingCallScreen extends React.Component {
       });
     } catch (e) {
       console.warn(
-        "Failed to hold(" + doHold + ") due to " + e.code + " " + e.message
+        'Failed to hold(' + doHold + ') due to ' + e.code + ' ' + e.message
       );
     }
   }
@@ -198,7 +198,7 @@ class OutGoingCallScreen extends React.Component {
         }
       });
     } catch (e) {
-      console.warn("Failed to receiveVideo due to " + e.code + " " + e.message);
+      console.warn('Failed to receiveVideo due to ' + e.code + ' ' + e.message);
     }
   }
 
@@ -217,7 +217,7 @@ class OutGoingCallScreen extends React.Component {
       }
     });
     this.props.resetCallOptions();
-    Actions.main();
+    Actions.userHome();
   }
 
   async switchAudioDevice() {
@@ -233,11 +233,11 @@ class OutGoingCallScreen extends React.Component {
   }
 
   _closeModal() {
-    this.setState({ isModalOpen: false, modalText: "" });
+    this.setState({ isModalOpen: false, modalText: '' });
   }
 
   _onCallFailed = event => {
-    Alert.alert("muted", JSON.stringify(event.call));
+    Alert.alert('muted', JSON.stringify(event.call));
     var index = this.calls.indexOf(event.call);
     if (index > -1) {
       this.calls.splice(index, 1);
@@ -245,13 +245,13 @@ class OutGoingCallScreen extends React.Component {
     CallManager.getInstance().removeCall(event.call);
     if (this.calls.length < 1) {
       this.callState = CALL_STATES.DISCONNECTED;
-      Actions.main();
+      Actions.userHome();
     }
     this.props.setCallingCounter(this.props.callingCounter - 1);
   };
 
   _onCallDisconnected = event => {
-    Alert.alert("muted", JSON.stringify(event.call));
+    Alert.alert('muted', JSON.stringify(event.call));
     // console.log('CallScreen: _onCallDisconnected: ' + event.call.callId);
     CallManager.getInstance().removeCall(event.call);
     var index = this.calls.indexOf(event.call);
@@ -259,7 +259,7 @@ class OutGoingCallScreen extends React.Component {
       this.calls.splice(index, 1);
     }
     if (
-      Platform.OS === "android" &&
+      Platform.OS === 'android' &&
       Platform.Version >= 26 &&
       this.callState === CALL_STATES.CONNECTED
     ) {
@@ -269,7 +269,7 @@ class OutGoingCallScreen extends React.Component {
     }
     if (this.props.callingCounter === 1) {
       this.callState = CALL_STATES.DISCONNECTED;
-      Actions.main();
+      Actions.userHome();
     }
     this.props.setCallingCounter(this.props.callingCounter - 1);
     // this.props.navigation.navigate('App');
@@ -289,19 +289,19 @@ class OutGoingCallScreen extends React.Component {
     this.calls = [event.call];
     this.callState = CALL_STATES.CONNECTED;
     this.props.setCallingCounter(1);
-    if (Platform.OS === "android" && Platform.Version >= 26) {
+    if (Platform.OS === 'android' && Platform.Version >= 26) {
       const channelConfig = {
-        id: "ForegroundServiceChannel",
-        name: "In progress calls",
-        description: "Notify the call is in progress",
+        id: 'ForegroundServiceChannel',
+        name: 'In progress calls',
+        description: 'Notify the call is in progress',
         enableVibration: true
       };
       const notificationConfig = {
-        channelId: "ForegroundServiceChannel",
+        channelId: 'ForegroundServiceChannel',
         id: 3456,
-        title: "Nabd",
-        text: "Someone needs yout help",
-        icon: "ic_vox_notification"
+        title: 'Nabd',
+        text: 'Someone needs yout help',
+        icon: 'ic_vox_notification'
       };
       (async () => {
         await VIForegroundService.createNotificationChannel(channelConfig);
@@ -341,8 +341,8 @@ class OutGoingCallScreen extends React.Component {
   _setupEndpointListeners(endpoint, on) {
     Object.keys(Voximplant.EndpointEvents).forEach(eventName => {
       const callbackName = `_onEndpoint${eventName}`;
-      if (typeof this[callbackName] !== "undefined") {
-        endpoint[on ? "on" : "off"](eventName, this[callbackName]);
+      if (typeof this[callbackName] !== 'undefined') {
+        endpoint[on ? 'on' : 'off'](eventName, this[callbackName]);
       }
     });
   }
@@ -363,20 +363,20 @@ class OutGoingCallScreen extends React.Component {
   }
 
   _onAudioDeviceChanged = event => {
-    console.log("CallScreen: _onAudioDeviceChanged:" + event.currentDevice);
+    console.log('CallScreen: _onAudioDeviceChanged:' + event.currentDevice);
     switch (event.currentDevice) {
       case Voximplant.Hardware.AudioDevice.BLUETOOTH:
-        this.setState({ audioDeviceIcon: "bluetooth-audio" });
+        this.setState({ audioDeviceIcon: 'bluetooth-audio' });
         break;
       case Voximplant.Hardware.AudioDevice.SPEAKER:
-        this.setState({ audioDeviceIcon: "volume-up" });
+        this.setState({ audioDeviceIcon: 'volume-up' });
         break;
       case Voximplant.Hardware.AudioDevice.WIRED_HEADSET:
-        this.setState({ audioDeviceIcon: "headset" });
+        this.setState({ audioDeviceIcon: 'headset' });
         break;
       case Voximplant.Hardware.AudioDevice.EARPIECE:
       default:
-        this.setState({ audioDeviceIcon: "hearing" });
+        this.setState({ audioDeviceIcon: 'hearing' });
         break;
     }
   };
@@ -394,8 +394,8 @@ class OutGoingCallScreen extends React.Component {
       <View
         style={{
           height: 1,
-          width: "100%",
-          backgroundColor: "#607D8B",
+          width: '100%',
+          backgroundColor: '#607D8B',
           marginTop: 10,
           marginBottom: 10
         }}
@@ -405,7 +405,7 @@ class OutGoingCallScreen extends React.Component {
 
   isIconMuted() {
     if (this.props.isAudioMuted) {
-      Alert.alert("muted", JSON.stringify(this.props.isAudioMuted));
+      Alert.alert('muted', JSON.stringify(this.props.isAudioMuted));
       return (
         <CallButton
           icon_name="videocam-off"
@@ -439,7 +439,7 @@ class OutGoingCallScreen extends React.Component {
         /> */}
         <StatusBar
           barStyle={
-            Platform.OS === "ios" ? COLOR_SCHEME.DARK : COLOR_SCHEME.LIGHT
+            Platform.OS === 'ios' ? COLOR_SCHEME.DARK : COLOR_SCHEME.LIGHT
           }
           backgroundColor={COLOR.PRIMARY_DARK}
         />
@@ -460,7 +460,7 @@ class OutGoingCallScreen extends React.Component {
             ) : null}
           </View>
 
-          <View style={{ alignItems: "center", justifyContent: "center" }}>
+          <View style={{ alignItems: 'center', justifyContent: 'center' }}>
             <Text style={styles.call_connecting_label}>
               {this.state.callState}
             </Text>
@@ -469,9 +469,9 @@ class OutGoingCallScreen extends React.Component {
           <View style={styles.call_controls}>
             <View
               style={{
-                flexDirection: "row",
-                justifyContent: "space-around",
-                backgroundColor: "transparent"
+                flexDirection: 'row',
+                justifyContent: 'space-around',
+                backgroundColor: 'transparent'
               }}
             >
               {this.isIconMuted()}
@@ -530,8 +530,8 @@ class OutGoingCallScreen extends React.Component {
                           this.selectAudioDevice(item);
                         }}
                       >
-                        {" "}
-                        {item}{" "}
+                        {' '}
+                        {item}{' '}
                       </Text>
                     )}
                   />

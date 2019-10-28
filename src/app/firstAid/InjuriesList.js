@@ -81,7 +81,7 @@ class InjuriesList extends Component {
     }
     return (
       <TouchableOpacity
-        onPress={() => Actions.UserSettings()}
+        onPress={() => Actions.settings()}
         style={{
           position: 'absolute',
           right: 0,
@@ -289,6 +289,7 @@ class InjuriesList extends Component {
               onPress={this.onButtonPress_.bind(this, 'chemical_poisoning')}
             />
           </View>
+          <View style={{ marginBottom: 60 }}></View>
         </ScrollView>
       </View>
     );

@@ -36,7 +36,7 @@ class RouterComponent extends Component {
   _renderSettingsButton() {
     return (
       <TouchableOpacity
-        onPress={() => Actions.UserSettings()}
+        onPress={() => Actions.settings()}
         style={{ marginRight: 20 }}
       >
         <CustomIcon
@@ -205,7 +205,7 @@ class RouterComponent extends Component {
               hideNavBar={false}
             />
             <Scene
-              key="UserSettings"
+              key="settings"
               component={UserSettings}
               title={t.Settings}
               renderLeftButton={this._renderBackButton}

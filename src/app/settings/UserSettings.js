@@ -14,6 +14,7 @@ import t from '../../I18n';
 import email from 'react-native-email';
 import { resetSignInReducerState } from '../../actions/';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import axios from 'axios';
 
 class UserSettings extends Component {
   constructor(props) {
@@ -49,9 +50,9 @@ class UserSettings extends Component {
     return (
       <ReactNativeSettingsPage>
         <SectionRow text={t.Profile}>
-          <TextDisplay iconName="user" text={t.Username} />
-          <TextDisplay iconName="lock" text={t.Password} />
-          <TextDisplay iconName="phone" text={t.PhoneNumber} />
+          <TextDisplay iconName="user" text={this.props.userType} />
+          <TextDisplay iconName="user" text={this.props.userName} />
+          <TextDisplay iconName="phone" text={this.props.phone} />
         </SectionRow>
         <SectionRow text={t.Language}>
           <View style={{ flex: 1 }}>
@@ -118,7 +119,10 @@ class UserSettings extends Component {
   }
 }
 
-const mapStateToProps = state => ({ language: state.language });
+const mapStateToProps = state => {
+  const { userType, userName, phone } = state.signin;
+  return { userType, userName, phone, language: state.language };
+};
 
 export default connect(
   mapStateToProps,

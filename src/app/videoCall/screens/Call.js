@@ -196,7 +196,7 @@ class Call extends React.Component {
       })();
     }
     this.callState = CALL_STATES.DISCONNECTED;
-    Actions.main();
+    Actions.userHome();
   };
 
   _onCallConnected = event => {
