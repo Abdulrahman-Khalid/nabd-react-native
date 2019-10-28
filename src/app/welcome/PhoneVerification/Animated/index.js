@@ -77,7 +77,7 @@ class AnimatedExample extends Component {
         return Alert.alert(
           'Confirmation Code',
           'Successful!',
-          [{ text: 'OK', onPress: () => Actions.signin() }],
+          [{ text: 'OK', onPress: () => Actions.whoRU() }],
           {
             cancelable: false
           }
