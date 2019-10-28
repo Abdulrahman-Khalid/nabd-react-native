@@ -27,7 +27,6 @@ const actionSheetButtons = [
 
 class AddIncident extends Component {
   state = {
-    userID: '201140028533',
     text: '',
     numberToCall: null,
     location: {
@@ -123,7 +122,7 @@ class AddIncident extends Component {
           // always executed
           axios
             .post('/incident', {
-              userID: this.state.userID,
+              userID: this.props.userID,
               description: this.state.text,
               date: new Date(),
               image: this.state.media,
@@ -150,7 +149,7 @@ class AddIncident extends Component {
     if (this.state.photo === null) {
       axios
         .post('/incident', {
-          userID: this.state.userID,
+          userID: this.props.userID,
           description: this.state.text,
           date: new Date(),
           image: null,
@@ -398,7 +397,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => ({ position: state.location.position });
+const mapStateToProps = state => ({ position: state.location.position, userID: state.signin.phone });
 
 export default connect(
   mapStateToProps,
