@@ -662,7 +662,7 @@ class UserHome extends Component {
     ) : (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" style={{ marginBottom: 20 }} />
-        <Text style={{ fontSize: 20 }}>Fetching your location</Text>
+        <Text style={{ fontSize: 20 }}>{t.FetchingLocation}</Text>
       </View>
     );
   }

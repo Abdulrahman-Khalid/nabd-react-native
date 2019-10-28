@@ -44,7 +44,6 @@ class LanguageSelection extends Component {
       return;
     }
     Actions.whoRU();
-    // Actions.FirstAid();
   };
 
   render() {

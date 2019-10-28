@@ -1,4 +1,5 @@
 export default en = {
+  FetchingLocation: 'Fetching your location',
   Create: 'Create',
   Account: 'Account',
   Weclome: 'Welcome',

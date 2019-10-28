@@ -1,4 +1,5 @@
 export default ar = {
+  FetchingLocation: 'جاري التعرف على موقعك',
   Create: 'إنشاء',
   Account: 'حساب',
   Welcome: 'مرحبًا بك',

@@ -169,7 +169,7 @@ class InjuriesList extends Component {
               })
             }}
           >
-            First Aid
+            {t.FirstAid}
           </Animated.Text>
           {this.renderNavbarButton(scrollOffset)}
           <Animated.View

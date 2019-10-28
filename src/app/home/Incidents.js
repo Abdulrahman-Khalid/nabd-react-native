@@ -23,6 +23,7 @@ import { SkeletonCard, Icon as CustomIcon } from '../../components';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 import axios from 'axios';
 import { addedNewIncident } from '../../actions';
+import t from '../../I18n';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -230,7 +231,7 @@ export class Incidents extends Component {
                 })
               }}
             >
-              Incidents
+              {t.Incidents}
             </Animated.Text>
             <TouchableOpacity
               onPress={() => Actions.settings()}
@@ -300,10 +301,24 @@ export class Incidents extends Component {
               ))}
             </ScrollView>
           ) : (
-            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
-              <Image source={Images.noIncidents} style={{ height: 150, width: 150, marginBottom: 20 }} resizeMode="contain" />
-              <Text style={{ fontSize: 20 }}>Looks like everything is fine!</Text>
-              <TouchableOpacity onPress={this.updateIncidentCards}><Text>Refresh</Text></TouchableOpacity>
+            <View
+              style={{
+                flex: 1,
+                justifyContent: 'center',
+                alignItems: 'center'
+              }}
+            >
+              <Image
+                source={Images.noIncidents}
+                style={{ height: 150, width: 150, marginBottom: 20 }}
+                resizeMode="contain"
+              />
+              <Text style={{ fontSize: 20 }}>
+                Looks like everything is fine!
+              </Text>
+              <TouchableOpacity onPress={this.updateIncidentCards}>
+                <Text>Refresh</Text>
+              </TouchableOpacity>
             </View>
           )}
           <FAB
