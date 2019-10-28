@@ -6,6 +6,7 @@ import FirstAidReducer from './FirstAidReducer';
 import RequestHelpReducer from './RequestHelpReducer';
 import LanguageReducer from './LanguageReducer';
 import LocationReducer from './LocationReducer';
+import IncidentsReducer from './IncidentsReducer';
 import CallReducer from './CallReducer';
 
 export default combineReducers({
@@ -16,5 +17,6 @@ export default combineReducers({
   requestHelp: RequestHelpReducer,
   language: LanguageReducer,
   location: LocationReducer,
+  incidents: IncidentsReducer
   call: CallReducer
 });

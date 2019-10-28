@@ -22,6 +22,7 @@ import { FAB } from 'react-native-paper';
 import { SkeletonCard, Icon as CustomIcon } from '../../components';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 import axios from 'axios';
+import { addedNewIncident } from '../../actions';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -108,12 +109,20 @@ export class Incidents extends Component {
     this.pullRefresh();
   }
 
+  componentDidUpdate() {
+    if (this.props.addedNewIncidentFlag) {
+      this.pullRefresh();
+      this.props.addedNewIncident();
+    }
+  }
+
   /**
    * Pull to refresh functionality
    */
   pullRefresh = () => {
     this.setState({
-      refreshing: true
+      refreshing: true,
+      IncidentCards: []
     });
     this.updateIncidentCards();
   };
@@ -133,7 +142,6 @@ export class Incidents extends Component {
   };
 
   updateIncidentCards(id = null, username = null) {
-    console.log(id);
     axios
       .get('/incident/', {
         params: {
@@ -155,12 +163,7 @@ export class Incidents extends Component {
       .catch(() => {
         console.log('catch');
       })
-      .then(() => {
-        console.log(this.state.IncidentCards);
-      });
-    console.log(this.state.refreshing);
-    console.log(this.state.IncidentCards.length);
-    console.log(!this.state.refreshing && this.state.IncidentCards.length == 0);
+      .then(() => {});
   }
 
   async videoCall() {
@@ -316,6 +319,100 @@ export class Incidents extends Component {
     } else {
       return (
         <View style={styles.skeletonCardsContainer}>
+          <Animated.View
+            style={[
+              styles.header,
+              {
+                paddingHorizontal: width * 0.05,
+                width: width,
+                height: isIphoneX()
+                  ? scrollOffset.interpolate({
+                      inputRange: [0, 200],
+                      outputRange: [124, 104],
+                      extrapolate: 'clamp'
+                    })
+                  : scrollOffset.interpolate({
+                      inputRange: [0, 200],
+                      outputRange: [80, 60],
+                      extrapolate: 'clamp'
+                    }),
+                backgroundColor: scrollOffset.interpolate({
+                  inputRange: [0, 200],
+                  outputRange: ['#E9E9EF', Colors.APP],
+                  extrapolate: 'clamp'
+                }),
+                borderBottomLeftRadius: scrollOffset.interpolate({
+                  inputRange: [0, 200],
+                  outputRange: [0, 30],
+                  extrapolate: 'clamp'
+                }),
+                borderBottomRightRadius: scrollOffset.interpolate({
+                  inputRange: [0, 200],
+                  outputRange: [0, 30],
+                  extrapolate: 'clamp'
+                })
+              }
+            ]}
+          >
+            <Animated.Text
+              onLayout={e => {
+                if (this.offset === 0 && this.state.titleWidth === 0) {
+                  const titleWidth = e.nativeEvent.layout.width;
+                  this.setState({ titleWidth });
+                }
+              }}
+              style={{
+                fontWeight: 'bold',
+                fontSize: scrollOffset.interpolate({
+                  inputRange: [0, 200],
+                  outputRange: [26, 20],
+                  extrapolate: 'clamp'
+                }),
+                color: scrollOffset.interpolate({
+                  inputRange: [0, 200],
+                  outputRange: ['black', 'white'],
+                  extrapolate: 'clamp'
+                })
+              }}
+            >
+              Incidents
+            </Animated.Text>
+            <TouchableOpacity
+              onPress={() => Actions.UserSettings()}
+              style={{
+                position: 'absolute',
+                right: 0,
+                marginRight: 20
+              }}
+            >
+              <CustomIcon
+                name="gear-option"
+                family="animatedFlaticon"
+                size={25}
+                style={{
+                  color: scrollOffset.interpolate({
+                    inputRange: [0, 200],
+                    outputRange: ['black', 'white'],
+                    extrapolate: 'clamp'
+                  }),
+                  fontSize: scrollOffset.interpolate({
+                    inputRange: [0, 200],
+                    outputRange: [25, 20],
+                    extrapolate: 'clamp'
+                  })
+                }}
+              />
+            </TouchableOpacity>
+            <Animated.View
+              style={{
+                width: scrollOffset.interpolate({
+                  inputRange: [0, 200],
+                  outputRange: [width * 0.9 - this.state.titleWidth, 0],
+                  extrapolate: 'clamp'
+                })
+              }}
+            />
+          </Animated.View>
           <SkeletonCard />
           <SkeletonCard />
         </View>
@@ -355,9 +452,12 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => ({ location: state.location });
+const mapStateToProps = state => ({
+  location: state.location,
+  addedNewIncidentFlag: state.incidents.addedNewIncidentFlag
+});
 
 export default connect(
   mapStateToProps,
-  null
+  { addedNewIncident }
 )(Incidents);
