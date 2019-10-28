@@ -74,7 +74,7 @@ export default class LoginScreen extends React.Component {
     (async () => {
       await AsyncStorage.setItem('usernameValue', this.state.username);
     })();
-    Actions.main();
+    Actions.userHome();
   }
 
   onConnectionFailed(reason) {

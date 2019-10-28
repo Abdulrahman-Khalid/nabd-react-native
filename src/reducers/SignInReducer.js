@@ -46,7 +46,7 @@ signInReducer = (state = INTIAL_STATE, action) => {
 const persistConfig = {
   key: 'signin',
   storage: storage,
-  whitelist: ['phone', 'password', 'userName']
+  whitelist: ['phone', 'password', 'userName', 'userType', 'token']
 };
 
 export default persistReducer(persistConfig, signInReducer);

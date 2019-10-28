@@ -14,6 +14,7 @@ import t from '../../I18n';
 import email from 'react-native-email';
 import { resetSignInReducerState } from '../../actions/';
 import { TouchableHighlight } from 'react-native-gesture-handler';
+import axios from 'axios';
 
 class UserSettings extends Component {
   constructor(props) {

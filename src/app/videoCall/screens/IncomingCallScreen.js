@@ -95,7 +95,7 @@ export default class IncomingCallScreen extends React.Component {
 
   _onCallDisconnected = event => {
     CallManager.getInstance().removeCall(event.call);
-    Actions.main();
+    Actions.userHome();
   };
 
   _onCallEndpointAdded = event => {

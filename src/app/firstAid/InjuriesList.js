@@ -289,6 +289,7 @@ class InjuriesList extends Component {
               onPress={this.onButtonPress_.bind(this, 'chemical_poisoning')}
             />
           </View>
+          <View style={{ marginBottom: 60 }}></View>
         </ScrollView>
       </View>
     );
