@@ -17,6 +17,6 @@ export default combineReducers({
   requestHelp: RequestHelpReducer,
   language: LanguageReducer,
   location: LocationReducer,
-  incidents: IncidentsReducer
+  incidents: IncidentsReducer,
   call: CallReducer
 });
