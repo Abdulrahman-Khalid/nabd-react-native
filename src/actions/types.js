@@ -29,9 +29,11 @@ export const REQUSET_AMBULANCE = 'request_ambulance';
 // Language
 export const SWITCH_LANGUAGE = 'SWITCH_LANGUAGE';
 // Location
-export const GET_LOCATION = 'get_location';
-export const REQUEST_LOCATION_PERMISSION = 'request_location_permission';
-export const UPDATE_LOCATION = 'update_location';
+export const GET_LOCATION = "get_location";
+export const REQUEST_LOCATION_PERMISSION = "request_location_permission";
+export const UPDATE_LOCATION = "update_location";
+// Incidents
+export const ADDED_NEW_INCIDENT = "added_new_incident";
 //call
 export const TOGGLE_AUDIO_STATE = 'toggle_audio_state';
 export const TOGGLE_VIDEO_STATE = 'toggle_video_state';
