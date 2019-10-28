@@ -10,6 +10,9 @@ export default ar = {
   Pediatrics: 'أطفال',
   Otorhinolaryngology: 'أنف وأذن وحنجرة',
 
+  ChooseLocation: 'اختر موقعك',
+  CallFailed: 'فشل الاتصال : ',
+
   Info: 'معلومات',
   AmbulanceInfo: 'سجل عربة إسعاف لتستطيع تحديد موقع الطلب بدقة',
   DoctorInfo:

@@ -202,7 +202,7 @@ class RouterComponent extends Component {
             <Scene
               key="waitForAmbulance"
               component={WaitForAmbulance}
-              title="Choose Pickup Location"
+              title={t.ChooseLocation}
               hideNavBar={false}
             />
             <Scene
@@ -258,7 +258,7 @@ class RouterComponent extends Component {
             <Scene
               key="waitForAmbulance"
               component={WaitForAmbulance}
-              title="Choose Pickup Location"
+              title={t.ChooseLocation}
               hideNavBar={false}
             />
             <Scene
@@ -315,7 +315,7 @@ class RouterComponent extends Component {
             <Scene
               key="waitForAmbulance"
               component={WaitForAmbulance}
-              title="Choose Pickup Location"
+              title={t.ChooseLocation}
               hideNavBar={false}
             />
             <Scene
@@ -372,7 +372,7 @@ class RouterComponent extends Component {
             <Scene
               key="waitForAmbulance"
               component={WaitForAmbulance}
-              title="Choose Pickup Location"
+              title={t.ChooseLocation}
               hideNavBar={false}
             />
             <Scene
@@ -393,7 +393,7 @@ class RouterComponent extends Component {
           <Scene
             key="main"
             component={MainScreen}
-            title="Incidents"
+            title={t.Incidents}
             icon={() => <Icon name="lifebuoy" size={25} />}
           />
           <Scene key="CallScreen" component={CallScreen} hideNavBar={true} />

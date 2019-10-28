@@ -10,6 +10,9 @@ export default en = {
   Pediatrics: 'Pediatrics',
   Otorhinolaryngology: ' Otorhinolaryngology',
 
+  CallFailed: 'Call failed: ',
+  ChooseLocation: 'Choose Pickup Location',
+
   AmbulanceInfo:
     'Register ambulances to recieve requests and get location of the patient.',
 
