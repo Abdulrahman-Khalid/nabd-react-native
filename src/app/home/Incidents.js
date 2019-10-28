@@ -300,8 +300,9 @@ export class Incidents extends Component {
               ))}
             </ScrollView>
           ) : (
-            <View>
-              <Text>Looks like everything is fine!</Text>
+            <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+              <Image source={Images.noIncidents} style={{ height: 150, width: 150, marginBottom: 20 }} resizeMode="contain" />
+              <Text style={{ fontSize: 20 }}>Looks like everything is fine!</Text>
               <TouchableOpacity onPress={this.updateIncidentCards}><Text>Refresh</Text></TouchableOpacity>
             </View>
           )}
