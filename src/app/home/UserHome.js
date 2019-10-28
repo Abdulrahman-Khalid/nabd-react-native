@@ -250,10 +250,7 @@ class UserHome extends Component {
         //   this.props.selectHelperType('aide');
         // }}
         onPressInfo={() => {
-          Alert.alert(
-            'Info',
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
-          );
+          Alert.alert(t.Info, t.DoctorAlert);
         }}
       />
     );
@@ -621,10 +618,7 @@ class UserHome extends Component {
                 this.videoCall('paramedic', null);
               }}
               onPressInfo={() => {
-                Alert.alert(
-                  'Info',
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
-                );
+                Alert.alert(t.Info, t.ParamedicAlert);
               }}
             />
             {this.renderRequestDoctorCard()}
@@ -650,10 +644,7 @@ class UserHome extends Component {
                 this.setModalVisible(true);
               }}
               onPressInfo={() => {
-                Alert.alert(
-                  'Info',
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
-                );
+                Alert.alert(t.Info, t.AmbulanceAlert);
               }}
             />
           </View>

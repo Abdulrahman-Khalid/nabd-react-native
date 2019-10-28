@@ -16,10 +16,7 @@ class IamParamedic extends Component {
         />
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{t.Aide}</Text>
-          <Text style={styles.description}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry Lorem Ipsum
-          </Text>
+          <Text style={styles.description}>{t.ParamedicInfo}</Text>
         </View>
         <CommonButtons />
       </View>

@@ -1,4 +1,24 @@
 export default en = {
+  AmbulanceInfo:
+    'Register ambulances to recieve requests and get location of the patient.',
+
+  DoctorInfo:
+    'Save lives! Register as a doctor to recieve calls from people in emergencies.',
+
+  ParamedicInfo:
+    ' Save lives! Register as a paramedic to recieve calls from people in emergencies.',
+
+  UserInfo:
+    'You will be able to request an ambulance and track its location and video chat with doctors and paramedics.',
+
+  Info: 'Info',
+  ParamedicAlert: 'Start a video call with a paramedic.',
+  DoctorAlert:
+    'Start a video call with doctors form different specializations.',
+  AmbulanceAlert: 'Request an ambulance and track its location.',
+  Available: 'I am available',
+  Refresh: 'Refresh',
+  AllFine: 'Looks like everything is fine!',
   RequiredField: 'This field is required',
   NumberUnvalid: 'Please enter a valid number',
   ActionSheetButtons: ['Take a picture', 'Choose a picture from my gallery'],

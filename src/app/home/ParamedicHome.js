@@ -28,7 +28,9 @@ class ParamedicHome extends Component {
   }
 
   componentDidMount() {
-    const socket = io(axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4));
+    const socket = io(
+      axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4)
+    );
     socket.connect();
   }
 
@@ -40,7 +42,7 @@ class ParamedicHome extends Component {
     return (
       <View>
         <TouchableOpacity onPress={this.startSearching}>
-          <Text>I'm Available</Text>
+          <Text>{t.Available}</Text>
         </TouchableOpacity>
       </View>
     );

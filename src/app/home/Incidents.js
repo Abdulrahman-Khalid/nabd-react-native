@@ -313,11 +313,9 @@ export class Incidents extends Component {
                 style={{ height: 150, width: 150, marginBottom: 20 }}
                 resizeMode="contain"
               />
-              <Text style={{ fontSize: 20 }}>
-                Looks like everything is fine!
-              </Text>
+              <Text style={{ fontSize: 20 }}>{t.AllFine}</Text>
               <TouchableOpacity onPress={this.updateIncidentCards}>
-                <Text>Refresh</Text>
+                <Text>{t.Refresh}</Text>
               </TouchableOpacity>
             </View>
           )}
