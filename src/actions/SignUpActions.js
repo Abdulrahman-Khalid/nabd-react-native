@@ -124,19 +124,27 @@ export const signUpAttempt = signUpInfo => {
       payload: signUpInfo.phone
     });
     console.log(signUpInfo);
-    const { name, phone, birthday, gender, password } = signUpInfo;
+    const {
+      name,
+      phone,
+      birthday,
+      gender,
+      password,
+      specialization
+    } = signUpInfo;
     axios
       .post(`register/${signUpInfo.userType}`, {
         name,
         phoneNo: phone.substring(1),
         birthDate: birthday,
         gender: gender === 'male',
-        password
+        password,
+        specialization
       })
       .then(response => {
         console.log(response);
         dispatch({
-          type: SIGNUP_SUCCESS
+        type: SIGNUP_SUCCESS
         });
         Actions.verifySignup({
           phoneNum: phone

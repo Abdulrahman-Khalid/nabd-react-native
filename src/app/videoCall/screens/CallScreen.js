@@ -228,7 +228,7 @@ export default class CallScreen extends React.Component {
 
   _closeModal() {
     this.setState({ isModalOpen: false, modalText: '' });
-    Actions.main();
+    Actions.userHome();
   }
 
   _onCallFailed = event => {
@@ -259,7 +259,7 @@ export default class CallScreen extends React.Component {
       })();
     }
     this.callState = CALL_STATES.DISCONNECTED;
-    Actions.main();
+    Actions.userHome();
   };
 
   _onCallConnected = event => {

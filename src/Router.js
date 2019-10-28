@@ -36,7 +36,7 @@ class RouterComponent extends Component {
   _renderSettingsButton() {
     return (
       <TouchableOpacity
-        onPress={() => Actions.UserSettings()}
+        onPress={() => Actions.settings()}
         style={{ marginRight: 20 }}
       >
         <CustomIcon
@@ -51,10 +51,12 @@ class RouterComponent extends Component {
     );
   }
 
-    _renderFirstAidButton() {
+  _renderFirstAidButton() {
     return (
       <TouchableOpacity
-        onPress={() => Actions.FirstAid_()}
+        onPress={() =>
+          Actions.FirstAid_({ quickAccess: true, hideNavBar: true })
+        }
         style={{ marginRight: 20 }}
       >
         <CustomIcon
@@ -75,7 +77,7 @@ class RouterComponent extends Component {
         onPress={() => Actions.pop()}
         style={{ marginLeft: 10 }}
       >
-        <Icon name="arrow-left" color={Colors.WHITE} size={25} />
+        <CustomIcon name="arrow-left" color={Colors.WHITE} size={25} />
       </TouchableOpacity>
     );
   }
@@ -115,17 +117,18 @@ class RouterComponent extends Component {
               hideNavBar={false}
               renderRightButton={this._renderFirstAidButton}
             />
-            <Scene
-              key="FirstAid_"
-              title={t.FirstAid}
-            >
-                <Scene hideNavBar key="InjuriesList" component={InjuriesList} />
-                <Scene key="FirstAidDetails" component={FirstAidDetails} hideNavBar />
-                <Scene
-                  key="FirstAidDetailsWithButtons"
-                  component={FirstAidDetailsWithButtons}
-                />
-              </Scene>
+            <Scene key="FirstAid_" title={t.FirstAid}>
+              <Scene hideNavBar key="InjuriesList" component={InjuriesList} />
+              <Scene
+                hideNavBar
+                key="FirstAidDetails"
+                component={FirstAidDetails}
+              />
+              <Scene
+                key="FirstAidDetailsWithButtons"
+                component={FirstAidDetailsWithButtons}
+              />
+            </Scene>
             <Scene key="iUser" component={IamUser} title={t.User} />
             <Scene key="iDoctor" component={IamDoctor} title={t.Doctor} />
             <Scene
@@ -159,8 +162,8 @@ class RouterComponent extends Component {
               component={VerifySignup}
               title={t.Verify}
             />
-
           </Scene>
+          {/* ////////////////////User Home///////////////////// */}
           <Scene key="userHome" hideNavBar={true}>
             <Tabs
               key="tabBar"
@@ -203,7 +206,178 @@ class RouterComponent extends Component {
               hideNavBar={false}
             />
             <Scene
-              key="UserSettings"
+              key="settings"
+              component={UserSettings}
+              title={t.Settings}
+              renderLeftButton={this._renderBackButton}
+              title={t.Settings}
+              hideNavBar={false}
+            />
+            <Scene
+              key="AddIncident"
+              component={AddIncident}
+              title={t.AddIncident}
+              hideNavBar={false}
+            />
+          </Scene>
+          {/* ////////////////////Paramedic Home///////////////////// */}
+          <Scene key="paramedicHome" hideNavBar={true}>
+            <Tabs
+              key="tabBar"
+              initial
+              lazy={true}
+              tabBarComponent={TabBar}
+              renderRightButton={this._renderSettingsButton}
+            >
+              <Scene
+                key="Home"
+                component={ParamedicHome}
+                title={t.Home}
+                icon={() => <Icon name="home" size={25} />}
+              />
+              <Scene
+                key="Incidents"
+                component={Incidents}
+                title={t.Incidents}
+                hideNavBar
+                icon={() => <Icon name="lifebuoy" size={25} />}
+              />
+              <Scene
+                key="FirstAid"
+                title={t.FirstAid}
+                icon={() => <Icon name="hospital" size={25} />}
+              >
+                <Scene hideNavBar key="InjuriesList" component={InjuriesList} />
+                <Scene key="FirstAidDetails" component={FirstAidDetails} />
+                <Scene
+                  key="FirstAidDetailsWithButtons"
+                  component={FirstAidDetailsWithButtons}
+                />
+              </Scene>
+            </Tabs>
+
+            <Scene
+              key="waitForAmbulance"
+              component={WaitForAmbulance}
+              title="Choose Pickup Location"
+              hideNavBar={false}
+            />
+            <Scene
+              key="settings"
+              component={UserSettings}
+              title={t.Settings}
+              renderLeftButton={this._renderBackButton}
+              title={t.Settings}
+              hideNavBar={false}
+            />
+            <Scene
+              key="AddIncident"
+              component={AddIncident}
+              title={t.AddIncident}
+              hideNavBar={false}
+            />
+          </Scene>
+          {/* ////////////////////Doctor Home///////////////////// */}
+          <Scene key="doctorHome" hideNavBar={true}>
+            <Tabs
+              key="tabBar"
+              initial
+              lazy={true}
+              tabBarComponent={TabBar}
+              renderRightButton={this._renderSettingsButton}
+            >
+              <Scene
+                key="Home"
+                component={ParamedicHome}
+                title={t.Home}
+                icon={() => <Icon name="home" size={25} />}
+              />
+              <Scene
+                key="Incidents"
+                component={Incidents}
+                title={t.Incidents}
+                hideNavBar
+                icon={() => <Icon name="lifebuoy" size={25} />}
+              />
+              <Scene
+                key="FirstAid"
+                title={t.FirstAid}
+                icon={() => <Icon name="hospital" size={25} />}
+              >
+                <Scene hideNavBar key="InjuriesList" component={InjuriesList} />
+                <Scene key="FirstAidDetails" component={FirstAidDetails} />
+                <Scene
+                  key="FirstAidDetailsWithButtons"
+                  component={FirstAidDetailsWithButtons}
+                />
+              </Scene>
+            </Tabs>
+
+            <Scene
+              key="waitForAmbulance"
+              component={WaitForAmbulance}
+              title="Choose Pickup Location"
+              hideNavBar={false}
+            />
+            <Scene
+              key="settings"
+              component={UserSettings}
+              title={t.Settings}
+              renderLeftButton={this._renderBackButton}
+              title={t.Settings}
+              hideNavBar={false}
+            />
+            <Scene
+              key="AddIncident"
+              component={AddIncident}
+              title={t.AddIncident}
+              hideNavBar={false}
+            />
+          </Scene>
+          {/* ////////////////////Ambulance Home///////////////////// */}
+          <Scene key="ambulanceHome" hideNavBar={true}>
+            <Tabs
+              key="tabBar"
+              initial
+              lazy={true}
+              tabBarComponent={TabBar}
+              renderRightButton={this._renderSettingsButton}
+            >
+              <Scene
+                key="Home"
+                component={AmbulanceHome}
+                title={t.Home}
+                icon={() => <Icon name="home" size={25} />}
+              />
+              <Scene
+                key="Incidents"
+                component={Incidents}
+                title={t.Incidents}
+                hideNavBar
+                icon={() => <Icon name="lifebuoy" size={25} />}
+              />
+              <Scene
+                key="FirstAid"
+                title={t.FirstAid}
+                icon={() => <Icon name="hospital" size={25} />}
+              >
+                <Scene hideNavBar key="InjuriesList" component={InjuriesList} />
+                <Scene key="FirstAidDetails" component={FirstAidDetails} />
+                <Scene
+                  key="FirstAidDetailsWithButtons"
+                  component={FirstAidDetailsWithButtons}
+                />
+              </Scene>
+            </Tabs>
+
+            <Scene
+              key="waitForAmbulance"
+              component={WaitForAmbulance}
+              title="Choose Pickup Location"
+              hideNavBar={false}
+            />
+            <Scene
+              key="settings"
               component={UserSettings}
               title={t.Settings}
               renderLeftButton={this._renderBackButton}
@@ -223,8 +397,6 @@ class RouterComponent extends Component {
             title="Incidents"
             icon={() => <Icon name="lifebuoy" size={25} />}
           />
-          <Scene key="paramedicHome" component={ParamedicHome} title={t.Home} />
-          <Scene key="ambulanceHome" component={AmbulanceHome} title={t.Home} />
           <Scene key="CallScreen" component={CallScreen} hideNavBar={true} />
           {/* <Scene key="Call" component={Call} hideNavBar={true} /> */}
           {/* <Scene

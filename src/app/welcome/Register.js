@@ -8,12 +8,14 @@ import {
   KeyboardAvoidingView,
   Platform,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from 'react-native';
 import PhoneInput from 'react-native-phone-input';
 import ModalPickerImage from './ModalPickerImage';
 import { RadioGroup, RadioButton } from 'react-native-flexi-radio-button';
 import { theme } from 'galio-framework';
+import { CustomPicker } from 'react-native-custom-picker';
 import { Button, Icon, Input } from '../../components';
 import { Images, Colors } from '../../constants';
 import DatePicker from 'react-native-datepicker';
@@ -42,13 +44,13 @@ class Register extends React.Component {
 
     this.onPressFlag = this.onPressFlag.bind(this);
     this.selectCountry = this.selectCountry.bind(this);
-
     this.state = {
       pickerData: null,
-      todayDate: date + '-' + month + '-' + year,
-      birthday: date + '-' + month + '-' + year,
+      todayDate: year + '-' + month + '-' + date,
+      birthday: year + '-' + month + '-' + date,
       gender: 'male',
-      showAlert: false
+      showAlert: false,
+      specialization: null
     };
   }
 
@@ -109,7 +111,8 @@ class Register extends React.Component {
         gender: this.state.gender,
         password: this.props.password,
         confirmPassword: this.props.confirmPassword,
-        userType: this.props.userType
+        userType: this.props.userType,
+        specialization: this.state.specialization
       });
     }
   };
@@ -226,6 +229,181 @@ class Register extends React.Component {
       showAlert: false
     });
   };
+
+  renderHeader() {
+    return (
+      <View style={styles.headerFooterContainer}>
+        <Text style={{ fontSize: 20 }}>تخصص الطبيب</Text>
+      </View>
+    );
+  }
+
+  renderFooter(action) {
+    return (
+      <TouchableOpacity
+        style={styles.headerFooterContainer}
+        onPress={() => {
+          action.close();
+        }}
+      >
+        <Text>اغلاق</Text>
+      </TouchableOpacity>
+    );
+  }
+
+  renderField(settings) {
+    const { selectedItem, defaultText, getLabel, clear } = settings;
+    return (
+      <View style={styles.container}>
+        <View>
+          {!selectedItem && (
+            <Text style={[styles.text, { color: 'grey' }]}>{defaultText}</Text>
+          )}
+          {selectedItem && (
+            <View style={styles.innerContainer}>
+              <TouchableOpacity
+                onPress={() => {
+                  this.setState({
+                    ...this.state,
+                    specialization: null
+                  });
+                }}
+              >
+                <Image
+                  style={[
+                    {
+                      width: 12,
+                      height: 12,
+                      margin: 12,
+                      color: red
+                    },
+                    styles.shadow
+                  ]}
+                  source={Images.clearIcon}
+                />
+              </TouchableOpacity>
+              <Image
+                style={[styles.imageIconWrapper, styles.shadow]}
+                source={selectedItem.img}
+              />
+              <Text style={[styles.text, { color: selectedItem.color }]}>
+                {getLabel(selectedItem)}
+              </Text>
+            </View>
+          )}
+        </View>
+      </View>
+    );
+  }
+
+  renderOption(settings) {
+    const { item, getLabel } = settings;
+    return (
+      <View style={styles.optionContainer}>
+        <View style={styles.innerContainer}>
+          {/* <View style={[styles.box, { backgroundColor: item.color }]} /> */}
+          <Image style={styles.imageIconWrapper} source={item.img} />
+          <Text
+            style={{
+              fontSize: 18,
+              padding: 8,
+              color: item.color,
+              alignSelf: 'flex-start'
+            }}
+          >
+            {getLabel(item)}
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
+  renderDoctorSpecialization() {
+    // return <Text>this.props.helperType</Text>;
+    if (this.props.userType === 'doctor') {
+      const options = [
+        {
+          color: '#051C2B',
+          label: 'الباطنة والأمراض الصدرية',
+          img: Images.lungIcon,
+          value: 1
+        },
+        {
+          color: '#051C2B',
+          label: 'أمراض القلب والأوعية الدموية',
+          img: Images.heartIcon,
+          value: 2
+        },
+        {
+          color: '#051C2B',
+          label: 'مخ و أعصاب',
+          img: Images.brainIcon,
+          value: 3
+        },
+        {
+          color: '#051C2B',
+          label: 'العظام',
+          img: Images.boneIcon,
+          value: 4
+        },
+        {
+          color: '#051C2B',
+          label: 'المسالك بولية و التناسلية',
+          img: Images.bladderIcon,
+          value: 5
+        },
+        {
+          color: '#051C2B',
+          label: 'النساء والتوليد',
+          img: Images.pregnantIcon,
+          value: 6
+        },
+        {
+          color: '#051C2B',
+          label: 'الجلدية',
+          img: Images.skinIcon,
+          value: 7
+        },
+        {
+          color: '#051C2B',
+          label: 'طب وجراحةالعيون',
+          img: Images.eyeIcon,
+          value: 8
+        },
+        {
+          color: '#051C2B',
+          label: 'أطفال',
+          img: Images.childIcon,
+          value: 9
+        },
+        {
+          color: '#051C2B',
+          label: 'أنف و أذن و حنجرة',
+          img: Images.throatIcon,
+          value: 10
+        }
+      ];
+      return (
+        <CustomPicker
+          options={options}
+          getLabel={item => item.label}
+          fieldTemplate={this.renderFieldR5}
+          optionTemplate={this.renderOption}
+          headerTemplate={this.renderHeader}
+          footerTemplate={this.renderFooter}
+          modalAnimationType="slide"
+          onValueChange={item => {
+            if (item) {
+              this.setState({
+                ...this.state,
+                specialization: item.value
+              });
+            }
+          }}
+        />
+      );
+    }
+  }
 
   render() {
     return (
@@ -423,8 +601,8 @@ class Register extends React.Component {
                 date={this.state.birthday}
                 mode="date"
                 placeholder={t.Birthday}
-                format="DD-MM-YYYY"
-                minDate="01-01-1920"
+                format="YYYY-MM-DD"
+                minDate="1920-01-01"
                 maxDate={this.state.todayDate}
                 confirmBtnText="Confirm"
                 cancelBtnText="Cancel"
@@ -505,6 +683,7 @@ class Register extends React.Component {
             this.hideAlert();
           }}
         />
+        {this.renderDoctorSpecialization()}
         {this.isLoading()}
       </KeyboardAvoidingView>
     );
@@ -606,6 +785,42 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     flexDirection: 'row',
     backgroundColor: Colors.APP
+  },
+  container: {
+    borderColor: 'grey',
+    borderWidth: 1,
+    padding: 15
+  },
+  innerContainer: {
+    flexDirection: 'row',
+    alignItems: 'stretch'
+  },
+  headerFooterContainer: {
+    padding: 10,
+    alignItems: 'center',
+    fontSize: 20
+  },
+  clearButton: {
+    backgroundColor: 'grey',
+    borderRadius: 5,
+    marginRight: 10,
+    padding: 5
+  },
+  optionContainer: {
+    padding: 10,
+    borderBottomColor: 'grey',
+    borderBottomWidth: 1
+  },
+  optionInnerContainer: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  imageIconWrapper: {
+    backgroundColor: '#E8E6E3',
+    width: 32,
+    height: 32,
+    borderRadius: 32 / 2,
+    margin: 5
   }
 });
 
