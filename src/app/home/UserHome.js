@@ -25,14 +25,16 @@ import {
   Platform,
   Switch,
   DeviceEventEmitter,
-  ActivityIndicator
+  ActivityIndicator,
+  NativeModules
 } from 'react-native';
 import {
   Card,
   Modal as CustomModal,
-  Icon as CustomIcon
+  Icon as CustomIcon,
+  LocationPicker
 } from '../../components';
-// import axios from 'axios';
+import axios from 'axios';
 import RNSwipeVerify from 'react-native-swipe-verify';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { openSettings } from 'react-native-permissions';
@@ -54,7 +56,7 @@ const buttons = [
   },
   {
     title: t.RequestAmbulance,
-    image: Images.ambulanceCard,
+    image: Images.ambulanceCard
   }
 ];
 
@@ -67,7 +69,14 @@ class UserHome extends Component {
       gpsOffModal: false,
       startedWatch: false,
       client: Voximplant.getInstance(),
-      currentCall: null
+      currentCall: null,
+      locationPickerModalVisible: false,
+      ambulanceRequestLocation: {
+        latitude: null,
+        longitude: null
+      },
+      loading: false,
+      loadingModalVisible: false
     };
     props.selectHelperType('doctor');
     this.requestAmbulance = this.requestAmbulance.bind(this);
@@ -235,6 +244,7 @@ class UserHome extends Component {
     return (
       <ModalSelector
         style={{ flex: 1 }}
+        cancelText="Cancel"
         data={data}
         ref={selector => {
           this.selector = selector;
@@ -329,14 +339,19 @@ class UserHome extends Component {
   };
 
   requestAmbulance() {
-    if (!this.state.switchValue) {
-      this.setState({
-        modalVisible: false
-      });
-      Actions.waitForAmbulance();
-    } else {
-      console.log('send current position');
-    }
+    Actions.waitForAmbulance();
+    // if (!this.state.switchValue) {
+    //   this.setState({
+    //     modalVisible: false,
+    //     locationPickerModalVisible: true
+    //   });
+    // } else {
+    //   this.setState({
+    //     modalVisible: false,
+    //     loadingModalVisible: true
+    //   });
+    //   this.sendAmbulanceRequest(true);
+    // }
   }
 
   renderModal() {
@@ -363,27 +378,30 @@ class UserHome extends Component {
             }}
           />
         </View>
-        <View style={{ marginTop: 20, marginBottom: 20 }}>
-          <RNSwipeVerify
-            width={width - 100}
-            buttonSize={60}
-            borderColor="#ffff"
-            buttonColor={Colors.APP}
-            backgroundColor="#d4d4d4"
-            borderRadius={30}
-            okButton={{ visible: false, duration: 400 }}
-            icon={
-              <CustomIcon
-                name="swipe-right"
-                family="flaticon"
-                size={25}
-                color="white"
-              />
-            }
-            onVerified={this.requestAmbulance}
-          >
-            <Text style={{ fontSize: 25 }}>Confirm</Text>
-          </RNSwipeVerify>
+        <View
+          style={{
+            marginTop: 20,
+            marginBottom: 20,
+            transform: [{scaleX: NativeModules.I18nManager.isRTL ? -1 : 1}, { rotateY: '180deg' }]
+          }}
+        >
+          <TouchableOpacity
+              style={styles.permissionModalButtonContainer}
+              onPress={this.requestAmbulance}
+            >
+              <View
+                style={[
+                  styles.permissionModalButton,
+                  {
+                    backgroundColor: '#fdeaec'
+                  }
+                ]}
+              >
+                <Text style={{ color: '#d76674', fontFamily: 'IstokWeb-Bold' }}>
+                  Confirm
+                </Text>
+              </View>
+            </TouchableOpacity>
         </View>
         <TouchableOpacity
           onPress={() => {
@@ -563,6 +581,108 @@ class UserHome extends Component {
     );
   }
 
+  modalCancelOnPress = () => {
+    this.setState({
+      locationPickerModalVisible: false
+    });
+  };
+
+  sendAmbulanceRequest = (sendCurrentLocation = false) => {
+    if (sendCurrentLocation) {
+      axios
+        .post('request/ambulance', {
+          userID: this.props.phone,
+          pickupLocation: this.props.position.coords
+        })
+        .then(response => {
+          this.setState({
+            loadingModalVisible: false
+          });
+          Actions.WaitForAmbulance();
+        })
+        .catch(err => {
+          let error = JSON.stringify(err);
+          error = JSON.parse(error);
+          this.setState({
+            loadingModalVisible: false
+          });
+        })
+        .then(() => {
+          this.setState({
+            loadingModalVisible: false
+          });
+        });
+    } else {
+      this.setState({
+        loading: true
+      });
+      axios
+        .post('/ambulanceRequest', {
+          userID: this.props.phone,
+          pickupLocation: this.state.ambulanceRequestLocation
+        })
+        .then(response => {
+          Actions.WaitForAmbulance();
+        })
+        .catch(err => {
+          let error = JSON.stringify(err);
+          error = JSON.parse(error);
+          this.setState({
+            loading: false,
+            locationPickerModalVisible: false
+          });
+        })
+        .then(() => {
+          this.setState({
+            loading: false,
+            locationPickerModalVisible: false
+          });
+        });
+    }
+  };
+
+  renderLocationPicker() {
+    <Modal
+      visible={this.state.locationPickerModalVisible}
+      onRequestClose={this.modalCancelOnPress}
+    >
+      <LocationPicker
+        onValueChange={region => {
+          this.setState({
+            ambulanceRequestLocation: {
+              latitude: ambulanceRequestLocation.latitude,
+              longitude: ambulanceRequestLocation.longitude
+            }
+          });
+        }}
+        cancelOnPress={this.modalCancelOnPress}
+        onPressSubmit={this.sendAmbulanceRequest}
+        loading={this.state.loading}
+      />
+    </Modal>;
+  }
+
+  renderLocationPicker() {
+    <Modal
+      visible={this.state.locationPickerModalVisible}
+      onRequestClose={this.modalCancelOnPress}
+    >
+      <LocationPicker
+        onValueChange={region => {
+          this.setState({
+            ambulanceRequestLocation: {
+              latitude: ambulanceRequestLocation.latitude,
+              longitude: ambulanceRequestLocation.longitude
+            }
+          });
+        }}
+        cancelOnPress={this.modalCancelOnPress}
+        onPressSubmit={this.sendAmbulanceRequest}
+        loading={this.state.loading}
+      />
+    </Modal>;
+  }
+
   render() {
     return (
       <View style={styles.home}>
@@ -570,6 +690,7 @@ class UserHome extends Component {
         {this.renderLocationPermissionRequestModal()}
         {this.renderButtons()}
         {this.renderModal()}
+        {this.renderLocationPicker()}
       </View>
     );
   }
