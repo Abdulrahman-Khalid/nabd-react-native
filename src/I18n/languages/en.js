@@ -40,7 +40,8 @@ export default en = {
   DoctorAlert:
     'Start a video call with doctors form different specializations.',
   AmbulanceAlert: 'Request an ambulance and track its location.',
-  Available: 'I am available',
+  Available: 'Available',
+  UnAvailable: 'Unavailable',
   Refresh: 'Refresh',
   AllFine: 'Looks like everything is fine!',
   RequiredField: 'This field is required',

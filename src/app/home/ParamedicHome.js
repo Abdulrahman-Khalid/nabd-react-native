@@ -40,7 +40,7 @@ class ParamedicHome extends Component {
     console.log(this.props);
     if (this.state.available) {
       this.socket.open();
-      console.log(this.props.phoneNumber + this.props.userType)
+      console.log(this.props.phoneNumber + this.props.userType);
       this.socket.emit('available', {
         phoneNumber: this.props.phoneNumber,
         userType: this.props.userType
@@ -60,8 +60,8 @@ class ParamedicHome extends Component {
       <View>
         <TouchableOpacity onPress={this.startSearching}>
           <SwitchButton
-            text1="Not available"
-            text2="Available"
+            text1={t.Available}
+            text2={t.UnAvailable}
             onValueChange={val => {
               switch (val) {
                 case 2:
