@@ -450,7 +450,7 @@ class UserHome extends Component {
             justifyContent: 'space-around'
           }}
         >
-          <Text style={{ fontSize: 18 }}>Send current location?</Text>
+          <Text style={{ fontSize: 18 }}>{t.SendCurrentLocation}</Text>
           <Switch
             value={this.state.switchValue}
             onValueChange={value => {
@@ -499,71 +499,69 @@ class UserHome extends Component {
     );
   }
 
-  // renderLocationPermissionRequestModal() {
-  //   return (
-  //     <Modal visible={!this.props.permissionGranted} animationType="fade">
-  //       <View style={styles.locationPermissionModalContainer}>
-  //         <Image
-  //           style={styles.locationPermissionImage}
-  //           source={Images.locationPermission}
-  //           resizeMode="contain"
-  //         />
-  //         <View style={styles.locationPermissionModalTitleContainer}>
-  //           <Text style={styles.locationPermissionModalTitle}>
-  //             Nabd requires access to your location
-  //           </Text>
-  //         </View>
-  //         <Text style={styles.locationPermissionModalDescription}>
-  //           {Platform.OS === 'android'
-  //             ? `In order to have help at your fingertips, location access is required. Press 'Open Settings' > Permissions > Location > Allow all the time > Go back to Nabd > Press 'Refresh'`
-  //             : `In order to have help at your fingertips, location access is required. Press 'Open Settings' > Location > Always > Go back to Nabd > Press 'Refresh'`}
-  //         </Text>
-  //         <View style={styles.permissionModalButtons}>
-  //           <TouchableOpacity
-  //             style={styles.permissionModalButtonContainer}
-  //             onPress={() => {
-  //               openSettings().catch(() =>
-  //                 Alert.alert('Error', 'Cannot open settings')
-  //               );
-  //             }}
-  //           >
-  //             <View
-  //               style={[
-  //                 styles.permissionModalButton,
-  //                 {
-  //                   backgroundColor: '#f6f6f4'
-  //                 }
-  //               ]}
-  //             >
-  //               <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
-  //                 Open Settings
-  //               </Text>
-  //             </View>
-  //           </TouchableOpacity>
-  //           <TouchableOpacity
-  //             style={styles.permissionModalButtonContainer}
-  //             onPress={() => {
-  //               this.props.requestLocationPermission();
-  //             }}
-  //           >
-  //             <View
-  //               style={[
-  //                 styles.permissionModalButton,
-  //                 {
-  //                   backgroundColor: '#fdeaec'
-  //                 }
-  //               ]}
-  //             >
-  //               <Text style={{ color: '#d76674', fontFamily: 'Manjari-Bold' }}>
-  //                 Refresh
-  //               </Text>
-  //             </View>
-  //           </TouchableOpacity>
-  //         </View>
-  //       </View>
-  //     </Modal>
-  //   );
-  // }
+  renderLocationPermissionRequestModal() {
+    return (
+      <Modal visible={!this.props.permissionGranted} animationType="fade">
+        <View style={styles.locationPermissionModalContainer}>
+          <Image
+            style={styles.locationPermissionImage}
+            source={Images.locationPermission}
+            resizeMode="contain"
+          />
+          <View style={styles.locationPermissionModalTitleContainer}>
+            <Text style={styles.locationPermissionModalTitle}>
+              {t.RequiresAccess}
+            </Text>
+          </View>
+          <Text style={styles.locationPermissionModalDescription}>
+            {Platform.OS === 'android' ? t.LocationAlert : t.LocationAlert_}
+          </Text>
+          <View style={styles.permissionModalButtons}>
+            <TouchableOpacity
+              style={styles.permissionModalButtonContainer}
+              onPress={() => {
+                openSettings().catch(() =>
+                  Alert.alert(t.Error, t.SettingsError)
+                );
+              }}
+            >
+              <View
+                style={[
+                  styles.permissionModalButton,
+                  {
+                    backgroundColor: '#f6f6f4'
+                  }
+                ]}
+              >
+                <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
+                  {t.OpenSettings}
+                </Text>
+              </View>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.permissionModalButtonContainer}
+              onPress={() => {
+                this.props.requestLocationPermission();
+              }}
+            >
+              <View
+                style={[
+                  styles.permissionModalButton,
+                  {
+                    backgroundColor: '#fdeaec'
+                  }
+                ]}
+              >
+                <Text style={{ color: '#d76674', fontFamily: 'Manjari-Bold' }}>
+                  Refresh
+                </Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+    );
+  }
 
   renderGPSOffModal() {
     return (
@@ -575,11 +573,9 @@ class UserHome extends Component {
             resizeMode="contain"
           />
           <View style={styles.gpsOffModalTitleContainer}>
-            <Text style={styles.gpsOffModalTitle}>
-              Nabd requires access to your location
-            </Text>
+            <Text style={styles.gpsOffModalTitle}>{t.RequiresAccess}</Text>
             <Text style={styles.gpsOffModalDescription}>
-              Enable location services for a better experience
+              {t.EnableLocation}
             </Text>
           </View>
         </View>
@@ -662,7 +658,7 @@ class UserHome extends Component {
     return (
       <View style={styles.home}>
         {this.renderGPSOffModal()}
-        {/* {this.renderLocationPermissionRequestModal()} */}
+        {this.renderLocationPermissionRequestModal()}
         {this.renderButtons()}
         {this.renderModal()}
       </View>

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
 import Steps from 'react-native-steps';
-import data from './FirstAidData';
 import metadata from './metadata.json';
 import t from '../../I18n';
 import { Colors } from '../../constants';
@@ -89,11 +88,11 @@ const styles = StyleSheet.create({
     flexDirection: 'row'
   },
   stepIndicator: {
-    marginVertical: 20, // 50
+    marginVertical: 20,
     paddingHorizontal: 20
   },
   rowItem: {
-    marginVertical: '10%', // space between list items
+    marginVertical: '5%', // space between list items
     flex: 1,
     paddingVertical: '10%'
   },

@@ -12,6 +12,16 @@ export default en = {
 
   CallFailed: 'Call failed: ',
   ChooseLocation: 'Choose Pickup Location',
+  RequiresAccess: 'Nabd requires access to your location',
+  EnableLocation: 'Enable location services for a better experience',
+  SendCurrentLocation: 'Send Current Location',
+  LocationAlert:
+    'In order to have help at your fingertips, location access is required. Press Open Settings > Permissions > Location > Allow all the time > Go back to Nabd > Press Refresh',
+  LocationAlert_:
+    'In order to have help at your fingertips, location access is required. Press Open Settings > Location > Always > Go back to Nabd > Press Refresh',
+  SettignsError: 'Cannot open settings',
+  Error: 'Error ',
+  OpenSettings: 'Open Settings',
 
   AmbulanceInfo:
     'Register ambulances to recieve requests and get location of the patient.',

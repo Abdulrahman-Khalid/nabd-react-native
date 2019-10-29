@@ -43,8 +43,7 @@ class LanguageSelection extends Component {
       }, 500);
       return;
     }
-    // Actions.whoRU();
-    Actions.FirstAid();
+    Actions.whoRU();
   };
 
   render() {
