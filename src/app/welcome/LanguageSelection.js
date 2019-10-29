@@ -20,30 +20,30 @@ import { Actions } from 'react-native-router-flux';
 import { Button, SwitchButton } from '../../components';
 import { theme } from 'galio-framework';
 import { FAB } from 'react-native-paper';
+import { Action } from 'rxjs/internal/scheduler/Action';
 
 class LanguageSelection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOption: 'ar'
+      switchText1: this.props.language.lang === 'en' ? 'English' : 'العربية',
+      switchText2: this.props.language.lang === 'ar' ? 'English' : 'العربية'
     };
   }
 
-  _handlePress = () => {
-    const { switchLanguage, language } = this.props;
-    const { selectedOption } = this.state;
-    if (selectedOption !== language.lang) {
-      const isRtl = selectedOption === 'ar';
+  _handlePress = lang => {
+    console.log('iam here nigga2');
+    console.log('lang: ', lang);
+    if (lang !== this.props.language.lang) {
+      const isRtl = lang === 'ar';
       NativeModules.I18nManager.forceRTL(isRtl);
-      switchLanguage({
-        lang: this.state.selectedOption
+      this.props.switchLanguage({
+        lang
       });
       setTimeout(() => {
         RNRestart.Restart();
       }, 500);
-      return;
     }
-    Actions.whoRU();
   };
 
   render() {
@@ -61,11 +61,13 @@ class LanguageSelection extends Component {
         </View>
         <View style={styles.switch}>
           <SwitchButton
-            text1="العربية"
-            text2="English"
-            onValueChange={val =>
-              this.setState({ selectedOption: val == 1 ? 'ar' : 'en' })
-            }
+            text1={this.state.switchText1}
+            text2={this.state.switchText2}
+            onValueChange={val => {
+              const lang = this.props.language.lang === 'en' ? 'ar' : 'en';
+              console.log('selected Lang: ', lang);
+              this._handlePress(lang);
+            }}
             fontColor="#817d84"
             activeFontColor="black"
             switchdirection={isRtl}
@@ -74,7 +76,9 @@ class LanguageSelection extends Component {
         <FAB
           style={styles.nextButton}
           icon={isRtl === 'ltr' ? 'chevron-right' : 'chevron-left'}
-          onPress={this._handlePress}
+          onPress={() => {
+            Actions.whoRU();
+          }}
         />
       </View>
     );
