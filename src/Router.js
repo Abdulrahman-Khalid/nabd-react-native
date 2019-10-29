@@ -202,8 +202,8 @@ class RouterComponent extends Component {
             <Scene
               key="waitForAmbulance"
               component={WaitForAmbulance}
-              title={t.ChooseLocation}
-              hideNavBar={false}
+              hideNavBar={true}
+              renderBackButton={()=>(null)}
             />
             <Scene
               key="settings"
