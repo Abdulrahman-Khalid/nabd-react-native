@@ -3,30 +3,30 @@ export default {
     {
       title: 'Step one',
       body:
-        'العثور على السن، وإمساكه من الجزء المستخدم في المضغ (التاج)، ولا يجب أبدًا لمس جذور السن.',
+        'Find the tooth, hold it from the part of the chewing (crown), and never touch the roots of the tooth.',
       image: require('../../assets/imgs/first_aid/tooth_injury/step1.png')
     },
     {
       title: 'Step two',
       body:
-        '	إذا كان السن متسخًا، يجب شطفه بلطف باستخدام الماء النظيف فقط، ولا يستخدم الصابون، أو أي من المواد الكيميائية، مع عدم القيام بفرك السن، أو تجفيفه، كما لا يجب لف السن بمنديل، أو قطعة قماش.',
+        'If the tooth is dirty, rinse it gently with clean water only, do not use soap, or any chemicals, and do not rub or dry the tooth, and the tooth should not be wrapped with a tissue or cloth.',
       image: require('../../assets/imgs/first_aid/tooth_injury/step2.jpg')
     },
     {
       title: 'Step three',
       body:
-        'محاولة إعادة السن إلى موضعه في اللثة على الفور، وذلك بالقيام بوضعه برفق، والقيام بالعض عليه بلطف حتى يستقر في مكانه.',
+        'Try to get the tooth back into the gums right away, by gently putting it, and gently biting it until it snaps into place.',
       image: require('../../assets/imgs/first_aid/tooth_injury/step3.png')
     },
     {
       title: 'Step four',
       body:
-        'عند عدم القدرة على إعادة السن لمكانه، يجب وضعه في كوب لبن، أو وضعه بالفم بجوار الخد، لكن لا يجب حفظ السن في الماء.',
+        'When the tooth cannot be restored, it should be placed in a cup of milk, or placed in the mouth next to the cheek, but the tooth should not be kept in water.',
       image: require('../../assets/imgs/first_aid/tooth_injury/step4.png')
     },
     {
       title: 'Step five',
-      body: 'الذهاب للطبيب في خلال ثلاثين دقيقة للتدخل السريع.',
+      body: 'Go to the doctor in thirty minutes for rapid intervention.',
       image: require('../../assets/imgs/first_aid/tooth_injury/step5.jpg')
     }
   ],
@@ -34,93 +34,95 @@ export default {
   nosebleed: [
     {
       body:
-        'الانحناء قليلًا إلى الأمام في أثناء الجلوس، أو الوقوف، مع تجنب الاستلقاء، أو ميل الرأس للخلف؛ لأن ذلك سيتسبب بابتلاع الدم، والقيء.',
+        'Leaning forward slightly while sitting or standing, avoiding lying down, or tilting the head backwards, as this will cause swallowing of blood and vomiting.',
       image: require('../../assets/imgs/first_aid/nosebleeding/step1.png')
     },
     {
       body:
-        'إمساك الأنف من الجزء الناعم (ليس العظمي) من الناحيتين، مع تجنب الضغط على جانب واحد فقط، حتى لو كان النزيف على جانب واحد فقط.',
+        'Hold the nose from the soft (not bony) part of both sides, avoiding pressure on only one side, even if the bleeding is on only one side.',
       image: require('../../assets/imgs/first_aid/nosebleeding/step2.png')
     },
     {
       body:
-        'الضغط على الأنف لمدة خمس دقائق على الأقل للأطفال، ومن 10 إلى 15 دقيقة للبالغين، مع عدم القيام بفك الضغط عن الأنف؛ لاكتشاف ما إذا كان النزيف قد توقف، إلا بعد مضي الوقت المحدد.',
+        'Squeeze the nose for at least five minutes for children, and 10 to 15 minutes for adults, with no decompression to find out if the bleeding has stopped, until after the time has elapsed.',
       image: require('../../assets/imgs/first_aid/nosebleeding/step3.png')
     },
     {
       body:
-        'يمكن وضع كمادات باردة، أو كيس ثلج على الأنف، حيث يساعد الأوعية الدموية على الانقباض.',
+        'Cold compresses, or an ice pack, can be placed on the nose, as the blood vessels help contract.',
       image: require('../../assets/imgs/first_aid/nosebleeding/step4.png')
     },
     {
       body:
-        'تكرار الخطوات السابقة إذا لم يتوقف النزيف، مع القيام بالضغط على الأنف لمدة لا تقل عن 30 دقيقة، فإذا لم يتوقف النزيف فيجب التوجه إلى الطوارئ على الفور.',
+        'Repeat the previous steps if the bleeding does not stop, with pressure on the nose for at least 30 minutes. If the bleeding does not stop, go to the emergency immediately.',
       image: require('../../assets/imgs/first_aid/nosebleeding/step5.png')
     }
   ],
   fractures: [
     {
       body:
-        'إيقاف النزيف، خصوصًا إذا صاحب الكسر تهتك بالجلد، وذلك بالضغط على الجرح باستخدام ضمادة معقمة، أو قطعة قماش نظيفة.',
+        'Stop bleeding, especially if the fracture is accompanied by laceration of the skin, by pressing the wound with a sterile bandage, or a clean cloth.',
       image: require('../../assets/imgs/first_aid/fractures/step1.png')
     },
     {
       body:
-        'يجب عدم تحريك المنطقة المصابة؛ لأن تحريكها يمكن أن يؤدي إلى مضاعفات بالغة، خصوصًا إذا كان الكسر في الرقبة، أو العمود الفقري.',
+        'Do not move the affected area, because moving it can lead to severe complications, especially if the fracture of the neck, or spine.',
       image: require('../../assets/imgs/first_aid/fractures/step2.png')
     },
     {
       body:
-        'يجب تبريد المنطقة المصابة، بوضع مكعبات من الثلج بقطعة قماش نظيفة، ثم وضعها على المنطقة المصابة.',
+        'The affected area should be cooled, placing ice cubes with a clean cloth, and then placing it on the affected area.',
       image: require('../../assets/imgs/first_aid/fractures/step3.png')
     },
     {
       body:
-        'علاج المصاب من الصدمة، وذلك بوضع المصاب في وضع مريح، وطمأنته، وتغطيته ببطانية؛ لمساعدته على التدفئة.',
+        'Treat the patient from shock, by placing the patient in a comfortable position, reassuring him and covering him with a blanket to help him warm up.',
       image: require('../../assets/imgs/first_aid/fractures/step4.png')
     },
     {
       body:
-        'الاتصال بالإسعاف؛ طلبًا للمساعدة، ولنقل المصاب إلى قسم الطوارئ؛ لاتخاذ الإجراءات اللازمة من فحوصات، وعلاج.',
+        'Call an ambulance; seek help, and take the injured to the emergency department; to take the necessary actions of tests and treatment.',
       image: require('../../assets/imgs/first_aid/fractures/step5.png')
     }
   ],
   cuts: [
     {
       body:
-        'غسل اليدين جيدًا بالماء النظيف، والصابون قبل التعامل مع الجرح، مع تجنب لمسه بالأصابع في أثناء معالجته إن أمكن. وينصح باستخدام قفازات مطاطية يمكن التخلص منها.',
+        'Wash your hands thoroughly with clean water and soap before handling the wound, avoiding touching it with fingers while treating it if possible. Disposable rubber gloves are recommended. ',
       image: require('../../assets/imgs/first_aid/cuts/step1.png')
     },
     {
-      body: 'إزالة المجوهرات من الجزء المصاب بالجسم.',
+      body: 'Remove jewelry from the affected part of the body.',
+
       image: require('../../assets/imgs/first_aid/cuts/step2.png')
     },
     {
       body:
-        'الضغط المباشر على الجرح؛ لوقف النزيف، مع تجنب ربط ما حول موضع الجرح؛ حيث يمكن أن يؤدي ذلك إلى حدوث تلف بالأنسجة. ',
+        'Direct pressure on the wound to stop bleeding, while avoiding attachment around the wound site; this can lead to tissue damage. ',
       image: require('../../assets/imgs/first_aid/cuts/step3.png')
     },
     {
       body:
-        'تنظيف الجرح بعد توقف النزيف، وذلك باستخدام محلول ملحي إن أمكن، وإذا لم يكن متاحًا، فيمكن استخدام مياه الشرب المعبأة.',
+        'Clean the wound after the bleeding has stopped, using saline solution if possible, and if not available, bottled drinking water can be used.',
       image: require('../../assets/imgs/first_aid/cuts/step4.png')
     },
     {
-      body: 'فحص الجرح، وإزالة أي تلوث، أو جسم غريب بداخله.',
+      body:
+        'Examine the wound, remove any contamination, or foreign object inside it.',
       image: require('../../assets/imgs/first_aid/cuts/step5.png')
     },
     {
-      body: 'التنظيف برفق حول الجرح، باستخدام الماء النظيف، والصابون.',
+      body: 'Gently clean around the wound, using clean water, soap.',
       image: require('../../assets/imgs/first_aid/cuts/step6.png')
     },
     {
       body:
-        'تغطية الجرح بضمادة نظيفة معقمة، أما إذا كان الجرح ملوثًا، أو كان بسبب العض، مثل عضة الكلب، أو كان بسبب إبرة ملوثة فيجب تركه مفتوحًا.',
+        'Cover the wound with a clean sterile bandage, but if the wound is contaminated, or because of biting, such as a dog bite, or because of a contaminated needle must be left open.',
       image: require('../../assets/imgs/first_aid/cuts/step7.png')
     },
     {
       body:
-        'تناول المسكنات مثل: الإيبوبروفين؛ لتسكين الألم، وتغيير الضمادة كل 24 ساعة.',
+        'Take analgesics such as: ibuprofen; to relieve pain, change the bandage every 24 hours.',
       image: require('../../assets/imgs/first_aid/cuts/step8.png')
     }
   ],
@@ -128,298 +130,299 @@ export default {
   head_injury: [
     {
       body:
-        'يتحدد العلاج على أساس درجة الإصابة بالرأس؛ حيث لا تحتاج الحالات الخفيفة غالبا إلى علاج؛ وإذا كانت الإصابة شديدة، فيجب الاتصال بالإسعاف على الفور.',
+        'Treatment is determined based on the degree of head injury; mild cases often do not need treatment; if the injury is severe, call the ambulance immediately.',
       image: require('../../assets/imgs/first_aid/head_injury/step1.png')
     },
     {
       body:
-        'إذا كان المصاب ينزف، فيجب إيقاف النزيف باستخدام شاش، أو قماش نظيف.',
+        'If the patient is bleeding, stop bleeding using gauze, or clean cloth.',
       image: require('../../assets/imgs/first_aid/head_injury/step2.png')
     },
     {
       body:
-        'إذا كان الجرح مفتوحًا، تجنب لمسه، أو الضغط عليه، ويمكن تغطية الجرح، أو لفه بشاش نظيف.',
+        'If the wound is open, avoid touching or squeezing it, and the wound can be covered or wrapped with clean gauze.',
       image: require('../../assets/imgs/first_aid/head_injury/step3.png')
     },
     {
       body:
-        'إذا كان المصاب في وضعية الجلوس ويتقيأ، فحاول مساعدته بإبقائه في وضع منحنٍ للأمام. أما إذا كان المصاب مستلقيًّا على الأرض، فحاول وضعه على أحد جنبيه؛ منعًا للاختناق.',
+        'If the person is in a sitting position and vomits, try to help him by keeping him in a curved position. If the injured person is lying on the ground, try to put it on one side to prevent suffocation. ',
       image: require('../../assets/imgs/first_aid/head_injury/step4.png')
     },
     {
       body:
-        'إذا كان المصاب مستيقظًا، فاطلب منه عدم تحريك رأسه ورقبته؛ لمنع المزيد من الأضرار التي لحقت بالعمود الفقري، والمخ.',
+        'If the patient is awake, ask him not to move his head and neck; to prevent further damage to the spine and brain.',
       image: require('../../assets/imgs/first_aid/head_injury/step5.png')
     },
     {
       body:
-        'إذا كان المصاب فاقدًا للوعي، ويتنفس بصورة طبيعية، فحاول تثبيت جسمه بجعل الرأس، والرقبة، والعمود الفقري في وضع مستقيم.',
+        'If the patient is unconscious and breathing normally, try to stabilize his body by keeping the head, neck, and spine upright.',
       image: require('../../assets/imgs/first_aid/head_injury/step6.png')
     },
     {
-      body:
-        'إذا كان الشخص في غير وعيه، ولا يتنفس، فابدأ بعملية الإنعاش القلبي - الرئوي.',
+      body: 'If the person is unconscious and does not breathe, start a CPR.',
       image: require('../../assets/imgs/first_aid/head_injury/step7.png')
     }
   ],
   burns: [
     {
       body:
-        'يمكن علاج الحروق الصغيرة السطحية، والسطحية الجزئية في المنزل. أما الحروق الأكبر والأعمق فيجب تقييمها وعلاجها من قبل مقدم الرعاية الصحية.',
+        'Can treat small surface burns, partial surface at home. Greater and deeper burns should be evaluated and treated by your health care provider. ',
       image: require('../../assets/imgs/first_aid/burns/step1.png')
     },
     {
       body:
-        'القيام بإزالة أي ملابس من المنطقة المحروقة، لكن إذا التصقت الملابس بالجلد، فيجب التوجه للطبيب على الفور لإزالتها.',
+        'Remove any clothes from the burned area, but if the clothes are stuck to the skin, you should immediately see a doctor to remove them.',
       image: require('../../assets/imgs/first_aid/burns/step2.png')
     },
     {
-      body:
-        'إزالة الإكسسوارات، مثل: الخواتم، الساعات، الأحزمة، الأحذية إن وجدت برفق.',
+      body: 'Remove accessories, such as rings, watches, belts, shoes, if any.',
       image: require('../../assets/imgs/first_aid/burns/step3.png')
     },
     {
       body:
-        'غسل الجلد المحروق بلطف بماء جارٍ من الصنبور، على أن يكون باردًا، وليس من الضروري تطهير الجلد بالكحول، أو اليود، أو المطهرات الأخرى.',
+        'Wash the burned skin gently with running water from the tap, cool, and it is not necessary to disinfect the skin with alcohol, iodine, or other disinfectants.',
       image: require('../../assets/imgs/first_aid/burns/step4.png')
     },
     {
       body:
-        'بعد تنظيف الجلد، يمكن وضع ضغط بارد عليه، أو نقع المنطقة في ماء بارد، وليس في ثلج، لفترة زمنية قصيرة؛ لتخفيف الألم، وتقليل مدى الاحتراق.',
+        'After cleaning the skin, a cold pressure can be applied to it, or soak the area in cold water, not in snow, for a short period of time; to relieve pain and reduce the extent of combustion.',
       image: require('../../assets/imgs/first_aid/burns/step5.png')
     },
     {
       body:
-        'تجنب وضع الثلج مباشرة على الجلد؛ لأن ذلك قد يؤدي إلى تلف الجلد بشكل أكبر.',
+        'Avoid applying ice directly to the skin, as this may further damage the skin.',
       image: require('../../assets/imgs/first_aid/burns/step6.png')
     },
     {
       body:
-        'يمكن منع العدوى في حالة الحروق السطحية الجزئية، أو الحروق الشديدة باستخدام الصبار، أو وضع كريم مضاد حيوي على المنطقة المصابة.  مع تجنب وضع المواد الأخرى، مثل: الخردل، معجون الأسنان، بياض البيض، زيت اللافندر، الزبدة، المايونيز.',
+        'Infection can be prevented in case of partial surface burns, severe burns using aloe vera, or antibiotic cream applied to the affected area. Avoid applying other substances, such as mustard, toothpaste, egg whites, lavender oil, butter, and mayonnaise. ',
       image: require('../../assets/imgs/first_aid/burns/step7.png')
     },
     {
-      body:
-        'المحافظة على نظافة موضع الحرق عن طريق غسلها يوميًّا بالماء والصابون.',
+      body: 'Keep the burn site clean by washing it daily with soap and water.',
       image: require('../../assets/imgs/first_aid/burns/step8.png')
     },
     {
       body:
-        'تغطية الحروق التي تصاحبها بثور بضمادة نظيفة، ويفضل من النوع الذي لا يلتصق بالجلد، مثل: ضمادة غير لاصقة، أو شاش فازلين. كما يمكن تغطية الحروق البسيطة عند الرغبة بذلك بضمادة نظيفة.',
+        'Cover burns accompanied by blisters with a clean bandage, preferably the type that does not stick to the skin, such as: non-stick bandage, or Vaseline gauze. Simple burns can be covered if desired with a clean bandage.',
       image: require('../../assets/imgs/first_aid/burns/step9.png')
     },
     {
       body:
-        'يجب تغيير الضمادة مرة أو مرتين يوميًّا، مع تجنب فتح البثور المتكونة بإبرة؛ لأن ذلك يزيد من خطر الإصابة بالتهاب الجلد.',
+        'The bandage should be changed once or twice a day, avoiding the needle-opening blisters, as this increases the risk of dermatitis.',
       image: require('../../assets/imgs/first_aid/burns/step10.png')
     }
   ],
   chemical_poisoning_swallowing: [
     {
-      body: 'يراقب التنفس مع عمل تنفس صناعي إذا لزم الأمر.',
+      body: 'Watch breathing with ventilator action if necessary.',
       image: require('../../assets/imgs/first_aid/chemical_poisoning_swallowing/step1.png')
     },
     {
-      body: 'إعطاء لبن بارد وبياض بيضة',
+      body: 'Give cold milk and egg whites',
       image: require('../../assets/imgs/first_aid/chemical_poisoning_swallowing/step2.png')
     },
     {
-      body: 'إعطاء مسكن قوي لتخفيف الألم',
+      body: 'Give a powerful analgesic to relieve pain',
       image: require('../../assets/imgs/first_aid/chemical_poisoning_swallowing/step3.png')
     },
     {
       body:
-        'يمنع إحداث قيء للمصاب، كما يمنع غسيل المعدة أو إعطاء أحماض مثل الخل وعصير الليمون في حالات التسمم بالقلويات مثل الفلاش.',
+        'It prevents vomiting, gastric lavage or acids such as vinegar and lemon juice in alkaline poisoning such as flash.',
       image: require('../../assets/imgs/first_aid/chemical_poisoning_swallowing/step4.png')
     },
     {
-      body: 'ينقل المصاب للمستشفى فوراً.',
+      body: 'The injured person is taken to hospital immediately.',
       image: require('../../assets/imgs/first_aid/chemical_poisoning_swallowing/step5.png')
     }
   ],
   chemical_poisoning_inhaling: [
     {
       body:
-        'نقل المصاب فورا من الجو المشبع بالغاز أو البخار السام إلى هواء نقي مع تحرير الجسم من الملابس الضاغطة وفك أربطة العنق.',
+        'Immediately transfer the injured from the atmosphere saturated with gas or toxic vapor to fresh air with the release of the body from compression clothing and loosen neckties.',
       image: require('../../assets/imgs/first_aid/chemical_poisoning_inhaling/step1.png')
     },
     {
       body:
-        'إجراء تنفس صناعي في حالة هبوط أو فشل التنفس وذلك إمالة الرأس المصاب الي الخلف وذلك لتفتيح المسالك الهوائية مع إغلاق فوهتي الأنف بالأصبع واخذ شهيق عميق ووضع شفتي المعالج بإحكام فوق فم المصاب ونفخ الهواء في رئتيه, وذلك مع مراقبة صدر المريض الذي يرتفع عندما يصل الهواء الي داخل الرئتين.',
+        'Breathing procedure in case of failure or failure of breathing by tilting the back of the injured head to lighten the airways with the closure of the nose nozzles with a finger and take a deep inhalation and place the lips tightly over the mouth of the patient and blowing air in his lungs, while monitoring the patient chest, which rises when the air arrives Into the lungs. ',
       image: require('../../assets/imgs/first_aid/chemical_poisoning_inhaling/step2.png')
     },
     {
       body:
-        'يرفع فم الشخص المُعالج حتى يتمكن المريض من عملية الزفير مع مراقبة انخفاض الصدر، وتتكرر العملية السابقة حتى يستعيد المصاب تنفسه الطبيعي.',
+        'The patient mouth is raised so that the patient can exhale while monitoring the lower chest, and the previous process is repeated until the patient regains normal breathing.',
       image: require('../../assets/imgs/first_aid/chemical_poisoning_inhaling/step3.png')
     },
     {
       body:
-        'تدفئة المريض إذا ظهرت عليه علامات البرد أو القشعريرة, والتهدئة من روعه.',
+        'Warm the patient if it shows signs of cold or chills, and calm him down.',
       image: require('../../assets/imgs/first_aid/chemical_poisoning_inhaling/step4.png')
     },
     {
       body:
-        'نقل المريض فورا إلى المستشفى، حيث تتميز حالات التسمم بالاستنشاق بسرعة وصول السم إلى الدم.',
+        'The patient is immediately rushed to the hospital, where inhalation poisoning is characterized by the rapid arrival of poison into the blood.',
       image: require('../../assets/imgs/first_aid/chemical_poisoning_inhaling/step5.png')
     }
   ],
   eye_injury_scratch: [
     {
-      body: 'يجب غسل العين بالماء النظيف، أو بمحلول ملحي.',
+      body: 'The eye should be washed with clean water, or with brine.',
       image: require('../../assets/imgs/first_aid/eye_injury_scratch/step1.png')
     },
     {
       body:
-        'القيام بالرمش عدة مرات، فقد يساعد ذلك على إخراج ذرات الرمل، أو التراب الصغيرة من العين.',
+        'Doing eyelashes a few times, this may help remove sand atoms, or small dust from the eye.',
       image: require('../../assets/imgs/first_aid/eye_injury_scratch/step2.png')
     },
     {
       body:
-        'لا يجب لمس العينين بأي شيء، أو فركها باليدين، أو محاولة إزالة الجسم الغريب؛ لأن ذلك يؤذي العين.',
+        'Contact lenses should not be worn until fully cured, because wearing them will slow the healing and can cause complications.',
       image: require('../../assets/imgs/first_aid/eye_injury_scratch/step3.png')
     },
     {
       body:
-        'لا يجب ارتداء العدسات اللاصقة حتى تمام الشفاء؛ لأن ارتداءها سوف يؤدي إلى إبطاء الشفاء، ويمكن أن يتسبب في حدوث مضاعفات.',
+        'You should not touch the eyes with anything, rub it with your hands, or try to remove the UFO, because it hurts the eye.',
       image: require('../../assets/imgs/first_aid/eye_injury_scratch/step4.png')
     },
     {
       body:
-        'لا يجب استخدام القطرة المهدئة للاحمرار؛ لأنها سوف تكون مؤلمة، ولن تساعد في التئام الخدش.',
+        'The soothing drop should not be used for redness; it will be painful and will not help heal the scratch.',
       image: require('../../assets/imgs/first_aid/eye_injury_scratch/step5.png')
     },
     {
       body:
-        'إذا حدث تحسس للعين من الضوء بعد حدوث الخدش، فيجب ارتداء النظارة الشمسية للشعور بالراحة.',
+        'If an eye sensitivity occurs after scratching, wear sunglasses to feel comfortable.',
       image: require('../../assets/imgs/first_aid/eye_injury_scratch/step6.png')
     }
   ],
   eye_injury_puncture: [
     {
-      body: 'يجب تغطية العين بغطاء واقٍ نظيف إلى حين الوصول إلى الطبيب.',
+      body:
+        'The eye should be covered with a clean protective cover until the doctor is reached.',
+
       image: require('../../assets/imgs/first_aid/eye_injury_puncture/step1.png')
     },
     {
-      body: 'تجنب الضغط على غطاء العين آو شطف العين بالماء.',
+      body: 'Avoid pressing the eye cover or rinse the eye with water.',
       image: require('../../assets/imgs/first_aid/eye_injury_puncture/step2.png')
     },
     {
       body:
-        'تجنب القيام بإزالة أي شيء عالق بالعين، أو القيام بفرك العين، أو الضغط عليها.',
+        'Avoid removing anything stuck in the eye, rubbing the eye, or squeezing it.',
       image: require('../../assets/imgs/first_aid/eye_injury_puncture/step3.png')
     },
     {
       body:
-        'عدم تناول الإسبرين، أو أي من الأدوية المضادة للالتهابات؛ لأنها سوف تزيد من النزيف.',
+        'Do not take aspirin, or any anti-inflammatory drug; it will increase bleeding.',
       image: require('../../assets/imgs/first_aid/eye_injury_puncture/step4.png')
     },
     {
-      body: 'يجب التوجه إلى الطوارئ، أو الطبيب على الفور.',
+      body: 'You should go to the emergency, or the doctor immediately.',
       image: require('../../assets/imgs/first_aid/eye_injury_puncture/step5.png')
     }
   ],
   seizure: [
     {
       body:
-        'تمديد المصاب على الأرض، مع تجنب محاولة إيقاف حركات المصاب في أثناء النوبة.',
+        'Extending the patient to the ground, while avoiding trying to stop the patient movements during the seizure.',
       image: require('../../assets/imgs/first_aid/seizure/step1.png')
     },
     {
       body:
-        'وضع المصاب بلطف على جانب واحد؛ لمساعدته على التنفس. وتأمين المنطقة المحيطة به.',
+        'Put the injured person gently on one side; to help him breathe. And secure the surrounding area. ',
       image: require('../../assets/imgs/first_aid/seizure/step2.png')
     },
     {
       body:
-        'وضع شيء ناعم تحت رأس المصاب، مثل: سترة، أو غيرها، وأيضًا إزالة النظارات من وجهه، وفك أزرار القميص، وربطة العنق.',
+        'Put something soft under the paient head, such as a jacket, or other, and also remove glasses from the face, and remove the shirt buttons, and tie.',
       image: require('../../assets/imgs/first_aid/seizure/step3.png')
     },
     {
       body:
-        'تجنب وضع أي طعام أو ماء أو جسم في فم المصاب؛ حيث يمكن ذلك أن يجرح فكه، أو يصيب أسنانه.',
+        'Avoid placing any food, water or body in the patient mouth; this can injure his jaw, or injure his teeth.',
       image: require('../../assets/imgs/first_aid/seizure/step4.png')
     },
     {
       body:
-        'تجنب محاولة عمل الإنعاش القلبي - الرئوي؛ لأن المصاب سيبدأ بالتنفس بمفرده بعد النوبة.',
+        'Avoid trying cardiopulmonary resuscitation because the person will start breathing on his own after a seizure.',
       image: require('../../assets/imgs/first_aid/seizure/step5.png')
     },
     {
-      body: 'ضرورة الاتصال بالطوارئ، إذا استمرت النوبة أكثر من خمس دقائق.',
+      body:
+        'The need to call emergency, if the seizure lasts more than five minutes.',
       image: require('../../assets/imgs/first_aid/seizure/step6.png')
     }
   ],
   bleeding: [
     {
       body:
-        'قم بإزالة أي أوساخ أو بقايا واضحة عن الجرح، فقط قم بإزالة الأوساخ الظاهرة، ولا تقم بإزالة الأجسام الكبيرة أو المغروسة بعمق داخل الجسم، ولا تفحص الجرح أو تحاول تنظيفه، وارتدِ القفازات الواقية المعدة للاستخدام مرة واحدة في حال توافرها.',
+        'Remove any visible dirt or residue from the wound, just remove visible dirt, do not remove large or deeply embedded objects, do not examine or attempt to clean the wound, and wear disposable protective gloves if available.',
       image: require('../../assets/imgs/first_aid/bleeding/step1.png')
     },
     {
       body:
-        'لا تضغط بشكل مباشر على إصابة العين أو على الجسم المغروس، ولا تصحح الوضع أو تضغط على الأعضاء التي تمت إزاحتها من موضعها، فقط غطِ الجرح بضمادة نظيفة.',
+        'Do not squeeze directly on the eye or implanted body, do not correct the situation or squeeze the removed organs, just cover the wound with a clean bandage.',
       image: require('../../assets/imgs/first_aid/bleeding/step2.png')
     },
     {
       body:
-        'ارفع الجزء المصاب أعلى من مستوى القلب، وساعد الشخص المصاب على الاستلقاء، ويُفضل أن يكون على سجادة أو بطانية لمنع فقدان حرارة الجسم وإن أمكن، ارفع ساقيه.',
+        'Raise the injured part above the heart level, and help the person to lie down, preferably on a carpet or blanket to prevent loss of body heat and, if possible, raise his legs.',
       image: require('../../assets/imgs/first_aid/bleeding/step3.png')
     },
     {
       body:
-        'لا تقم بإزالة الشاش أو الضمادة، في حالة تسرب النزيف من الشاش أو قطع القماش الأخرى الموجودة على الجرح، فقم بوضع ضمادة أخرى أعلى الضمادة الحالية، واستمر في الضغط بقوة على المنطقة.',
+        'Do not remove the gauze or bandage.If bleeding leaks from the gauze or other pieces of cloth on the wound, place another bandage on top of the current bandage, and continue to apply strong pressure to the area.',
       image: require('../../assets/imgs/first_aid/bleeding/step4.png')
     },
     {
       body:
-        'ضع ضمادة معقمة أو قطعة قماش نظيفة على الجرح، واضغط على الضمادة بقوة براحة يدك للتحكم في النزيف، وحافظ على الضغط من خلال "تعصيب" الجرح بضمادة أو بقطعة قماش نظيفة بشكل محكم، وقم بربط الجرح بشريط لاصق، واستخدم يديك في حال عدم توفر أي شيء آخر.',
+        'Place a sterile bandage or clean cloth on the wound.Press the bandage firmly in the palm of your hand to control bleeding.Keep pressure by "innervating" the wound with a clean bandage or cloth.Tighten the wound with duct tape. any thing else.',
       image: require('../../assets/imgs/first_aid/bleeding/step5.png')
     },
     {
       body:
-        'ثبت الجزء المصاب من الجسم بمجرد توقف النزيف، واترك الضمادات في مكانها واذهب بالشخص المصاب إلى غرفة الطوارئ في أسرع وقت ممكن.',
+        'Once the bleeding has stopped, hold the affected part of the body, leave the bandages in place and take the injured person to the emergency room as soon as possible.',
       image: require('../../assets/imgs/first_aid/bleeding/step6.png')
     }
   ],
   cpr: [
     {
       body:
-        'قبل بدء عملية الإنعاش يجب التأكد من سلامة المكان والمصاب؛ كما ويحبذ وضع قفازين على اليدين منعًا لانتقال العدوى والأمراض من المصاب إلى المُعالِج أو بالعكس.'
+        'Before starting the resuscitation process, make sure that the place and the injured are safe; it is also advisable to put gloves on the hands to prevent infection and diseases from being infected to the therapist or vice versa.',
+      image: require('../../assets/imgs/first_aid/bleeding/step1.png')
     },
     {
       body:
-        'في البداية يجب محاولة التواصل مع المصاب كلاميًّا. في حال لم يستجب ينبغي قرصه في العضلة شبه المنحرفة (جانبي العنق) و فرك عظمة الصدر. في حال لم يستجب، يعتبر المصاب فاقدًا للوعي.',
+        'Initially you should try to communicate with the injured verbally. If not, it should be twisted into the trapezius muscle (both sides of the neck) and rubbed the breastbone. If he does not respond, the patient is considered unconscious. ',
       image: require('../../assets/imgs/first_aid/cpr/step2.png')
     },
     {
       body:
-        'يجب فحص وجود إفرازات أو جسم غريب داخل فم المصاب. يجب، في حال وجودها، إمالة رأس المصاب إلى إحدى الجهتين، وتفريغ فمه من الإفرازات بواسطة الإصبع، وإزالة أي جسم غريب.',
+        'Examination or foreign body inside the mouth of the paient should be examined. If present, the injured person head should be tilted to one side, the mouth discharged from the discharge with a finger, and any foreign object removed. ',
       image: require('../../assets/imgs/first_aid/cpr/step3.png')
     },
     {
       body:
-        'الإمساك برأس المصاب من منطقة أسفل الذقن ومن جبهته، وإمالته إلى الوراء قليلاً، وذلك من أجل التأكد من فتح مجرى التنفس.',
+        'Hold the paient head from the area below the chin and from the forehead, and tilt it slightly backwards, in order to make sure the breath is opened.',
       image: require('../../assets/imgs/first_aid/cpr/step4.png')
     },
     {
       body:
-        'فحص إذا كان المصاب يتنفس، وذلك من خلال وضع يده على منطقة الصدر وتقريب الأذن من مجرى التنفس (الفم والأنف). إذا لم تكن هنالك عملية تنفس، يجب إجراء عملية إعطاء التنفس الاصطناعي مرتين من الفم، مع المحافظة على الالتصاق التام بين فم المصاب وفم مقدم الإسعاف.',
+        'Check if the patient is breathing, by placing his hand on the chest area and rounding the ear out of the airway (mouth and nose). If there is no breathing, artificial respiration should be performed twice from the mouth, maintaining full adhesion between the patient mouth and the mouth of the ambulance provider. ',
       image: require('../../assets/imgs/first_aid/cpr/step5.png')
     },
     {
       body:
-        'يجب التأكد من وجود نبض لدى المصاب، وذلك من خلال القيام بالضغط بخفة على جانب العنق، حيث يوجد الشريان السباتي.',
+        'You should make sure that you have a pulse by pressing lightly on the side of the neck, where the carotid artery is located.',
       image: require('../../assets/imgs/first_aid/cpr/step6.png')
     },
     {
       body:
-        ' في حال لم نستطع الإحساس بوجود نبض، على مقدم الإسعافات أن يقوم بثلاثين عملية تدليك للصدر (في الدقيقة)، والتي يتم إجراؤها بواسطة ضم كفتي اليدين إلى بعضهما، بسط المرفقين بالكامل والقيام بالضغط على صدر المصاب، بواسطة كامل ثقل الجسم (دون طي المرفقين).',
+        'If we cannot feel a pulse, the first aid provider should perform thirty chest rubs (per minute), which are performed by bringing the hands together, stretching the elbows completely and applying pressure to the patient chest, using the full weight of the elbows (without folding the elbows).',
       image: require('../../assets/imgs/first_aid/cpr/step7.png')
     },
     {
       body:
-        'يجب، بعد مرور دقيقة، تقييم وضع المصاب مجددًا وفحص إذا كان النبض أو التنفس قد عادا له؛ ينبغي، في حال عدم وجود نبض أو تنفس، القيام مجددًا بالعمليات السابقة.',
+        'A minute later, the condition of the patient must be assessed again and the pulse or breathing returned. In the absence of pulse or breathing, previous operations should be performed again.',
       image: require('../../assets/imgs/first_aid/cpr/step8.png')
     }
   ]

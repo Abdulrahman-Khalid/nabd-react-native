@@ -65,7 +65,7 @@ export default class StepIndicator extends Component {
     const item = rowData.item;
     return (
       <View style={styles.rowItem}>
-        <Text style={styles.body}>{item}</Text>
+        <Text style={styles.body}>{item.body}</Text>
         <View style={styles.imageContainer}>
           <Image style={styles.image} source={item.image} />
         </View>
