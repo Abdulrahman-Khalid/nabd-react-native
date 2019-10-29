@@ -220,7 +220,7 @@ class RouterComponent extends Component {
             />
           </Scene>
           {/* ////////////////////Paramedic Home///////////////////// */}
-          <Scene key="paramedicHome" hideNavBar={true} initial>
+          <Scene key="paramedicHome" hideNavBar={true}>
             <Tabs
               key="tabBar"
               initial

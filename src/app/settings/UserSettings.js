@@ -1,5 +1,11 @@
 import React, { Component } from 'react';
-import { Linking, Share, I18nManager, TouchableOpacity } from 'react-native';
+import {
+  Linking,
+  Share,
+  NativeModules,
+  I18nManager,
+  TouchableOpacity
+} from 'react-native';
 import ReactNativeSettingsPage, {
   SectionRow,
   NavigateRow
@@ -22,21 +28,18 @@ class UserSettings extends Component {
     };
   }
 
-  // langSelection = () => {
-  //   const { switchLanguage, language } = this.props;
-  //   const { selectedOption } = this.state;
-  //   if (selectedOption !== language.lang) {
-  //     const isRtl = selectedOption === 'ar';
-  //     NativeModules.I18nManager.forceRTL(isRtl);
-  //     switchLanguage({
-  //       lang: this.state.selectedOption
-  //     });
-  //     setTimeout(() => {
-  //       RNRestart.Restart();
-  //     }, 500);
-  //     return;
-  //   }
-  // };
+  langSelection = lang => {
+    if (lang !== this.props.language.lang) {
+      const isRtl = lang === 'ar';
+      NativeModules.I18nManager.forceRTL(isRtl);
+      this.props.switchLanguage({
+        lang
+      });
+      setTimeout(() => {
+        RNRestart.Restart();
+      }, 500);
+    }
+  };
 
   logoutButtonPressed() {
     axios.defaults.headers.common['TOKEN'] = '';
@@ -59,7 +62,7 @@ class UserSettings extends Component {
               // style={styles.languagePicker}
               // mode="dialog"
               onValueChange={(itemValue, itemIndex) =>
-                this.setState({ selectedOption: itemValue })
+                this.langSelection(itemValue)
               }
             >
               <Picker.Item label="🇪🇬 العربية" value="ar" />
