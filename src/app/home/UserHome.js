@@ -3,7 +3,6 @@ import AsyncStorage from '@react-native-community/async-storage';
 import LoginManager from '../videoCall/manager/LoginManager';
 import CallManager from '../videoCall/manager/CallManager';
 import { Voximplant } from 'react-native-voximplant';
-import { CustomPicker } from 'react-native-custom-picker';
 import { Block, Text, Button, theme } from 'galio-framework';
 import { Actions } from 'react-native-router-flux';
 import { Colors, Images } from '../../constants';
@@ -40,6 +39,7 @@ import { openSettings } from 'react-native-permissions';
 import t from '../../I18n';
 import RNSettings from 'react-native-settings';
 import Geolocation from 'react-native-geolocation-service';
+import ModalSelector from 'react-native-modal-selector';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -55,7 +55,6 @@ const buttons = [
   {
     title: t.RequestAmbulance,
     image: Images.ambulanceCard,
-    horizontal: true
   }
 ];
 
@@ -76,17 +75,14 @@ class UserHome extends Component {
 
   componentDidMount() {
     LoginManager.getInstance().on('onConnectionClosed', this._connectionClosed);
-    if (Platform.OS === 'android') {
-      this.setState({ gpsOffModal: true });
-      RNSettings.getSetting(RNSettings.LOCATION_SETTING).then(result => {
-        if (result == RNSettings.ENABLED) {
-          this.setState({ gpsOffModal: false });
-        }
-      });
-    } else {
-      this.props.requestLocationPermission();
-      console.log(this.props.permissionGranted);
-    }
+    this.setState({ gpsOffModal: true });
+    RNSettings.getSetting(RNSettings.LOCATION_SETTING).then(result => {
+      if (result == RNSettings.ENABLED) {
+        this.setState({ gpsOffModal: false });
+      }
+    });
+    this.props.requestLocationPermission();
+    console.log(this.props.permissionGranted);
     DeviceEventEmitter.addListener(
       RNSettings.GPS_PROVIDER_EVENT,
       this.handleGPSProviderEvent
@@ -192,168 +188,77 @@ class UserHome extends Component {
     // Alert.alert('Welcome', 'Hello');
   }
 
-  renderHeader() {
-    return (
-      <View style={styles.headerFooterContainer}>
-        <Text style={{ fontSize: 20 }}>تخصص الطبيب</Text>
-      </View>
-    );
-  }
-
-  renderFooter(action) {
-    return (
-      <TouchableOpacity
-        style={styles.headerFooterContainer}
-        onPress={() => {
-          action.close();
-        }}
-      >
-        <Text>اغلاق</Text>
-      </TouchableOpacity>
-    );
-  }
-
-  renderField(settings) {
-    const { selectedItem, defaultText, getLabel, clear } = settings;
-    return (
-      // <View
-      //   style={{
-      //     backgroundColor: 'red',
-      //     paddingTop: theme.SIZES.BASE,
-      //     paddingRight: theme.SIZES.BASE,
-      //     paddingLeft: theme.SIZES.BASE / 2,
-      //     paddingBottom: theme.SIZES.BASE / 2
-      //   }}
-      // ></View>
-      // <Image
-      //   source={buttons[1].image}
-      //   style={{
-      //     width: width / 2,
-      //     height: 200,
-      //     paddingTop: theme.SIZES.BASE,
-      //     paddingRight: theme.SIZES.BASE,
-      //     paddingLeft: theme.SIZES.BASE / 2,
-      //     paddingBottom: theme.SIZES.BASE / 2
-      //   }}
-      // />
-      <Card
-        item={buttons[1]}
-        style={{
-          width: width / 2,
-          height: height / 3,
-          paddingTop: theme.SIZES.BASE,
-          paddingRight: theme.SIZES.BASE,
-          paddingLeft: theme.SIZES.BASE / 2,
-          paddingBottom: theme.SIZES.BASE / 2
-        }}
-        // onPress={() => {
-        //   this.props.selectHelperType('aide');
-        // }}
-        onPressInfo={() => {
-          Alert.alert(t.Info, t.DoctorAlert);
-        }}
-      />
-    );
-  }
-
-  renderOption(settings) {
-    const { item, getLabel } = settings;
-    return (
-      <View style={styles.optionContainer}>
-        <View style={styles.innerContainer}>
-          {/* <View style={[styles.box, { backgroundColor: item.color }]} /> */}
-          <Image style={styles.imageIconWrapper} source={item.img} />
-          <Text
-            style={{
-              fontSize: 18,
-              padding: 8,
-              color: item.color,
-              alignSelf: 'flex-start'
-            }}
-          >
-            {getLabel(item)}
-          </Text>
-        </View>
-      </View>
-    );
-  }
-
   renderRequestDoctorCard() {
-    // return <Text>this.props.helperType</Text>;
-    const options = [
+    const data = [
+      { key: 0, section: true, label: 'تخصص الطبيب' },
       {
-        color: '#051C2B',
         label: t.InternalMedicine,
-        img: Images.lungIcon,
-        value: 1
+        key: 1
       },
       {
-        color: '#051C2B',
         label: t.Cardiology,
-        img: Images.heartIcon,
-        value: 2
+        key: 2
       },
       {
-        color: '#051C2B',
         label: t.Neurology,
-        img: Images.brainIcon,
-        value: 3
+        key: 3
       },
       {
-        color: '#051C2B',
         label: t.Orthopaedic,
-        img: Images.boneIcon,
-        value: 4
+        key: 4
       },
       {
-        color: '#051C2B',
         label: t.Urology,
-        img: Images.bladderIcon,
-        value: 5
+        key: 5
       },
       {
-        color: '#051C2B',
         label: t.OBGYN,
-        img: Images.pregnantIcon,
-        value: 6
+        key: 6
       },
       {
-        color: '#051C2B',
         label: t.Dermatology,
-        img: Images.skinIcon,
-        value: 7
+        key: 7
       },
       {
-        color: '#051C2B',
         label: t.Ophthalmology,
-        img: Images.eyeIcon,
-        value: 8
+        key: 8
       },
       {
-        color: '#051C2B',
         label: t.Pediatrics,
-        img: Images.childIcon,
-        value: 9
+        key: 9
       },
       {
-        color: '#051C2B',
         label: t.Otorhinolaryngology,
-        img: Images.throatIcon,
-        value: 10
+        key: 10
       }
     ];
     return (
-      <CustomPicker
-        options={options}
-        getLabel={item => item.label}
-        fieldTemplate={this.renderField}
-        optionTemplate={this.renderOption}
-        headerTemplate={this.renderHeader}
-        footerTemplate={this.renderFooter}
-        modalAnimationType="slide"
-        onValueChange={item => {
-          this.videoCall('doctor', item.value);
+      <ModalSelector
+        style={{ flex: 1 }}
+        data={data}
+        ref={selector => {
+          this.selector = selector;
         }}
+        onChange={option => {
+          this.videoCall('doctor', option.value);
+        }}
+        customSelector={
+          <Card
+            item={buttons[1]}
+            style={{
+              paddingTop: theme.SIZES.BASE,
+              paddingRight: theme.SIZES.BASE,
+              paddingLeft: theme.SIZES.BASE / 2,
+              paddingBottom: theme.SIZES.BASE / 2
+            }}
+            onPress={() => {
+              this.selector.open();
+            }}
+            onPressInfo={() => {
+              Alert.alert(t.Info, t.DoctorAlert);
+            }}
+          />
+        }
       />
     );
   }
