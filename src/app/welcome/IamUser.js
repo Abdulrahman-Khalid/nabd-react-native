@@ -41,7 +41,7 @@ const styles = {
   title: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'Manjari-Regular',
+    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -49,7 +49,7 @@ const styles = {
     fontSize: 15,
     color: 'gray',
     textAlign: 'center',
-    fontFamily: 'Manjari-Regular',
+    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   }

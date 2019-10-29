@@ -269,7 +269,7 @@ export class Incidents extends Component {
               }}
             />
           </Animated.View>
-          {this.state.empty ? (
+          {!this.state.empty ? (
             <ScrollView
               refreshControl={
                 <RefreshControl
@@ -313,9 +313,27 @@ export class Incidents extends Component {
                 style={{ height: 150, width: 150, marginBottom: 20 }}
                 resizeMode="contain"
               />
-              <Text style={{ fontSize: 20 }}>{t.AllFine}</Text>
-              <TouchableOpacity onPress={this.updateIncidentCards}>
-                <Text>{t.Refresh}</Text>
+              <Text style={{ fontSize: 25, marginBottom: 20 }}>
+                {t.AllFine}
+              </Text>
+              <TouchableOpacity
+                style={styles.emptyScreenButtonContainer}
+                onPress={this.updateIncidentCards}
+              >
+                <View
+                  style={[
+                    styles.emptyScreenButton,
+                    {
+                      backgroundColor: '#f6f6f4'
+                    }
+                  ]}
+                >
+                  <Text
+                    style={{ color: '#b3b3b2', fontFamily: 'IstokWeb-Bold' }}
+                  >
+                    {t.Refresh}
+                  </Text>
+                </View>
               </TouchableOpacity>
             </View>
           )}
@@ -459,13 +477,26 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     paddingTop: isIphoneX() ? 44 : 0
-  }
+  },
+  emptyScreenButtonContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: 10,
+    paddingRight: 10
+  },
+  emptyScreenButton: {
+    padding: 20,
+    height: 40,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 30
+  },
 });
 
 const mapStateToProps = state => ({
   location: state.location,
   addedNewIncidentFlag: state.incidents.addedNewIncidentFlag,
-  userID: state.signin.phone
+  userID: state.signin.phone.substring(1)
 });
 
 export default connect(

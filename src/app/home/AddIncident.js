@@ -337,7 +337,7 @@ class AddIncident extends Component {
             >
               <View style={styles.button}>
                 <Text
-                  style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}
+                  style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
                 >
                   {t.Next}
                 </Text>
@@ -394,10 +394,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => ({
-  position: state.location.position,
-  userID: state.signin.phone
-});
+const mapStateToProps = state => ({ position: state.location.position, userID: state.signin.phone.substring(1) });
 
 export default connect(
   mapStateToProps,

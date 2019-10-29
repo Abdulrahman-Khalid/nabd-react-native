@@ -63,6 +63,7 @@
     "react-native-material-menu": "^1.0.0",
     "react-native-md5": "^1.0.0",
     "react-native-modal-dropdown": "^0.6.2",
+    "react-native-modal-selector": "^1.1.2",
     "react-native-paper": "^2.16.0",
     "react-native-permissions": "^2.0.2",
     "react-native-phone-input": "0.2.2",

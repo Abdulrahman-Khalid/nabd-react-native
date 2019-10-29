@@ -104,7 +104,7 @@ class RouterComponent extends Component {
             color: 'white'
           }}
         >
-          <Scene key="welcome" initial>
+          <Scene key="welcome">
             <Scene
               key="languageSelection"
               component={LanguageSelection}
@@ -202,8 +202,8 @@ class RouterComponent extends Component {
             <Scene
               key="waitForAmbulance"
               component={WaitForAmbulance}
-              title={t.ChooseLocation}
-              hideNavBar={false}
+              hideNavBar={true}
+              renderBackButton={()=>(null)}
             />
             <Scene
               key="settings"
@@ -220,7 +220,7 @@ class RouterComponent extends Component {
             />
           </Scene>
           {/* ////////////////////Paramedic Home///////////////////// */}
-          <Scene key="paramedicHome" hideNavBar={true}>
+          <Scene key="paramedicHome" hideNavBar={true} initial >
             <Tabs
               key="tabBar"
               initial

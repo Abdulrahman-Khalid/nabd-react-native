@@ -61,7 +61,7 @@ class WhoAmI extends Component {
             onPress={this.user.bind(this)}
           >
             <View style={styles.button}>
-              <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
+              <Text style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}>
                 {t.User}
               </Text>
             </View>
@@ -71,7 +71,7 @@ class WhoAmI extends Component {
             onPress={this.doctor.bind(this)}
           >
             <View style={styles.button}>
-              <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
+              <Text style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}>
                 {t.Doctor}
               </Text>
             </View>
@@ -81,7 +81,7 @@ class WhoAmI extends Component {
             onPress={this.paramedic.bind(this)}
           >
             <View style={styles.button}>
-              <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
+              <Text style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}>
                 {t.Paramedic}
               </Text>
             </View>
@@ -91,7 +91,7 @@ class WhoAmI extends Component {
             onPress={this.ambulance.bind(this)}
           >
             <View style={styles.button}>
-              <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
+              <Text style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}>
                 {t.AmbulanceDriver}
               </Text>
             </View>
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'Manjari-Regular',
+    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -130,7 +130,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'gray',
     textAlign: 'center',
-    fontFamily: 'Manjari-Regular',
+    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },

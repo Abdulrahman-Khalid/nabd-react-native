@@ -14,7 +14,7 @@ export default class CommonButtons extends Component {
           onPress={() => Actions.signup()}
         >
           <View style={styles.button}>
-            <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
+            <Text style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}>
               {t.CreateAccount}
             </Text>
           </View>
@@ -27,7 +27,7 @@ export default class CommonButtons extends Component {
             <Text
               style={{
                 color: Colors.SECONDARY_DARK,
-                fontFamily: 'Manjari-Bold'
+                fontFamily: 'IstokWeb-Bold'
               }}
             >
               {t.SignIn}
