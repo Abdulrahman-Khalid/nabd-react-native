@@ -11,9 +11,10 @@ import {
   View,
   Dimensions,
   Image,
-  Text
+  Text,
+  NativeModules
 } from 'react-native';
-import { Icon } from '../../components';
+import { Icon, SwitchButton } from '../../components';
 import RadioForm, { RadioButton } from 'react-native-simple-radio-button';
 import axios from 'axios';
 import t from '../../I18n';
@@ -24,14 +25,30 @@ const { width, height } = Dimensions.get('screen');
 class ParamedicHome extends Component {
   constructor(props) {
     super();
-    this.state = {};
+    this.state = {
+      available: false
+    };
+    this.socket = io(
+      axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4),
+      { autoConnect: false }
+    );
   }
 
-  componentDidMount() {
-    const socket = io(
-      axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4)
-    );
-    socket.connect();
+  componentDidMount() {}
+
+  componentDidUpdate() {
+    console.log(this.props);
+    if (this.state.available) {
+      this.socket.open();
+      console.log(this.props.phoneNumber + this.props.userType)
+      this.socket.emit('available', {
+        phoneNumber: this.props.phoneNumber,
+        userType: this.props.userType
+      });
+    } else {
+      this.socket.close();
+    }
+    console.log(this.socket.connected);
   }
 
   startSearching = () => {
@@ -42,7 +59,27 @@ class ParamedicHome extends Component {
     return (
       <View>
         <TouchableOpacity onPress={this.startSearching}>
-          <Text>{t.Available}</Text>
+          <SwitchButton
+            text1="Not available"
+            text2="Available"
+            onValueChange={val => {
+              switch (val) {
+                case 2:
+                  this.setState({
+                    available: true
+                  });
+                  break;
+                case 1:
+                  this.setState({
+                    available: false
+                  });
+              }
+            }}
+            fontColor="#817d84"
+            switchWidth={250}
+            activeFontColor="black"
+            switchdirection={NativeModules.I18nManager.isRTL}
+          />
         </TouchableOpacity>
       </View>
     );
@@ -51,10 +88,10 @@ class ParamedicHome extends Component {
 
 const styles = StyleSheet.create({});
 
-const mapStateToProps = state => {
-  const { helperType, helperName } = state.requestHelp;
-  return { helperType, helperName };
-};
+const mapStateToProps = state => ({
+  phoneNumber: state.signin.phone.substring(1),
+  userType: state.signin.userType
+});
 
 export default connect(
   mapStateToProps,

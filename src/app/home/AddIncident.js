@@ -394,10 +394,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => ({
-  position: state.location.position,
-  userID: state.signin.phone
-});
+const mapStateToProps = state => ({ position: state.location.position, userID: state.signin.phone.substring(1) });
 
 export default connect(
   mapStateToProps,

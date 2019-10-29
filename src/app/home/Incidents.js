@@ -465,7 +465,7 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   location: state.location,
   addedNewIncidentFlag: state.incidents.addedNewIncidentFlag,
-  userID: state.signin.phone
+  userID: state.signin.phone.substring(1)
 });
 
 export default connect(

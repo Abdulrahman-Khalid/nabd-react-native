@@ -93,7 +93,7 @@ class UserHome extends Component {
     );
   }
 
-  componentDidUnmount() {
+  componentWillUnmount() {
     LoginManager.getInstance().off(
       'onConnectionClosed',
       this._connectionClosed
