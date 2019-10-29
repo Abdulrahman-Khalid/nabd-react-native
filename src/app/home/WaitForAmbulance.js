@@ -8,6 +8,8 @@ import { FAB, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
 import { Icon as CustomIcon } from '../../components';
+import io from 'socket.io-client';
+import axios from 'axios';
 
 class WaitForAmbulance extends Component {
   constructor(props) {
@@ -19,15 +21,21 @@ class WaitForAmbulance extends Component {
         latitudeDelta: 0.005,
         longitudeDelta: 0.005
       },
+      ambulanceLocation: null,
       mapMarginBottom: 1
     };
+    this.socket = io(
+      axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4)
+    );
   }
 
-  onRegionChange = region => {
-    this.setState({
-      region
+  componentDidMount() {
+    this.socket.on('ambulanceRequestUserEnd', data => {
+      this.setState({
+        ambulanceLocation: data
+      });
     });
-  };
+  }
 
   moveToUserLocation() {
     const userRegion = {
@@ -37,10 +45,6 @@ class WaitForAmbulance extends Component {
       longitudeDelta: 0.005
     };
     this.mapView.animateToRegion(userRegion, 1000);
-  }
-
-  sendRequest() {
-    console.log("send Request")
   }
 
   render() {
@@ -55,9 +59,16 @@ class WaitForAmbulance extends Component {
           showsMyLocationButton={false}
           onMapReady={() => this.setState({ mapMarginBottom: 0 })}
           ref={ref => (this.mapView = ref)}
-        />
-        <View style={styles.markerFixed}/>
-        {/* <Pulse size={100} color="#52AB42" /> */}
+        >
+          {this.state.ambulanceLocation != null ? (
+            <Marker.Animated
+              ref={marker => {
+                this.marker = marker;
+              }}
+              coordinate={this.state.ambulanceLocation}
+            />
+          ) : null}
+        </MapView>
         <FAB
           style={styles.fab}
           icon={() => (
@@ -77,26 +88,6 @@ class WaitForAmbulance extends Component {
             </View>
           )}
           onPress={() => this.moveToUserLocation()}
-        />
-        <FAB
-          style={styles.sendButton}
-          icon={() => (
-            <View
-              style={{
-                flex: 1,
-                justifyContent: 'center',
-                alignItems: 'center'
-              }}
-            >
-              <CustomIcon
-                name="next-1"
-                size={25}
-                color="gray"
-                style={{ alignSelf: 'center' }}
-              />
-            </View>
-          )}
-          onPress={() => this.sendRequest()}
         />
       </View>
     );
@@ -119,16 +110,7 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 70,
     backgroundColor: 'white'
-  },
-  markerFixed: {
-    left: "49.15%",
-    position: 'absolute',
-    top: "47.15%",
-    backgroundColor: 'black',
-    height: 7,
-    width: 7,
-    borderRadius: 14
-  },
+  }
 });
 
 const mapStateToProps = state => ({ position: state.location.position });
