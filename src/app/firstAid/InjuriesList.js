@@ -192,6 +192,7 @@ class InjuriesList extends Component {
             const offset = nativeEvent.contentOffset.y / scrollSensitivity;
             this.state.scrollOffset.setValue(offset);
           }}
+          showsVerticalScrollIndicator={false}
           scrollEventThrottle={20}
         >
           <View>
