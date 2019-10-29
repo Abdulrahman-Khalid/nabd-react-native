@@ -287,28 +287,22 @@ class UserHome extends Component {
         error => {
           switch (error.code) {
             case 1:
-              Alert.alert('Error', 'Location permission is not granted');
+              Alert.alert(t.Error, t.Error1);
               break;
             case 2:
-              Alert.alert('Error', 'Location provider not available');
+              Alert.alert(t.Error, t.Error2);
               break;
             case 3:
-              Alert.alert('Error', 'Location request timed out');
+              Alert.alert(t.Error, t.Error3);
               break;
             case 4:
-              Alert.alert(
-                'Error',
-                'Google play service is not installed or has an older version'
-              );
+              Alert.alert(t.Error, t.Error4);
               break;
             case 5:
-              Alert.alert(
-                'Error',
-                'Location service is not enabled or location mode is not appropriate for the current request'
-              );
+              Alert.alert(t.Error, t.Error5);
               break;
             default:
-              Alert.alert('Error', 'Please try again');
+              Alert.alert(t.Error, t.Error6);
               break;
           }
         },

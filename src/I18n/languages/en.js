@@ -1,4 +1,12 @@
 export default en = {
+  Error1: 'Location permission is not granted',
+  Error2: 'Location provider not available',
+  Error3: 'Location request timed out',
+  Error4: 'Google play service is not installed or has an older version',
+  Error5:
+    'Location service is not enabled or location mode is not appropriate for the current request',
+  Error6: 'Please try again',
+
   InternalMedicine: ' Internal Medicine',
   Cardiology: 'Cardiology',
   Neurology: 'Neurology',
