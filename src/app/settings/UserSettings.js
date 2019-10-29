@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
-import { Linking, Share, I18nManager } from 'react-native';
+import { Linking, Share, I18nManager, TouchableOpacity } from 'react-native';
 import ReactNativeSettingsPage, {
   SectionRow,
   NavigateRow
 } from 'react-native-settings-page';
 import { connect } from 'react-redux';
 import RNRestart from 'react-native-restart';
-import { switchLanguage } from '../../actions';
+import { switchLanguage, resetSignInReducerState } from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import TextDisplay from './TextDisplay';
 import { View, Picker } from 'react-native';
 import t from '../../I18n';
 import email from 'react-native-email';
-import { resetSignInReducerState } from '../../actions/';
-import { TouchableHighlight } from 'react-native-gesture-handler';
 import axios from 'axios';
 
 class UserSettings extends Component {
@@ -110,9 +108,9 @@ class UserSettings extends Component {
           />
         </SectionRow>
         <SectionRow>
-          <TouchableHighlight onPress={this.logoutButtonPressed()}>
+          <TouchableOpacity onPress={this.logoutButtonPressed.bind(this)}>
             <TextDisplay text={t.LogOut} />
-          </TouchableHighlight>
+          </TouchableOpacity>
         </SectionRow>
       </ReactNativeSettingsPage>
     );
