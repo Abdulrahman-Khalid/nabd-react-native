@@ -107,11 +107,13 @@ class UserSettings extends Component {
             }}
           />
         </SectionRow>
-        <SectionRow>
-          <TouchableOpacity onPress={this.logoutButtonPressed.bind(this)}>
-            <TextDisplay text={t.LogOut} />
-          </TouchableOpacity>
-        </SectionRow>
+        <View style={{ backgroundColor: '#fff', marginBottom: 10 }}>
+          <NavigateRow
+            onPressCallback={this.logoutButtonPressed.bind(this)}
+            iconName="sign-out"
+            text={t.LogOut}
+          />
+        </View>
       </ReactNativeSettingsPage>
     );
   }
