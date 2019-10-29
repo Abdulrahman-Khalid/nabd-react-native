@@ -26,6 +26,7 @@ class LanguageSelection extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      isRtl: this.props.language.lang === 'ar' ? 'rtl' : 'ltr',
       switchText1: this.props.language.lang === 'en' ? 'English' : 'العربية',
       switchText2: this.props.language.lang === 'ar' ? 'English' : 'العربية'
     };
@@ -47,7 +48,6 @@ class LanguageSelection extends Component {
   };
 
   render() {
-    const isRtl = this.props.language.lang === 'ar' ? 'rtl' : 'ltr';
     return (
       <View style={styles.mainContainer}>
         <Image
@@ -70,12 +70,12 @@ class LanguageSelection extends Component {
             }}
             fontColor="#817d84"
             activeFontColor="black"
-            switchdirection={isRtl}
+            switchdirection={this.state.isRtl}
           />
         </View>
         <FAB
           style={styles.nextButton}
-          icon={isRtl === 'ltr' ? 'chevron-right' : 'chevron-left'}
+          icon={this.state.isRtl === 'ltr' ? 'chevron-right' : 'chevron-left'}
           onPress={() => {
             Actions.whoRU();
           }}
