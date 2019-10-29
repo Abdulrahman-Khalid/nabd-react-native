@@ -58,12 +58,6 @@ class ParamedicHome extends Component {
   render() {
     return (
       <View>
-        <TouchableHighlight
-          style={{ backgroundColor: 'red', margin: 20 }}
-          onPress={() => Actions.settings()}
-        >
-          <Text>Settings</Text>
-        </TouchableHighlight>
         <TouchableOpacity onPress={this.startSearching}>
           <SwitchButton
             text1={t.Available}
