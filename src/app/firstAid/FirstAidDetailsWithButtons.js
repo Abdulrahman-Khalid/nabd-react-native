@@ -15,8 +15,6 @@ import t from '../../I18n';
 import data from './metadata.json';
 import { Colors } from '../../constants';
 import { theme } from 'galio-framework';
-import { Icon as CustomIcon } from '../../components';
-import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 
 const { width, height } = Dimensions.get('screen');
@@ -45,72 +43,11 @@ class FirstAidDetailsWithButtons extends Component {
 
   isChemicalPoisoning = data[this.props.injury].value === 'chemical_poisoning';
 
-  // renderNavbarButton(scrollOffset) {
-  //   if (this.props.quickAccess) {
-  //     return (
-  //       <TouchableOpacity
-  //         onPress={() => Actions.pop()}
-  //         style={{
-  //           position: 'absolute',
-  //           right: 0,
-  //           marginRight: 20
-  //         }}
-  //       >
-  //         <CustomIcon
-  //           name="back"
-  //           family="animatedFlaticon"
-  //           size={25}
-  //           style={{
-  //             color: scrollOffset.interpolate({
-  //               inputRange: [0, 200],
-  //               outputRange: ['black', 'white'],
-  //               extrapolate: 'clamp'
-  //             }),
-  //             fontSize: scrollOffset.interpolate({
-  //               inputRange: [0, 200],
-  //               outputRange: [25, 20],
-  //               extrapolate: 'clamp'
-  //             })
-  //           }}
-  //         />
-  //       </TouchableOpacity>
-  //     );
-  //   }
-  //   return (
-  //     <TouchableOpacity
-  //       onPress={() => Actions.settings()}
-  //       style={{
-  //         position: 'absolute',
-  //         right: 0,
-  //         marginRight: 20
-  //       }}
-  //     >
-  //       <CustomIcon
-  //         name="gear-option"
-  //         family="animatedFlaticon"
-  //         size={25}
-  //         style={{
-  //           color: scrollOffset.interpolate({
-  //             inputRange: [0, 200],
-  //             outputRange: ['black', 'white'],
-  //             extrapolate: 'clamp'
-  //           }),
-  //           fontSize: scrollOffset.interpolate({
-  //             inputRange: [0, 200],
-  //             outputRange: [25, 20],
-  //             extrapolate: 'clamp'
-  //           })
-  //         }}
-  //       />
-  //     </TouchableOpacity>
-  //   );
-  // }
   render() {
     const { scrollOffset } = this.state;
-    const { INJURY_BUTTON, INJURY_BUTTON_TWO } = Colors;
     return (
       <View style={{ flex: 1 }}>
-        <Animated.View
+        {/* <Animated.View
           style={[
             styles.header,
             {
@@ -145,30 +82,6 @@ class FirstAidDetailsWithButtons extends Component {
             }
           ]}
         >
-          {/* <Animated.Text
-            onLayout={e => {
-              if (this.offset === 0 && this.state.titleWidth === 0) {
-                const titleWidth = e.nativeEvent.layout.width;
-                this.setState({ titleWidth });
-              }
-            }}
-            style={{
-              fontWeight: 'bold',
-              fontSize: scrollOffset.interpolate({
-                inputRange: [0, 200],
-                outputRange: [26, 20],
-                extrapolate: 'clamp'
-              }),
-              color: scrollOffset.interpolate({
-                inputRange: [0, 200],
-                outputRange: ['black', 'white'],
-                extrapolate: 'clamp'
-              })
-            }}
-          >
-            {t.FirstAid}
-          </Animated.Text> */}
-          {/* {this.renderNavbarButton(scrollOffset)} */}
           <Animated.View
             style={{
               width: scrollOffset.interpolate({
@@ -178,19 +91,19 @@ class FirstAidDetailsWithButtons extends Component {
               })
             }}
           />
-        </Animated.View>
+        </Animated.View> */}
         <ScrollView
-          contentContainerStyle={{
-            paddingTop: theme.SIZES.BASE,
-            zIndex: 2
-          }}
-          onScroll={({ nativeEvent }) => {
-            const scrollSensitivity = 4 / 3;
-            const offset = nativeEvent.contentOffset.y / scrollSensitivity;
-            this.state.scrollOffset.setValue(offset);
-          }}
-          showsVerticalScrollIndicator={false}
-          scrollEventThrottle={20}
+        // contentContainerStyle={{
+        //   paddingTop: theme.SIZES.BASE,
+        //   zIndex: 2
+        // }}
+        // onScroll={({ nativeEvent }) => {
+        //   const scrollSensitivity = 4 / 3;
+        //   const offset = nativeEvent.contentOffset.y / scrollSensitivity;
+        //   this.state.scrollOffset.setValue(offset);
+        // }}
+        // showsVerticalScrollIndicator={false}
+        // scrollEventThrottle={20}
         >
           <View style={styles.container}>
             {this.isChemicalPoisoning ? (
@@ -219,30 +132,20 @@ class FirstAidDetailsWithButtons extends Component {
                 </TouchableOpacity>
               </View>
             ) : (
-              <View>
-                <View>
-                  <TouchableOpacity
-                    style={styles.button}
-                    onPress={this.onButtonPress.bind(
-                      this,
-                      'eye_injury_puncture'
-                    )}
-                  >
-                    <Text style={styles.text}>{t.EyeInjury_Puncture}</Text>
-                  </TouchableOpacity>
-                </View>
+              <View style={styles.container}>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={this.onButtonPress.bind(this, 'eye_injury_puncture')}
+                >
+                  <Text style={styles.text}>{t.EyeInjury_Puncture}</Text>
+                </TouchableOpacity>
 
-                <View>
-                  <TouchableOpacity
-                    style={styles.button}
-                    onPress={this.onButtonPress.bind(
-                      this,
-                      'eye_injury_scratch'
-                    )}
-                  >
-                    <Text style={styles.text}>{t.EyeInjury_scratch}</Text>
-                  </TouchableOpacity>
-                </View>
+                <TouchableOpacity
+                  style={styles.button}
+                  onPress={this.onButtonPress.bind(this, 'eye_injury_scratch')}
+                >
+                  <Text style={styles.text}>{t.EyeInjury_Scratch}</Text>
+                </TouchableOpacity>
               </View>
             )}
           </View>
@@ -253,16 +156,17 @@ class FirstAidDetailsWithButtons extends Component {
 }
 
 const styles = StyleSheet.create({
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingTop: isIphoneX() ? 44 : 0
-  },
+  // header: {
+  //   flexDirection: 'row',
+  //   justifyContent: 'center',
+  //   alignItems: 'center',
+  //   paddingTop: isIphoneX() ? 44 : 0
+  // },
   container: {
     flex: 1,
+    justifyContent: 'center',
     alignItems: 'center',
-    justifyContent: 'space-around'
+    flexDirection: 'row'
   },
   button: {
     marginBottom: 30,
@@ -271,7 +175,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 15,
-    color: 'black'
+    backgroundColor: Colors.APP
   },
   text: {
     fontSize: 20,
