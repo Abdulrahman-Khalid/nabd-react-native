@@ -398,7 +398,7 @@ class UserHome extends Component {
               ]}
             >
               <Text style={{ color: '#d76674', fontFamily: 'IstokWeb-Bold' }}>
-                Confirm
+                {t.Confirm}
               </Text>
             </View>
           </TouchableOpacity>
