@@ -6101,6 +6101,11 @@ react-native-phone-input@0.2.2:
     lodash "^4.17.4"
     prop-types "^15.5.10"
 
+react-native-pulse@^1.0.7:
+  version "1.0.7"
+  resolved "https://registry.yarnpkg.com/react-native-pulse/-/react-native-pulse-1.0.7.tgz#5a8dc60cb6585f90ce8400beb74fbf89e5f7cd1b"
+  integrity sha512-PQvek/hC2YZddzJgyJT9FZbg37eZKl1rcYNlHbSItL3XZ0n3zF5jxFRrYLyGqHnRuRPHoY7qnrdHe4qVwy3Jnw==
+
 react-native-push-notification@^3.1.9:
   version "3.1.9"
   resolved "https://registry.yarnpkg.com/react-native-push-notification/-/react-native-push-notification-3.1.9.tgz#760ee06e743fef74fc9fcb672dac40794fdc4c47"
@@ -6208,6 +6213,13 @@ react-native-steps@^1.3.0:
   version "1.3.0"
   resolved "https://registry.yarnpkg.com/react-native-steps/-/react-native-steps-1.3.0.tgz#e3ee4bc716538e523a0c150dc9a7275b8c575c42"
   integrity sha512-Qoqbq03HZzTU2gVTa03JRHnrFdjYl+crqElcIJ77wEYjDTBHZN8DCrga7wVK31OZ7mLnJxG41hWbKss5Zv1WBg==
+  dependencies:
+    prop-types "^15.7.2"
+
+react-native-stopwatch-timer@^0.0.21:
+  version "0.0.21"
+  resolved "https://registry.yarnpkg.com/react-native-stopwatch-timer/-/react-native-stopwatch-timer-0.0.21.tgz#52c39f603e36c538bed3466212b1bfb350ed452f"
+  integrity sha512-qFFsD85NkBT1nxo32HMGq3XAtQyMC09p9ZDIEuOED2BOxgs0UpWg/FSTA0MmEoIKMyXUwSE5VxEzBaGP3z1HFw==
   dependencies:
     prop-types "^15.7.2"
 
