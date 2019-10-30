@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import {
-  ScrollView,
   View,
   Animated,
   StyleSheet,
@@ -29,12 +28,6 @@ class FirstAidDetailsWithButtons extends Component {
     this.offset = 0;
   }
 
-  onScroll = e => {
-    const scrollSensitivity = 4 / 3;
-    const offset = e.nativeEvent.contentOffset.y / scrollSensitivity;
-    this.state.scrollOffset.setValue(offset);
-  };
-
   onButtonPress(text) {
     const { injury } = this.props;
     this.props.InjuryButtonPressed(text);
@@ -47,126 +40,58 @@ class FirstAidDetailsWithButtons extends Component {
     const { scrollOffset } = this.state;
     return (
       <View style={{ flex: 1 }}>
-        {/* <Animated.View
-          style={[
-            styles.header,
-            {
-              paddingHorizontal: width * 0.05,
-              width: width,
-              height: isIphoneX()
-                ? scrollOffset.interpolate({
-                    inputRange: [0, 200],
-                    outputRange: [124, 104],
-                    extrapolate: 'clamp'
-                  })
-                : scrollOffset.interpolate({
-                    inputRange: [0, 200],
-                    outputRange: [80, 60],
-                    extrapolate: 'clamp'
-                  }),
-              backgroundColor: scrollOffset.interpolate({
-                inputRange: [0, 200],
-                outputRange: ['#E9E9EF', Colors.APP],
-                extrapolate: 'clamp'
-              }),
-              borderBottomLeftRadius: scrollOffset.interpolate({
-                inputRange: [0, 200],
-                outputRange: [0, 30],
-                extrapolate: 'clamp'
-              }),
-              borderBottomRightRadius: scrollOffset.interpolate({
-                inputRange: [0, 200],
-                outputRange: [0, 30],
-                extrapolate: 'clamp'
-              })
-            }
-          ]}
-        >
-          <Animated.View
-            style={{
-              width: scrollOffset.interpolate({
-                inputRange: [0, 200],
-                outputRange: [width * 0.9 - this.state.titleWidth, 0],
-                extrapolate: 'clamp'
-              })
-            }}
-          />
-        </Animated.View> */}
-        <ScrollView
-        // contentContainerStyle={{
-        //   paddingTop: theme.SIZES.BASE,
-        //   zIndex: 2
-        // }}
-        // onScroll={({ nativeEvent }) => {
-        //   const scrollSensitivity = 4 / 3;
-        //   const offset = nativeEvent.contentOffset.y / scrollSensitivity;
-        //   this.state.scrollOffset.setValue(offset);
-        // }}
-        // showsVerticalScrollIndicator={false}
-        // scrollEventThrottle={20}
-        >
-          <View style={styles.container}>
-            {this.isChemicalPoisoning ? (
-              <View>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={this.onButtonPress.bind(
-                    this,
-                    'chemical_poisoning_swallowing'
-                  )}
-                >
-                  <Text style={styles.text}>
-                    {t.ChemicalPoisoning_Swallowing}
-                  </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={this.onButtonPress.bind(
-                    this,
-                    'chemical_poisoning_inhaling'
-                  )}
-                >
-                  <Text style={styles.text}>
-                    {t.ChemicalPoisoning_Inhaling}
-                  </Text>
-                </TouchableOpacity>
-              </View>
-            ) : (
-              <View style={styles.container}>
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={this.onButtonPress.bind(this, 'eye_injury_puncture')}
-                >
-                  <Text style={styles.text}>{t.EyeInjury_Puncture}</Text>
-                </TouchableOpacity>
+        <View style={styles.container}>
+          {this.isChemicalPoisoning ? (
+            <View>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={this.onButtonPress.bind(
+                  this,
+                  'chemical_poisoning_swallowing'
+                )}
+              >
+                <Text style={styles.text}>
+                  {t.ChemicalPoisoning_Swallowing}
+                </Text>
+              </TouchableOpacity>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={this.onButtonPress.bind(
+                  this,
+                  'chemical_poisoning_inhaling'
+                )}
+              >
+                <Text style={styles.text}>{t.ChemicalPoisoning_Inhaling}</Text>
+              </TouchableOpacity>
+            </View>
+          ) : (
+            <View style={styles.container}>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={this.onButtonPress.bind(this, 'eye_injury_puncture')}
+              >
+                <Text style={styles.text}>{t.EyeInjury_Puncture}</Text>
+              </TouchableOpacity>
 
-                <TouchableOpacity
-                  style={styles.button}
-                  onPress={this.onButtonPress.bind(this, 'eye_injury_scratch')}
-                >
-                  <Text style={styles.text}>{t.EyeInjury_Scratch}</Text>
-                </TouchableOpacity>
-              </View>
-            )}
-          </View>
-        </ScrollView>
+              <TouchableOpacity
+                style={styles.button}
+                onPress={this.onButtonPress.bind(this, 'eye_injury_scratch')}
+              >
+                <Text style={styles.text}>{t.EyeInjury_Scratch}</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
       </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
-  // header: {
-  //   flexDirection: 'row',
-  //   justifyContent: 'center',
-  //   alignItems: 'center',
-  //   paddingTop: isIphoneX() ? 44 : 0
-  // },
   container: {
     flex: 1,
     justifyContent: 'center',
-    alignItems: 'center',
-    flexDirection: 'row'
+    alignItems: 'center'
   },
   button: {
     marginBottom: 30,
