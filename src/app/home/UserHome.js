@@ -28,7 +28,8 @@ import {
   Switch,
   DeviceEventEmitter,
   ActivityIndicator,
-  NativeModules
+  NativeModules,
+  PermissionsAndroid
 } from 'react-native';
 import {
   Card,
@@ -172,7 +173,18 @@ class UserHome extends Component {
 
   async videoCall(helperType, specialization) {
     console.log(helperType);
-    this.makeCall(true, '201011315102');
+    console.log('success login paramedic to call');
+    await LoginManager.getInstance()
+      .loginWithPassword(
+        this.props.phone.substring(1) +
+          '@nabd.abdulrahman.elshafei98.voximplant.com',
+        info.userPass
+      )
+      .then(() => {
+        console.log('success login user to call');
+        this.makeCall(true, '201011315102');
+      });
+
     // await LoginManager.getInstance()
     //   .loginWithPassword(
     //     this.props.phone.substring(1) +
