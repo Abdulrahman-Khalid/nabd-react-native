@@ -30,7 +30,7 @@ class WaitForAmbulance extends Component {
   }
 
   componentDidMount() {
-    this.socket.on('ambulanceRequestUserEnd', data => {
+    this.socket.on(this.props.channelName, (data) => {
       this.setState({
         ambulanceLocation: data
       });

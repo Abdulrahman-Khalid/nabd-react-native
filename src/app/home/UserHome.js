@@ -336,19 +336,18 @@ class UserHome extends Component {
   };
 
   requestAmbulance() {
-    Actions.waitForAmbulance();
-    // if (!this.state.switchValue) {
-    //   this.setState({
-    //     modalVisible: false,
-    //     locationPickerModalVisible: true
-    //   });
-    // } else {
-    //   this.setState({
-    //     modalVisible: false,
-    //     loadingModalVisible: true
-    //   });
-    //   this.sendAmbulanceRequest(true);
-    // }
+    if (!this.state.switchValue) {
+      this.setState({
+        modalVisible: false,
+        locationPickerModalVisible: true
+      });
+    } else {
+      this.setState({
+        modalVisible: false,
+        loadingModalVisible: true
+      });
+      this.sendAmbulanceRequest(true);
+    }
   }
 
   renderModal() {
@@ -378,11 +377,7 @@ class UserHome extends Component {
         <View
           style={{
             marginTop: 20,
-            marginBottom: 20,
-            transform: [
-              { scaleX: NativeModules.I18nManager.isRTL ? -1 : 1 },
-              { rotateY: '180deg' }
-            ]
+            marginBottom: 20
           }}
         >
           <TouchableOpacity
@@ -452,7 +447,7 @@ class UserHome extends Component {
                 style={[
                   styles.permissionModalButton,
                   {
-                    backgroundColor: '#f6f6f4'
+                    backgroundColor: '#e8e8e3'
                   }
                 ]}
               >
@@ -594,7 +589,7 @@ class UserHome extends Component {
           this.setState({
             loadingModalVisible: false
           });
-          Actions.WaitForAmbulance();
+          Actions.WaitForAmbulance({ channelName: response.data.channelName });
         })
         .catch(err => {
           let error = JSON.stringify(err);
@@ -613,12 +608,12 @@ class UserHome extends Component {
         loading: true
       });
       axios
-        .post('/ambulanceRequest', {
+        .post('request/ambulance', {
           userID: this.props.phone,
           pickupLocation: this.state.ambulanceRequestLocation
         })
         .then(response => {
-          Actions.WaitForAmbulance();
+          Actions.WaitForAmbulance({ channelName: response.data.channelName });
         })
         .catch(err => {
           let error = JSON.stringify(err);
@@ -658,6 +653,16 @@ class UserHome extends Component {
     </Modal>;
   }
 
+  renderLoadingModal() {
+    return (
+      <Modal visible={this.state.loadingModalVisible} transparent>
+        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center' }}>
+          <ActivityIndicator size="large" color="white" />
+        </View>
+      </Modal>
+    );
+  }
+
   render() {
     return (
       <View style={styles.home}>
@@ -666,6 +671,7 @@ class UserHome extends Component {
         {this.renderButtons()}
         {this.renderModal()}
         {this.renderLocationPicker()}
+        {this.renderLoadingModal()}
       </View>
     );
   }
