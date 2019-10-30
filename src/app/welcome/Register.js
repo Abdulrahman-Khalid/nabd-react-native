@@ -752,7 +752,7 @@ const styles = StyleSheet.create({
   },
   phoneContainer: {
     paddingLeft: 15,
-    // paddingRight: 15,
+    paddingRight: 15,
     borderWidth: 0,
     borderRadius: 30,
     borderBottomColor: Colors.BORDER,
