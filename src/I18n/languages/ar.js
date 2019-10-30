@@ -106,6 +106,8 @@ export default ar = {
   // Paramedic Home
   DoctorSpecialization: 'تخصص الطبيب',
   Close: 'اغلاق',
+  ChooseYourDoctorSpecialization: 'اختر تخصصك الطبي',
+  Confirm: 'تأكيد',
 
   // welocme
   Ambulance: 'عربة إسعاف',

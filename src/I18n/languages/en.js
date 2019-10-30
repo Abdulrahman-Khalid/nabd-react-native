@@ -106,6 +106,8 @@ export default en = {
   // Paramedic Home
   DoctorSpecialization: 'Doctor Specialization',
   Close: 'close',
+  ChooseYourDoctorSpecialization: 'Choose your medical specialization',
+  Confirm: 'Confirm',
 
   // welcome
   Ambulance: 'Ambulance',
