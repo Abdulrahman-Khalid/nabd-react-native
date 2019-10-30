@@ -12,6 +12,7 @@ import {
   Dimensions,
   Image,
   Text,
+  TouchableHighlight,
   NativeModules
 } from 'react-native';
 import { Icon, SwitchButton } from '../../components';
@@ -19,7 +20,6 @@ import RadioForm, { RadioButton } from 'react-native-simple-radio-button';
 import axios from 'axios';
 import t from '../../I18n';
 import io from 'socket.io-client';
-
 const { width, height } = Dimensions.get('screen');
 
 class ParamedicHome extends Component {

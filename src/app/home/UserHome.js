@@ -7,6 +7,8 @@ import { Block, Text, Button, theme } from 'galio-framework';
 import { Actions } from 'react-native-router-flux';
 import { Colors, Images } from '../../constants';
 import { connect } from 'react-redux';
+import { info } from '../../constants';
+
 import {
   selectHelperType,
   requestHelp,
@@ -169,37 +171,39 @@ class UserHome extends Component {
   }
 
   async videoCall(helperType, specialization) {
-    await LoginManager.getInstance()
-      .loginWithPassword(
-        this.props.phone.substring(1) +
-          '@nabd.abdulrahman.elshafei98.voximplant.com',
-        info.userPass
-      )
-      .then(() => {
-        axios
-          .post(
-            `request/${helperType}`,
-            helperType === 'doctor'
-              ? {
-                  specialization
-                }
-              : {}
-          )
-          .then(response => {
-            console.log(response);
-            if (response.data.helperNumber) this.makeCall(true, helperNumber);
-          })
-          .catch(error => {
-            console.log(error);
-            // alert try again later no user found
-          });
-      });
+    console.log(helperType);
+    this.makeCall(true, '201011315102');
+    // await LoginManager.getInstance()
+    //   .loginWithPassword(
+    //     this.props.phone.substring(1) +
+    //       '@nabd.abdulrahman.elshafei98.voximplant.com',
+    //     info.userPass
+    //   )
+    //   .then(() => {
+    //     axios
+    //       .post(
+    //         `request/${helperType}`,
+    //         helperType === 'doctor'
+    //           ? {
+    //               specialization
+    //             }
+    //           : {}
+    //       )
+    //       .then(response => {
+    //         console.log(response.data);
+    //         if (response.data.helperNumber) this.makeCall(true, helperNumber);
+    //       })
+    //       .catch(error => {
+    //         console.log(error);
+    //         // alert try again later no user found
+    //       });
+    //   });
     // Alert.alert('Welcome', 'Hello');
   }
 
   renderRequestDoctorCard() {
     const data = [
-      { key: 0, section: true, label: 'تخصص الطبيب' },
+      { key: 0, section: true, label: t.DoctorSpecialization },
       {
         label: t.InternalMedicine,
         key: 1
@@ -244,7 +248,7 @@ class UserHome extends Component {
     return (
       <ModalSelector
         style={{ flex: 1 }}
-        cancelText="Cancel"
+        cancelText={t.Cancel}
         data={data}
         ref={selector => {
           this.selector = selector;
@@ -395,7 +399,7 @@ class UserHome extends Component {
               ]}
             >
               <Text style={{ color: '#d76674', fontFamily: 'IstokWeb-Bold' }}>
-                Confirm
+                {t.Confirm}
               </Text>
             </View>
           </TouchableOpacity>
@@ -633,27 +637,6 @@ class UserHome extends Component {
         });
     }
   };
-
-  renderLocationPicker() {
-    <Modal
-      visible={this.state.locationPickerModalVisible}
-      onRequestClose={this.modalCancelOnPress}
-    >
-      <LocationPicker
-        onValueChange={region => {
-          this.setState({
-            ambulanceRequestLocation: {
-              latitude: ambulanceRequestLocation.latitude,
-              longitude: ambulanceRequestLocation.longitude
-            }
-          });
-        }}
-        cancelOnPress={this.modalCancelOnPress}
-        onPressSubmit={this.sendAmbulanceRequest}
-        loading={this.state.loading}
-      />
-    </Modal>;
-  }
 
   renderLocationPicker() {
     <Modal

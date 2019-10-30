@@ -14,6 +14,7 @@ import {
   Alert,
   Platform
 } from 'react-native';
+import AwesomeAlert from 'react-native-awesome-alerts';
 import { Icon } from '../../components';
 import { Block, Text } from 'galio-framework';
 import { Colors } from '../../constants';
@@ -30,16 +31,15 @@ const { width, height } = Dimensions.get('screen');
 class SignIn extends Component {
   constructor(props) {
     super(props);
-    state = {
-      email: '',
-      password: ''
+    this.state = {
+      password: '',
+      showAlert: false,
+      pickerData: null,
+      isValidNumber: false
     };
 
     this.onPressFlag = this.onPressFlag.bind(this);
     this.selectCountry = this.selectCountry.bind(this);
-    this.state = {
-      pickerData: null
-    };
   }
 
   componentDidMount() {
@@ -63,19 +63,26 @@ class SignIn extends Component {
         <TouchableOpacity
           style={styles.buttonContainer}
           onPress={() => {
-            const { signInAttempt, phone, password, userType } = this.props;
-            signInAttempt({
-              phone,
-              password,
-              userType
-            });
+            if (!this.phone.isValidNumber()) {
+              this.setState({ isValidNumber: false });
+              this.showAlert();
+            } else {
+              const { signInAttempt, phone, password, userType } = this.props;
+              signInAttempt({
+                phone,
+                password,
+                userType
+              });
+            }
           }}
         >
           <View style={styles.button}>
             {this.props.loading ? (
               <Spinner color={Colors.WHITE} size="small" />
             ) : (
-              <Text style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}>
+              <Text
+                style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
+              >
                 {t.LogIn}
               </Text>
             )}
@@ -84,6 +91,29 @@ class SignIn extends Component {
       </View>
     );
   }
+
+  errorMessage(isValidNumber) {
+    var message = '';
+    console.log('faga');
+    if (!isValidNumber) {
+      message += t.PhoneNotValid;
+    }
+    console.log(message);
+    return message;
+  }
+
+  showAlert = () => {
+    this.setState({
+      showAlert: true
+    });
+  };
+
+  hideAlert = () => {
+    this.setState({
+      showAlert: false
+    });
+  };
+
   render() {
     return (
       <View style={styles.container}>
@@ -172,6 +202,21 @@ class SignIn extends Component {
         >
           <Text>{t.SignUp}</Text>
         </TouchableOpacity>
+        <AwesomeAlert
+          show={this.state.showAlert}
+          showProgress={false}
+          title={t.SignInFailed}
+          message={this.errorMessage(this.state.isValidNumber)}
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText={t.OK}
+          confirmButtonColor={Colors.APP}
+          onConfirmPressed={() => {
+            this.hideAlert();
+          }}
+        />
       </View>
     );
   }
@@ -185,6 +230,7 @@ const styles = StyleSheet.create({
   },
   inputContainer: {
     paddingLeft: 15,
+    paddingRight: 15,
     borderWidth: 0,
     borderRadius: 30,
     height: 55,
@@ -196,6 +242,7 @@ const styles = StyleSheet.create({
   passwordContainer: {
     flexDirection: 'row',
     paddingLeft: 15,
+    paddingRight: 15,
     borderWidth: 0,
     borderRadius: 30,
     height: 55,

@@ -44,6 +44,8 @@ class Register extends React.Component {
 
     this.onPressFlag = this.onPressFlag.bind(this);
     this.selectCountry = this.selectCountry.bind(this);
+    this.renderField = this.renderField.bind(this);
+
     this.state = {
       pickerData: null,
       todayDate: year + '-' + month + '-' + date,
@@ -94,13 +96,15 @@ class Register extends React.Component {
     this.losePhoneFocus();
     validateBirthday(this.state.birthday);
     this.loseConfirmPasswordFocus();
-
+    const flag =
+      this.props.userType === 'doctor' ? !this.state.specialization : true;
     if (
-      nameError ||
-      phoneError ||
-      passError ||
-      passMatchError ||
-      birthdayError
+      (nameError ||
+        phoneError ||
+        passError ||
+        passMatchError ||
+        birthdayError) &&
+      flag
     ) {
       this.showAlert();
     } else {
@@ -129,7 +133,9 @@ class Register extends React.Component {
             {this.props.loading ? (
               <Spinner color={Colors.WHITE} size="small" />
             ) : (
-              <Text style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}>
+              <Text
+                style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
+              >
                 {t.CreateAccount}
               </Text>
             )}
@@ -210,15 +216,17 @@ class Register extends React.Component {
       num++;
     }
     if (birthdayError) {
-      message += `${num}) ${birthdayError}`;
+      message += `${num}) ${birthdayError}\n`;
       num++;
+    }
+    if (this.props.userType === 'doctor' && !this.state.specialization) {
+      message += `${num})` + t.SpecializationEmptyError;
     }
     return message;
   }
 
   showAlert = () => {
     this.setState({
-      ...this.state,
       showAlert: true
     });
   };
@@ -233,7 +241,7 @@ class Register extends React.Component {
   renderHeader() {
     return (
       <View style={styles.headerFooterContainer}>
-        <Text style={{ fontSize: 20 }}>تخصص الطبيب</Text>
+        <Text style={{ fontSize: 20 }}>{t.DoctorSpecialization}</Text>
       </View>
     );
   }
@@ -246,7 +254,7 @@ class Register extends React.Component {
           action.close();
         }}
       >
-        <Text>اغلاق</Text>
+        <Text>{t.Cancel}</Text>
       </TouchableOpacity>
     );
   }
@@ -254,19 +262,19 @@ class Register extends React.Component {
   renderField(settings) {
     const { selectedItem, defaultText, getLabel, clear } = settings;
     return (
-      <View style={styles.container}>
+      <View>
         <View>
           {!selectedItem && (
-            <Text style={[styles.text, { color: 'grey' }]}>{defaultText}</Text>
+            <Text style={[styles.text, { color: 'grey' }]}>
+              {t.ChooseYourDoctorSpecialization}
+            </Text>
           )}
           {selectedItem && (
             <View style={styles.innerContainer}>
               <TouchableOpacity
                 onPress={() => {
-                  this.setState({
-                    ...this.state,
-                    specialization: null
-                  });
+                  this.setState({ specialization: null });
+                  clear();
                 }}
               >
                 <Image
@@ -274,8 +282,7 @@ class Register extends React.Component {
                     {
                       width: 12,
                       height: 12,
-                      margin: 12,
-                      color: red
+                      margin: 12
                     },
                     styles.shadow
                   ]}
@@ -324,61 +331,61 @@ class Register extends React.Component {
       const options = [
         {
           color: '#051C2B',
-          label: 'الباطنة والأمراض الصدرية',
+          label: t.InternalMedicine,
           img: Images.lungIcon,
           value: 1
         },
         {
           color: '#051C2B',
-          label: 'أمراض القلب والأوعية الدموية',
+          label: t.Cardiology,
           img: Images.heartIcon,
           value: 2
         },
         {
           color: '#051C2B',
-          label: 'مخ و أعصاب',
+          label: t.Neurology,
           img: Images.brainIcon,
           value: 3
         },
         {
           color: '#051C2B',
-          label: 'العظام',
+          label: t.Orthopaedic,
           img: Images.boneIcon,
           value: 4
         },
         {
           color: '#051C2B',
-          label: 'المسالك بولية و التناسلية',
+          label: t.Urology,
           img: Images.bladderIcon,
           value: 5
         },
         {
           color: '#051C2B',
-          label: 'النساء والتوليد',
+          label: t.OBGYN,
           img: Images.pregnantIcon,
           value: 6
         },
         {
           color: '#051C2B',
-          label: 'الجلدية',
+          label: t.Dermatology,
           img: Images.skinIcon,
           value: 7
         },
         {
           color: '#051C2B',
-          label: 'طب وجراحةالعيون',
+          label: t.Ophthalmology,
           img: Images.eyeIcon,
           value: 8
         },
         {
           color: '#051C2B',
-          label: 'أطفال',
+          label: t.Pediatrics,
           img: Images.childIcon,
           value: 9
         },
         {
           color: '#051C2B',
-          label: 'أنف و أذن و حنجرة',
+          label: t.Otorhinolaryngology,
           img: Images.throatIcon,
           value: 10
         }
@@ -387,15 +394,15 @@ class Register extends React.Component {
         <CustomPicker
           options={options}
           getLabel={item => item.label}
-          fieldTemplate={this.renderFieldR5}
+          fieldTemplate={this.renderField}
           optionTemplate={this.renderOption}
           headerTemplate={this.renderHeader}
           footerTemplate={this.renderFooter}
           modalAnimationType="slide"
           onValueChange={item => {
             if (item) {
+              console.log(item);
               this.setState({
-                ...this.state,
                 specialization: item.value
               });
             }
@@ -492,7 +499,7 @@ class Register extends React.Component {
                 onChange={country => {
                   this.selectCountry(country);
                 }}
-                cancelText="Cancel"
+                cancelText={t.Cancel}
               />
             </View>
           </View>
@@ -606,8 +613,8 @@ class Register extends React.Component {
                 format="YYYY-MM-DD"
                 minDate="1920-01-01"
                 maxDate={this.state.todayDate}
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
+                confirmBtnText={t.Confirm}
+                cancelBtnText={t.Cancel}
                 showIcon={false}
                 customStyles={{
                   dateTouchBody: {},
@@ -673,13 +680,13 @@ class Register extends React.Component {
         <AwesomeAlert
           show={this.state.showAlert}
           showProgress={false}
-          title="Sign up failed"
+          title={t.SignUpFailed}
           message={this.errorMessage()}
           closeOnTouchOutside={true}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
           showConfirmButton={true}
-          confirmText="OK"
+          confirmText={t.OK}
           confirmButtonColor={Colors.APP}
           onConfirmPressed={() => {
             this.hideAlert();
@@ -745,6 +752,7 @@ const styles = StyleSheet.create({
   },
   phoneContainer: {
     paddingLeft: 15,
+    paddingRight: 15,
     borderWidth: 0,
     borderRadius: 30,
     borderBottomColor: Colors.BORDER,
@@ -796,6 +804,10 @@ const styles = StyleSheet.create({
   innerContainer: {
     flexDirection: 'row',
     alignItems: 'stretch'
+  },
+  text: {
+    fontSize: 18,
+    padding: 8
   },
   headerFooterContainer: {
     padding: 10,

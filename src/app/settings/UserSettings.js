@@ -1,19 +1,23 @@
 import React, { Component } from 'react';
-import { Linking, Share, I18nManager } from 'react-native';
+import {
+  Linking,
+  Share,
+  NativeModules,
+  I18nManager,
+  TouchableOpacity
+} from 'react-native';
 import ReactNativeSettingsPage, {
   SectionRow,
   NavigateRow
 } from 'react-native-settings-page';
 import { connect } from 'react-redux';
 import RNRestart from 'react-native-restart';
-import { switchLanguage } from '../../actions';
+import { switchLanguage, resetSignInReducerState } from '../../actions';
 import { Actions } from 'react-native-router-flux';
 import TextDisplay from './TextDisplay';
 import { View, Picker } from 'react-native';
 import t from '../../I18n';
 import email from 'react-native-email';
-import { resetSignInReducerState } from '../../actions/';
-import { TouchableHighlight } from 'react-native-gesture-handler';
 import axios from 'axios';
 
 class UserSettings extends Component {
@@ -24,21 +28,18 @@ class UserSettings extends Component {
     };
   }
 
-  // langSelection = () => {
-  //   const { switchLanguage, language } = this.props;
-  //   const { selectedOption } = this.state;
-  //   if (selectedOption !== language.lang) {
-  //     const isRtl = selectedOption === 'ar';
-  //     NativeModules.I18nManager.forceRTL(isRtl);
-  //     switchLanguage({
-  //       lang: this.state.selectedOption
-  //     });
-  //     setTimeout(() => {
-  //       RNRestart.Restart();
-  //     }, 500);
-  //     return;
-  //   }
-  // };
+  langSelection = lang => {
+    if (lang !== this.props.language.lang) {
+      const isRtl = lang === 'ar';
+      NativeModules.I18nManager.forceRTL(isRtl);
+      this.props.switchLanguage({
+        lang
+      });
+      setTimeout(() => {
+        RNRestart.Restart();
+      }, 500);
+    }
+  };
 
   logoutButtonPressed() {
     axios.defaults.headers.common['TOKEN'] = '';
@@ -61,7 +62,7 @@ class UserSettings extends Component {
               // style={styles.languagePicker}
               // mode="dialog"
               onValueChange={(itemValue, itemIndex) =>
-                this.setState({ selectedOption: itemValue })
+                this.langSelection(itemValue)
               }
             >
               <Picker.Item label="🇪🇬 العربية" value="ar" />
@@ -109,11 +110,13 @@ class UserSettings extends Component {
             }}
           />
         </SectionRow>
-        <SectionRow>
-          <TouchableHighlight onPress={this.logoutButtonPressed()}>
-            <TextDisplay text={t.LogOut} />
-          </TouchableHighlight>
-        </SectionRow>
+        <View style={{ backgroundColor: '#fff', marginBottom: 10 }}>
+          <NavigateRow
+            onPressCallback={this.logoutButtonPressed.bind(this)}
+            iconName="sign-out"
+            text={t.LogOut}
+          />
+        </View>
       </ReactNativeSettingsPage>
     );
   }
