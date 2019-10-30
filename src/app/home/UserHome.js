@@ -658,27 +658,6 @@ class UserHome extends Component {
     </Modal>;
   }
 
-  renderLocationPicker() {
-    <Modal
-      visible={this.state.locationPickerModalVisible}
-      onRequestClose={this.modalCancelOnPress}
-    >
-      <LocationPicker
-        onValueChange={region => {
-          this.setState({
-            ambulanceRequestLocation: {
-              latitude: ambulanceRequestLocation.latitude,
-              longitude: ambulanceRequestLocation.longitude
-            }
-          });
-        }}
-        cancelOnPress={this.modalCancelOnPress}
-        onPressSubmit={this.sendAmbulanceRequest}
-        loading={this.state.loading}
-      />
-    </Modal>;
-  }
-
   render() {
     return (
       <View style={styles.home}>

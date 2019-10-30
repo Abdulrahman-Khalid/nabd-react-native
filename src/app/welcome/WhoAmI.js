@@ -15,7 +15,7 @@ class WhoAmI extends Component {
   componentDidMount() {
     if (this.props.token) {
       axios.defaults.headers.common['TOKEN'] = this.props.token;
-      switch (userType) {
+      switch (this.props.userType) {
         case 'user':
           Actions.userHome();
           break;

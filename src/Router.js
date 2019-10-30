@@ -29,8 +29,6 @@ import { TabBar, Icon as CustomIcon } from './components';
 import t from './I18n';
 import IncomingCallScreen from './app/videoCall/screens/IncomingCallScreen';
 import CallScreen from './app/videoCall/screens/CallScreen';
-import Call from './app/videoCall/screens/Call';
-import OutGoingCallScreen from './app/videoCall/screens/OutGoingCallScreen';
 
 class RouterComponent extends Component {
   _renderSettingsButton() {
@@ -149,14 +147,7 @@ class RouterComponent extends Component {
               }}
               title={t.SignUp}
             />
-            <Scene
-              key="signin"
-              component={SignIn}
-              onExit={() => {
-                this.props.resetSignInReducerState();
-              }}
-              title={t.SignIn}
-            />
+            <Scene key="signin" component={SignIn} title={t.SignIn} />
             <Scene
               key="verifySignup"
               component={VerifySignup}
