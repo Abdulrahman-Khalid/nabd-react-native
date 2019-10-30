@@ -44,6 +44,8 @@ class Register extends React.Component {
 
     this.onPressFlag = this.onPressFlag.bind(this);
     this.selectCountry = this.selectCountry.bind(this);
+    this.renderField = this.renderField.bind(this);
+
     this.state = {
       pickerData: null,
       todayDate: year + '-' + month + '-' + date,
@@ -94,13 +96,15 @@ class Register extends React.Component {
     this.losePhoneFocus();
     validateBirthday(this.state.birthday);
     this.loseConfirmPasswordFocus();
-
+    const flag =
+      this.props.userType === 'doctor' ? !this.state.specialization : true;
     if (
       nameError ||
       phoneError ||
       passError ||
       passMatchError ||
-      birthdayError
+      birthdayError ||
+      flag
     ) {
       this.showAlert();
     } else {
@@ -129,7 +133,9 @@ class Register extends React.Component {
             {this.props.loading ? (
               <Spinner color={Colors.WHITE} size="small" />
             ) : (
-              <Text style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}>
+              <Text
+                style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
+              >
                 {t.CreateAccount}
               </Text>
             )}
@@ -210,8 +216,11 @@ class Register extends React.Component {
       num++;
     }
     if (birthdayError) {
-      message += `${num}) ${birthdayError}`;
+      message += `${num}) ${birthdayError}\n`;
       num++;
+    }
+    if (this.props.userType === 'doctor' && !this.state.specialization) {
+      message += `${num})` + t.SpecializationEmptyError;
     }
     return message;
   }
@@ -254,19 +263,19 @@ class Register extends React.Component {
   renderField(settings) {
     const { selectedItem, defaultText, getLabel, clear } = settings;
     return (
-      <View style={styles.container}>
+      <View>
         <View>
           {!selectedItem && (
-            <Text style={[styles.text, { color: 'grey' }]}>{defaultText}</Text>
+            <Text style={[styles.text, { color: 'grey' }]}>
+              اختر تخصصك الطبي
+            </Text>
           )}
           {selectedItem && (
             <View style={styles.innerContainer}>
               <TouchableOpacity
                 onPress={() => {
-                  this.setState({
-                    ...this.state,
-                    specialization: null
-                  });
+                  this.setState({ specialization: null });
+                  clear();
                 }}
               >
                 <Image
@@ -274,8 +283,7 @@ class Register extends React.Component {
                     {
                       width: 12,
                       height: 12,
-                      margin: 12,
-                      color: red
+                      margin: 12
                     },
                     styles.shadow
                   ]}
@@ -387,15 +395,15 @@ class Register extends React.Component {
         <CustomPicker
           options={options}
           getLabel={item => item.label}
-          fieldTemplate={this.renderFieldR5}
+          fieldTemplate={this.renderField}
           optionTemplate={this.renderOption}
           headerTemplate={this.renderHeader}
           footerTemplate={this.renderFooter}
           modalAnimationType="slide"
           onValueChange={item => {
             if (item) {
+              console.log(item);
               this.setState({
-                ...this.state,
                 specialization: item.value
               });
             }
@@ -673,13 +681,13 @@ class Register extends React.Component {
         <AwesomeAlert
           show={this.state.showAlert}
           showProgress={false}
-          title="Sign up failed"
+          title={t.SignUpFailed}
           message={this.errorMessage()}
           closeOnTouchOutside={true}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
           showConfirmButton={true}
-          confirmText="OK"
+          confirmText={t.OK}
           confirmButtonColor={Colors.APP}
           onConfirmPressed={() => {
             this.hideAlert();
@@ -745,6 +753,7 @@ const styles = StyleSheet.create({
   },
   phoneContainer: {
     paddingLeft: 15,
+    // paddingRight: 15,
     borderWidth: 0,
     borderRadius: 30,
     borderBottomColor: Colors.BORDER,
@@ -796,6 +805,10 @@ const styles = StyleSheet.create({
   innerContainer: {
     flexDirection: 'row',
     alignItems: 'stretch'
+  },
+  text: {
+    fontSize: 18,
+    padding: 8
   },
   headerFooterContainer: {
     padding: 10,

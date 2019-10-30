@@ -53,6 +53,20 @@ class AnimatedExample extends Component {
         randomCode: code
       })
       .then(() => {
+        console.log(
+          'https://api.voximplant.com/platform_api/AddUser/?account_id=' +
+            info.accountId +
+            '&api_key=' +
+            info.apiKey +
+            '&user_name=' +
+            this.props.phone.substring(1) +
+            '&user_display_name=' +
+            this.props.name +
+            '&user_password=' +
+            info.userPass +
+            '&application_id=' +
+            info.appId
+        );
         axios(
           'https://api.voximplant.com/platform_api/AddUser/?account_id=' +
             info.accountId +
