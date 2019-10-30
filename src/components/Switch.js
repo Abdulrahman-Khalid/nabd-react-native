@@ -124,7 +124,7 @@ export default class SwitchButton extends Component {
 
   render() {
     return (
-      <View>
+      <View style={this.props.style}>
         <TouchableOpacity
           activeOpacity={1}
           onPress={() => {
