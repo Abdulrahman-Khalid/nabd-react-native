@@ -203,7 +203,7 @@ class RouterComponent extends Component {
               key="waitForAmbulance"
               component={WaitForAmbulance}
               hideNavBar={true}
-              renderBackButton={()=>(null)}
+              renderBackButton={() => null}
             />
             <Scene
               key="settings"
@@ -220,7 +220,7 @@ class RouterComponent extends Component {
             />
           </Scene>
           {/* ////////////////////Paramedic Home///////////////////// */}
-          <Scene key="paramedicHome" hideNavBar={true} initial >
+          <Scene key="paramedicHome" hideNavBar={true} initial>
             <Tabs
               key="tabBar"
               initial
