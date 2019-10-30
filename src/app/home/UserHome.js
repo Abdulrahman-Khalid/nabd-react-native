@@ -202,7 +202,7 @@ class UserHome extends Component {
 
   renderRequestDoctorCard() {
     const data = [
-      { key: 0, section: true, label: 'تخصص الطبيب' },
+      { key: 0, section: true, label: t.DoctorSpecialization },
       {
         label: t.InternalMedicine,
         key: 1
@@ -247,7 +247,7 @@ class UserHome extends Component {
     return (
       <ModalSelector
         style={{ flex: 1 }}
-        cancelText="Cancel"
+        cancelText={t.Cancel}
         data={data}
         ref={selector => {
           this.selector = selector;

@@ -147,6 +147,7 @@ export default ar = {
   Weak: 'ضعيف',
   PVWeak: 'كلمة السر ضعيفة جدا',
   PWeak: 'كلمة السر ضعيفة',
+  Cancel: 'اغلاق',
 
   Incidents: 'الحوادث',
   AddIncident: 'إضافة حادثة',
