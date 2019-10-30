@@ -32,6 +32,26 @@ class LanguageSelection extends Component {
     };
   }
 
+  componentDidMount() {
+    if (this.props.token) {
+      axios.defaults.headers.common['TOKEN'] = this.props.token;
+      switch (this.props.userType) {
+        case 'user':
+          Actions.userHome();
+          break;
+        case 'doctor':
+          Actions.doctorHome();
+          break;
+        case 'paramedic':
+          Actions.paramedicHome();
+          break;
+        case 'ambulance':
+          Actions.ambulanceHome();
+          break;
+      }
+    }
+  }
+
   _handlePress = lang => {
     console.log('iam here nigga2');
     console.log('lang: ', lang);
@@ -129,7 +149,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => ({ language: state.language });
+const mapStateToProps = state => ({
+  language: state.language,
+  userType: state.signin.userType,
+  token: state.signin.token
+});
 
 export default connect(
   mapStateToProps,
