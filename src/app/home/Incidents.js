@@ -324,7 +324,7 @@ export class Incidents extends Component {
                   style={[
                     styles.emptyScreenButton,
                     {
-                      backgroundColor: '#f6f6f4'
+                      backgroundColor: '#e8e8e3'
                     }
                   ]}
                 >
