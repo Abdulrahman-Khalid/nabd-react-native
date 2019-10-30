@@ -4,6 +4,8 @@ import { Actions } from 'react-native-router-flux';
 import { Colors, Images } from '../../constants';
 import { connect } from 'react-redux';
 import { selectHelperType, requestHelp } from '../../actions';
+import { info } from '../../constants';
+import LoginManager from '../videoCall/manager/LoginManager';
 import {
   Alert,
   StyleSheet,
@@ -34,7 +36,22 @@ class ParamedicHome extends Component {
     );
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    LoginManager.getInstance()
+      .loginWithPassword(
+        this.props.phoneNumber.substring(1) +
+          '@nabd.abdulrahman.elshafei98.voximplant.com',
+        info.userPass
+      )
+      .then(() => console.log('success login vox'));
+  }
+
+  componentWillUnmount() {
+    LoginManager.getInstance().off(
+      'onConnectionClosed',
+      this._connectionClosed
+    );
+  }
 
   componentDidUpdate() {
     console.log(this.props);

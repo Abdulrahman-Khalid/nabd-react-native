@@ -35,6 +35,8 @@ class LanguageSelection extends Component {
 
   componentDidMount() {
     if (this.props.token) {
+      console.log('token: ', this.props.token);
+      console.log('userType: ', this.props.userType);
       axios.defaults.headers.common['TOKEN'] = this.props.token;
       switch (this.props.userType) {
         case 'user':

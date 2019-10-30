@@ -27,6 +27,7 @@ export default class LoginManager {
 
   constructor() {
     this.client = Voximplant.getInstance();
+    console.log('this.client: ', this.client.login);
     // Connection to the Voximplant Cloud is stayed alive on reloading of the app's
     // JavaScript code. Calling "disconnect" API here makes the SDK and app states
     // synchronized.
@@ -50,6 +51,7 @@ export default class LoginManager {
       if (state === Voximplant.ClientState.DISCONNECTED) {
         await this.client.connect();
       }
+      console.log('success31r41');
       let authResult = await this.client.login(user, password);
       await this._processLoginSuccess(authResult);
     } catch (e) {
