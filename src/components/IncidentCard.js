@@ -236,7 +236,7 @@ class IncidentCard extends React.Component {
               style={[
                 styles.button,
                 {
-                  backgroundColor: '#f6f6f4'
+                  backgroundColor: '#e8e8e3'
                 }
               ]}
             >
