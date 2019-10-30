@@ -55,6 +55,8 @@ const verification = require('../assets/imgs/verification.png');
 
 const noIncidents = require('../assets/imgs/no-incidents.png');
 
+const coffee = require('../assets/imgs/coffee.png');
+
 export default {
   Onboarding,
   Logo,
@@ -101,5 +103,6 @@ export default {
   language,
   accountType,
   verification,
-  noIncidents
+  noIncidents,
+  coffee
 };
