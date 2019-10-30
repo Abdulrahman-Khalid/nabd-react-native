@@ -172,31 +172,32 @@ class UserHome extends Component {
 
   async videoCall(helperType, specialization) {
     console.log(helperType);
-    await LoginManager.getInstance()
-      .loginWithPassword(
-        this.props.phone.substring(1) +
-          '@nabd.abdulrahman.elshafei98.voximplant.com',
-        info.userPass
-      )
-      .then(() => {
-        axios
-          .post(
-            `request/${helperType}`,
-            helperType === 'doctor'
-              ? {
-                  specialization
-                }
-              : {}
-          )
-          .then(response => {
-            console.log(response.data);
-            if (response.data.helperNumber) this.makeCall(true, helperNumber);
-          })
-          .catch(error => {
-            console.log(error);
-            // alert try again later no user found
-          });
-      });
+    this.makeCall(true, '201011315102');
+    // await LoginManager.getInstance()
+    //   .loginWithPassword(
+    //     this.props.phone.substring(1) +
+    //       '@nabd.abdulrahman.elshafei98.voximplant.com',
+    //     info.userPass
+    //   )
+    //   .then(() => {
+    //     axios
+    //       .post(
+    //         `request/${helperType}`,
+    //         helperType === 'doctor'
+    //           ? {
+    //               specialization
+    //             }
+    //           : {}
+    //       )
+    //       .then(response => {
+    //         console.log(response.data);
+    //         if (response.data.helperNumber) this.makeCall(true, helperNumber);
+    //       })
+    //       .catch(error => {
+    //         console.log(error);
+    //         // alert try again later no user found
+    //       });
+    //   });
     // Alert.alert('Welcome', 'Hello');
   }
 

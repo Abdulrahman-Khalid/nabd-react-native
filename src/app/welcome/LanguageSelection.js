@@ -10,6 +10,7 @@ import {
   TouchableNativeFeedback,
   NativeModules
 } from 'react-native';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import RNRestart from 'react-native-restart';
 import { Colors, Images } from '../../constants';
@@ -26,7 +27,7 @@ class LanguageSelection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isRtl: this.props.language.lang === 'ar' ? 'rtl' : 'ltr',
+      isRtl: 'rtl',
       switchText1: this.props.language.lang === 'en' ? 'English' : 'العربية',
       switchText2: this.props.language.lang === 'ar' ? 'English' : 'العربية'
     };
