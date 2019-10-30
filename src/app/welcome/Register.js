@@ -254,7 +254,7 @@ class Register extends React.Component {
           action.close();
         }}
       >
-        <Text>اغلاق</Text>
+        <Text>{t.Cancel}</Text>
       </TouchableOpacity>
     );
   }
