@@ -99,11 +99,11 @@ class Register extends React.Component {
     const flag =
       this.props.userType === 'doctor' ? !this.state.specialization : true;
     if (
-      nameError ||
-      phoneError ||
-      passError ||
-      passMatchError ||
-      birthdayError ||
+      (nameError ||
+        phoneError ||
+        passError ||
+        passMatchError ||
+        birthdayError) &&
       flag
     ) {
       this.showAlert();

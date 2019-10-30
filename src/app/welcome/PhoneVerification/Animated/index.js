@@ -53,6 +53,8 @@ class AnimatedExample extends Component {
         randomCode: code
       })
       .then(() => {
+        congole.log('this.props.phone : ', this.props.phone.substring(1));
+        congole.log('this.props.name : ', this.props.name);
         console.log(
           'https://api.voximplant.com/platform_api/AddUser/?account_id=' +
             info.accountId +
