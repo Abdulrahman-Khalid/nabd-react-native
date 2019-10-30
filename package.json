@@ -23,7 +23,7 @@
     "lintdiff": "git diff --name-only --cached --relative | grep '\\.js$' | xargs standard | snazzy",
     "fixcode": "standard --fix",
     "git-hook": "npm run lint -s && npm run test -s",
-    "ios": "react-native run-ios",
+    "ios": "react-native run-ios --simulator='iPhone 11'",
     "android": "react-native run-android"
   },
   "dependencies": {
