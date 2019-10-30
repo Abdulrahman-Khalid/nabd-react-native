@@ -7,6 +7,8 @@ import { Block, Text, Button, theme } from 'galio-framework';
 import { Actions } from 'react-native-router-flux';
 import { Colors, Images } from '../../constants';
 import { connect } from 'react-redux';
+import { info } from '../../constants';
+
 import {
   selectHelperType,
   requestHelp,
@@ -169,6 +171,7 @@ class UserHome extends Component {
   }
 
   async videoCall(helperType, specialization) {
+    console.log(helperType);
     await LoginManager.getInstance()
       .loginWithPassword(
         this.props.phone.substring(1) +
@@ -186,7 +189,7 @@ class UserHome extends Component {
               : {}
           )
           .then(response => {
-            console.log(response);
+            console.log(response.data);
             if (response.data.helperNumber) this.makeCall(true, helperNumber);
           })
           .catch(error => {

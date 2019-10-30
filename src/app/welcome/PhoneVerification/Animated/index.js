@@ -3,7 +3,6 @@ import { Alert, Animated, Image, Text, View } from 'react-native';
 import { Block } from 'galio-framework';
 import { Button } from '../../../../components';
 import axios from 'axios';
-import { connect } from 'react-redux';
 import CodeInput from 'react-native-confirmation-code-field';
 import { info } from '../../../../constants';
 import styles, {
@@ -47,23 +46,25 @@ class AnimatedExample extends Component {
   }
 
   handlerOnFulfill = code => {
+    console.log('1: this.props.phone : ', this.props.phoneNum.substring(1));
+    console.log('1: this.props.name : ', this.props.userName);
     axios
       .post('confirmation', {
         phoneNo: this.props.phoneNum.substring(1),
         randomCode: code
       })
       .then(() => {
-        congole.log('this.props.phone : ', this.props.phone.substring(1));
-        congole.log('this.props.name : ', this.props.name);
+        console.log('2: this.props.phone : ', this.props.phoneNum.substring(1));
+        console.log('2: this.props.name : ', this.props.userName);
         console.log(
           'https://api.voximplant.com/platform_api/AddUser/?account_id=' +
             info.accountId +
             '&api_key=' +
             info.apiKey +
             '&user_name=' +
-            this.props.phone.substring(1) +
+            this.props.phoneNum.substring(1) +
             '&user_display_name=' +
-            this.props.name +
+            this.props.userName +
             '&user_password=' +
             info.userPass +
             '&application_id=' +
@@ -75,9 +76,9 @@ class AnimatedExample extends Component {
             '&api_key=' +
             info.apiKey +
             '&user_name=' +
-            this.props.phone.substring(1) +
+            this.props.phoneNum.substring(1) +
             '&user_display_name=' +
-            this.props.name +
+            this.props.userName +
             '&user_password=' +
             info.userPass +
             '&application_id=' +
@@ -213,12 +214,4 @@ class AnimatedExample extends Component {
   }
 }
 
-const mapSateToProps = ({ signup }) => {
-  const { name, phone } = signup;
-  return {
-    name,
-    phone
-  };
-};
-
-export default connect(mapSateToProps)(AnimatedExample);
+export default AnimatedExample;

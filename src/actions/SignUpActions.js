@@ -148,7 +148,8 @@ export const signUpAttempt = signUpInfo => {
           type: SIGNUP_SUCCESS
         });
         Actions.verifySignup({
-          phoneNum: phone
+          phoneNum: phone,
+          userName: name
         });
       })
       .catch(error => {
