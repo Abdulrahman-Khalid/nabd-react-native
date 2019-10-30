@@ -227,7 +227,6 @@ class Register extends React.Component {
 
   showAlert = () => {
     this.setState({
-      ...this.state,
       showAlert: true
     });
   };

@@ -132,6 +132,7 @@ export default en = {
   Aide: 'Aide',
   SpecializationEmptyError: 'You must choose your specialization',
   NameEmpty: 'Name field is empty',
+  SignInFailed: 'Sign in failed',
   SignUpFailed: 'Sign up failed',
   OK: 'OK',
   ShortName: 'Name is too short should be at least 3 characters',

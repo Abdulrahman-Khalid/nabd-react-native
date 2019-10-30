@@ -118,6 +118,7 @@ export default ar = {
   iParamedic: 'مسعف',
   SignUp: 'إنشاء حساب',
   SignIn: 'تسجيل الدخول',
+  SignInFailed: 'فشل تسجيل الدخول',
   Verify: 'التأكيد',
   ConfirmPassword: 'تأكيد كلمة المرور',
   Birthday: 'تاريخ الميلاد',
