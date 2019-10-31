@@ -61,7 +61,7 @@ class AmbulanceHome extends Component {
       gpsOffModal: false,
       available: false,
       startLocationTracking: false,
-      patientName: 'Nader AbdAlGhani',
+      patientName: "عبدالرحمن خالد شافعي",
       patientPhoneNumber: '+201001796904',
       patientLocation: {
         latitude: 31.05795,
@@ -204,7 +204,7 @@ class AmbulanceHome extends Component {
                   }
                 ]}
               >
-                <Text style={{ color: '#b3b3b2', fontFamily: 'IstokWeb-Bold' }}>
+                <Text style={{ color: '#b3b3b2', fontFamily: 'Jaldi-Bold' }}>
                   {t.OpenSettings}
                 </Text>
               </View>
@@ -223,7 +223,7 @@ class AmbulanceHome extends Component {
                   }
                 ]}
               >
-                <Text style={{ color: '#d76674', fontFamily: 'IstokWeb-Bold' }}>
+                <Text style={{ color: '#d76674', fontFamily: 'Jaldi-Bold' }}>
                   Refresh
                 </Text>
               </View>
@@ -276,7 +276,7 @@ class AmbulanceHome extends Component {
   };
 
   renderAmbulanceStates() {
-    if (!this.state.available) {
+    if (this.state.available) {
       return (
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Image
@@ -292,25 +292,47 @@ class AmbulanceHome extends Component {
               textAlign: 'center'
             }}
           >
-            Looks like you are taking a break. Turn the switch to "Available" to
-            start saving lives!
+            {/* Looks like you are taking a break. Turn the switch to "Available" to
+            start saving lives! */}
+            يبدو انك تأخذ قسطًا من الراحة. حول الزر إلي متاح و انقذ حياة الناس!
           </Text>
         </View>
       );
     }
-    if (this.state.available && !this.state.startLocationTracking) {
+    if (this.state.available && this.state.startLocationTracking) {
       return (
-        <Pulse
-          color={Colors.APP}
-          numPulses={3}
-          diameter={400}
-          speed={20}
-          duration={2000}
-          style={{ position: 'absolute', bottom: '-40%' }}
-        />
+        <View>
+          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+            <Image
+              source={Images.loupe}
+              style={{ width: 140, height: 140 }}
+              resizeMode="contain"
+            />
+            <Text
+              style={{
+                color: 'gray',
+                fontSize: 16,
+                margin: 30,
+                textAlign: 'center'
+              }}
+            >
+              {/* Looks like you are taking a break. Turn the switch to "Available" to
+            start saving lives! */}
+              جاري البحث علي من يحتاج المساعدة
+            </Text>
+          </View>
+          <Pulse
+            color={Colors.APP}
+            numPulses={3}
+            diameter={400}
+            speed={20}
+            duration={2000}
+            style={{ position: 'absolute', bottom: '-55%' }}
+          />
+        </View>
       );
     }
-    if (this.state.available && this.state.startLocationTracking) {
+    if (!this.state.available && !this.state.startLocationTracking) {
       return (
         <View style={styles.container}>
           <LinearGradient
@@ -355,7 +377,7 @@ class AmbulanceHome extends Component {
                   color="#b3b3b2"
                   size={17}
                 />
-                <Text style={{ color: '#b3b3b2', fontFamily: 'IstokWeb-Bold' }}>
+                <Text style={{ color: '#b3b3b2', fontFamily: 'Jaldi-Bold' }}>
                   {t.GetDirections}
                 </Text>
               </View>
@@ -381,8 +403,8 @@ class AmbulanceHome extends Component {
                   color="#d76674"
                   size={17}
                 />
-                <Text style={{ color: '#d76674', fontFamily: 'IstokWeb-Bold' }}>
-                  Carrier Call
+                <Text style={{ color: '#d76674', fontFamily: 'Jaldi-Bold' }}>
+                  التواصل عبر الخط
                 </Text>
               </View>
             </TouchableOpacity>
@@ -407,8 +429,8 @@ class AmbulanceHome extends Component {
                   color="#57a25b"
                   size={17}
                 />
-                <Text style={{ color: '#57a25b', fontFamily: 'IstokWeb-Bold' }}>
-                  Video Call
+                <Text style={{ color: '#57a25b', fontFamily: 'Jaldi-Bold' }}>
+                  التواصل عن طريق الفديو
                 </Text>
               </View>
             </TouchableOpacity>
@@ -435,7 +457,7 @@ class AmbulanceHome extends Component {
               }}
             >
               {this.renderAmbulanceStates()}
-              {this.state.startLocationTracking ? (
+              {!this.state.startLocationTracking ? (
                 <TouchableOpacity
                   style={{ width: '50%', height: 50 }}
                   onPress={() => {
@@ -445,7 +467,7 @@ class AmbulanceHome extends Component {
                       patientLocation: null,
                       requestDate: null,
                       startLocationTracking: false,
-                      available: false,
+                      available: false
                     });
                   }}
                 >
@@ -467,10 +489,8 @@ class AmbulanceHome extends Component {
                       color="white"
                       size={17}
                     />
-                    <Text
-                      style={{ color: 'white', fontFamily: 'IstokWeb-Bold' }}
-                    >
-                      Arrived
+                    <Text style={{ color: 'white', fontFamily: 'Jaldi-Bold' }}>
+                      لقد وصلت
                     </Text>
                   </View>
                 </TouchableOpacity>
@@ -577,7 +597,7 @@ const styles = StyleSheet.create({
   locationPermissionModalTitle: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'IstokWeb-Regular',
+    fontFamily: 'Jaldi-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -586,7 +606,7 @@ const styles = StyleSheet.create({
     color: 'gray',
     textAlign: 'center',
     flex: 1,
-    fontFamily: 'IstokWeb-Regular',
+    fontFamily: 'Jaldi-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -609,7 +629,7 @@ const styles = StyleSheet.create({
   gpsOffModalTitle: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'IstokWeb-Regular',
+    fontFamily: 'Jaldi-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },

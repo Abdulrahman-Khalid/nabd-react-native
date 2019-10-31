@@ -57,6 +57,10 @@ const noIncidents = require('../assets/imgs/no-incidents.png');
 
 const coffee = require('../assets/imgs/coffee.png');
 
+const loupe = require('../assets/imgs/loupe.png');
+
+const ambulanceTopView = require('../assets/imgs/ambulance-top-view.png');
+
 export default {
   Onboarding,
   Logo,
@@ -104,5 +108,7 @@ export default {
   accountType,
   verification,
   noIncidents,
-  coffee
+  coffee,
+  loupe,
+  ambulanceTopView
 };

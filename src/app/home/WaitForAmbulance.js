@@ -16,12 +16,15 @@ class WaitForAmbulance extends Component {
     super(props);
     this.state = {
       region: {
-        latitude: this.props.position.coords.latitude,
-        longitude: this.props.position.coords.longitude,
+        latitude: 30.422,
+        longitude: 31.0043,
         latitudeDelta: 0.005,
         longitudeDelta: 0.005
       },
-      ambulanceLocation: null,
+      ambulanceLocation: {
+        latitude: 30.422,
+        longitude: 31.0043,
+      },
       mapMarginBottom: 1
     };
     this.socket = io(
@@ -39,8 +42,8 @@ class WaitForAmbulance extends Component {
 
   moveToUserLocation() {
     const userRegion = {
-      latitude: this.props.position.coords.latitude,
-      longitude: this.props.position.coords.longitude,
+      latitude: 30.422,
+      longitude: 31.0043,
       latitudeDelta: 0.005,
       longitudeDelta: 0.005
     };
@@ -62,11 +65,14 @@ class WaitForAmbulance extends Component {
         >
           {this.state.ambulanceLocation != null ? (
             <Marker.Animated
+              // image={Images.ambulanceTopView}
+              draggable
               ref={marker => {
                 this.marker = marker;
               }}
               coordinate={this.state.ambulanceLocation}
-            />
+              style={{transform: [{rotate: '70deg'}],}}  
+            ><Image source={Images.ambulanceTopView} style={{ width: 60, height: 60 }} resizeMode="contain" /></Marker.Animated>
           ) : null}
         </MapView>
         <FAB

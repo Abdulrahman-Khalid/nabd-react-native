@@ -30,66 +30,55 @@ const { width, height } = Dimensions.get('screen');
 const incidentsDummyData = [
   {
     userID: '01001796904',
-    description: 'Accident on ElSahrawy road',
+    description: 'حادثة علي الدائري مطلوب مساعدة',
     date: new Date(+new Date() - Math.floor(Math.random() * 10000000000)),
-    image: Images.aideCard,
+    image: "https://www.europarl.europa.eu/resources/library/images/20190308PHT30931/20190308PHT30931_original.jpg",
     location: {
       latitude: 30.027757,
       longitude: 31.200701
     },
-    numberToCall: null
+    numberToCall: '5641561'
   },
   {
-    userID: '01001796905',
-    description: 'انفجار مغسلة في حي المعادي',
+    userID: '01001796906',
+    description: 'انفجار في حي المعادي',
     date: new Date(+new Date() - Math.floor(Math.random() * 10000000000)),
     image: null,
     location: {
-      latitude: -33.8600024,
-      longitude: 18.697459
+      latitude: 30.057757,
+      longitude: 31.100701
+    },
+    numberToCall: null
+  },
+  {
+    userID: '201001796904',
+    description: 'طلب كيس دم ضروري في مستشفي الدفاع الجوي التخصصي',
+    date: new Date(+new Date() - Math.floor(Math.random() * 10000000000)),
+    image: "https://www.usnews.com/dims4/USNEWS/c490d87/2147483647/thumbnail/1280x853/quality/85/?url=http%3A%2F%2Fcom-usnews-beam-media.s3.amazonaws.com%2Fd3%2F23%2Fdfb649b847439f73d4c8c72739e1%2F141024-eicupatient-stock.jpg",
+    location: {
+      latitude: 30.057757,
+      longitude: 30.100701
     },
     numberToCall: '01001796904'
   },
   {
     userID: '01001796906',
-    description: 'طلب كيس دم ضروري في مستشفي الدفاع الجوي التخصصي',
+    description: 'الكاوتش نام مني علي الصحراوي. مطلوب مساعدة',
     date: new Date(+new Date() - Math.floor(Math.random() * 10000000000)),
-    image: Images.ambulanceCard,
+    image: "https://static.carsdn.co/cldstatic/wp-content/uploads/img1745547593-1466620128965.jpg",
     location: {
-      latitude: -33.8600024,
-      longitude: 18.697459
+      latitude: 31.057757,
+      longitude: 30.100701
     },
     numberToCall: '01001796904'
   },
-  {
-    userID: '01001796906',
-    description: 'طلب كيس دم ضروري في مستشفي الدفاع الجوي التخصصي',
-    date: new Date(+new Date() - Math.floor(Math.random() * 10000000000)),
-    image: Images.ambulanceCard,
-    location: {
-      latitude: -33.8600024,
-      longitude: 18.697459
-    },
-    numberToCall: '01001796904'
-  },
-  {
-    userID: '01001796906',
-    description: 'طلب كيس دم ضروري في مستشفي الدفاع الجوي التخصصي',
-    date: new Date(+new Date() - Math.floor(Math.random() * 10000000000)),
-    image: Images.ambulanceCard,
-    location: {
-      latitude: -33.8600024,
-      longitude: 18.697459
-    },
-    numberToCall: '01001796904'
-  }
 ];
 
 export class Incidents extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      IncidentCards: [],
+      IncidentCards: incidentsDummyData,
       refreshing: false,
       scrollOffset: new Animated.Value(0),
       titleWidth: 0,
@@ -120,51 +109,69 @@ export class Incidents extends Component {
    * Pull to refresh functionality
    */
   pullRefresh = () => {
-    this.setState({
-      refreshing: true,
-      IncidentCards: []
-    });
-    this.updateIncidentCards();
+    // this.setState({
+    //   refreshing: true,
+    //   IncidentCards: []
+    // });
+    // this.updateIncidentCards();
   };
 
   moreIncidentCards = ({ layoutMeasurement, contentOffset, contentSize }) => {
-    if (
-      layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 &&
-      this.state.refreshing !== true
-    ) {
-      this.setState({
-        refreshing: true
-      });
-      this.updateIncidentCards(
-        this.state.IncidentCards[this.state.IncidentCards.length - 1]._id
-      );
-    }
+    // if (
+    //   layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 &&
+    //   this.state.refreshing !== true
+    // ) {
+    //   this.setState({
+    //     refreshing: true
+    //   });
+    //   this.updateIncidentCards(
+    //     this.state.IncidentCards[this.state.IncidentCards.length - 1]._id
+    //   );
+    // }
   };
 
   updateIncidentCards(id = null, username = null) {
+    // axios
+    //   .get('/incident/', {
+    //     params: {
+    //       incidentId: id
+    //     }
+    //   })
+    //   .then(response => {
+    //     if (response.status != 404) {
+    //       if (!id) {
+    //         this.setState({
+    //           IncidentCards: response.data,
+    //           empty: false,
+    //           refreshing: false
+    //         });
+    //       } else {
+    //         this.setState(prevState => ({
+    //           IncidentCards: prevState.IncidentCards.concat(response.data),
+    //           refreshing: false
+    //         }));
+    //       }
+    //     }
+    //   })
+    //   .catch((error) => {
+    //     console.log(error);
+    //   })
+    //   .then(() => {
+        
+    //   });
+  }
+
+  removeIncident(id) {
     axios
-      .get('/incident/', {
+      .delete('/incident/', {
         params: {
           incidentId: id
         }
       })
       .then(response => {
-        if (response.status != 404) {
-          if (!id) {
-            this.setState({
-              IncidentCards: response.data,
-              empty: false
-            });
-          } else {
-            this.setState(prevState => ({
-              IncidentCards: prevState.IncidentCards.concat(response.data)
-            }));
-          }
-        }
-        this.setState({ refreshing: false });
+        this.pullRefresh();
       })
-      .catch(() => {
-        console.log('catch');
+      .catch(error => {
       })
       .then(() => {});
   }
@@ -269,7 +276,7 @@ export class Incidents extends Component {
               }}
             />
           </Animated.View>
-          {!this.state.empty ? (
+          {!(this.state.IncidentCards.length == 0) ? (
             <ScrollView
               refreshControl={
                 <RefreshControl
@@ -292,9 +299,7 @@ export class Incidents extends Component {
                 <IncidentCard
                   key={index}
                   item={item}
-                  onPressRemove={() => {
-                    console.log('Remove Pressed');
-                  }}
+                  onPressRemove={() => {this.removeIncident(item._id)}}
                   renderRemove={this.props.userID === item.userID}
                   style={styles.incidents}
                 />
@@ -324,12 +329,12 @@ export class Incidents extends Component {
                   style={[
                     styles.emptyScreenButton,
                     {
-                      backgroundColor: '#e8e8e3'
+                      backgroundColor: Colors.APP
                     }
                   ]}
                 >
                   <Text
-                    style={{ color: '#b3b3b2', fontFamily: 'IstokWeb-Bold' }}
+                    style={{ color: 'white', fontFamily: 'Jaldi-Bold' }}
                   >
                     {t.Refresh}
                   </Text>
@@ -490,7 +495,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 30
-  },
+  }
 });
 
 const mapStateToProps = state => ({
