@@ -676,6 +676,7 @@ class Register extends React.Component {
               </RadioGroup>
             </View>
           </View>
+          {this.renderDoctorSpecialization()}
         </View>
         <AwesomeAlert
           show={this.state.showAlert}
@@ -692,7 +693,6 @@ class Register extends React.Component {
             this.hideAlert();
           }}
         />
-        {this.renderDoctorSpecialization()}
         {this.isLoading()}
       </KeyboardAvoidingView>
     );
