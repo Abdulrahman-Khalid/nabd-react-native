@@ -22,7 +22,6 @@ import {
   View,
   Dimensions,
   Image,
-  ScrollView,
   Modal,
   Platform,
   Switch,
@@ -173,22 +172,20 @@ class UserHome extends Component {
 
   async videoCall(helperType, specialization) {
     console.log(helperType);
-    console.log('success login paramedic to call');
+    // console.log('success login paramedic to call');
+    // await LoginManager.getInstance()
+    //   .loginWithPassword(
+    //     this.props.phone.substring(1) +
+    //       '@nabd.abdulrahman.elshafei98.voximplant.com',
+    //     info.userPass
+    //   )
+    //   .then(() => {
+    //     console.log('success login user to call');
+    //     this.makeCall(true, '201011315102');
+    //   });
     await LoginManager.getInstance()
       .loginWithPassword(
-        this.props.phone.substring(1) +
-          '@nabd.abdulrahman.elshafei98.voximplant.com',
-        info.userPass
-      )
-      .then(() => {
-        console.log('success login user to call');
-        this.makeCall(true, '201011315102');
-      });
-
-    await LoginManager.getInstance()
-      .loginWithPassword(
-        this.props.phone.substring(1) +
-          '@nabd.abdulrahman.elshafei98.voximplant.com',
+        this.props.phone.substring(1) + info.voxAccount,
         info.userPass
       )
       .then(() => {
