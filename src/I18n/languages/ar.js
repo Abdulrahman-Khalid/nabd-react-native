@@ -5,6 +5,8 @@ export default ar = {
   Error4: 'خدمة Google play غير مثبتة أو لديها إصدار قديم ',
   Error5: 'لم يتم تمكين خدمة الموقع أو وضع الموقع غير مناسب للطلب الحالي',
   Error6: 'نرجو المحاولة مرة أخرى',
+  AutFailed: 'فشل تسجيل الدخول',
+  GeneralRequestError: 'حدث خطأ بالطلب',
 
   InternalMedicine: 'الباطنة والأمراض الصدرية',
   Cardiology: 'أمراض القلب والأوعية الدموية',

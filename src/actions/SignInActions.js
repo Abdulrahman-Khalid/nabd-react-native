@@ -5,10 +5,10 @@ import {
   SIGNIN_FAIL,
   RESET_SIGNIN_REDUCER_STATE
 } from './types';
+import t from '../../I18n';
 import axios from 'axios';
 import { info } from '../constants';
 import { Actions } from 'react-native-router-flux';
-import AsyncStorage from '@react-native-community/async-storage';
 import { Voximplant } from 'react-native-voximplant';
 
 export const resetSignInReducerState = () => {
@@ -69,7 +69,7 @@ export const signInAttempt = signInInfo => {
         console.log(error);
         dispatch({
           type: SIGNIN_FAIL,
-          payload: 'Authentication failed'
+          payload: t.AutFailed
         });
       });
   };

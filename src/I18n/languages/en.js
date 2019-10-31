@@ -1,4 +1,5 @@
 export default en = {
+  // toast error
   Error1: 'Location permission is not granted',
   Error2: 'Location provider not available',
   Error3: 'Location request timed out',
@@ -6,6 +7,8 @@ export default en = {
   Error5:
     'Location service is not enabled or location mode is not appropriate for the current request',
   Error6: 'Please try again',
+  AutFailed: 'Authentication failed',
+  GeneralRequestError: 'Request error happended',
 
   InternalMedicine: ' Internal Medicine',
   Cardiology: 'Cardiology',
