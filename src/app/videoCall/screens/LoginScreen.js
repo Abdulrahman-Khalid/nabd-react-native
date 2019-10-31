@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2011-2018, Zingaya, Inc. All rights reserved.
- */
-
 'use strict';
 
 import React from 'react';
@@ -23,6 +19,8 @@ import COLOR_SCHEME from '../styles/ColorScheme';
 import COLOR from '../styles/Color';
 import styles from '../styles/Styles';
 import { Actions } from 'react-native-router-flux';
+import { Colors } from '../../../constants';
+import AwesomeAlert from 'react-native-awesome-alerts';
 
 export default class LoginScreen extends React.Component {
   constructor(props) {
@@ -31,7 +29,8 @@ export default class LoginScreen extends React.Component {
     this.state = {
       username: '',
       isModalOpen: false,
-      modalText: ''
+      modalText: '',
+      showAlert: false
     };
   }
 
@@ -101,6 +100,28 @@ export default class LoginScreen extends React.Component {
   _focusNextField(nextField) {
     this.refs[nextField].focus();
   }
+
+  errorMessage() {
+    var message = '';
+    var num = 1;
+    if (this.phone.isValidNumber()) {
+      message += `${num}) ` + t.PhoneNotValid + '\n';
+      num++;
+    }
+    return message;
+  }
+
+  showAlert = () => {
+    this.setState({
+      showAlert: true
+    });
+  };
+
+  hideAlert = () => {
+    this.setState({
+      showAlert: false
+    });
+  };
 
   render() {
     return (
@@ -176,6 +197,21 @@ export default class LoginScreen extends React.Component {
             </TouchableHighlight>
           </Modal>
         </View>
+        <AwesomeAlert
+          show={this.state.showAlert}
+          showProgress={false}
+          title={t.SignUpFailed}
+          message={this.errorMessage.bind(this)}
+          closeOnTouchOutside={true}
+          closeOnHardwareBackPress={false}
+          showCancelButton={false}
+          showConfirmButton={true}
+          confirmText={t.OK}
+          confirmButtonColor={Colors.APP}
+          onConfirmPressed={() => {
+            this.hideAlert();
+          }}
+        />
       </SafeAreaView>
     );
   }

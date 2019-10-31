@@ -48,7 +48,7 @@ class App extends Component {
         case 'en':
           customProps = {
             style: {
-              fontFamily: 'Manjari-Regular'
+              fontFamily: 'IstokWeb-Regular'
             }
           };
           break;
@@ -91,7 +91,7 @@ class App extends Component {
         <PersistGate persistor={persistor}>
           <PaperProvider>
             <StatusBar backgroundColor={Colors.APP} barStyle="light-content" />
-              <RouterComponent />
+            <RouterComponent />
           </PaperProvider>
         </PersistGate>
       </Provider>

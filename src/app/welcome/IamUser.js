@@ -12,10 +12,7 @@ class IamUser extends Component {
         <Image style={styles.image} source={Images.user} resizeMode="contain" />
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{t.User}</Text>
-          <Text style={styles.description}>
-            Lorem Ipsum is simply dummy text of the printing and typesetting
-            industry Lorem Ipsum
-          </Text>
+          <Text style={styles.description}>{t.UserInfo}</Text>
         </View>
         <CommonButtons />
       </View>
@@ -44,7 +41,7 @@ const styles = {
   title: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'Manjari-Regular',
+    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -52,7 +49,7 @@ const styles = {
     fontSize: 15,
     color: 'gray',
     textAlign: 'center',
-    fontFamily: 'Manjari-Regular',
+    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   }

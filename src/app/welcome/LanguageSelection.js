@@ -10,6 +10,7 @@ import {
   TouchableNativeFeedback,
   NativeModules
 } from 'react-native';
+import axios from 'axios';
 import { connect } from 'react-redux';
 import RNRestart from 'react-native-restart';
 import { Colors, Images } from '../../constants';
@@ -20,35 +21,56 @@ import { Actions } from 'react-native-router-flux';
 import { Button, SwitchButton } from '../../components';
 import { theme } from 'galio-framework';
 import { FAB } from 'react-native-paper';
+import { Action } from 'rxjs/internal/scheduler/Action';
 
 class LanguageSelection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selectedOption: 'ar'
+      isRtl: 'rtl',
+      switchText1: this.props.language.lang === 'en' ? 'English' : 'العربية',
+      switchText2: this.props.language.lang === 'ar' ? 'English' : 'العربية'
     };
   }
 
-  _handlePress = () => {
-    const { switchLanguage, language } = this.props;
-    const { selectedOption } = this.state;
-    if (selectedOption !== language.lang) {
-      const isRtl = selectedOption === 'ar';
+  componentDidMount() {
+    if (this.props.token) {
+      console.log('token: ', this.props.token);
+      console.log('userType: ', this.props.userType);
+      axios.defaults.headers.common['TOKEN'] = this.props.token;
+      switch (this.props.userType) {
+        case 'user':
+          Actions.userHome();
+          break;
+        case 'doctor':
+          Actions.doctorHome();
+          break;
+        case 'paramedic':
+          Actions.paramedicHome();
+          break;
+        case 'ambulance':
+          Actions.ambulanceHome();
+          break;
+      }
+    }
+  }
+
+  _handlePress = lang => {
+    console.log('iam here nigga2');
+    console.log('lang: ', lang);
+    if (lang !== this.props.language.lang) {
+      const isRtl = lang === 'ar';
       NativeModules.I18nManager.forceRTL(isRtl);
-      switchLanguage({
-        lang: this.state.selectedOption
+      this.props.switchLanguage({
+        lang
       });
       setTimeout(() => {
         RNRestart.Restart();
       }, 500);
-      return;
     }
-    Actions.whoRU();
-    // Actions.FirstAid();
   };
 
   render() {
-    const isRtl = this.props.language.lang === 'ar' ? 'rtl' : 'ltr';
     return (
       <View style={styles.mainContainer}>
         <Image
@@ -58,26 +80,28 @@ class LanguageSelection extends Component {
         />
         <View style={styles.titleContainer}>
           <Text style={styles.title}>{t.LanguageScreenTitle}</Text>
-          <Text style={styles.description}>
-            You can also change it later in Settings
-          </Text>
+          <Text style={styles.description}>{t.LangNote}</Text>
         </View>
         <View style={styles.switch}>
           <SwitchButton
-            text1="Arabic"
-            text2="English"
-            onValueChange={val =>
-              this.setState({ selectedOption: val == 1 ? 'ar' : 'en' })
-            }
+            text1={this.state.switchText1}
+            text2={this.state.switchText2}
+            onValueChange={val => {
+              const lang = this.props.language.lang === 'en' ? 'ar' : 'en';
+              console.log('selected Lang: ', lang);
+              this._handlePress(lang);
+            }}
             fontColor="#817d84"
             activeFontColor="black"
-            switchdirection={isRtl}
+            switchdirection={this.state.isRtl}
           />
         </View>
         <FAB
           style={styles.nextButton}
-          icon={isRtl === 'ltr' ? 'chevron-right' : 'chevron-left'}
-          onPress={this._handlePress}
+          icon={this.state.isRtl === 'ltr' ? 'chevron-right' : 'chevron-left'}
+          onPress={() => {
+            Actions.whoRU();
+          }}
         />
       </View>
     );
@@ -104,7 +128,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'Manjari-Regular',
+    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -112,7 +136,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'gray',
     textAlign: 'center',
-    fontFamily: 'Manjari-Regular',
+    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -128,7 +152,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => ({ language: state.language });
+const mapStateToProps = state => ({
+  language: state.language,
+  userType: state.signin.userType,
+  token: state.signin.token
+});
 
 export default connect(
   mapStateToProps,

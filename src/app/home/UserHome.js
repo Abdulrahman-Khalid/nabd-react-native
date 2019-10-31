@@ -3,11 +3,12 @@ import AsyncStorage from '@react-native-community/async-storage';
 import LoginManager from '../videoCall/manager/LoginManager';
 import CallManager from '../videoCall/manager/CallManager';
 import { Voximplant } from 'react-native-voximplant';
-import { CustomPicker } from 'react-native-custom-picker';
 import { Block, Text, Button, theme } from 'galio-framework';
 import { Actions } from 'react-native-router-flux';
 import { Colors, Images } from '../../constants';
 import { connect } from 'react-redux';
+import { info } from '../../constants';
+
 import {
   selectHelperType,
   requestHelp,
@@ -21,25 +22,28 @@ import {
   View,
   Dimensions,
   Image,
-  ScrollView,
   Modal,
   Platform,
   Switch,
   DeviceEventEmitter,
-  ActivityIndicator
+  ActivityIndicator,
+  NativeModules,
+  PermissionsAndroid
 } from 'react-native';
 import {
   Card,
   Modal as CustomModal,
-  Icon as CustomIcon
+  Icon as CustomIcon,
+  LocationPicker
 } from '../../components';
-// import axios from 'axios';
+import axios from 'axios';
 import RNSwipeVerify from 'react-native-swipe-verify';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { openSettings } from 'react-native-permissions';
 import t from '../../I18n';
 import RNSettings from 'react-native-settings';
 import Geolocation from 'react-native-geolocation-service';
+import ModalSelector from 'react-native-modal-selector';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -54,8 +58,7 @@ const buttons = [
   },
   {
     title: t.RequestAmbulance,
-    image: Images.ambulanceCard,
-    horizontal: true
+    image: Images.ambulanceCard
   }
 ];
 
@@ -68,7 +71,14 @@ class UserHome extends Component {
       gpsOffModal: false,
       startedWatch: false,
       client: Voximplant.getInstance(),
-      currentCall: null
+      currentCall: null,
+      locationPickerModalVisible: false,
+      ambulanceRequestLocation: {
+        latitude: null,
+        longitude: null
+      },
+      loading: false,
+      loadingModalVisible: false
     };
     props.selectHelperType('doctor');
     this.requestAmbulance = this.requestAmbulance.bind(this);
@@ -76,24 +86,21 @@ class UserHome extends Component {
 
   componentDidMount() {
     LoginManager.getInstance().on('onConnectionClosed', this._connectionClosed);
-    if (Platform.OS === 'android') {
-      this.setState({ gpsOffModal: true });
-      RNSettings.getSetting(RNSettings.LOCATION_SETTING).then(result => {
-        if (result == RNSettings.ENABLED) {
-          this.setState({ gpsOffModal: false });
-        }
-      });
-    } else {
-      this.props.requestLocationPermission();
-      console.log(this.props.permissionGranted);
-    }
+    this.setState({ gpsOffModal: true });
+    RNSettings.getSetting(RNSettings.LOCATION_SETTING).then(result => {
+      if (result == RNSettings.ENABLED) {
+        this.setState({ gpsOffModal: false });
+      }
+    });
+    this.props.requestLocationPermission();
+    console.log(this.props.permissionGranted);
     DeviceEventEmitter.addListener(
       RNSettings.GPS_PROVIDER_EVENT,
       this.handleGPSProviderEvent
     );
   }
 
-  componentDidUnmount() {
+  componentWillUnmount() {
     LoginManager.getInstance().off(
       'onConnectionClosed',
       this._connectionClosed
@@ -164,10 +171,21 @@ class UserHome extends Component {
   }
 
   async videoCall(helperType, specialization) {
+    console.log(helperType);
+    // console.log('success login paramedic to call');
+    // await LoginManager.getInstance()
+    //   .loginWithPassword(
+    //     this.props.phone.substring(1) +
+    //       '@nabd.abdulrahman.elshafei98.voximplant.com',
+    //     info.userPass
+    //   )
+    //   .then(() => {
+    //     console.log('success login user to call');
+    //     this.makeCall(true, '201011315102');
+    //   });
     await LoginManager.getInstance()
       .loginWithPassword(
-        this.props.phone.substring(1) +
-          '@nabd.abdulrahman.elshafei98.voximplant.com',
+        this.props.phone.substring(1) + info.voxAccount,
         info.userPass
       )
       .then(() => {
@@ -181,182 +199,108 @@ class UserHome extends Component {
               : {}
           )
           .then(response => {
-            console.log(response);
-            if (response.data.helperNumber) this.makeCall(true, helperNumber);
+            console.log(response.data);
+            if (response.data.helperNumber) {
+              this.makeCall(true, helperNumber);
+            } else {
+              Alert.alert(t.CallFailed, t.NoHelperFound, [
+                {
+                  text: t.OK
+                }
+              ]);
+            }
           })
           .catch(error => {
             console.log(error);
-            // alert try again later no user found
+            Alert.alert(t.CallFailed, t.ServerError, [
+              {
+                text: t.OK
+              }
+            ]);
           });
+      })
+      .catch(error => {
+        console.log(error);
+        Alert.alert(t.CallFailed, t.ServerError, [
+          {
+            text: t.OK
+          }
+        ]);
       });
-    // Alert.alert('Welcome', 'Hello');
-  }
-
-  renderHeader() {
-    return (
-      <View style={styles.headerFooterContainer}>
-        <Text style={{ fontSize: 20 }}>تخصص الطبيب</Text>
-      </View>
-    );
-  }
-
-  renderFooter(action) {
-    return (
-      <TouchableOpacity
-        style={styles.headerFooterContainer}
-        onPress={() => {
-          action.close();
-        }}
-      >
-        <Text>اغلاق</Text>
-      </TouchableOpacity>
-    );
-  }
-
-  renderField(settings) {
-    const { selectedItem, defaultText, getLabel, clear } = settings;
-    return (
-      // <View
-      //   style={{
-      //     backgroundColor: 'red',
-      //     paddingTop: theme.SIZES.BASE,
-      //     paddingRight: theme.SIZES.BASE,
-      //     paddingLeft: theme.SIZES.BASE / 2,
-      //     paddingBottom: theme.SIZES.BASE / 2
-      //   }}
-      // ></View>
-      // <Image
-      //   source={buttons[1].image}
-      //   style={{
-      //     width: width / 2,
-      //     height: 200,
-      //     paddingTop: theme.SIZES.BASE,
-      //     paddingRight: theme.SIZES.BASE,
-      //     paddingLeft: theme.SIZES.BASE / 2,
-      //     paddingBottom: theme.SIZES.BASE / 2
-      //   }}
-      // />
-      <Card
-        item={buttons[1]}
-        style={{
-          width: width / 2,
-          height: height / 3,
-          paddingTop: theme.SIZES.BASE,
-          paddingRight: theme.SIZES.BASE,
-          paddingLeft: theme.SIZES.BASE / 2,
-          paddingBottom: theme.SIZES.BASE / 2
-        }}
-        // onPress={() => {
-        //   this.props.selectHelperType('aide');
-        // }}
-        onPressInfo={() => {
-          Alert.alert(
-            'Info',
-            'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
-          );
-        }}
-      />
-    );
-  }
-
-  renderOption(settings) {
-    const { item, getLabel } = settings;
-    return (
-      <View style={styles.optionContainer}>
-        <View style={styles.innerContainer}>
-          {/* <View style={[styles.box, { backgroundColor: item.color }]} /> */}
-          <Image style={styles.imageIconWrapper} source={item.img} />
-          <Text
-            style={{
-              fontSize: 18,
-              padding: 8,
-              color: item.color,
-              alignSelf: 'flex-start'
-            }}
-          >
-            {getLabel(item)}
-          </Text>
-        </View>
-      </View>
-    );
   }
 
   renderRequestDoctorCard() {
-    // return <Text>this.props.helperType</Text>;
-    const options = [
+    const data = [
+      { key: 0, section: true, label: t.DoctorSpecialization },
       {
-        color: '#051C2B',
-        label: 'الباطنة والأمراض الصدرية',
-        img: Images.lungIcon,
-        value: 1
+        label: t.InternalMedicine,
+        key: 1
       },
       {
-        color: '#051C2B',
-        label: 'أمراض القلب والأوعية الدموية',
-        img: Images.heartIcon,
-        value: 2
+        label: t.Cardiology,
+        key: 2
       },
       {
-        color: '#051C2B',
-        label: 'مخ و أعصاب',
-        img: Images.brainIcon,
-        value: 3
+        label: t.Neurology,
+        key: 3
       },
       {
-        color: '#051C2B',
-        label: 'العظام',
-        img: Images.boneIcon,
-        value: 4
+        label: t.Orthopaedic,
+        key: 4
       },
       {
-        color: '#051C2B',
-        label: 'المسالك بولية و التناسلية',
-        img: Images.bladderIcon,
-        value: 5
+        label: t.Urology,
+        key: 5
       },
       {
-        color: '#051C2B',
-        label: 'النساء والتوليد',
-        img: Images.pregnantIcon,
-        value: 6
+        label: t.OBGYN,
+        key: 6
       },
       {
-        color: '#051C2B',
-        label: 'الجلدية',
-        img: Images.skinIcon,
-        value: 7
+        label: t.Dermatology,
+        key: 7
       },
       {
-        color: '#051C2B',
-        label: 'طب وجراحةالعيون',
-        img: Images.eyeIcon,
-        value: 8
+        label: t.Ophthalmology,
+        key: 8
       },
       {
-        color: '#051C2B',
-        label: 'أطفال',
-        img: Images.childIcon,
-        value: 9
+        label: t.Pediatrics,
+        key: 9
       },
       {
-        color: '#051C2B',
-        label: 'أنف و أذن و حنجرة',
-        img: Images.throatIcon,
-        value: 10
+        label: t.Otorhinolaryngology,
+        key: 10
       }
     ];
     return (
-      <CustomPicker
-        options={options}
-        getLabel={item => item.label}
-        fieldTemplate={this.renderField}
-        optionTemplate={this.renderOption}
-        headerTemplate={this.renderHeader}
-        footerTemplate={this.renderFooter}
-        modalAnimationType="slide"
-        onValueChange={item => {
-          this.videoCall('doctor', item.value);
+      <ModalSelector
+        style={{ flex: 1 }}
+        cancelText={t.Cancel}
+        data={data}
+        ref={selector => {
+          this.selector = selector;
         }}
+        onChange={option => {
+          this.videoCall('doctor', option.value);
+        }}
+        customSelector={
+          <Card
+            item={buttons[1]}
+            style={{
+              paddingTop: theme.SIZES.BASE,
+              paddingRight: theme.SIZES.BASE,
+              paddingLeft: theme.SIZES.BASE / 2,
+              paddingBottom: theme.SIZES.BASE / 2
+            }}
+            onPress={() => {
+              this.selector.open();
+            }}
+            onPressInfo={() => {
+              Alert.alert(t.Info, t.DoctorAlert);
+            }}
+          />
+        }
       />
     );
   }
@@ -375,28 +319,22 @@ class UserHome extends Component {
         error => {
           switch (error.code) {
             case 1:
-              Alert.alert('Error', 'Location permission is not granted');
+              Alert.alert(t.Error, t.Error1);
               break;
             case 2:
-              Alert.alert('Error', 'Location provider not available');
+              Alert.alert(t.Error, t.Error2);
               break;
             case 3:
-              Alert.alert('Error', 'Location request timed out');
+              Alert.alert(t.Error, t.Error3);
               break;
             case 4:
-              Alert.alert(
-                'Error',
-                'Google play service is not installed or has an older version'
-              );
+              Alert.alert(t.Error, t.Error4);
               break;
             case 5:
-              Alert.alert(
-                'Error',
-                'Location service is not enabled or location mode is not appropriate for the current request'
-              );
+              Alert.alert(t.Error, t.Error5);
               break;
             default:
-              Alert.alert('Error', 'Please try again');
+              Alert.alert(t.Error, t.Error6);
               break;
           }
         },
@@ -429,11 +367,15 @@ class UserHome extends Component {
   requestAmbulance() {
     if (!this.state.switchValue) {
       this.setState({
-        modalVisible: false
+        modalVisible: false,
+        locationPickerModalVisible: true
       });
-      Actions.waitForAmbulance();
     } else {
-      console.log('send current position');
+      this.setState({
+        modalVisible: false,
+        loadingModalVisible: true
+      });
+      this.sendAmbulanceRequest(true);
     }
   }
 
@@ -453,7 +395,7 @@ class UserHome extends Component {
             justifyContent: 'space-around'
           }}
         >
-          <Text style={{ fontSize: 18 }}>Send current location?</Text>
+          <Text style={{ fontSize: 18 }}>{t.SendCurrentLocation}</Text>
           <Switch
             value={this.state.switchValue}
             onValueChange={value => {
@@ -461,27 +403,29 @@ class UserHome extends Component {
             }}
           />
         </View>
-        <View style={{ marginTop: 20, marginBottom: 20 }}>
-          <RNSwipeVerify
-            width={width - 100}
-            buttonSize={60}
-            borderColor="#ffff"
-            buttonColor={Colors.APP}
-            backgroundColor="#d4d4d4"
-            borderRadius={30}
-            okButton={{ visible: false, duration: 400 }}
-            icon={
-              <CustomIcon
-                name="swipe-right"
-                family="flaticon"
-                size={25}
-                color="white"
-              />
-            }
-            onVerified={this.requestAmbulance}
+        <View
+          style={{
+            marginTop: 20,
+            marginBottom: 20
+          }}
+        >
+          <TouchableOpacity
+            style={styles.permissionModalButtonContainer}
+            onPress={this.requestAmbulance}
           >
-            <Text style={{ fontSize: 25 }}>Confirm</Text>
-          </RNSwipeVerify>
+            <View
+              style={[
+                styles.permissionModalButton,
+                {
+                  backgroundColor: '#fdeaec'
+                }
+              ]}
+            >
+              <Text style={{ color: '#d76674', fontFamily: 'IstokWeb-Bold' }}>
+                {t.Confirm}
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
         <TouchableOpacity
           onPress={() => {
@@ -513,20 +457,18 @@ class UserHome extends Component {
           />
           <View style={styles.locationPermissionModalTitleContainer}>
             <Text style={styles.locationPermissionModalTitle}>
-              Nabd requires access to your location
+              {t.RequiresAccess}
             </Text>
           </View>
           <Text style={styles.locationPermissionModalDescription}>
-            {Platform.OS === 'android'
-              ? `In order to have help at your fingertips, location access is required. Press 'Open Settings' > Permissions > Location > Allow all the time > Go back to Nabd > Press 'Refresh'`
-              : `In order to have help at your fingertips, location access is required. Press 'Open Settings' > Location > Always > Go back to Nabd > Press 'Refresh'`}
+            {Platform.OS === 'android' ? t.LocationAlert : t.LocationAlert_}
           </Text>
           <View style={styles.permissionModalButtons}>
             <TouchableOpacity
               style={styles.permissionModalButtonContainer}
               onPress={() => {
                 openSettings().catch(() =>
-                  Alert.alert('Error', 'Cannot open settings')
+                  Alert.alert(t.Error, t.SettingsError)
                 );
               }}
             >
@@ -534,12 +476,12 @@ class UserHome extends Component {
                 style={[
                   styles.permissionModalButton,
                   {
-                    backgroundColor: '#f6f6f4'
+                    backgroundColor: '#e8e8e3'
                   }
                 ]}
               >
-                <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
-                  Open Settings
+                <Text style={{ color: '#b3b3b2', fontFamily: 'IstokWeb-Bold' }}>
+                  {t.OpenSettings}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -557,7 +499,7 @@ class UserHome extends Component {
                   }
                 ]}
               >
-                <Text style={{ color: '#d76674', fontFamily: 'Manjari-Bold' }}>
+                <Text style={{ color: '#d76674', fontFamily: 'IstokWeb-Bold' }}>
                   Refresh
                 </Text>
               </View>
@@ -571,20 +513,18 @@ class UserHome extends Component {
   renderGPSOffModal() {
     return (
       <Modal visible={this.state.gpsOffModal} animationType="fade">
-        <View style={styles.locationPermissionModalContainer}>
+        <View style={styles.gpsOffModalContainer}>
           <Image
-            style={styles.locationPermissionImage}
-            source={Images.locationPermission}
+            style={styles.gpsOffImage}
+            source={Images.gpsOff}
             resizeMode="contain"
           />
-          <View style={styles.locationPermissionModalTitleContainer}>
-            <Text style={styles.locationPermissionModalTitle}>
-              Nabd requires access to your location
+          <View style={styles.gpsOffModalTitleContainer}>
+            <Text style={styles.gpsOffModalTitle}>{t.RequiresAccess}</Text>
+            <Text style={styles.gpsOffModalDescription}>
+              {t.EnableLocation}
             </Text>
           </View>
-          <Text style={styles.locationPermissionModalDescription}>
-            Enable location services for a better experience
-          </Text>
         </View>
       </Modal>
     );
@@ -621,10 +561,7 @@ class UserHome extends Component {
                 this.videoCall('paramedic', null);
               }}
               onPressInfo={() => {
-                Alert.alert(
-                  'Info',
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
-                );
+                Alert.alert(t.Info, t.ParamedicAlert);
               }}
             />
             {this.renderRequestDoctorCard()}
@@ -650,10 +587,7 @@ class UserHome extends Component {
                 this.setModalVisible(true);
               }}
               onPressInfo={() => {
-                Alert.alert(
-                  'Info',
-                  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque dignissim congue risus ut accumsan'
-                );
+                Alert.alert(t.Info, t.AmbulanceAlert);
               }}
             />
           </View>
@@ -662,8 +596,106 @@ class UserHome extends Component {
     ) : (
       <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
         <ActivityIndicator size="large" style={{ marginBottom: 20 }} />
-        <Text style={{ fontSize: 20 }}>Fetching your location</Text>
+        <Text style={{ fontSize: 20 }}>{t.FetchingLocation}</Text>
       </View>
+    );
+  }
+
+  modalCancelOnPress = () => {
+    this.setState({
+      locationPickerModalVisible: false
+    });
+  };
+
+  sendAmbulanceRequest = (sendCurrentLocation = false) => {
+    if (sendCurrentLocation) {
+      axios
+        .post('request/ambulance', {
+          userID: this.props.phone,
+          pickupLocation: this.props.position.coords
+        })
+        .then(response => {
+          this.setState({
+            loadingModalVisible: false
+          });
+          Actions.WaitForAmbulance({ channelName: response.data.channelName });
+        })
+        .catch(err => {
+          let error = JSON.stringify(err);
+          error = JSON.parse(error);
+          this.setState({
+            loadingModalVisible: false
+          });
+        })
+        .then(() => {
+          this.setState({
+            loadingModalVisible: false
+          });
+        });
+    } else {
+      this.setState({
+        loading: true
+      });
+      axios
+        .post('request/ambulance', {
+          userID: this.props.phone,
+          pickupLocation: this.state.ambulanceRequestLocation
+        })
+        .then(response => {
+          Actions.WaitForAmbulance({ channelName: response.data.channelName });
+        })
+        .catch(err => {
+          let error = JSON.stringify(err);
+          error = JSON.parse(error);
+          this.setState({
+            loading: false,
+            locationPickerModalVisible: false
+          });
+        })
+        .then(() => {
+          this.setState({
+            loading: false,
+            locationPickerModalVisible: false
+          });
+        });
+    }
+  };
+
+  renderLocationPicker() {
+    <Modal
+      visible={this.state.locationPickerModalVisible}
+      onRequestClose={this.modalCancelOnPress}
+    >
+      <LocationPicker
+        onValueChange={region => {
+          this.setState({
+            ambulanceRequestLocation: {
+              latitude: ambulanceRequestLocation.latitude,
+              longitude: ambulanceRequestLocation.longitude
+            }
+          });
+        }}
+        cancelOnPress={this.modalCancelOnPress}
+        onPressSubmit={this.sendAmbulanceRequest}
+        loading={this.state.loading}
+      />
+    </Modal>;
+  }
+
+  renderLoadingModal() {
+    return (
+      <Modal visible={this.state.loadingModalVisible} transparent>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
+          <ActivityIndicator size="large" color="white" />
+        </View>
+      </Modal>
     );
   }
 
@@ -674,6 +706,8 @@ class UserHome extends Component {
         {this.renderLocationPermissionRequestModal()}
         {this.renderButtons()}
         {this.renderModal()}
+        {this.renderLocationPicker()}
+        {this.renderLoadingModal()}
       </View>
     );
   }
@@ -733,7 +767,7 @@ const styles = StyleSheet.create({
   locationPermissionModalTitle: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'Manjari-Regular',
+    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -742,9 +776,37 @@ const styles = StyleSheet.create({
     color: 'gray',
     textAlign: 'center',
     flex: 1,
-    fontFamily: 'Manjari-Regular',
+    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
+  },
+  gpsOffModalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  gpsOffImage: {
+    flex: 1,
+    width: 200,
+    height: 200,
+    margin: 12
+  },
+  gpsOffModalTitleContainer: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  gpsOffModalTitle: {
+    fontSize: 30,
+    textAlign: 'center',
+    fontFamily: 'IstokWeb-Regular',
+    marginLeft: theme.SIZES.BASE * 2,
+    marginRight: theme.SIZES.BASE * 2
+  },
+  gpsOffModalDescription: {
+    fontSize: 15,
+    color: 'gray',
+    textAlign: 'center'
   },
   container: {
     borderColor: 'grey',

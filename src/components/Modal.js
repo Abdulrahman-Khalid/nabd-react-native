@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 23,
     textAlign: 'left',
-    fontFamily: 'Manjari-Bold',
+    fontFamily: 'IstokWeb-Bold',
     fontWeight: '900',
     paddingTop: 20,
     paddingBottom: 10,

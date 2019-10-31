@@ -23,7 +23,7 @@
     "lintdiff": "git diff --name-only --cached --relative | grep '\\.js$' | xargs standard | snazzy",
     "fixcode": "standard --fix",
     "git-hook": "npm run lint -s && npm run test -s",
-    "ios": "react-native run-ios",
+    "ios": "react-native run-ios --simulator='iPhone 11'",
     "android": "react-native run-android"
   },
   "dependencies": {
@@ -63,9 +63,11 @@
     "react-native-material-menu": "^1.0.0",
     "react-native-md5": "^1.0.0",
     "react-native-modal-dropdown": "^0.6.2",
+    "react-native-modal-selector": "^1.1.2",
     "react-native-paper": "^2.16.0",
     "react-native-permissions": "^2.0.2",
     "react-native-phone-input": "0.2.2",
+    "react-native-pulse": "^1.0.7",
     "react-native-push-notification": "^3.1.9",
     "react-native-restart": "^0.0.12",
     "react-native-router-flux": "^4.0.6",
@@ -75,6 +77,7 @@
     "react-native-simple-radio-button": "^2.7.3",
     "react-native-splash-screen": "^3.2.0",
     "react-native-steps": "^1.3.0",
+    "react-native-stopwatch-timer": "^0.0.21",
     "react-native-svg": "^9.11.1",
     "react-native-svg-animated-linear-gradient": "^0.3.3",
     "react-native-swipe-verify": "^0.1.6",
@@ -86,6 +89,7 @@
     "redux-persist": "^5.10.0",
     "redux-thunk": "^2.3.0",
     "rn-viewpager": "^1.2.9",
+    "socket.io-client": "^2.3.0",
     "uuid": "^3.3.3",
     "ws": "^7.1.2",
     "yarn": "^1.17.3"

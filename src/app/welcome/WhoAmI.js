@@ -14,9 +14,21 @@ const { width, height } = Dimensions.get('screen');
 class WhoAmI extends Component {
   componentDidMount() {
     if (this.props.token) {
-      console.log('token:', this.props.token);
       axios.defaults.headers.common['TOKEN'] = this.props.token;
-      Actions.home();
+      switch (this.props.userType) {
+        case 'user':
+          Actions.userHome();
+          break;
+        case 'doctor':
+          Actions.doctorHome();
+          break;
+        case 'paramedic':
+          Actions.paramedicHome();
+          break;
+        case 'ambulance':
+          Actions.ambulanceHome();
+          break;
+      }
     } else {
       console.log('No token');
       this.props.getWelcomeInfo();
@@ -52,7 +64,7 @@ class WhoAmI extends Component {
           resizeMode="contain"
         />
         <View style={styles.titleContainer}>
-          <Text style={styles.title}>Choose a Suitable Account Type</Text>
+          <Text style={styles.title}>{t.AccountType}</Text>
         </View>
         <View style={styles.switch}></View>
         <View style={styles.buttonsContainer}>
@@ -61,7 +73,9 @@ class WhoAmI extends Component {
             onPress={this.user.bind(this)}
           >
             <View style={styles.button}>
-              <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
+              <Text
+                style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
+              >
                 {t.User}
               </Text>
             </View>
@@ -71,7 +85,9 @@ class WhoAmI extends Component {
             onPress={this.doctor.bind(this)}
           >
             <View style={styles.button}>
-              <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
+              <Text
+                style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
+              >
                 {t.Doctor}
               </Text>
             </View>
@@ -81,7 +97,9 @@ class WhoAmI extends Component {
             onPress={this.paramedic.bind(this)}
           >
             <View style={styles.button}>
-              <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
+              <Text
+                style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
+              >
                 {t.Paramedic}
               </Text>
             </View>
@@ -91,7 +109,9 @@ class WhoAmI extends Component {
             onPress={this.ambulance.bind(this)}
           >
             <View style={styles.button}>
-              <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
+              <Text
+                style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
+              >
                 {t.AmbulanceDriver}
               </Text>
             </View>
@@ -122,7 +142,7 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'Manjari-Regular',
+    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -130,7 +150,7 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'gray',
     textAlign: 'center',
-    fontFamily: 'Manjari-Regular',
+    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -169,7 +189,9 @@ const mapStateToProps = state => ({
   numberUsers: state.openApp.numberUsers,
   numberParamedics: state.openApp.numberParamedics,
   numberAmbulance: state.openApp.numberAmbulance,
-  numberDoctors: state.openApp.numberDoctors
+  numberDoctors: state.openApp.numberDoctors,
+  userType: state.signin.userType,
+  token: state.signin.token
 });
 
 export default connect(

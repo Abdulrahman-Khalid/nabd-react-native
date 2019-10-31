@@ -5,10 +5,10 @@ import {
   SIGNIN_FAIL,
   RESET_SIGNIN_REDUCER_STATE
 } from './types';
+import t from '../../I18n';
 import axios from 'axios';
 import { info } from '../constants';
 import { Actions } from 'react-native-router-flux';
-import AsyncStorage from '@react-native-community/async-storage';
 import { Voximplant } from 'react-native-voximplant';
 
 export const resetSignInReducerState = () => {
@@ -38,23 +38,38 @@ export const signInAttempt = signInInfo => {
         password: password
       })
       .then(response => {
+        console.log('login success');
         loginVoximplant(phone);
-        console.log(response);
         axios.defaults.headers.common['TOKEN'] = response.data.token;
+        const payloaded = {
+          token: response.data.token,
+          userName: response.data.userName,
+          userType
+        };
         dispatch({
           type: SIGNIN_SUCCESS,
-          payload: {
-            token: response.data.token,
-            userName: response.data.userName,
-            userType
-          }
+          payload: payloaded
         });
+        switch (userType) {
+          case 'user':
+            Actions.userHome();
+            break;
+          case 'doctor':
+            Actions.doctorHome();
+            break;
+          case 'paramedic':
+            Actions.paramedicHome();
+            break;
+          case 'ambulance':
+            Actions.ambulanceHome();
+            break;
+        }
       })
       .catch(error => {
         console.log(error);
         dispatch({
           type: SIGNIN_FAIL,
-          payload: 'Authentication failed'
+          payload: t.AutFailed
         });
       });
   };
@@ -67,6 +82,10 @@ async function loginVoximplant(phone) {
     if (state === Voximplant.ClientState.DISCONNECTED) {
       await client.connect();
     }
+    LoginManager.getInstance().loginWithPassword(
+      phone + info.voxAccount,
+      info.userPass
+    );
     let authResult = await client.login(phone, info.userPass);
   } catch (e) {
     console.log(e.name + e.message);

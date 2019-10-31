@@ -86,6 +86,7 @@ export default class CallManager {
       PushManager.showLocalNotification('');
       this.showIncomingCallScreen = true;
     } else {
+      console.log('hello there');
       Actions.IncomingCall({
         callId: event.call.callId,
         isVideo: event.video,
@@ -95,6 +96,7 @@ export default class CallManager {
   }
 
   _incomingCall = event => {
+    console.log('Iam here');
     if (this.call !== null) {
       console.log(
         `CallManager: incomingCall: already have a call, rejecting new call, current call id: ${this.call.callId}`

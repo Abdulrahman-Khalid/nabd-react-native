@@ -18,15 +18,12 @@ import { LocationPicker, Icon } from '../../components';
 import { Colors } from '../../constants';
 import { connect } from 'react-redux';
 import t from '../../I18n';
+import { addedNewIncident } from '../../actions';
 
-const actionSheetButtons = [
-  'Take a picture',
-  'Choose a picture from my gallery'
-];
+const actionSheetButtons = t.ActionSheetButtons;
 
 class AddIncident extends Component {
   state = {
-    userID: '201140028533',
     text: '',
     numberToCall: null,
     location: {
@@ -122,7 +119,7 @@ class AddIncident extends Component {
           // always executed
           axios
             .post('/incident', {
-              userID: this.state.userID,
+              userID: this.props.userID,
               description: this.state.text,
               date: new Date(),
               image: this.state.media,
@@ -138,8 +135,10 @@ class AddIncident extends Component {
               error = JSON.parse(error);
               console.log(error);
               console.log(error.response.status);
+              Actions.Incidents();
             })
             .then(() => {
+              this.props.addedNewIncident();
               Actions.Incidents();
             });
         });
@@ -147,24 +146,22 @@ class AddIncident extends Component {
     if (this.state.photo === null) {
       axios
         .post('/incident', {
-          userID: this.state.userID,
+          userID: this.props.userID,
           description: this.state.text,
           date: new Date(),
           image: null,
           location: this.state.location,
           numberToCall: this.state.numberToCall
         })
-        .then(response => {
-          console.log(response.status);
-        })
+        .then(response => {})
         .catch(err => {
           // handle error
           let error = JSON.stringify(err);
           error = JSON.parse(error);
-          console.log(error);
-          console.log(error.response.status);
+          Actions.Incidents();
         })
         .then(() => {
+          this.props.addedNewIncident();
           Actions.Incidents();
         });
     }
@@ -233,7 +230,6 @@ class AddIncident extends Component {
                   tintColor: 'blue'
                 },
                 buttonIndex => {
-                  console.log('button clicked :', buttonIndex);
                   switch (buttonIndex) {
                     case 0:
                       this.handleCam();
@@ -292,7 +288,7 @@ class AddIncident extends Component {
               error={this.state.numberFieldError}
             />
             <HelperText type="error" visible={this.state.numberFieldError}>
-              Please enter a valid number
+              {t.NumberUnvalid}
             </HelperText>
           </View>
           <View style={{ flex: 2, marginBottom: 10, justifyContent: 'center' }}>
@@ -315,7 +311,7 @@ class AddIncident extends Component {
               underlineColor={Colors.BLACK}
             />
             <HelperText type="error" visible={this.state.descriptionFieldError}>
-              This field is required
+              {t.RequiredField}
             </HelperText>
           </View>
           <View style={styles.buttonsContainer}>
@@ -341,7 +337,7 @@ class AddIncident extends Component {
             >
               <View style={styles.button}>
                 <Text
-                  style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}
+                  style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
                 >
                   {t.Next}
                 </Text>
@@ -398,9 +394,9 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => ({ position: state.location.position });
+const mapStateToProps = state => ({ position: state.location.position, userID: state.signin.phone.substring(1) });
 
 export default connect(
   mapStateToProps,
-  null
+  { addedNewIncident }
 )(AddIncident);

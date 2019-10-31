@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
 import Steps from 'react-native-steps';
-import data from './FirstAidData';
 import metadata from './metadata.json';
 import t from '../../I18n';
 import { Colors } from '../../constants';
@@ -65,7 +64,7 @@ export default class StepIndicator extends Component {
     const item = rowData.item;
     return (
       <View style={styles.rowItem}>
-        <Text style={styles.body}>{item}</Text>
+        <Text style={styles.body}>{item.body}</Text>
         <View style={styles.imageContainer}>
           <Image style={styles.image} source={item.image} />
         </View>
@@ -86,14 +85,14 @@ export default class StepIndicator extends Component {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: 'row-reverse'
+    flexDirection: 'row'
   },
   stepIndicator: {
-    marginVertical: 20, // 50
+    marginVertical: 20,
     paddingHorizontal: 20
   },
   rowItem: {
-    marginVertical: '10%', // space between list items
+    marginVertical: '5%', // space between list items
     flex: 1,
     paddingVertical: '10%'
   },

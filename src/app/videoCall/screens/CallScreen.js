@@ -22,6 +22,7 @@ import CallManager from '../manager/CallManager';
 import styles from '../styles/Styles';
 import VIForegroundService from '@voximplant/react-native-foreground-service';
 import { Actions } from 'react-native-router-flux';
+import t from '../../../I18n';
 const CALL_STATES = {
   DISCONNECTED: 'disconnected',
   CONNECTING: 'connecting',
@@ -236,7 +237,7 @@ export default class CallScreen extends React.Component {
     CallManager.getInstance().removeCall(this.call);
     this.setState({
       isModalOpen: true,
-      modalText: 'Call failed: ' + event.reason,
+      modalText: t.CallFailed + event.reason,
       remoteVideoStreamId: null,
       localVideoStreamId: null
     });

@@ -112,7 +112,7 @@ class InjuriesList extends Component {
     const { scrollOffset } = this.state;
     const { INJURY_BUTTON, INJURY_BUTTON_TWO } = Colors;
     return (
-      <View>
+      <View style={{ flex: 1 }}>
         <Animated.View
           style={[
             styles.header,
@@ -169,7 +169,7 @@ class InjuriesList extends Component {
               })
             }}
           >
-            First Aid
+            {t.FirstAid}
           </Animated.Text>
           {this.renderNavbarButton(scrollOffset)}
           <Animated.View
@@ -183,12 +183,16 @@ class InjuriesList extends Component {
           />
         </Animated.View>
         <ScrollView
-          contentContainerStyle={{ paddingTop: theme.SIZES.BASE, zIndex: 2 }}
+          contentContainerStyle={{
+            paddingTop: theme.SIZES.BASE,
+            zIndex: 2
+          }}
           onScroll={({ nativeEvent }) => {
             const scrollSensitivity = 4 / 3;
             const offset = nativeEvent.contentOffset.y / scrollSensitivity;
             this.state.scrollOffset.setValue(offset);
           }}
+          showsVerticalScrollIndicator={false}
           scrollEventThrottle={20}
         >
           <View>
@@ -289,7 +293,7 @@ class InjuriesList extends Component {
               onPress={this.onButtonPress_.bind(this, 'chemical_poisoning')}
             />
           </View>
-          <View style={{ marginBottom: 60 }}></View>
+          {/* <View style={{ marginBottom: 60 }}></View> */}
         </ScrollView>
       </View>
     );

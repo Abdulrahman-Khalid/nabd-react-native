@@ -7,7 +7,8 @@ import {
   View,
   TouchableOpacity,
   Alert,
-  Share
+  Share,
+  ActivityIndicator
 } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
@@ -21,6 +22,7 @@ import CustomIcon from './Icon';
 import LinearGradient from 'react-native-linear-gradient';
 import { Images } from '../constants';
 import t from '../I18n';
+import axios from 'axios';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -28,7 +30,8 @@ class IncidentCard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      distanceFromUser: '-'
+      distanceFromUser: '-',
+      imageURI: null
     };
   }
 
@@ -54,6 +57,36 @@ class IncidentCard extends React.Component {
   componentDidMount() {
     if (this.props.location.position !== null) {
       this.caclulateDistance();
+    }
+    if (this.props.item.image != null) {
+      axios
+        .get('/media', {
+          params: {
+            id: this.props.item.image
+          }
+        })
+        .then(res => {
+          this.setState({
+            imageURI: res.request._url
+          });
+          console.log('GET MEDIA RESPONSE', res.request._url);
+        })
+        .catch(err => {
+          console.log('error in request', err);
+        });
+      // axios({
+      //   method: 'GET',
+      //   url: '/media',
+      //   data: {
+      //     id: this.props.item.image
+      //   }
+      // })
+      //   .then(res => {
+      //     console.log('GET MEDIA RESPONSE', res);
+      //   })
+      //   .catch(err => {
+      //     console.log('error in request', err);
+      //   });
     }
   }
 
@@ -202,7 +235,7 @@ class IncidentCard extends React.Component {
             {item.image ? (
               <View>
                 <Image
-                  source={item.image}
+                  source={{ uri: item.image}}
                   style={styles.fullImage}
                   resizeMode="cover"
                 />
@@ -222,7 +255,8 @@ class IncidentCard extends React.Component {
         </View>
         <Text style={styles.dateAndDistance}>
           {this.calculateDateAndTime() +
-            ' • ' + t.Away +
+            ' • ' +
+            t.Away +
             this.state.distanceFromUser +
             t.Km}
         </Text>
@@ -236,7 +270,7 @@ class IncidentCard extends React.Component {
               style={[
                 styles.button,
                 {
-                  backgroundColor: '#f6f6f4'
+                  backgroundColor: '#e8e8e3'
                 }
               ]}
             >
@@ -247,7 +281,7 @@ class IncidentCard extends React.Component {
                 color="#b3b3b2"
                 size={17}
               />
-              <Text style={{ color: '#b3b3b2', fontFamily: 'Manjari-Bold' }}>
+              <Text style={{ color: '#b3b3b2', fontFamily: 'IstokWeb-Bold' }}>
                 {t.GetDirections}
               </Text>
             </View>
@@ -274,7 +308,7 @@ class IncidentCard extends React.Component {
                   color="#d76674"
                   size={17}
                 />
-                <Text style={{ color: '#d76674', fontFamily: 'Manjari-Bold' }}>
+                <Text style={{ color: '#d76674', fontFamily: 'IstokWeb-Bold' }}>
                  {t.Call}
                 </Text>
               </View>
@@ -332,7 +366,7 @@ const styles = StyleSheet.create({
   buttonsContainer: {
     flex: 1,
     flexDirection: 'row',
-    margin: 10,
+    margin: 10
   },
   buttonContainer: {
     flex: 1,

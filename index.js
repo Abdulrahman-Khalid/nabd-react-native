@@ -12,7 +12,7 @@ YellowBox.ignoreWarnings([
   'Module RCTImageLoader requires'
 ]);
 console.disableYellowBox = true;
-axios.defaults.baseURL = 'http://192.168.122.1:3000/api/'; // local server
+axios.defaults.baseURL = 'http://192.168.1.8:3000/api/'; // local server mine 192.168.122.1, philo 192.168.1.7
 axios.defaults.timeout = 5000;
 
 global.deepLinking = true;

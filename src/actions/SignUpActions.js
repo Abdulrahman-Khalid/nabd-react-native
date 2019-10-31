@@ -12,6 +12,7 @@ import {
 } from './types';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
+import t from '../I18n';
 
 export const resetSignUpReducerState = () => {
   return {
@@ -40,12 +41,12 @@ export const validateName = name => {
       if (name.length < 3) {
         dispatch({
           type: CHECK_NAME,
-          payload: 'Name is too short should be at least 3 characters'
+          payload: t.ShortName
         });
       } else if (format.test(name)) {
         dispatch({
           type: CHECK_NAME,
-          payload: "Name shouldn't contain special characters"
+          payload: t.SpecialName
         });
       } else {
         dispatch({
@@ -56,7 +57,7 @@ export const validateName = name => {
     } else {
       dispatch({
         type: CHECK_NAME,
-        payload: 'Name field is empty'
+        payload: t.NameEmpty
       });
     }
   };
@@ -69,7 +70,7 @@ export const validateConfirmPassword = (password, confirmPassword) => {
     } else {
       dispatch({
         type: CHECK_PASSWORD_MATCH,
-        payload: "Confirm password doesn't match with password"
+        payload: t.ConfirmPasswordError
       });
     }
   };
@@ -93,7 +94,7 @@ export const validateBirthday = birthday => {
     if (age < allowedAge) {
       dispatch({
         type: CHECK_BIRTHDAY,
-        payload: 'You have to be 13 or older to use this app'
+        payload: t.AgeError
       });
     } else {
       dispatch({
@@ -111,7 +112,7 @@ export const validatePhone = isPhoneValid => {
     } else {
       dispatch({
         type: CHECK_PHONE,
-        payload: 'This phone is not valid'
+        payload: t.PhoneNotValid
       });
     }
   };
@@ -124,14 +125,22 @@ export const signUpAttempt = signUpInfo => {
       payload: signUpInfo.phone
     });
     console.log(signUpInfo);
-    const { name, phone, birthday, gender, password } = signUpInfo;
+    const {
+      name,
+      phone,
+      birthday,
+      gender,
+      password,
+      specialization
+    } = signUpInfo;
     axios
       .post(`register/${signUpInfo.userType}`, {
         name,
         phoneNo: phone.substring(1),
         birthDate: birthday,
         gender: gender === 'male',
-        password
+        password,
+        specialization
       })
       .then(response => {
         console.log(response);
@@ -139,14 +148,15 @@ export const signUpAttempt = signUpInfo => {
           type: SIGNUP_SUCCESS
         });
         Actions.verifySignup({
-          phoneNum: phone
+          phoneNum: phone,
+          userName: name
         });
       })
       .catch(error => {
         console.log(error);
         dispatch({
           type: SIGNUP_FAIL,
-          payload: 'sign up failed'
+          payload: t.SignUpFailed
         });
       });
   };
@@ -242,40 +252,40 @@ function runPassword(password, dispatch) {
   var passError = '';
 
   if (nScore >= 90) {
-    passStrengthText = 'Very Secure';
+    passStrengthText = t.VSecure;
     passStrengthColor = '#0ca908';
   }
   // -- Secure
   else if (nScore >= 80) {
-    passStrengthText = 'Secure';
+    passStrengthText = t.Secure;
     passStrengthColor = '#7ff67c';
   }
   // -- Very Strong
   else if (nScore >= 80) {
-    passStrengthText = 'Very Strong';
+    passStrengthText = t.VStrong;
     passStrengthColor = '#008000';
   }
   // -- Strong
   else if (nScore >= 60) {
-    passStrengthText = 'Strong';
+    passStrengthText = t.Strong;
     passStrengthColor = '#006000';
   }
   // -- Average
   else if (nScore >= 40) {
-    passStrengthText = 'Average';
+    passStrengthText = t.Average;
     passStrengthColor = '#e3cb00';
   }
   // -- Weak
   else if (nScore >= 20) {
-    passStrengthText = 'Weak';
+    passStrengthText = t.Weak;
     passStrengthColor = '#Fe3d1a';
-    passError = 'Password is weak';
+    passError = t.PWeak;
   }
   // -- Very Weak
   else {
-    passStrengthText = 'Very Weak';
+    passStrengthText = t.VWeak;
     passStrengthColor = '#e71a1a';
-    passError = 'Password is very weak';
+    passError = t.PVWeak;
   }
 
   dispatch({

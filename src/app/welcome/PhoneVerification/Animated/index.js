@@ -3,8 +3,8 @@ import { Alert, Animated, Image, Text, View } from 'react-native';
 import { Block } from 'galio-framework';
 import { Button } from '../../../../components';
 import axios from 'axios';
-import { connect } from 'react-redux';
 import CodeInput from 'react-native-confirmation-code-field';
+import { info } from '../../../../constants';
 import styles, {
   ACTIVE_CELL_BG_COLOR,
   CELL_BORDER_RADIUS,
@@ -46,21 +46,39 @@ class AnimatedExample extends Component {
   }
 
   handlerOnFulfill = code => {
+    console.log('1: this.props.phone : ', this.props.phoneNum.substring(1));
+    console.log('1: this.props.name : ', this.props.userName);
     axios
       .post('confirmation', {
         phoneNo: this.props.phoneNum.substring(1),
         randomCode: code
       })
       .then(() => {
+        console.log('2: this.props.phone : ', this.props.phoneNum.substring(1));
+        console.log('2: this.props.name : ', this.props.userName);
+        console.log(
+          'https://api.voximplant.com/platform_api/AddUser/?account_id=' +
+            info.accountId +
+            '&api_key=' +
+            info.apiKey +
+            '&user_name=' +
+            this.props.phoneNum.substring(1) +
+            '&user_display_name=' +
+            this.props.userName +
+            '&user_password=' +
+            info.userPass +
+            '&application_id=' +
+            info.appId
+        );
         axios(
           'https://api.voximplant.com/platform_api/AddUser/?account_id=' +
             info.accountId +
             '&api_key=' +
             info.apiKey +
             '&user_name=' +
-            this.props.phone.substring(1) +
+            this.props.phoneNum.substring(1) +
             '&user_display_name=' +
-            this.props.name +
+            this.props.userName +
             '&user_password=' +
             info.userPass +
             '&application_id=' +
@@ -68,22 +86,22 @@ class AnimatedExample extends Component {
         )
           .then(response => {
             // this.props.cacheUserId(response.data.user_id);
-            console.log(response);
+            console.log('success voximplant signup');
           })
           .catch(error => {
-            console.log(error);
+            console.log('error voximplant signup');
           });
         return Alert.alert(
           'Confirmation Code',
           'Successful!',
-          [{ text: 'OK', onPress: () => Actions.signin() }],
+          [{ text: 'OK', onPress: () => Actions.whoRU() }],
           {
             cancelable: false
           }
         );
       })
       .catch(error => {
-        console.log(error);
+        console.log('confirmation failed with error: ', error);
         return Alert.alert(
           'Confirmation Code',
           'Failed!',
@@ -196,12 +214,4 @@ class AnimatedExample extends Component {
   }
 }
 
-const mapSateToProps = ({ signup }) => {
-  const { name, phone } = signup;
-  return {
-    name,
-    phone
-  };
-};
-
-export default connect(mapSateToProps)(AnimatedExample);
+export default AnimatedExample;

@@ -8,12 +8,14 @@ import {
   KeyboardAvoidingView,
   Platform,
   Text,
-  TouchableOpacity
+  TouchableOpacity,
+  Image
 } from 'react-native';
 import PhoneInput from 'react-native-phone-input';
 import ModalPickerImage from './ModalPickerImage';
 import { RadioGroup, RadioButton } from 'react-native-flexi-radio-button';
 import { theme } from 'galio-framework';
+import { CustomPicker } from 'react-native-custom-picker';
 import { Button, Icon, Input } from '../../components';
 import { Images, Colors } from '../../constants';
 import DatePicker from 'react-native-datepicker';
@@ -42,13 +44,15 @@ class Register extends React.Component {
 
     this.onPressFlag = this.onPressFlag.bind(this);
     this.selectCountry = this.selectCountry.bind(this);
+    this.renderField = this.renderField.bind(this);
 
     this.state = {
       pickerData: null,
-      todayDate: date + '-' + month + '-' + year,
-      birthday: date + '-' + month + '-' + year,
+      todayDate: year + '-' + month + '-' + date,
+      birthday: year + '-' + month + '-' + date,
       gender: 'male',
-      showAlert: false
+      showAlert: false,
+      specialization: null
     };
   }
 
@@ -92,13 +96,15 @@ class Register extends React.Component {
     this.losePhoneFocus();
     validateBirthday(this.state.birthday);
     this.loseConfirmPasswordFocus();
-
+    const flag =
+      this.props.userType === 'doctor' ? !this.state.specialization : true;
     if (
-      nameError ||
-      phoneError ||
-      passError ||
-      passMatchError ||
-      birthdayError
+      (nameError ||
+        phoneError ||
+        passError ||
+        passMatchError ||
+        birthdayError) &&
+      flag
     ) {
       this.showAlert();
     } else {
@@ -109,7 +115,8 @@ class Register extends React.Component {
         gender: this.state.gender,
         password: this.props.password,
         confirmPassword: this.props.confirmPassword,
-        userType: this.props.userType
+        userType: this.props.userType,
+        specialization: this.state.specialization
       });
     }
   };
@@ -126,7 +133,9 @@ class Register extends React.Component {
             {this.props.loading ? (
               <Spinner color={Colors.WHITE} size="small" />
             ) : (
-              <Text style={{ color: Colors.WHITE, fontFamily: 'Manjari-Bold' }}>
+              <Text
+                style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
+              >
                 {t.CreateAccount}
               </Text>
             )}
@@ -207,15 +216,17 @@ class Register extends React.Component {
       num++;
     }
     if (birthdayError) {
-      message += `${num}) ${birthdayError}`;
+      message += `${num}) ${birthdayError}\n`;
       num++;
+    }
+    if (this.props.userType === 'doctor' && !this.state.specialization) {
+      message += `${num})` + t.SpecializationEmptyError;
     }
     return message;
   }
 
   showAlert = () => {
     this.setState({
-      ...this.state,
       showAlert: true
     });
   };
@@ -226,6 +237,180 @@ class Register extends React.Component {
       showAlert: false
     });
   };
+
+  renderHeader() {
+    return (
+      <View style={styles.headerFooterContainer}>
+        <Text style={{ fontSize: 20 }}>{t.DoctorSpecialization}</Text>
+      </View>
+    );
+  }
+
+  renderFooter(action) {
+    return (
+      <TouchableOpacity
+        style={styles.headerFooterContainer}
+        onPress={() => {
+          action.close();
+        }}
+      >
+        <Text>{t.Cancel}</Text>
+      </TouchableOpacity>
+    );
+  }
+
+  renderField(settings) {
+    const { selectedItem, defaultText, getLabel, clear } = settings;
+    return (
+      <View>
+        <View>
+          {!selectedItem && (
+            <Text style={[styles.text, { color: 'grey' }]}>
+              {t.ChooseYourDoctorSpecialization}
+            </Text>
+          )}
+          {selectedItem && (
+            <View style={styles.innerContainer}>
+              <TouchableOpacity
+                onPress={() => {
+                  this.setState({ specialization: null });
+                  clear();
+                }}
+              >
+                <Image
+                  style={[
+                    {
+                      width: 12,
+                      height: 12,
+                      margin: 12
+                    },
+                    styles.shadow
+                  ]}
+                  source={Images.clearIcon}
+                />
+              </TouchableOpacity>
+              <Image
+                style={[styles.imageIconWrapper, styles.shadow]}
+                source={selectedItem.img}
+              />
+              <Text style={[styles.text, { color: selectedItem.color }]}>
+                {getLabel(selectedItem)}
+              </Text>
+            </View>
+          )}
+        </View>
+      </View>
+    );
+  }
+
+  renderOption(settings) {
+    const { item, getLabel } = settings;
+    return (
+      <View style={styles.optionContainer}>
+        <View style={styles.innerContainer}>
+          {/* <View style={[styles.box, { backgroundColor: item.color }]} /> */}
+          <Image style={styles.imageIconWrapper} source={item.img} />
+          <Text
+            style={{
+              fontSize: 18,
+              padding: 8,
+              color: item.color,
+              alignSelf: 'flex-start'
+            }}
+          >
+            {getLabel(item)}
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
+  renderDoctorSpecialization() {
+    // return <Text>this.props.helperType</Text>;
+    if (this.props.userType === 'doctor') {
+      const options = [
+        {
+          color: '#051C2B',
+          label: t.InternalMedicine,
+          img: Images.lungIcon,
+          value: 1
+        },
+        {
+          color: '#051C2B',
+          label: t.Cardiology,
+          img: Images.heartIcon,
+          value: 2
+        },
+        {
+          color: '#051C2B',
+          label: t.Neurology,
+          img: Images.brainIcon,
+          value: 3
+        },
+        {
+          color: '#051C2B',
+          label: t.Orthopaedic,
+          img: Images.boneIcon,
+          value: 4
+        },
+        {
+          color: '#051C2B',
+          label: t.Urology,
+          img: Images.bladderIcon,
+          value: 5
+        },
+        {
+          color: '#051C2B',
+          label: t.OBGYN,
+          img: Images.pregnantIcon,
+          value: 6
+        },
+        {
+          color: '#051C2B',
+          label: t.Dermatology,
+          img: Images.skinIcon,
+          value: 7
+        },
+        {
+          color: '#051C2B',
+          label: t.Ophthalmology,
+          img: Images.eyeIcon,
+          value: 8
+        },
+        {
+          color: '#051C2B',
+          label: t.Pediatrics,
+          img: Images.childIcon,
+          value: 9
+        },
+        {
+          color: '#051C2B',
+          label: t.Otorhinolaryngology,
+          img: Images.throatIcon,
+          value: 10
+        }
+      ];
+      return (
+        <CustomPicker
+          options={options}
+          getLabel={item => item.label}
+          fieldTemplate={this.renderField}
+          optionTemplate={this.renderOption}
+          headerTemplate={this.renderHeader}
+          footerTemplate={this.renderFooter}
+          modalAnimationType="slide"
+          onValueChange={item => {
+            if (item) {
+              console.log(item);
+              this.setState({
+                specialization: item.value
+              });
+            }
+          }}
+        />
+      );
+    }
+  }
 
   render() {
     return (
@@ -257,7 +442,9 @@ class Register extends React.Component {
                 alignSelf: 'flex-start'
               }}
             >
-              Create{'\n'}Account
+              {t.Create}
+              {'\n'}
+              {t.Account}
             </Text>
             <Input
               placeholder={t.Username}
@@ -312,7 +499,7 @@ class Register extends React.Component {
                 onChange={country => {
                   this.selectCountry(country);
                 }}
-                cancelText="Cancel"
+                cancelText={t.Cancel}
               />
             </View>
           </View>
@@ -423,11 +610,11 @@ class Register extends React.Component {
                 date={this.state.birthday}
                 mode="date"
                 placeholder={t.Birthday}
-                format="DD-MM-YYYY"
-                minDate="01-01-1920"
+                format="YYYY-MM-DD"
+                minDate="1920-01-01"
                 maxDate={this.state.todayDate}
-                confirmBtnText="Confirm"
-                cancelBtnText="Cancel"
+                confirmBtnText={t.Confirm}
+                cancelBtnText={t.Cancel}
                 showIcon={false}
                 customStyles={{
                   dateTouchBody: {},
@@ -489,17 +676,18 @@ class Register extends React.Component {
               </RadioGroup>
             </View>
           </View>
+          {this.renderDoctorSpecialization()}
         </View>
         <AwesomeAlert
           show={this.state.showAlert}
           showProgress={false}
-          title="Sign up failed"
+          title={t.SignUpFailed}
           message={this.errorMessage()}
           closeOnTouchOutside={true}
           closeOnHardwareBackPress={false}
           showCancelButton={false}
           showConfirmButton={true}
-          confirmText="OK"
+          confirmText={t.OK}
           confirmButtonColor={Colors.APP}
           onConfirmPressed={() => {
             this.hideAlert();
@@ -564,6 +752,7 @@ const styles = StyleSheet.create({
   },
   phoneContainer: {
     paddingLeft: 15,
+    paddingRight: 15,
     borderWidth: 0,
     borderRadius: 30,
     borderBottomColor: Colors.BORDER,
@@ -606,6 +795,46 @@ const styles = StyleSheet.create({
     borderRadius: 30,
     flexDirection: 'row',
     backgroundColor: Colors.APP
+  },
+  container: {
+    borderColor: 'grey',
+    borderWidth: 1,
+    padding: 15
+  },
+  innerContainer: {
+    flexDirection: 'row',
+    alignItems: 'stretch'
+  },
+  text: {
+    fontSize: 18,
+    padding: 8
+  },
+  headerFooterContainer: {
+    padding: 10,
+    alignItems: 'center',
+    fontSize: 20
+  },
+  clearButton: {
+    backgroundColor: 'grey',
+    borderRadius: 5,
+    marginRight: 10,
+    padding: 5
+  },
+  optionContainer: {
+    padding: 10,
+    borderBottomColor: 'grey',
+    borderBottomWidth: 1
+  },
+  optionInnerContainer: {
+    flex: 1,
+    flexDirection: 'row'
+  },
+  imageIconWrapper: {
+    backgroundColor: '#E8E6E3',
+    width: 32,
+    height: 32,
+    borderRadius: 32 / 2,
+    margin: 5
   }
 });
 
