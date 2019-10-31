@@ -5,7 +5,7 @@ import {
   SIGNIN_FAIL,
   RESET_SIGNIN_REDUCER_STATE
 } from './types';
-import t from '../../I18n';
+import t from '../I18n';
 import axios from 'axios';
 import { info } from '../constants';
 import { Actions } from 'react-native-router-flux';
