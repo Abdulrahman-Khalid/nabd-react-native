@@ -388,11 +388,6 @@ class RouterComponent extends Component {
             icon={() => <Icon name="lifebuoy" size={25} />}
           />
           <Scene key="CallScreen" component={CallScreen} hideNavBar={true} />
-          {/* <Scene key="Call" component={Call} hideNavBar={true} /> */}
-          {/* <Scene
-            key="OutGoingCall"
-            component={OutGoingCallScreen}
-          /> */}
 
           <Scene
             key="IncomingCall"
