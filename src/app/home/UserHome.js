@@ -185,32 +185,51 @@ class UserHome extends Component {
         this.makeCall(true, '201011315102');
       });
 
-    // await LoginManager.getInstance()
-    //   .loginWithPassword(
-    //     this.props.phone.substring(1) +
-    //       '@nabd.abdulrahman.elshafei98.voximplant.com',
-    //     info.userPass
-    //   )
-    //   .then(() => {
-    //     axios
-    //       .post(
-    //         `request/${helperType}`,
-    //         helperType === 'doctor'
-    //           ? {
-    //               specialization
-    //             }
-    //           : {}
-    //       )
-    //       .then(response => {
-    //         console.log(response.data);
-    //         if (response.data.helperNumber) this.makeCall(true, helperNumber);
-    //       })
-    //       .catch(error => {
-    //         console.log(error);
-    //         // alert try again later no user found
-    //       });
-    //   });
-    // Alert.alert('Welcome', 'Hello');
+    await LoginManager.getInstance()
+      .loginWithPassword(
+        this.props.phone.substring(1) +
+          '@nabd.abdulrahman.elshafei98.voximplant.com',
+        info.userPass
+      )
+      .then(() => {
+        axios
+          .post(
+            `request/${helperType}`,
+            helperType === 'doctor'
+              ? {
+                  specialization
+                }
+              : {}
+          )
+          .then(response => {
+            console.log(response.data);
+            if (response.data.helperNumber) {
+              this.makeCall(true, helperNumber);
+            } else {
+              Alert.alert(t.CallFailed, t.NoHelperFound, [
+                {
+                  text: t.OK
+                }
+              ]);
+            }
+          })
+          .catch(error => {
+            console.log(error);
+            Alert.alert(t.CallFailed, t.ServerError, [
+              {
+                text: t.OK
+              }
+            ]);
+          });
+      })
+      .catch(error => {
+        console.log(error);
+        Alert.alert(t.CallFailed, t.ServerError, [
+          {
+            text: t.OK
+          }
+        ]);
+      });
   }
 
   renderRequestDoctorCard() {
@@ -669,7 +688,14 @@ class UserHome extends Component {
   renderLoadingModal() {
     return (
       <Modal visible={this.state.loadingModalVisible} transparent>
-        <View style={{ flex: 1, backgroundColor: 'rgba(0,0,0,0.5)', justifyContent: 'center', alignItems: 'center' }}>
+        <View
+          style={{
+            flex: 1,
+            backgroundColor: 'rgba(0,0,0,0.5)',
+            justifyContent: 'center',
+            alignItems: 'center'
+          }}
+        >
           <ActivityIndicator size="large" color="white" />
         </View>
       </Modal>

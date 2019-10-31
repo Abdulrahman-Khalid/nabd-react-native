@@ -22,6 +22,8 @@ export default en = {
   Otorhinolaryngology: ' Otorhinolaryngology',
 
   CallFailed: 'Call failed: ',
+  NoHelperFound: 'No Helper is available right now, try again later',
+  ServerError: 'Server error, Try again later',
   ChooseLocation: 'Choose Pickup Location',
   RequiresAccess: 'Nabd requires access to your location',
   EnableLocation: 'Enable location services for a better experience',

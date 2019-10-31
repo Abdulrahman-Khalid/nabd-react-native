@@ -21,6 +21,8 @@ export default ar = {
 
   ChooseLocation: 'اختر موقعك',
   CallFailed: 'فشل الاتصال : ',
+  NoHelperFound: 'لا يوجد شخص متاح للمساعدة الان حاول مرة اخرى لاحقا',
+  ServerError: 'حدث خطأ بالسرفر. حاول مرة اخرى',
   RequiresAccess: 'تطبيق نبض يتطلب الوصول إلى موقعك',
   EnableLocation: 'قم بتشغيل خدمات الموقع لتجربة أفضل',
   SendCurrentLocation: 'أرسال الموقع الحالي',
