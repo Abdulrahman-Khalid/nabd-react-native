@@ -44,6 +44,8 @@ export const signInAttempt = signInInfo => {
         const payloaded = {
           token: response.data.token,
           userName: response.data.userName,
+          specialization:
+            userType === 'doctor' ? response.data.specialization : null,
           userType
         };
         dispatch({

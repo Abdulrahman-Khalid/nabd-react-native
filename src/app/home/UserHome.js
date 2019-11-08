@@ -157,9 +157,9 @@ class UserHome extends Component {
       );
       let callManager = CallManager.getInstance();
       callManager.addCall(call);
-      if (callSettings.setupCallKit) {
-        callManager.startOutgoingCallViaCallKit(isVideoCall, helperNumber);
-      }
+      // if (callSettings.setupCallKit) {
+      //   callManager.startOutgoingCallViaCallKit(isVideoCall, helperNumber);
+      // }
       Actions.CallScreen({
         callId: call.callId,
         isVideo: isVideoCall,

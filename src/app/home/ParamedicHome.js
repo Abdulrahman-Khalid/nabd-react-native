@@ -60,7 +60,8 @@ class ParamedicHome extends Component {
       console.log(this.props.phoneNumber + this.props.userType);
       this.socket.emit('available', {
         phoneNumber: this.props.phoneNumber,
-        userType: this.props.userType
+        userType: this.props.userType,
+        specialization: this.props.specialization
       });
     } else {
       this.socket.close();
@@ -107,7 +108,8 @@ const styles = StyleSheet.create({});
 
 const mapStateToProps = state => ({
   phoneNumber: state.signin.phone.substring(1),
-  userType: state.signin.userType
+  userType: state.signin.userType,
+  specialization: state.signin.specialization
 });
 
 export default connect(

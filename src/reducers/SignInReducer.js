@@ -13,6 +13,7 @@ const INTIAL_STATE = {
   loading: false,
   userName: '',
   userType: '',
+  specialization: null,
   token: ''
 };
 
@@ -34,7 +35,8 @@ signInReducer = (state = INTIAL_STATE, action) => {
         loading: false,
         userName: action.payload.userName,
         token: action.payload.token,
-        userType: action.payload.userType
+        userType: action.payload.userType,
+        specialization: action.payload.specialization
       };
     case SIGNIN_FAIL:
       return { ...state, loading: false, error: action.payload };
@@ -46,7 +48,7 @@ signInReducer = (state = INTIAL_STATE, action) => {
 const persistConfig = {
   key: 'signin',
   storage: storage,
-  whitelist: ['phone', 'password', 'userName', 'userType', 'token']
+  whitelist: ['phone', 'userName', 'userType', 'specialization', 'token']
 };
 
 export default persistReducer(persistConfig, signInReducer);
