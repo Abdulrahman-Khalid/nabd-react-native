@@ -45,6 +45,7 @@ import t from '../../I18n';
 import RNSettings from 'react-native-settings';
 import Geolocation from 'react-native-geolocation-service';
 import ModalSelector from 'react-native-modal-selector';
+import LinearGradient from 'react-native-linear-gradient';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -253,7 +254,61 @@ class UserHome extends Component {
 
   renderField(settings) {
     // const { selectedItem, defaultText, getLabel, clear } = settings;
-    return <View style={{ width: 50, height: 50, backgroundColor: 'red' }} />;
+    return (
+      <View
+        style={{
+          // paddingTop: theme.SIZES.BASE,
+          // paddingLeft: theme.SIZES.BASE / 2,
+          // paddingRight: theme.SIZES.BASE,
+          // paddingBottom: theme.SIZES.BASE / 2,
+          width: width / 2 - 20,
+          height: height / 2 - 125,
+          borderRadius: 30,
+        }}
+      >
+        <TouchableOpacity
+          onPress={() => {
+            Alert.alert(t.Info, t.DoctorAlert);
+          }}
+          style={styles.infoButton}
+        >
+          <Icon
+            size={25}
+            color="white"
+            name="information-outline"
+            style={{
+              textAlign: 'center'
+            }}
+          />
+        </TouchableOpacity>
+        <LinearGradient
+          start={{ x: 1, y: 0 }}
+          end={{ x: 0, y: 1 }}
+          locations={[0.15, 1]}
+          colors={['transparent', 'black']}
+          style={styles.linearGradient}
+        />
+        <Image
+          source={Images.doctorCard}
+          style={{ width: '100%', height: '100%', borderRadius: 30 }}
+        />
+        <Text
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            fontSize: 35,
+            zIndex: 2,
+            color: 'white',
+            fontWeight: '900',
+            fontFamily: 'IstokWeb-Bold',
+            marginLeft: 15,
+            marginBottom: 12
+          }}
+        >
+          {t.RequestDoctor}
+        </Text>
+      </View>
+    );
   }
 
   renderOption(settings) {
@@ -355,6 +410,12 @@ class UserHome extends Component {
             console.log(item);
             this.videoCall('doctor', item.value);
           }
+        }}
+        style={{
+          paddingTop: theme.SIZES.BASE,
+          paddingLeft: theme.SIZES.BASE / 2,
+          paddingRight: theme.SIZES.BASE,
+          paddingBottom: theme.SIZES.BASE / 2,
         }}
       />
     );
@@ -902,6 +963,44 @@ const styles = StyleSheet.create({
     height: 32,
     borderRadius: 32 / 2,
     margin: 5
+  },
+  doctorCardMainView: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  doctorCardContainer: {
+    borderRadius: 30,
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 6
+    },
+    shadowOpacity: 0.39,
+    shadowRadius: 8.3,
+    elevation: 13
+  },
+  doctorImage: {
+    height: 200,
+    width: 200,
+    borderRadius: 30
+  },
+  linearGradient: {
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    borderRadius: 30,
+    zIndex: 1
+  },
+  infoButton: {
+    position: 'absolute',
+    margin: 12,
+    right: 0,
+    zIndex: 3
   }
 });
 

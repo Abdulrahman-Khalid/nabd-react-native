@@ -97,7 +97,9 @@ class LanguageSelection extends Component {
         </View>
         <FAB
           style={styles.nextButton}
-          icon={this.state.isRtl === 'ltr' ? 'chevron-right' : 'chevron-left'}
+          icon={
+            this.props.language.lang === 'ar' ? 'chevron-left' : 'chevron-right'
+          }
           onPress={() => {
             console.log('here');
             Actions.whoRU();
