@@ -13,6 +13,7 @@ import {
   PermissionsAndroid
 } from 'react-native';
 
+import { Colors } from '../../../constants';
 import { Voximplant } from 'react-native-voximplant';
 import CallButton from '../components/CallButton';
 import { Keypad } from '../components/Keypad';
@@ -458,36 +459,36 @@ export default class CallScreen extends React.Component {
               {this.state.isAudioMuted ? (
                 <CallButton
                   icon_name="mic"
-                  color={COLOR.ACCENT}
+                  color={Colors.APP}
                   buttonPressed={() => this.muteAudio()}
                 />
               ) : (
                 <CallButton
                   icon_name="mic-off"
-                  color={COLOR.ACCENT}
+                  color={Colors.APP}
                   buttonPressed={() => this.muteAudio()}
                 />
               )}
               {/* <CallButton
                 icon_name="dialpad"
-                color={COLOR.ACCENT}
+                color={Colors.APP}
                 buttonPressed={() => this.switchKeypad()}
               /> */}
               <CallButton
                 icon_name={this.state.audioDeviceIcon}
-                color={COLOR.ACCENT}
+                color={Colors.APP}
                 buttonPressed={() => this.switchAudioDevice()}
               />
               {this.state.isVideoSent ? (
                 <CallButton
                   icon_name="videocam-off"
-                  color={COLOR.ACCENT}
+                  color={Colors.APP}
                   buttonPressed={() => this.sendVideo(false)}
                 />
               ) : (
                 <CallButton
                   icon_name="video-call"
-                  color={COLOR.ACCENT}
+                  color={Colors.APP}
                   buttonPressed={() => this.sendVideo(true)}
                 />
               )}

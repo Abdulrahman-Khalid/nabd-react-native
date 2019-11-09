@@ -14,6 +14,7 @@ import { Voximplant } from 'react-native-voximplant';
 import COLOR from '../styles/Color';
 import styles from '../styles/Styles';
 import { Actions } from 'react-native-router-flux';
+import { Colors } from '../../../constants';
 
 export default class IncomingCallScreen extends React.Component {
   constructor(props) {
@@ -122,12 +123,12 @@ export default class IncomingCallScreen extends React.Component {
         >
           <CallButton
             icon_name="call"
-            color={COLOR.ACCENT}
+            color={Colors.APP}
             buttonPressed={() => this.answerCall(false)}
           />
           <CallButton
             icon_name="videocam"
-            color={COLOR.ACCENT}
+            color={Colors.APP}
             buttonPressed={() => this.answerCall(true)}
           />
           <CallButton
