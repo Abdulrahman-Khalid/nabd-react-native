@@ -38,7 +38,7 @@ class ParamedicHome extends Component {
         transports: ['websocket'],
         autoConnect: false,
         agent: '-',
-        path: '/', // Whatever your path is
+        // path: '/', // Whatever your path is
         pfx: '-',
         key: props.token, // Using token-based auth.
         cert: '-',
@@ -69,13 +69,19 @@ class ParamedicHome extends Component {
   toggleAvailableSwitch(available) {
     if (available) {
       this.socket.open();
-      console.log(this.props.phoneNumber + this.props.userType);
+      console.log(
+        'socket opened with phone: ',
+        this.props.phoneNumber,
+        ',user type: ',
+        this.props.userType
+      );
       this.socket.emit('available', {
         phoneNumber: this.props.phoneNumber,
         userType: this.props.userType,
         specialization: this.props.specialization
       });
     } else {
+      console.log('socket closed');
       this.socket.close();
     }
   }
@@ -95,17 +101,8 @@ class ParamedicHome extends Component {
           <SwitchButton
             text1={t.UnAvailable}
             text2={t.Available}
-            onValueChange={switchValue => {
-              this.setState({
-                switchValue
-              });
-              switch (switchValue) {
-                case 1:
-                  this.toggleAvailableSwitch(false);
-                case 2:
-                  this.toggleAvailableSwitch(true);
-                  break;
-              }
+            onValueChange={val => {
+              this.toggleAvailableSwitch(val == 2 ? true : false);
             }}
             fontColor="#817d84"
             switchWidth={250}
