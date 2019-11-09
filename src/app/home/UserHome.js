@@ -105,13 +105,6 @@ class UserHome extends Component {
     );
   }
 
-  componentWillUnmount() {
-    LoginManager.getInstance().off(
-      'onConnectionClosed',
-      this._connectionClosed
-    );
-  }
-
   _connectionClosed = () => {
     // Actions.welcome();
   };
@@ -405,6 +398,10 @@ class UserHome extends Component {
 
   componentWillUnmount() {
     Geolocation.clearWatch(this.watchID);
+    LoginManager.getInstance().off(
+      'onConnectionClosed',
+      this._connectionClosed
+    );
   }
 
   setModalVisible(visible) {
