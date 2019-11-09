@@ -27,9 +27,26 @@ const { width, height } = Dimensions.get('screen');
 class ParamedicHome extends Component {
   constructor(props) {
     super();
-    this.socket = io(
+    this.state = {
+      switchValue: false
+    };
+    this.socket = io.connect(
       axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4),
-      { autoConnect: false }
+      {
+        timeout: 10000,
+        jsonp: false,
+        transports: ['websocket'],
+        autoConnect: false,
+        agent: '-',
+        path: '/', // Whatever your path is
+        pfx: '-',
+        key: props.token, // Using token-based auth.
+        cert: '-',
+        ca: '-',
+        ciphers: '-',
+        rejectUnauthorized: '-',
+        perMessageDeflate: '-'
+      }
     );
   }
 
@@ -76,21 +93,24 @@ class ParamedicHome extends Component {
       <View>
         <TouchableOpacity onPress={this.startSearching}>
           <SwitchButton
-            text1={t.Available}
-            text2={t.UnAvailable}
-            onValueChange={val => {
-              switch (val) {
-                case 2:
-                  toggleAvailableSwitch(true);
-                  break;
+            text1={t.UnAvailable}
+            text2={t.Available}
+            onValueChange={switchValue => {
+              this.setState({
+                switchValue
+              });
+              switch (switchValue) {
                 case 1:
-                  toggleAvailableSwitch(false);
+                  this.toggleAvailableSwitch(false);
+                case 2:
+                  this.toggleAvailableSwitch(true);
+                  break;
               }
             }}
             fontColor="#817d84"
             switchWidth={250}
             activeFontColor="black"
-            switchdirection={NativeModules.I18nManager.isRTL}
+            switchdirection="rtl"
           />
         </TouchableOpacity>
       </View>
@@ -103,7 +123,8 @@ const styles = StyleSheet.create({});
 const mapStateToProps = state => ({
   phoneNumber: state.signin.phone.substring(1),
   userType: state.signin.userType,
-  specialization: state.signin.specialization
+  specialization: state.signin.specialization,
+  token: state.signin.token
 });
 
 export default connect(
