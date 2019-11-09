@@ -155,16 +155,14 @@ const styles = StyleSheet.create({
     marginRight: theme.SIZES.BASE * 2
   },
   buttonsContainer: {
-    flex: 1.2,
     flexDirection: 'column',
-    margin: 10,
+    margin: 20,
     width: '100%'
   },
   buttonContainer: {
-    flex: 1,
+    marginTop: 10,
+    marginHorizontal: 10,
     alignItems: 'center',
-    paddingLeft: 10,
-    paddingRight: 10,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,

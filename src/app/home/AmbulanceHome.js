@@ -86,6 +86,37 @@ class AmbulanceHome extends Component {
       RNSettings.GPS_PROVIDER_EVENT,
       this.handleGPSProviderEvent
     );
+    if (this.state.available && !this.socket.connected) {
+      this.socket.open();
+      this.socket.emit('available', {
+        phoneNumber: this.props.phoneNumber,
+        userType: this.props.userType
+      });
+      this.socket.on(this.props.phoneNumber, data => {
+        if (!this.state.startLocationTracking) {
+          this.setState({
+            patientName: data.name,
+            patientPhoneNumber: data.phone,
+            patientLocation: data.location,
+            startLocationTracking: true
+          });
+        }
+      });
+    } else {
+      if (!this.state.available && this.socket.connected) {
+        this.socket.close();
+      }
+    }
+    if (
+      this.state.available &&
+      this.socket.connected &&
+      this.state.startLocationTracking
+    ) {
+      this.socket.emit(this.props.phoneNumber, {
+        latitude: this.props.position.coords.latitude,
+        longitude: this.props.position.coords.longitude
+      });
+    }
   }
 
   handleGPSProviderEvent = e => {
@@ -276,7 +307,7 @@ class AmbulanceHome extends Component {
   };
 
   renderAmbulanceStates() {
-    if (this.state.available) {
+    if (!this.state.available) {
       return (
         <View style={{ justifyContent: 'center', alignItems: 'center' }}>
           <Image
@@ -299,7 +330,7 @@ class AmbulanceHome extends Component {
         </View>
       );
     }
-    if (this.state.available && this.state.startLocationTracking) {
+    if (this.state.available && !this.state.startLocationTracking) {
       return (
         <View>
           <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
@@ -332,7 +363,7 @@ class AmbulanceHome extends Component {
         </View>
       );
     }
-    if (!this.state.available && !this.state.startLocationTracking) {
+    if (this.state.available && this.state.startLocationTracking) {
       return (
         <View style={styles.container}>
           <LinearGradient
@@ -457,7 +488,7 @@ class AmbulanceHome extends Component {
               }}
             >
               {this.renderAmbulanceStates()}
-              {!this.state.startLocationTracking ? (
+              {this.state.startLocationTracking ? (
                 <TouchableOpacity
                   style={{ width: '50%', height: 50 }}
                   onPress={() => {
