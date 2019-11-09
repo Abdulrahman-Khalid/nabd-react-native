@@ -80,7 +80,6 @@ class UserHome extends Component {
       loading: false,
       loadingModalVisible: false
     };
-    props.selectHelperType('doctor');
     this.requestAmbulance = this.requestAmbulance.bind(this);
   }
 
@@ -183,41 +182,34 @@ class UserHome extends Component {
     //     console.log('success login user to call');
     //     this.makeCall(true, '201011315102');
     //   });
-    await LoginManager.getInstance()
-      .loginWithPassword(
-        this.props.phone.substring(1) + info.voxAccount,
-        info.userPass
-      )
-      .then(() => {
-        axios
-          .post(
-            `request/${helperType}`,
-            helperType === 'doctor'
-              ? {
-                  specialization
-                }
-              : {}
-          )
-          .then(response => {
-            console.log(response.data);
-            if (response.data.helperNumber) {
-              this.makeCall(true, helperNumber);
-            } else {
-              Alert.alert(t.CallFailed, t.NoHelperFound, [
-                {
-                  text: t.OK
-                }
-              ]);
-            }
-          })
-          .catch(error => {
-            console.log(error);
-            Alert.alert(t.CallFailed, t.ServerError, [
-              {
-                text: t.OK
+    // await LoginManager.getInstance()
+    //   .loginWithPassword(
+    //     this.props.phone.substring(1) + info.voxAccount,
+    //     info.userPass
+    //   )
+    // .then(() => {
+    axios
+      .get(
+        `request/${helperType}`, //helperType
+        helperType === 'doctor'
+          ? {
+              params: {
+                specialization
               }
-            ]);
-          });
+            }
+          : {}
+      )
+      .then(response => {
+        console.log('response: ', response.data);
+        if (response.data.helperNumber) {
+          this.makeCall(true, helperNumber);
+        } else {
+          Alert.alert(t.CallFailed, t.NoHelperFound, [
+            {
+              text: t.OK
+            }
+          ]);
+        }
       })
       .catch(error => {
         console.log(error);
@@ -227,80 +219,142 @@ class UserHome extends Component {
           }
         ]);
       });
+    // .catch(error => {
+    //   console.log(error);
+    //   Alert.alert(t.CallFailed, t.ServerError, [
+    //     {
+    //       text: t.OK
+    //     }
+    //   ]);
+    // });
+  }
+
+  renderHeader() {
+    return (
+      <View style={styles.headerFooterContainer}>
+        <Text style={{ fontSize: 20 }}>{t.DoctorSpecialization}</Text>
+      </View>
+    );
+  }
+
+  renderFooter(action) {
+    return (
+      <TouchableOpacity
+        style={styles.headerFooterContainer}
+        onPress={() => {
+          action.close();
+        }}
+      >
+        <Text>{t.Cancel}</Text>
+      </TouchableOpacity>
+    );
+  }
+
+  renderField(settings) {
+    // const { selectedItem, defaultText, getLabel, clear } = settings;
+    return <View style={{ width: 50, height: 50, backgroundColor: 'red' }} />;
+  }
+
+  renderOption(settings) {
+    const { item, getLabel } = settings;
+    return (
+      <View style={styles.optionContainer}>
+        <View style={styles.innerContainer}>
+          {/* <View style={[styles.box, { backgroundColor: item.color }]} /> */}
+          <Image style={styles.imageIconWrapper} source={item.img} />
+          <Text
+            style={{
+              fontSize: 18,
+              padding: 8,
+              color: item.color,
+              alignSelf: 'flex-start'
+            }}
+          >
+            {getLabel(item)}
+          </Text>
+        </View>
+      </View>
+    );
   }
 
   renderRequestDoctorCard() {
-    const data = [
-      { key: 0, section: true, label: t.DoctorSpecialization },
+    const options = [
       {
+        color: '#051C2B',
         label: t.InternalMedicine,
-        key: 1
+        img: Images.lungIcon,
+        value: 1
       },
       {
+        color: '#051C2B',
         label: t.Cardiology,
-        key: 2
+        img: Images.heartIcon,
+        value: 2
       },
       {
+        color: '#051C2B',
         label: t.Neurology,
-        key: 3
+        img: Images.brainIcon,
+        value: 3
       },
       {
+        color: '#051C2B',
         label: t.Orthopaedic,
-        key: 4
+        img: Images.boneIcon,
+        value: 4
       },
       {
+        color: '#051C2B',
         label: t.Urology,
-        key: 5
+        img: Images.bladderIcon,
+        value: 5
       },
       {
+        color: '#051C2B',
         label: t.OBGYN,
-        key: 6
+        img: Images.pregnantIcon,
+        value: 6
       },
       {
+        color: '#051C2B',
         label: t.Dermatology,
-        key: 7
+        img: Images.skinIcon,
+        value: 7
       },
       {
+        color: '#051C2B',
         label: t.Ophthalmology,
-        key: 8
+        img: Images.eyeIcon,
+        value: 8
       },
       {
+        color: '#051C2B',
         label: t.Pediatrics,
-        key: 9
+        img: Images.childIcon,
+        value: 9
       },
       {
+        color: '#051C2B',
         label: t.Otorhinolaryngology,
-        key: 10
+        img: Images.throatIcon,
+        value: 10
       }
     ];
     return (
-      <ModalSelector
-        style={{ flex: 1 }}
-        cancelText={t.Cancel}
-        data={data}
-        ref={selector => {
-          this.selector = selector;
+      <CustomPicker
+        options={options}
+        getLabel={item => item.label}
+        fieldTemplate={this.renderField}
+        optionTemplate={this.renderOption}
+        headerTemplate={this.renderHeader}
+        footerTemplate={this.renderFooter}
+        modalAnimationType="slide"
+        onValueChange={item => {
+          if (item) {
+            console.log(item);
+            this.videoCall('doctor', item.value);
+          }
         }}
-        onChange={option => {
-          this.videoCall('doctor', option.value);
-        }}
-        customSelector={
-          <Card
-            item={buttons[1]}
-            style={{
-              paddingTop: theme.SIZES.BASE,
-              paddingRight: theme.SIZES.BASE,
-              paddingLeft: theme.SIZES.BASE / 2,
-              paddingBottom: theme.SIZES.BASE / 2
-            }}
-            onPress={() => {
-              this.selector.open();
-            }}
-            onPressInfo={() => {
-              Alert.alert(t.Info, t.DoctorAlert);
-            }}
-          />
-        }
       />
     );
   }

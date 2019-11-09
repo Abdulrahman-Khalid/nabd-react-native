@@ -27,9 +27,6 @@ const { width, height } = Dimensions.get('screen');
 class ParamedicHome extends Component {
   constructor(props) {
     super();
-    this.state = {
-      available: false
-    };
     this.socket = io(
       axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4),
       { autoConnect: false }
@@ -53,9 +50,8 @@ class ParamedicHome extends Component {
     );
   }
 
-  componentDidUpdate() {
-    console.log(this.props);
-    if (this.state.available) {
+  toggleAvailableSwitch(available) {
+    if (available) {
       this.socket.open();
       console.log(this.props.phoneNumber + this.props.userType);
       this.socket.emit('available', {
@@ -66,12 +62,15 @@ class ParamedicHome extends Component {
     } else {
       this.socket.close();
     }
-    console.log(this.socket.connected);
   }
 
   startSearching = () => {
     console.log('start Searching');
   };
+
+  componentWillUnmount() {
+    this.socket.close();
+  }
 
   render() {
     return (
@@ -83,14 +82,10 @@ class ParamedicHome extends Component {
             onValueChange={val => {
               switch (val) {
                 case 2:
-                  this.setState({
-                    available: true
-                  });
+                  toggleAvailableSwitch(true);
                   break;
                 case 1:
-                  this.setState({
-                    available: false
-                  });
+                  toggleAvailableSwitch(false);
               }
             }}
             fontColor="#817d84"
