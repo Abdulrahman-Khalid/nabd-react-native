@@ -43,7 +43,7 @@ class LanguageSelection extends Component {
           Actions.userHome();
           break;
         case 'doctor':
-          Actions.doctorHome();
+          Actions.paramedicHome();
           break;
         case 'paramedic':
           Actions.paramedicHome();

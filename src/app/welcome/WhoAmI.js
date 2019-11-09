@@ -20,7 +20,7 @@ class WhoAmI extends Component {
           Actions.userHome();
           break;
         case 'doctor':
-          Actions.doctorHome();
+          Actions.paramedicHome();
           break;
         case 'paramedic':
           Actions.paramedicHome();
@@ -31,7 +31,7 @@ class WhoAmI extends Component {
       }
     } else {
       console.log('No token');
-      this.props.getWelcomeInfo();
+      // this.props.getWelcomeInfo();
     }
   }
 
