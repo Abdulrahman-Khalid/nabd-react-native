@@ -84,7 +84,13 @@ class UserHome extends Component {
   }
 
   componentDidMount() {
-    LoginManager.getInstance().on('onConnectionClosed', this._connectionClosed);
+    LoginManager.getInstance()
+      .loginWithPassword(
+        this.props.phoneNumber + '@nabd.abdulrahman.elshafei98.voximplant.com',
+        info.userPass
+      )
+      .then(() => console.log('success login vox'));
+
     this.setState({ gpsOffModal: true });
     RNSettings.getSetting(RNSettings.LOCATION_SETTING).then(result => {
       if (result == RNSettings.ENABLED) {
@@ -174,7 +180,7 @@ class UserHome extends Component {
     // console.log('success login paramedic to call');
     // await LoginManager.getInstance()
     //   .loginWithPassword(
-    //     this.props.phone.substring(1) +
+    //     this.props.phoneNumber +
     //       '@nabd.abdulrahman.elshafei98.voximplant.com',
     //     info.userPass
     //   )
@@ -184,7 +190,7 @@ class UserHome extends Component {
     //   });
     // await LoginManager.getInstance()
     //   .loginWithPassword(
-    //     this.props.phone.substring(1) + info.voxAccount,
+    //     this.props.phoneNumber + info.voxAccount,
     //     info.userPass
     //   )
     // .then(() => {
@@ -665,7 +671,7 @@ class UserHome extends Component {
     if (sendCurrentLocation) {
       axios
         .post('request/ambulance', {
-          userID: this.props.phone,
+          userID: this.props.phoneNumber,
           pickupLocation: this.props.position.coords
         })
         .then(response => {
@@ -692,7 +698,7 @@ class UserHome extends Component {
       });
       axios
         .post('request/ambulance', {
-          userID: this.props.phone,
+          userID: this.props.phoneNumber,
           pickupLocation: this.state.ambulanceRequestLocation
         })
         .then(response => {
@@ -903,8 +909,15 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => {
   const { helperType, helperName } = state.requestHelp;
   const { permissionGranted, position } = state.location;
-  const { phone } = state.signin;
-  return { phone, helperType, helperName, permissionGranted, position };
+
+  return {
+    phone,
+    helperType,
+    helperName,
+    permissionGranted,
+    position,
+    phoneNumber: state.signin.phone.substring(1)
+  };
 };
 
 export default connect(

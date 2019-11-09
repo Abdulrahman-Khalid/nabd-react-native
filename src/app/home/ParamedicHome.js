@@ -36,8 +36,7 @@ class ParamedicHome extends Component {
   componentDidMount() {
     LoginManager.getInstance()
       .loginWithPassword(
-        this.props.phoneNumber.substring(1) +
-          '@nabd.abdulrahman.elshafei98.voximplant.com',
+        this.props.phoneNumber + '@nabd.abdulrahman.elshafei98.voximplant.com',
         info.userPass
       )
       .then(() => console.log('success login vox'));
