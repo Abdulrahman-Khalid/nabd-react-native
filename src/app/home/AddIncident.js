@@ -10,6 +10,7 @@ import {
   Platform
 } from 'react-native';
 import axios from 'axios';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import ImagePicker from 'react-native-image-picker';
 import { Actions } from 'react-native-router-flux';
 import { HelperText, TextInput, Button } from 'react-native-paper';
@@ -183,10 +184,15 @@ class AddIncident extends Component {
   render() {
     const maxLength = 240;
     return (
-      <KeyboardAvoidingView
-        style={{ flex: 1 }}
+      <KeyboardAwareScrollView
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        contentContainerStyle={{
+          paddingTop: 20,
+          flexDirection: 'column'
+        }}
         behavior={Platform.OS == 'ios' ? 'padding' : null}
-        enabled
+        // enabled
+        scrollEnabled={true}
       >
         <Modal
           visible={this.state.modalVisible}
@@ -345,7 +351,7 @@ class AddIncident extends Component {
             </TouchableOpacity>
           </View>
         </View>
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
     );
   }
 }
@@ -394,7 +400,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => ({ position: state.location.position, userID: state.signin.phone.substring(1) });
+const mapStateToProps = state => ({
+  position: state.location.position,
+  userID: state.signin.phone.substring(1)
+});
 
 export default connect(
   mapStateToProps,
