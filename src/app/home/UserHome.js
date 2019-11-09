@@ -203,7 +203,7 @@ class UserHome extends Component {
         console.log('response: ', response.data);
         if (response.data.helperNumber) {
           console.log('calling helper....');
-          this.makeCall(true, helperNumber);
+          this.makeCall(true, response.data.helperNumber);
         } else {
           Alert.alert(t.CallFailed, t.NoHelperFound, [
             {
