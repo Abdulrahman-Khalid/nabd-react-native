@@ -94,7 +94,6 @@ class SignIn extends Component {
 
   errorMessage(isValidNumber) {
     var message = '';
-    console.log('faga');
     if (!isValidNumber) {
       message += t.PhoneNotValid;
     }

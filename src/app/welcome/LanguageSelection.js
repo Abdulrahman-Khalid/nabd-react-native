@@ -56,7 +56,6 @@ class LanguageSelection extends Component {
   }
 
   _handlePress = lang => {
-    console.log('iam here nigga2');
     console.log('lang: ', lang);
     if (lang !== this.props.language.lang) {
       const isRtl = lang === 'ar';
@@ -100,6 +99,7 @@ class LanguageSelection extends Component {
           style={styles.nextButton}
           icon={this.state.isRtl === 'ltr' ? 'chevron-right' : 'chevron-left'}
           onPress={() => {
+            console.log('here');
             Actions.whoRU();
           }}
         />

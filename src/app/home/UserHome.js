@@ -8,6 +8,7 @@ import { Actions } from 'react-native-router-flux';
 import { Colors, Images } from '../../constants';
 import { connect } from 'react-redux';
 import { info } from '../../constants';
+import { CustomPicker } from 'react-native-custom-picker';
 
 import {
   selectHelperType,
@@ -169,7 +170,7 @@ class UserHome extends Component {
   }
 
   async videoCall(helperType, specialization) {
-    console.log(helperType);
+    console.log(helperType, ', specialization ', specialization);
     // console.log('success login paramedic to call');
     // await LoginManager.getInstance()
     //   .loginWithPassword(
@@ -201,6 +202,7 @@ class UserHome extends Component {
       .then(response => {
         console.log('response: ', response.data);
         if (response.data.helperNumber) {
+          console.log('calling helper....');
           this.makeCall(true, helperNumber);
         } else {
           Alert.alert(t.CallFailed, t.NoHelperFound, [
@@ -908,7 +910,6 @@ const mapStateToProps = state => {
   const { permissionGranted, position } = state.location;
 
   return {
-    phone,
     helperType,
     helperName,
     permissionGranted,
