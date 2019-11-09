@@ -11,6 +11,7 @@ import {
   TouchableOpacity,
   Image
 } from 'react-native';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import PhoneInput from 'react-native-phone-input';
 import ModalPickerImage from './ModalPickerImage';
 import { RadioGroup, RadioButton } from 'react-native-flexi-radio-button';
@@ -263,7 +264,7 @@ class Register extends React.Component {
     const { selectedItem, defaultText, getLabel, clear } = settings;
     return (
       <View>
-        <View>
+        <View style={{ alignItems: 'center', justifyContent: 'center' }}>
           {!selectedItem && (
             <Text style={[styles.text, { color: 'grey' }]}>
               {t.ChooseYourDoctorSpecialization}
@@ -414,15 +415,18 @@ class Register extends React.Component {
 
   render() {
     return (
-      <KeyboardAvoidingView
-        style={{
+      <KeyboardAwareScrollView
+        resetScrollToCoords={{ x: 0, y: 0 }}
+        contentContainerStyle={{
+          paddingTop: 20,
           flexDirection: 'column',
           justifyContent: 'center',
-          alignItems: 'center',
-          height: '100%'
+          alignItems: 'center'
+          // height: '100%'
         }}
         behavior={Platform.OS == 'ios' ? 'padding' : null}
-        enabled
+        // enabled
+        scrollEnabled={true}
       >
         <View style={{ flex: 2, marginTop: 10 }}>
           <View
@@ -694,7 +698,7 @@ class Register extends React.Component {
           }}
         />
         {this.isLoading()}
-      </KeyboardAvoidingView>
+      </KeyboardAwareScrollView>
     );
   }
 }
