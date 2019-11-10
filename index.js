@@ -2,6 +2,7 @@ import { AppRegistry, ToastAndroid, YellowBox } from 'react-native';
 import axios from 'axios';
 import App from './src/App';
 import { name as appName } from './app.json';
+import Config from "react-native-config";
 
 YellowBox.ignoreWarnings([
   'Warning: componentWillMount is deprecated',
@@ -12,7 +13,7 @@ YellowBox.ignoreWarnings([
   'Module RCTImageLoader requires'
 ]);
 console.disableYellowBox = true;
-axios.defaults.baseURL = 'http://192.168.1.9:3000/api/'; // local server mine 192.168.122.1, philo 192.168.1.7
+axios.defaults.baseURL = Config.API_URL; // local server mine 192.168.122.1, philo 192.168.1.7
 axios.defaults.timeout = 5000;
 
 global.deepLinking = true;
