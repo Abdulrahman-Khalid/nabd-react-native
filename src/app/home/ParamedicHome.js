@@ -41,6 +41,7 @@ class ParamedicHome extends Component {
       available: false
     };
     this.socket = io.connect(
+      // axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4)+`available/${this.props.userType}s`,
       axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4),
       {
         timeout: 10000,

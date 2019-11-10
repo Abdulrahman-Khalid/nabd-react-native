@@ -85,10 +85,11 @@ async function loginVoximplant(phone) {
     if (state === Voximplant.ClientState.DISCONNECTED) {
       await client.connect();
     }
-    LoginManager.getInstance().loginWithPassword(
-      phone + info.voxAccount,
-      info.userPass
-    );
+    LoginManager.getInstance()
+      .loginWithPassword(phone + info.voxAccount, info.userPass)
+      .then(() => {
+        console.log('login voximplant successfully first time ');
+      });
     let authResult = await client.login(phone, info.userPass);
   } catch (e) {
     console.log(e.name + e.message);
