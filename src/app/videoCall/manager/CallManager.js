@@ -96,7 +96,7 @@ export default class CallManager {
   }
 
   _incomingCall = event => {
-    console.log('Iam here');
+    console.log('Receving Call');
     if (this.call !== null) {
       console.log(
         `CallManager: incomingCall: already have a call, rejecting new call, current call id: ${this.call.callId}`

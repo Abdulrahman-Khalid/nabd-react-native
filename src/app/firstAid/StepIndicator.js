@@ -4,6 +4,7 @@ import Steps from 'react-native-steps';
 import metadata from './metadata.json';
 import t from '../../I18n';
 import { Colors } from '../../constants';
+import { connect } from 'react-redux';
 
 const { APP, BACKGROUND } = Colors;
 const stepIndicatorStyles = {
@@ -27,7 +28,7 @@ const stepIndicatorStyles = {
   currentStepLabelColor: APP
 };
 
-export default class StepIndicator extends Component {
+class StepIndicator extends Component {
   constructor(props) {
     super(props);
 
@@ -64,7 +65,16 @@ export default class StepIndicator extends Component {
     const item = rowData.item;
     return (
       <View style={styles.rowItem}>
-        <Text style={styles.body}>{item.body}</Text>
+        <Text
+          style={[
+            this.props.language === 'ar'
+              ? { textAlign: 'left', padding: 10 }
+              : { textAlign: 'right', paddingLeft: 20 },
+            styles.body
+          ]}
+        >
+          {item.body}
+        </Text>
         <View style={styles.imageContainer}>
           <Image style={styles.image} source={item.image} />
         </View>
@@ -98,11 +108,9 @@ const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
-    fontSize: 35,
+    fontSize: 25,
     color: '#606060',
-    lineHeight: 35, // edit with fontSize
-    padding: 20, // edit with fontSize
-    textAlign: 'center'
+    lineHeight: 35 // edit with fontSize
   },
   image: {
     margin: 10,
@@ -117,3 +125,9 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   }
 });
+
+const mapStateToProps = state => ({
+  language: state.language.lang
+});
+
+export default connect(mapStateToProps)(StepIndicator);
