@@ -41,8 +41,8 @@ class ParamedicHome extends Component {
       available: false
     };
     this.socket = io.connect(
-      // axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4)+`available/${this.props.userType}s`,
-      axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4),
+      axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4) +
+        `available/${this.props.userType}s`,
       {
         timeout: 10000,
         jsonp: false,
@@ -89,7 +89,6 @@ class ParamedicHome extends Component {
       );
       this.socket.emit('available', {
         phoneNumber: this.props.phoneNumber,
-        userType: this.props.userType,
         specialization: this.props.specialization
       });
     } else {
