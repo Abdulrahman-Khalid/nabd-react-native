@@ -190,13 +190,11 @@ class UserHome extends Component {
     //   )
     // .then(() => {
     axios
-      .get(
+      .post(
         `request/${helperType}`, //helperType
         helperType === 'doctor'
           ? {
-              params: {
-                specialization
-              }
+              specialization
             }
           : {}
       )
@@ -263,7 +261,7 @@ class UserHome extends Component {
           // paddingBottom: theme.SIZES.BASE / 2,
           width: width / 2 - 20,
           height: height / 2 - 125,
-          borderRadius: 30,
+          borderRadius: 30
         }}
       >
         <TouchableOpacity
@@ -415,7 +413,7 @@ class UserHome extends Component {
           paddingTop: theme.SIZES.BASE,
           paddingLeft: theme.SIZES.BASE / 2,
           paddingRight: theme.SIZES.BASE,
-          paddingBottom: theme.SIZES.BASE / 2,
+          paddingBottom: theme.SIZES.BASE / 2
         }}
       />
     );
