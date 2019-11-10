@@ -172,23 +172,6 @@ class UserHome extends Component {
 
   async videoCall(helperType, specialization) {
     console.log(helperType, ', specialization ', specialization);
-    // console.log('success login paramedic to call');
-    // await LoginManager.getInstance()
-    //   .loginWithPassword(
-    //     this.props.phoneNumber +
-    //       '@nabd.abdulrahman.elshafei98.voximplant.com',
-    //     info.userPass
-    //   )
-    //   .then(() => {
-    //     console.log('success login user to call');
-    //     this.makeCall(true, '201011315102');
-    //   });
-    // await LoginManager.getInstance()
-    //   .loginWithPassword(
-    //     this.props.phoneNumber + info.voxAccount,
-    //     info.userPass
-    //   )
-    // .then(() => {
     axios
       .post(
         `request/${helperType}`, //helperType
@@ -219,14 +202,6 @@ class UserHome extends Component {
           }
         ]);
       });
-    // .catch(error => {
-    //   console.log(error);
-    //   Alert.alert(t.CallFailed, t.ServerError, [
-    //     {
-    //       text: t.OK
-    //     }
-    //   ]);
-    // });
   }
 
   renderHeader() {
