@@ -24,13 +24,15 @@ import styles from '../styles/Styles';
 import VIForegroundService from '@voximplant/react-native-foreground-service';
 import { Actions } from 'react-native-router-flux';
 import t from '../../../I18n';
+import { connect } from 'react-redux';
+
 const CALL_STATES = {
   DISCONNECTED: 'disconnected',
   CONNECTING: 'connecting',
   CONNECTED: 'connected'
 };
 
-export default class CallScreen extends React.Component {
+class CallScreen extends React.Component {
   constructor(props) {
     super(props);
 
@@ -230,7 +232,20 @@ export default class CallScreen extends React.Component {
 
   _closeModal() {
     this.setState({ isModalOpen: false, modalText: '' });
-    Actions.userHome();
+    switch (this.props.userType) {
+      case 'user':
+        Actions.userHome();
+        break;
+      case 'doctor':
+        Actions.paramedicHome();
+        break;
+      case 'paramedic':
+        Actions.paramedicHome();
+        break;
+      case 'ambulance':
+        Actions.ambulanceHome();
+        break;
+    }
   }
 
   _onCallFailed = event => {
@@ -261,7 +276,20 @@ export default class CallScreen extends React.Component {
       })();
     }
     this.callState = CALL_STATES.DISCONNECTED;
-    Actions.userHome();
+    switch (this.props.userType) {
+      case 'user':
+        Actions.userHome();
+        break;
+      case 'doctor':
+        Actions.paramedicHome();
+        break;
+      case 'paramedic':
+        Actions.paramedicHome();
+        break;
+      case 'ambulance':
+        Actions.ambulanceHome();
+        break;
+    }
   };
 
   _onCallConnected = event => {
@@ -566,3 +594,9 @@ export default class CallScreen extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return { userType: state.signin.userType };
+};
+
+export default connect(mapStateToProps)(CallScreen);

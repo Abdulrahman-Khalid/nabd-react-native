@@ -161,6 +161,7 @@ export default en = {
   PWeak: 'Password is weak',
 
   Call: 'Call',
+  CallFrom: 'Incoming call from:',
   Incidents: 'Incidents',
   AddIncident: 'Add Incident',
   GetDirections: 'Get Directions',

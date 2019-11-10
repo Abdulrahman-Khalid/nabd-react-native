@@ -15,8 +15,10 @@ import COLOR from '../styles/Color';
 import styles from '../styles/Styles';
 import { Actions } from 'react-native-router-flux';
 import { Colors } from '../../../constants';
+import { connect } from 'react-redux';
+import t from '../../../I18n';
 
-export default class IncomingCallScreen extends React.Component {
+class IncomingCallScreen extends React.Component {
   constructor(props) {
     super(props);
 
@@ -79,15 +81,15 @@ export default class IncomingCallScreen extends React.Component {
           return;
         }
       }
+      Actions.CallScreen({
+        callId: this.call.callId,
+        isVideo: withVideo,
+        isIncoming: true
+      });
     } catch (e) {
       console.warn('IncomingCallScreen: asnwerCall:' + e);
       return;
     }
-    Actions.Call({
-      callId: this.call.callId,
-      isVideo: withVideo,
-      isIncoming: true
-    });
   }
 
   declineCall() {
@@ -96,7 +98,20 @@ export default class IncomingCallScreen extends React.Component {
 
   _onCallDisconnected = event => {
     CallManager.getInstance().removeCall(event.call);
-    Actions.userHome();
+    switch (this.props.userType) {
+      case 'user':
+        Actions.userHome();
+        break;
+      case 'doctor':
+        Actions.paramedicHome();
+        break;
+      case 'paramedic':
+        Actions.paramedicHome();
+        break;
+      case 'ambulance':
+        Actions.ambulanceHome();
+        break;
+    }
   };
 
   _onCallEndpointAdded = event => {
@@ -112,7 +127,7 @@ export default class IncomingCallScreen extends React.Component {
   render() {
     return (
       <SafeAreaView style={[styles.safearea, styles.aligncenter]}>
-        <Text style={styles.incoming_call}>Incoming call from:</Text>
+        <Text style={styles.incoming_call}>{t.CallFrom}</Text>
         <Text style={styles.incoming_call}>{this.state.displayName}</Text>
         <View
           style={{
@@ -141,3 +156,9 @@ export default class IncomingCallScreen extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return { userType: state.signin.userType };
+};
+
+export default connect(mapStateToProps)(IncomingCallScreen);

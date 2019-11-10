@@ -20,6 +20,7 @@ export default ar = {
   Otorhinolaryngology: 'أنف وأذن وحنجرة',
 
   ChooseLocation: 'اختر موقعك',
+  CallFrom: ':مكالمة واردة من',
   CallFailed: 'فشل الاتصال : ',
   NoHelperFound: 'لا يوجد شخص متاح للمساعدة الان حاول مرة اخرى لاحقا',
   ServerError: 'حدث خطأ بالسرفر. حاول مرة اخرى',
