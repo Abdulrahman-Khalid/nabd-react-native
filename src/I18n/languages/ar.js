@@ -50,6 +50,9 @@ export default ar = {
   AmbulanceAlert: 'طلب عربة إسعاف وتتبع موقعها.',
   Available: 'متاح ',
   UnAvailable: 'غير متاح',
+  searchForHelp: 'جاري البحث علي من يحتاج المساعدة',
+  notAvailableText:
+    'يبدو انك تأخذ قسطًا من الراحة. حول الزر إلي متاح و انقذ حياة الناس!',
   Refresh: 'إعادة التحميل',
   AllFine: 'يبدو أن كل شيءٍ على ما يرام!',
   RequiredField: 'هذا الحقل مطلوب',

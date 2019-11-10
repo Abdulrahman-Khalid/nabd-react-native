@@ -55,6 +55,9 @@ export default en = {
   AmbulanceAlert: 'Request an ambulance and track its location.',
   Available: 'Available',
   UnAvailable: 'Unavailable',
+  searchForHelp: 'Searching for who needs help',
+  notAvailableText:
+    "You seem like you want to take a break, change switch to available to recue someone's life",
   Refresh: 'Refresh',
   AllFine: 'Looks like everything is fine!',
   RequiredField: 'This field is required',

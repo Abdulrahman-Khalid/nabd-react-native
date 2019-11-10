@@ -10,6 +10,7 @@ import axios from 'axios';
 import { info } from '../constants';
 import { Actions } from 'react-native-router-flux';
 import { Voximplant } from 'react-native-voximplant';
+import LoginManager from '../app/videoCall/manager/LoginManager';
 
 export const resetSignInReducerState = () => {
   return {

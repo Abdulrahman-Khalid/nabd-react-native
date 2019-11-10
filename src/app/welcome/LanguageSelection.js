@@ -21,7 +21,6 @@ import { Actions } from 'react-native-router-flux';
 import { Button, SwitchButton } from '../../components';
 import { theme } from 'galio-framework';
 import { FAB } from 'react-native-paper';
-import { Action } from 'rxjs/internal/scheduler/Action';
 
 class LanguageSelection extends Component {
   constructor(props) {
@@ -34,25 +33,27 @@ class LanguageSelection extends Component {
   }
 
   componentDidMount() {
-    if (this.props.token) {
-      axios.defaults.headers.common['TOKEN'] = this.props.token;
-      switch (this.props.userType) {
-        case 'user':
-          Actions.userHome();
-          break;
-        case 'doctor':
-          Actions.paramedicHome();
-          break;
-        case 'paramedic':
-          Actions.paramedicHome();
-          break;
-        case 'ambulance':
-          Actions.ambulanceHome();
-          break;
+    setTimeout(() => {
+      if (this.props.token) {
+        axios.defaults.headers.common['TOKEN'] = this.props.token;
+        switch (this.props.userType) {
+          case 'user':
+            Actions.userHome();
+            break;
+          case 'doctor':
+            Actions.paramedicHome();
+            break;
+          case 'paramedic':
+            Actions.paramedicHome();
+            break;
+          case 'ambulance':
+            Actions.ambulanceHome();
+            break;
+        }
+      } else {
+        console.log('No token');
       }
-    } else {
-      console.log('No token');
-    }
+    }, 0);
   }
 
   _handlePress = lang => {
@@ -96,9 +97,13 @@ class LanguageSelection extends Component {
           />
         </View>
         <FAB
-          style={styles.nextButton}
+          style={
+            this.props.language.lang === 'ar'
+              ? styles.nextButtonAr
+              : styles.nextButtonEn
+          }
           icon={
-            this.props.language.lang === 'ar' ? 'chevron-left' : 'chevron-right'
+            this.props.language.lang === 'ar' ? 'chevron-right' : 'chevron-left'
           }
           onPress={() => {
             console.log('here');
@@ -145,10 +150,17 @@ const styles = StyleSheet.create({
   switch: {
     flex: 1
   },
-  nextButton: {
+  nextButtonEn: {
     position: 'absolute',
     margin: 16,
     right: 0,
+    bottom: 0,
+    backgroundColor: Colors.APP
+  },
+  nextButtonAr: {
+    position: 'absolute',
+    margin: 16,
+    left: 0,
     bottom: 0,
     backgroundColor: Colors.APP
   }

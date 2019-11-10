@@ -194,7 +194,7 @@ class ParamedicHome extends Component {
           >
             {/* Looks like you are taking a break. Turn the switch to "Available" to
             start saving lives! */}
-            يبدو انك تأخذ قسطًا من الراحة. حول الزر إلي متاح و انقذ حياة الناس!
+            {t.notAvailableText}
           </Text>
         </View>
       );
@@ -220,7 +220,7 @@ class ParamedicHome extends Component {
             >
               {/* Looks like you are taking a break. Turn the switch to "Available" to
             start saving lives! */}
-              جاري البحث علي من يحتاج المساعدة
+              {t.searchForHelp}
             </Text>
           </View>
           <Pulse
@@ -357,7 +357,7 @@ class ParamedicHome extends Component {
                 fontColor="#817d84"
                 switchWidth={250}
                 activeFontColor="black"
-                switchdirection={this.state.isRtl}
+                switchdirection="rtl"
               />
             </View>
           </View>
