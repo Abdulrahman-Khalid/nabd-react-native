@@ -23,7 +23,7 @@ export default StyleSheet.create({
   },
 
   icon: {
-    width: 100 ,
+    width: 100,
     height: 100,
     marginLeft: 'auto',
     marginRight: 'auto'
@@ -86,5 +86,21 @@ export default StyleSheet.create({
     fontSize: 20,
     color: '#fff',
     fontWeight: '700'
+  },
+  resendCodeButton: {
+    marginRight: 40,
+    marginLeft: 40,
+    marginTop: 10,
+    paddingTop: 20,
+    paddingBottom: 20,
+    backgroundColor: Colors.APP,
+    borderRadius: 40,
+    borderWidth: 1,
+    borderColor: '#fff'
+  },
+  resendCodeText: {
+    color: '#fff',
+    fontSize: 20,
+    textAlign: 'center'
   }
 });

@@ -7,6 +7,10 @@ export default ar = {
   Error6: 'نرجو المحاولة مرة أخرى',
   AutFailed: 'فشل تسجيل الدخول',
   GeneralRequestError: 'حدث خطأ بالطلب',
+  Failed: 'فشل',
+  Success: 'نجح',
+  ConfirmationCode: 'كود التأكيد',
+  ResendCode: 'اعادة ارسال',
 
   InternalMedicine: 'الباطنة والأمراض الصدرية',
   Cardiology: 'أمراض القلب والأوعية الدموية',

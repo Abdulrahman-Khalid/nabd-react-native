@@ -9,6 +9,10 @@ export default en = {
   Error6: 'Please try again',
   AutFailed: 'Authentication failed',
   GeneralRequestError: 'Request error happended',
+  Failed: 'Failed',
+  Success: 'Succeess',
+  ConfirmationCode: 'Confirmation code',
+  ResendCode: 'Resend code',
 
   InternalMedicine: ' Internal Medicine',
   Cardiology: 'Cardiology',
