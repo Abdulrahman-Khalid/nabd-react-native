@@ -20,6 +20,7 @@ export default ar = {
   Otorhinolaryngology: 'أنف وأذن وحنجرة',
 
   ChooseLocation: 'اختر موقعك',
+  CallFrom: ':مكالمة واردة من',
   CallFailed: 'فشل الاتصال : ',
   NoHelperFound: 'لا يوجد شخص متاح للمساعدة الان حاول مرة اخرى لاحقا',
   ServerError: 'حدث خطأ بالسرفر. حاول مرة اخرى',
@@ -50,6 +51,9 @@ export default ar = {
   AmbulanceAlert: 'طلب عربة إسعاف وتتبع موقعها.',
   Available: 'متاح ',
   UnAvailable: 'غير متاح',
+  searchForHelp: 'جاري البحث علي من يحتاج المساعدة',
+  notAvailableText:
+    'يبدو انك تأخذ قسطًا من الراحة. حول الزر إلي متاح و انقذ حياة الناس!',
   Refresh: 'إعادة التحميل',
   AllFine: 'يبدو أن كل شيءٍ على ما يرام!',
   RequiredField: 'هذا الحقل مطلوب',
@@ -134,7 +138,7 @@ export default ar = {
   PrivacyPolicy: 'سياسة الخصوصية',
   ForgotPassword: 'هل نسيت كلمة المرور؟',
   LogIn: 'تسجيل الدخول',
-  PasswordStrength: 'قوة كلمة المرور:',
+  PasswordStrength: ' :قوة كلمة المرور',
   SpecializationEmptyError: 'يجب عليك اختيار تخصصك الطبي',
   NameEmpty: 'خانة اسم المستخدم فارغة',
   SignUpFailed: 'فشل في إنشاءالحساب',

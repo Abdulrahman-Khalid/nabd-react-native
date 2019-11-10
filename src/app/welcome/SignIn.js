@@ -15,6 +15,7 @@ import {
   Platform
 } from 'react-native';
 import AwesomeAlert from 'react-native-awesome-alerts';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Icon } from '../../components';
 import { Block, Text } from 'galio-framework';
 import { Colors } from '../../constants';
@@ -94,7 +95,6 @@ class SignIn extends Component {
 
   errorMessage(isValidNumber) {
     var message = '';
-    console.log('faga');
     if (!isValidNumber) {
       message += t.PhoneNotValid;
     }
@@ -117,8 +117,16 @@ class SignIn extends Component {
   render() {
     return (
       <View style={styles.container}>
-        <KeyboardAvoidingView
+        <KeyboardAwareScrollView
+          resetScrollToCoords={{ x: 0, y: 0 }}
+          contentContainerStyle={{
+            paddingTop: 20,
+            flexDirection: 'column',
+            justifyContent: 'center'
+          }}
           behavior={Platform.OS == 'ios' ? 'padding' : null}
+          // enabled
+          scrollEnabled={true}
         >
           <Text
             style={{
@@ -188,9 +196,9 @@ class SignIn extends Component {
               />
             </View>
           </View>
-        </KeyboardAvoidingView>
-        <View>{this.isLoading()}</View>
-        <TouchableOpacity
+          {this.isLoading()}
+        </KeyboardAwareScrollView>
+        {/* <TouchableOpacity
           style={styles.textButtonContainer}
           onPress={() => console.log('restore_password')}
         >
@@ -201,7 +209,7 @@ class SignIn extends Component {
           onPress={() => Actions.signup()}
         >
           <Text>{t.SignUp}</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <AwesomeAlert
           show={this.state.showAlert}
           showProgress={false}

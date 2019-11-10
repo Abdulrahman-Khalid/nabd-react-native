@@ -8,6 +8,7 @@ import { Actions } from 'react-native-router-flux';
 import { Colors, Images } from '../../constants';
 import { connect } from 'react-redux';
 import { info } from '../../constants';
+import { CustomPicker } from 'react-native-custom-picker';
 
 import {
   selectHelperType,
@@ -44,6 +45,7 @@ import t from '../../I18n';
 import RNSettings from 'react-native-settings';
 import Geolocation from 'react-native-geolocation-service';
 import ModalSelector from 'react-native-modal-selector';
+import LinearGradient from 'react-native-linear-gradient';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -80,12 +82,17 @@ class UserHome extends Component {
       loading: false,
       loadingModalVisible: false
     };
-    props.selectHelperType('doctor');
     this.requestAmbulance = this.requestAmbulance.bind(this);
   }
 
   componentDidMount() {
-    LoginManager.getInstance().on('onConnectionClosed', this._connectionClosed);
+    LoginManager.getInstance()
+      .loginWithPassword(
+        this.props.phoneNumber + '@nabd.abdulrahman.elshafei98.voximplant.com',
+        info.userPass
+      )
+      .then(() => console.log('success login vox'));
+
     this.setState({ gpsOffModal: true });
     RNSettings.getSetting(RNSettings.LOCATION_SETTING).then(result => {
       if (result == RNSettings.ENABLED) {
@@ -97,13 +104,6 @@ class UserHome extends Component {
     DeviceEventEmitter.addListener(
       RNSettings.GPS_PROVIDER_EVENT,
       this.handleGPSProviderEvent
-    );
-  }
-
-  componentWillUnmount() {
-    LoginManager.getInstance().off(
-      'onConnectionClosed',
-      this._connectionClosed
     );
   }
 
@@ -157,9 +157,9 @@ class UserHome extends Component {
       );
       let callManager = CallManager.getInstance();
       callManager.addCall(call);
-      if (callSettings.setupCallKit) {
-        callManager.startOutgoingCallViaCallKit(isVideoCall, helperNumber);
-      }
+      // if (callSettings.setupCallKit) {
+      //   callManager.startOutgoingCallViaCallKit(isVideoCall, helperNumber);
+      // }
       Actions.CallScreen({
         callId: call.callId,
         isVideo: isVideoCall,
@@ -171,53 +171,28 @@ class UserHome extends Component {
   }
 
   async videoCall(helperType, specialization) {
-    console.log(helperType);
-    // console.log('success login paramedic to call');
-    // await LoginManager.getInstance()
-    //   .loginWithPassword(
-    //     this.props.phone.substring(1) +
-    //       '@nabd.abdulrahman.elshafei98.voximplant.com',
-    //     info.userPass
-    //   )
-    //   .then(() => {
-    //     console.log('success login user to call');
-    //     this.makeCall(true, '201011315102');
-    //   });
-    await LoginManager.getInstance()
-      .loginWithPassword(
-        this.props.phone.substring(1) + info.voxAccount,
-        info.userPass
-      )
-      .then(() => {
-        axios
-          .post(
-            `request/${helperType}`,
-            helperType === 'doctor'
-              ? {
-                  specialization
-                }
-              : {}
-          )
-          .then(response => {
-            console.log(response.data);
-            if (response.data.helperNumber) {
-              this.makeCall(true, helperNumber);
-            } else {
-              Alert.alert(t.CallFailed, t.NoHelperFound, [
-                {
-                  text: t.OK
-                }
-              ]);
+    console.log(helperType, ', specialization ', specialization);
+    axios
+      .post(
+        `request/${helperType}`, //helperType
+        helperType === 'doctor'
+          ? {
+              specialization
             }
-          })
-          .catch(error => {
-            console.log(error);
-            Alert.alert(t.CallFailed, t.ServerError, [
-              {
-                text: t.OK
-              }
-            ]);
-          });
+          : {}
+      )
+      .then(response => {
+        console.log('response: ', response.data);
+        if (response.data.helperNumber) {
+          console.log('calling helper....');
+          this.makeCall(true, response.data.helperNumber);
+        } else {
+          Alert.alert(t.CallFailed, t.NoHelperFound, [
+            {
+              text: t.OK
+            }
+          ]);
+        }
       })
       .catch(error => {
         console.log(error);
@@ -229,78 +204,192 @@ class UserHome extends Component {
       });
   }
 
+  renderHeader() {
+    return (
+      <View style={styles.headerFooterContainer}>
+        <Text style={{ fontSize: 20 }}>{t.DoctorSpecialization}</Text>
+      </View>
+    );
+  }
+
+  renderFooter(action) {
+    return (
+      <TouchableOpacity
+        style={styles.headerFooterContainer}
+        onPress={() => {
+          action.close();
+        }}
+      >
+        <Text>{t.Cancel}</Text>
+      </TouchableOpacity>
+    );
+  }
+
+  renderField(settings) {
+    // const { selectedItem, defaultText, getLabel, clear } = settings;
+    return (
+      <View
+        style={{
+          // paddingTop: theme.SIZES.BASE,
+          // paddingLeft: theme.SIZES.BASE / 2,
+          // paddingRight: theme.SIZES.BASE,
+          // paddingBottom: theme.SIZES.BASE / 2,
+          width: width / 2 - 20,
+          height: height / 2 - 125,
+          borderRadius: 30
+        }}
+      >
+        <TouchableOpacity
+          onPress={() => {
+            Alert.alert(t.Info, t.DoctorAlert);
+          }}
+          style={styles.infoButton}
+        >
+          <Icon
+            size={25}
+            color="white"
+            name="information-outline"
+            style={{
+              textAlign: 'center'
+            }}
+          />
+        </TouchableOpacity>
+        <LinearGradient
+          start={{ x: 1, y: 0 }}
+          end={{ x: 0, y: 1 }}
+          locations={[0.15, 1]}
+          colors={['transparent', 'black']}
+          style={styles.linearGradient}
+        />
+        <Image
+          source={Images.doctorCard}
+          style={{ width: '100%', height: '100%', borderRadius: 30 }}
+        />
+        <Text
+          style={{
+            position: 'absolute',
+            bottom: 0,
+            fontSize: 35,
+            zIndex: 2,
+            color: 'white',
+            fontWeight: '900',
+            fontFamily: 'IstokWeb-Bold',
+            marginLeft: 15,
+            marginBottom: 12
+          }}
+        >
+          {t.RequestDoctor}
+        </Text>
+      </View>
+    );
+  }
+
+  renderOption(settings) {
+    const { item, getLabel } = settings;
+    return (
+      <View style={styles.optionContainer}>
+        <View style={styles.innerContainer}>
+          {/* <View style={[styles.box, { backgroundColor: item.color }]} /> */}
+          <Image style={styles.imageIconWrapper} source={item.img} />
+          <Text
+            style={{
+              fontSize: 18,
+              padding: 8,
+              color: item.color,
+              alignSelf: 'flex-start'
+            }}
+          >
+            {getLabel(item)}
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
   renderRequestDoctorCard() {
-    const data = [
-      { key: 0, section: true, label: t.DoctorSpecialization },
+    const options = [
       {
+        color: '#051C2B',
         label: t.InternalMedicine,
-        key: 1
+        img: Images.lungIcon,
+        value: 1
       },
       {
+        color: '#051C2B',
         label: t.Cardiology,
-        key: 2
+        img: Images.heartIcon,
+        value: 2
       },
       {
+        color: '#051C2B',
         label: t.Neurology,
-        key: 3
+        img: Images.brainIcon,
+        value: 3
       },
       {
+        color: '#051C2B',
         label: t.Orthopaedic,
-        key: 4
+        img: Images.boneIcon,
+        value: 4
       },
       {
+        color: '#051C2B',
         label: t.Urology,
-        key: 5
+        img: Images.bladderIcon,
+        value: 5
       },
       {
+        color: '#051C2B',
         label: t.OBGYN,
-        key: 6
+        img: Images.pregnantIcon,
+        value: 6
       },
       {
+        color: '#051C2B',
         label: t.Dermatology,
-        key: 7
+        img: Images.skinIcon,
+        value: 7
       },
       {
+        color: '#051C2B',
         label: t.Ophthalmology,
-        key: 8
+        img: Images.eyeIcon,
+        value: 8
       },
       {
+        color: '#051C2B',
         label: t.Pediatrics,
-        key: 9
+        img: Images.childIcon,
+        value: 9
       },
       {
+        color: '#051C2B',
         label: t.Otorhinolaryngology,
-        key: 10
+        img: Images.throatIcon,
+        value: 10
       }
     ];
     return (
-      <ModalSelector
-        style={{ flex: 1 }}
-        cancelText={t.Cancel}
-        data={data}
-        ref={selector => {
-          this.selector = selector;
+      <CustomPicker
+        options={options}
+        getLabel={item => item.label}
+        fieldTemplate={this.renderField}
+        optionTemplate={this.renderOption}
+        headerTemplate={this.renderHeader}
+        footerTemplate={this.renderFooter}
+        modalAnimationType="slide"
+        onValueChange={item => {
+          if (item) {
+            console.log(item);
+            this.videoCall('doctor', item.value);
+          }
         }}
-        onChange={option => {
-          this.videoCall('doctor', option.value);
+        style={{
+          paddingTop: theme.SIZES.BASE,
+          paddingLeft: theme.SIZES.BASE / 2,
+          paddingRight: theme.SIZES.BASE,
+          paddingBottom: theme.SIZES.BASE / 2
         }}
-        customSelector={
-          <Card
-            item={buttons[1]}
-            style={{
-              paddingTop: theme.SIZES.BASE,
-              paddingRight: theme.SIZES.BASE,
-              paddingLeft: theme.SIZES.BASE / 2,
-              paddingBottom: theme.SIZES.BASE / 2
-            }}
-            onPress={() => {
-              this.selector.open();
-            }}
-            onPressInfo={() => {
-              Alert.alert(t.Info, t.DoctorAlert);
-            }}
-          />
-        }
       />
     );
   }
@@ -345,6 +434,10 @@ class UserHome extends Component {
 
   componentWillUnmount() {
     Geolocation.clearWatch(this.watchID);
+    LoginManager.getInstance().off(
+      'onConnectionClosed',
+      this._connectionClosed
+    );
   }
 
   setModalVisible(visible) {
@@ -611,7 +704,7 @@ class UserHome extends Component {
     if (sendCurrentLocation) {
       axios
         .post('request/ambulance', {
-          userID: this.props.phone,
+          userID: this.props.phoneNumber,
           pickupLocation: this.props.position.coords
         })
         .then(response => {
@@ -638,7 +731,7 @@ class UserHome extends Component {
       });
       axios
         .post('request/ambulance', {
-          userID: this.props.phone,
+          userID: this.props.phoneNumber,
           pickupLocation: this.state.ambulanceRequestLocation
         })
         .then(response => {
@@ -843,14 +936,58 @@ const styles = StyleSheet.create({
     height: 32,
     borderRadius: 32 / 2,
     margin: 5
+  },
+  doctorCardMainView: {
+    flex: 1,
+    justifyContent: 'flex-start',
+    alignItems: 'center'
+  },
+  doctorCardContainer: {
+    borderRadius: 30,
+    backgroundColor: 'white',
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 6
+    },
+    shadowOpacity: 0.39,
+    shadowRadius: 8.3,
+    elevation: 13
+  },
+  doctorImage: {
+    height: 200,
+    width: 200,
+    borderRadius: 30
+  },
+  linearGradient: {
+    backgroundColor: 'transparent',
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    borderRadius: 30,
+    zIndex: 1
+  },
+  infoButton: {
+    position: 'absolute',
+    margin: 12,
+    right: 0,
+    zIndex: 3
   }
 });
 
 const mapStateToProps = state => {
   const { helperType, helperName } = state.requestHelp;
   const { permissionGranted, position } = state.location;
-  const { phone } = state.signin;
-  return { phone, helperType, helperName, permissionGranted, position };
+
+  return {
+    helperType,
+    helperName,
+    permissionGranted,
+    position,
+    phoneNumber: state.signin.phone.substring(1)
+  };
 };
 
 export default connect(

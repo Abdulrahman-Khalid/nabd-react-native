@@ -78,7 +78,7 @@ export class Incidents extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      IncidentCards: incidentsDummyData,
+      IncidentCards: [],
       refreshing: false,
       scrollOffset: new Animated.Value(0),
       titleWidth: 0,
@@ -109,56 +109,56 @@ export class Incidents extends Component {
    * Pull to refresh functionality
    */
   pullRefresh = () => {
-    // this.setState({
-    //   refreshing: true,
-    //   IncidentCards: []
-    // });
-    // this.updateIncidentCards();
+    this.setState({
+      refreshing: true,
+      IncidentCards: []
+    });
+    this.updateIncidentCards();
   };
 
   moreIncidentCards = ({ layoutMeasurement, contentOffset, contentSize }) => {
-    // if (
-    //   layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 &&
-    //   this.state.refreshing !== true
-    // ) {
-    //   this.setState({
-    //     refreshing: true
-    //   });
-    //   this.updateIncidentCards(
-    //     this.state.IncidentCards[this.state.IncidentCards.length - 1]._id
-    //   );
-    // }
+    if (
+      layoutMeasurement.height + contentOffset.y >= contentSize.height - 1 &&
+      this.state.refreshing !== true
+    ) {
+      this.setState({
+        refreshing: true
+      });
+      this.updateIncidentCards(
+        this.state.IncidentCards[this.state.IncidentCards.length - 1]._id
+      );
+    }
   };
 
   updateIncidentCards(id = null, username = null) {
-    // axios
-    //   .get('/incident/', {
-    //     params: {
-    //       incidentId: id
-    //     }
-    //   })
-    //   .then(response => {
-    //     if (response.status != 404) {
-    //       if (!id) {
-    //         this.setState({
-    //           IncidentCards: response.data,
-    //           empty: false,
-    //           refreshing: false
-    //         });
-    //       } else {
-    //         this.setState(prevState => ({
-    //           IncidentCards: prevState.IncidentCards.concat(response.data),
-    //           refreshing: false
-    //         }));
-    //       }
-    //     }
-    //   })
-    //   .catch((error) => {
-    //     console.log(error);
-    //   })
-    //   .then(() => {
+    axios
+      .get('/incident/', {
+        params: {
+          incidentId: id
+        }
+      })
+      .then(response => {
+        if (response.status != 404) {
+          if (!id) {
+            this.setState({
+              IncidentCards: response.data,
+              empty: false,
+              refreshing: false
+            });
+          } else {
+            this.setState(prevState => ({
+              IncidentCards: prevState.IncidentCards.concat(response.data),
+              refreshing: false
+            }));
+          }
+        }
+      })
+      .catch((error) => {
+        console.log(error);
+      })
+      .then(() => {
         
-    //   });
+      });
   }
 
   removeIncident(id) {

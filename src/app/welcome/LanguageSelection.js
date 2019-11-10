@@ -21,7 +21,6 @@ import { Actions } from 'react-native-router-flux';
 import { Button, SwitchButton } from '../../components';
 import { theme } from 'galio-framework';
 import { FAB } from 'react-native-paper';
-import { Action } from 'rxjs/internal/scheduler/Action';
 
 class LanguageSelection extends Component {
   constructor(props) {
@@ -34,29 +33,30 @@ class LanguageSelection extends Component {
   }
 
   componentDidMount() {
-    if (this.props.token) {
-      console.log('token: ', this.props.token);
-      console.log('userType: ', this.props.userType);
-      axios.defaults.headers.common['TOKEN'] = this.props.token;
-      switch (this.props.userType) {
-        case 'user':
-          Actions.userHome();
-          break;
-        case 'doctor':
-          Actions.doctorHome();
-          break;
-        case 'paramedic':
-          Actions.paramedicHome();
-          break;
-        case 'ambulance':
-          Actions.ambulanceHome();
-          break;
+    setTimeout(() => {
+      if (this.props.token) {
+        axios.defaults.headers.common['TOKEN'] = this.props.token;
+        switch (this.props.userType) {
+          case 'user':
+            Actions.userHome();
+            break;
+          case 'doctor':
+            Actions.paramedicHome();
+            break;
+          case 'paramedic':
+            Actions.paramedicHome();
+            break;
+          case 'ambulance':
+            Actions.ambulanceHome();
+            break;
+        }
+      } else {
+        console.log('No token');
       }
-    }
+    }, 0);
   }
 
   _handlePress = lang => {
-    console.log('iam here nigga2');
     console.log('lang: ', lang);
     if (lang !== this.props.language.lang) {
       const isRtl = lang === 'ar';
@@ -97,9 +97,16 @@ class LanguageSelection extends Component {
           />
         </View>
         <FAB
-          style={styles.nextButton}
-          icon={this.state.isRtl === 'ltr' ? 'chevron-right' : 'chevron-left'}
+          style={
+            this.props.language.lang === 'ar'
+              ? styles.nextButtonAr
+              : styles.nextButtonEn
+          }
+          icon={
+            this.props.language.lang === 'ar' ? 'chevron-right' : 'chevron-left'
+          }
           onPress={() => {
+            console.log('here');
             Actions.whoRU();
           }}
         />
@@ -143,10 +150,17 @@ const styles = StyleSheet.create({
   switch: {
     flex: 1
   },
-  nextButton: {
+  nextButtonEn: {
     position: 'absolute',
     margin: 16,
     right: 0,
+    bottom: 0,
+    backgroundColor: Colors.APP
+  },
+  nextButtonAr: {
+    position: 'absolute',
+    margin: 16,
+    left: 0,
     bottom: 0,
     backgroundColor: Colors.APP
   }

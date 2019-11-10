@@ -10,6 +10,7 @@ import axios from 'axios';
 import { info } from '../constants';
 import { Actions } from 'react-native-router-flux';
 import { Voximplant } from 'react-native-voximplant';
+import LoginManager from '../app/videoCall/manager/LoginManager';
 
 export const resetSignInReducerState = () => {
   return {
@@ -44,6 +45,8 @@ export const signInAttempt = signInInfo => {
         const payloaded = {
           token: response.data.token,
           userName: response.data.userName,
+          specialization:
+            userType === 'doctor' ? response.data.specialization : null,
           userType
         };
         dispatch({
@@ -82,10 +85,11 @@ async function loginVoximplant(phone) {
     if (state === Voximplant.ClientState.DISCONNECTED) {
       await client.connect();
     }
-    LoginManager.getInstance().loginWithPassword(
-      phone + info.voxAccount,
-      info.userPass
-    );
+    LoginManager.getInstance()
+      .loginWithPassword(phone + info.voxAccount, info.userPass)
+      .then(() => {
+        console.log('login voximplant successfully first time ');
+      });
     let authResult = await client.login(phone, info.userPass);
   } catch (e) {
     console.log(e.name + e.message);

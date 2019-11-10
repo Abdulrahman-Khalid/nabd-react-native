@@ -47,7 +47,8 @@ class Card extends React.Component {
               bottom: 0,
               fontWeight: '900',
               fontFamily: 'IstokWeb-Bold',
-              marginLeft: 15
+              marginLeft: 15,
+              marginBottom: 12
             }}
           >
             {item.title}

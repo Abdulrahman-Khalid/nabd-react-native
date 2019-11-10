@@ -51,7 +51,7 @@ export default class LoginManager {
       if (state === Voximplant.ClientState.DISCONNECTED) {
         await this.client.connect();
       }
-      console.log('success31r41');
+      console.log('success');
       let authResult = await this.client.login(user, password);
       await this._processLoginSuccess(authResult);
     } catch (e) {

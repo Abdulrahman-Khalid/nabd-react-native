@@ -13,6 +13,7 @@ import {
   PermissionsAndroid
 } from 'react-native';
 
+import { Colors } from '../../../constants';
 import { Voximplant } from 'react-native-voximplant';
 import CallButton from '../components/CallButton';
 import { Keypad } from '../components/Keypad';
@@ -23,13 +24,15 @@ import styles from '../styles/Styles';
 import VIForegroundService from '@voximplant/react-native-foreground-service';
 import { Actions } from 'react-native-router-flux';
 import t from '../../../I18n';
+import { connect } from 'react-redux';
+
 const CALL_STATES = {
   DISCONNECTED: 'disconnected',
   CONNECTING: 'connecting',
   CONNECTED: 'connected'
 };
 
-export default class CallScreen extends React.Component {
+class CallScreen extends React.Component {
   constructor(props) {
     super(props);
 
@@ -229,7 +232,20 @@ export default class CallScreen extends React.Component {
 
   _closeModal() {
     this.setState({ isModalOpen: false, modalText: '' });
-    Actions.userHome();
+    switch (this.props.userType) {
+      case 'user':
+        Actions.userHome();
+        break;
+      case 'doctor':
+        Actions.paramedicHome();
+        break;
+      case 'paramedic':
+        Actions.paramedicHome();
+        break;
+      case 'ambulance':
+        Actions.ambulanceHome();
+        break;
+    }
   }
 
   _onCallFailed = event => {
@@ -260,7 +276,20 @@ export default class CallScreen extends React.Component {
       })();
     }
     this.callState = CALL_STATES.DISCONNECTED;
-    Actions.userHome();
+    switch (this.props.userType) {
+      case 'user':
+        Actions.userHome();
+        break;
+      case 'doctor':
+        Actions.paramedicHome();
+        break;
+      case 'paramedic':
+        Actions.paramedicHome();
+        break;
+      case 'ambulance':
+        Actions.ambulanceHome();
+        break;
+    }
   };
 
   _onCallConnected = event => {
@@ -458,36 +487,36 @@ export default class CallScreen extends React.Component {
               {this.state.isAudioMuted ? (
                 <CallButton
                   icon_name="mic"
-                  color={COLOR.ACCENT}
+                  color={Colors.APP}
                   buttonPressed={() => this.muteAudio()}
                 />
               ) : (
                 <CallButton
                   icon_name="mic-off"
-                  color={COLOR.ACCENT}
+                  color={Colors.APP}
                   buttonPressed={() => this.muteAudio()}
                 />
               )}
               {/* <CallButton
                 icon_name="dialpad"
-                color={COLOR.ACCENT}
+                color={Colors.APP}
                 buttonPressed={() => this.switchKeypad()}
               /> */}
               <CallButton
                 icon_name={this.state.audioDeviceIcon}
-                color={COLOR.ACCENT}
+                color={Colors.APP}
                 buttonPressed={() => this.switchAudioDevice()}
               />
               {this.state.isVideoSent ? (
                 <CallButton
                   icon_name="videocam-off"
-                  color={COLOR.ACCENT}
+                  color={Colors.APP}
                   buttonPressed={() => this.sendVideo(false)}
                 />
               ) : (
                 <CallButton
                   icon_name="video-call"
-                  color={COLOR.ACCENT}
+                  color={Colors.APP}
                   buttonPressed={() => this.sendVideo(true)}
                 />
               )}
@@ -565,3 +594,9 @@ export default class CallScreen extends React.Component {
     );
   }
 }
+
+const mapStateToProps = state => {
+  return { userType: state.signin.userType };
+};
+
+export default connect(mapStateToProps)(CallScreen);
