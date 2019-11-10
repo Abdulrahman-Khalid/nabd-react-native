@@ -198,7 +198,7 @@ class SignIn extends Component {
           </View>
           {this.isLoading()}
         </KeyboardAwareScrollView>
-        <TouchableOpacity
+        {/* <TouchableOpacity
           style={styles.textButtonContainer}
           onPress={() => console.log('restore_password')}
         >
@@ -209,7 +209,7 @@ class SignIn extends Component {
           onPress={() => Actions.signup()}
         >
           <Text>{t.SignUp}</Text>
-        </TouchableOpacity>
+        </TouchableOpacity> */}
         <AwesomeAlert
           show={this.state.showAlert}
           showProgress={false}
