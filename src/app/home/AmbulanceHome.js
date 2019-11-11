@@ -61,12 +61,9 @@ class AmbulanceHome extends Component {
       gpsOffModal: false,
       available: false,
       startLocationTracking: false,
-      patientName: 'عبدالرحمن خالد شافعي',
-      patientPhoneNumber: '+201001796904',
-      patientLocation: {
-        latitude: 31.05795,
-        longitude: 32.038479
-      }
+      patientName: null,
+      patientPhoneNumber: null,
+      patientLocation: null
     };
     this.socket = io(
       axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4) +
@@ -286,7 +283,10 @@ class AmbulanceHome extends Component {
         latitude: this.props.position.coords.latitude,
         longitude: this.props.position.coords.longitude
       },
-      destination: this.state.patientLocation,
+      destination: {
+        latitude: this.state.patientLocation.latitude,
+        longitude: this.state.patientLocation.longitude
+      },
       params: [
         {
           key: 'travelmode',

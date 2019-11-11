@@ -7,7 +7,7 @@ const INTIAL_STATE = {
 export default (state = INTIAL_STATE, action) => {
   switch (action.type) {
     case UPDATE_AMBULANCE_NUMBER:
-      const { ambulancePhoneNumber } = action.payload;
+      const ambulancePhoneNumber = action.payload;
       return { ...state, ambulancePhoneNumber }
     default:
       return state;

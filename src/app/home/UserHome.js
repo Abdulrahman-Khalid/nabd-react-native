@@ -705,8 +705,6 @@ class UserHome extends Component {
     if (sendCurrentLocation) {
       axios
         .post('request/ambulance', {
-          phoneNumber: this.props.phoneNumber,
-          name: this.props.name,
           location: this.props.position.coords
         })
         .then(response => {
@@ -714,10 +712,10 @@ class UserHome extends Component {
             loadingModalVisible: false
           });
           if (response.data.ambulanceNumber) {
-            this.props.updateAmbulanceNumber(
-              response.data.ambulanceNumber
-            );
-            Actions.waitForAmbulance();
+            this.props.updateAmbulanceNumber(response.data.ambulanceNumber);
+            setTimeout(() => {
+              Actions.waitForAmbulance();
+            }, 500);
           } else {
             Alert.alert('', 'No ambulance was found', [
               {
@@ -744,16 +742,14 @@ class UserHome extends Component {
       });
       axios
         .post('request/ambulance', {
-          phoneNumber: this.props.phoneNumber,
-          name: this.props.name,
           location: this.state.ambulanceRequestLocation
         })
         .then(response => {
           if (response.data.ambulanceNumber) {
-            this.props.updateAmbulanceNumber(
-              response.data.ambulanceNumber
-            );
-            Actions.waitForAmbulance();
+            this.props.updateAmbulanceNumber(response.data.ambulanceNumber);
+            setTimeout(() => {
+              Actions.waitForAmbulance();
+            }, 500);
           } else {
             Alert.alert('', 'No ambulance was found', [
               {
