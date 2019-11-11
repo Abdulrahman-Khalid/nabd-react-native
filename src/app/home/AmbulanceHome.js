@@ -61,7 +61,7 @@ class AmbulanceHome extends Component {
       gpsOffModal: false,
       available: false,
       startLocationTracking: false,
-      patientName: "عبدالرحمن خالد شافعي",
+      patientName: 'عبدالرحمن خالد شافعي',
       patientPhoneNumber: '+201001796904',
       patientLocation: {
         latitude: 31.05795,
@@ -69,7 +69,8 @@ class AmbulanceHome extends Component {
       }
     };
     this.socket = io(
-      axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4),
+      axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4) +
+        'available/ambulances',
       { autoConnect: false }
     );
   }
@@ -89,18 +90,15 @@ class AmbulanceHome extends Component {
     if (this.state.available && !this.socket.connected) {
       this.socket.open();
       this.socket.emit('available', {
-        phoneNumber: this.props.phoneNumber,
-        userType: this.props.userType
+        phoneNumber: this.props.phoneNumber
       });
-      this.socket.on(this.props.phoneNumber, data => {
-        if (!this.state.startLocationTracking) {
-          this.setState({
-            patientName: data.name,
-            patientPhoneNumber: data.phone,
-            patientLocation: data.location,
-            startLocationTracking: true
-          });
-        }
+      this.socket.on('send live location', data => {
+        this.setState({
+          patientName: data.name,
+          patientPhoneNumber: data.phoneNumber,
+          patientLocation: data.location,
+          startLocationTracking: true
+        });
       });
     } else {
       if (!this.state.available && this.socket.connected) {
@@ -112,7 +110,7 @@ class AmbulanceHome extends Component {
       this.socket.connected &&
       this.state.startLocationTracking
     ) {
-      this.socket.emit(this.props.phoneNumber, {
+      this.socket.emit('location', {
         latitude: this.props.position.coords.latitude,
         longitude: this.props.position.coords.longitude
       });
@@ -171,18 +169,15 @@ class AmbulanceHome extends Component {
     if (this.state.available && !this.socket.connected) {
       this.socket.open();
       this.socket.emit('available', {
-        phoneNumber: this.props.phoneNumber,
-        userType: this.props.userType
+        phoneNumber: this.props.phoneNumber
       });
-      this.socket.on(this.props.phoneNumber, data => {
-        if (!this.state.startLocationTracking) {
-          this.setState({
-            patientName: data.name,
-            patientPhoneNumber: data.phone,
-            patientLocation: data.location,
-            startLocationTracking: true
-          });
-        }
+      this.socket.on('send live location', data => {
+        this.setState({
+          patientName: data.name,
+          patientPhoneNumber: data.phoneNumber,
+          patientLocation: data.location,
+          startLocationTracking: true
+        });
       });
     } else {
       if (!this.state.available && this.socket.connected) {
@@ -194,7 +189,7 @@ class AmbulanceHome extends Component {
       this.socket.connected &&
       this.state.startLocationTracking
     ) {
-      this.socket.emit(this.props.phoneNumber, {
+      this.socket.emit('location', {
         latitude: this.props.position.coords.latitude,
         longitude: this.props.position.coords.longitude
       });
@@ -333,7 +328,9 @@ class AmbulanceHome extends Component {
     if (this.state.available && !this.state.startLocationTracking) {
       return (
         <View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <View
+            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+          >
             <Image
               source={Images.loupe}
               style={{ width: 140, height: 140 }}

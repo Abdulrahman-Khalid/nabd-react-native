@@ -16,24 +16,26 @@ class WaitForAmbulance extends Component {
     super(props);
     this.state = {
       region: {
-        latitude: 30.422,
-        longitude: 31.0043,
+        latitude: this.props.position.coords.latitude,
+        longitude: this.props.position.coords.longitude,
         latitudeDelta: 0.005,
         longitudeDelta: 0.005
       },
-      ambulanceLocation: {
-        latitude: 30.422,
-        longitude: 31.0043,
-      },
+      ambulanceLocation: null,
       mapMarginBottom: 1
     };
     this.socket = io(
-      axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4)
+      axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4) +
+        'track/ambulance'
     );
   }
 
   componentDidMount() {
-    this.socket.on(this.props.channelName, (data) => {
+    console.log('ambulance phone number' + this.props.ambulancePhoneNumber )
+    this.socket.emit('track location', {
+      ambulancePhoneNumber: this.props.ambulancePhoneNumber
+    });
+    this.socket.on("location", (data) => {
       this.setState({
         ambulanceLocation: data
       });
@@ -42,8 +44,8 @@ class WaitForAmbulance extends Component {
 
   moveToUserLocation() {
     const userRegion = {
-      latitude: 30.422,
-      longitude: 31.0043,
+      latitude: this.props.position.coords.latitude,
+      longitude: this.props.position.coords.longitude,
       latitudeDelta: 0.005,
       longitudeDelta: 0.005
     };
@@ -65,14 +67,18 @@ class WaitForAmbulance extends Component {
         >
           {this.state.ambulanceLocation != null ? (
             <Marker.Animated
-              // image={Images.ambulanceTopView}
-              draggable
               ref={marker => {
                 this.marker = marker;
               }}
               coordinate={this.state.ambulanceLocation}
-              style={{transform: [{rotate: '70deg'}],}}  
-            ><Image source={Images.ambulanceTopView} style={{ width: 60, height: 60 }} resizeMode="contain" /></Marker.Animated>
+              style={{ transform: [{ rotate: '70deg' }] }}
+            >
+              <Image
+                source={Images.ambulanceTopView}
+                style={{ width: 60, height: 60 }}
+                resizeMode="contain"
+              />
+            </Marker.Animated>
           ) : null}
         </MapView>
         <FAB
@@ -119,7 +125,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => ({ position: state.location.position });
+const mapStateToProps = state => ({ position: state.location.position, ambulancePhoneNumber: state.ambulanceRequest.ambulancePhoneNumber });
 
 export default connect(
   mapStateToProps,

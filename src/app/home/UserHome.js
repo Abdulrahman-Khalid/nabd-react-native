@@ -14,7 +14,8 @@ import {
   selectHelperType,
   requestHelp,
   requestLocationPermission,
-  updateLocation
+  updateLocation,
+  updateAmbulanceNumber
 } from '../../actions';
 import {
   Alert,
@@ -704,14 +705,26 @@ class UserHome extends Component {
     if (sendCurrentLocation) {
       axios
         .post('request/ambulance', {
-          userID: this.props.phoneNumber,
-          pickupLocation: this.props.position.coords
+          phoneNumber: this.props.phoneNumber,
+          name: this.props.name,
+          location: this.props.position.coords
         })
         .then(response => {
           this.setState({
             loadingModalVisible: false
           });
-          Actions.WaitForAmbulance({ channelName: response.data.channelName });
+          if (response.data.ambulanceNumber) {
+            this.props.updateAmbulanceNumber(
+              response.data.ambulanceNumber
+            );
+            Actions.waitForAmbulance();
+          } else {
+            Alert.alert('', 'No ambulance was found', [
+              {
+                text: t.OK
+              }
+            ]);
+          }
         })
         .catch(err => {
           let error = JSON.stringify(err);
@@ -731,11 +744,23 @@ class UserHome extends Component {
       });
       axios
         .post('request/ambulance', {
-          userID: this.props.phoneNumber,
-          pickupLocation: this.state.ambulanceRequestLocation
+          phoneNumber: this.props.phoneNumber,
+          name: this.props.name,
+          location: this.state.ambulanceRequestLocation
         })
         .then(response => {
-          Actions.WaitForAmbulance({ channelName: response.data.channelName });
+          if (response.data.ambulanceNumber) {
+            this.props.updateAmbulanceNumber(
+              response.data.ambulanceNumber
+            );
+            Actions.waitForAmbulance();
+          } else {
+            Alert.alert('', 'No ambulance was found', [
+              {
+                text: t.OK
+              }
+            ]);
+          }
         })
         .catch(err => {
           let error = JSON.stringify(err);
@@ -986,11 +1011,18 @@ const mapStateToProps = state => {
     helperName,
     permissionGranted,
     position,
-    phoneNumber: state.signin.phone.substring(1)
+    phoneNumber: state.signin.phone.substring(1),
+    name: state.signin.userName
   };
 };
 
 export default connect(
   mapStateToProps,
-  { selectHelperType, requestHelp, requestLocationPermission, updateLocation }
+  {
+    selectHelperType,
+    requestHelp,
+    requestLocationPermission,
+    updateLocation,
+    updateAmbulanceNumber
+  }
 )(UserHome);
