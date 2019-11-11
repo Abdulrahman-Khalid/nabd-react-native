@@ -318,9 +318,7 @@ class AmbulanceHome extends Component {
               textAlign: 'center'
             }}
           >
-            {/* Looks like you are taking a break. Turn the switch to "Available" to
-            start saving lives! */}
-            يبدو انك تأخذ قسطًا من الراحة. حول الزر إلي متاح و انقذ حياة الناس!
+            {t.notAvailableText}
           </Text>
         </View>
       );
@@ -344,9 +342,7 @@ class AmbulanceHome extends Component {
                 textAlign: 'center'
               }}
             >
-              {/* Looks like you are taking a break. Turn the switch to "Available" to
-            start saving lives! */}
-              جاري البحث علي من يحتاج المساعدة
+              {t.searchForHelp}
             </Text>
           </View>
           <Pulse
