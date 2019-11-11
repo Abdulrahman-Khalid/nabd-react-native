@@ -120,7 +120,6 @@ class AddIncident extends Component {
           // always executed
           axios
             .post('/incident', {
-              userID: this.props.userID,
               description: this.state.text,
               date: new Date(),
               image: this.state.media,
@@ -188,7 +187,8 @@ class AddIncident extends Component {
         resetScrollToCoords={{ x: 0, y: 0 }}
         contentContainerStyle={{
           paddingTop: 20,
-          flexDirection: 'column'
+          flexDirection: 'column',
+          flex: 1
         }}
         behavior={Platform.OS == 'ios' ? 'padding' : null}
         // enabled
