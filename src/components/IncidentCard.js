@@ -55,7 +55,6 @@ class IncidentCard extends React.Component {
   }
 
   componentDidMount() {
-    console.log(axios.defaults.baseURL + 'media/' + this.props.item.image)
     if (this.props.location.position !== null) {
       this.caclulateDistance();
     }
@@ -206,7 +205,7 @@ class IncidentCard extends React.Component {
             {item.image ? (
               <View>
                 <Image
-                  source={{ uri: axios.defaults.baseURL + 'media/' + item.image }}
+                  source={{ uri: item.image }}
                   style={styles.fullImage}
                   resizeMode="cover"
                 />
