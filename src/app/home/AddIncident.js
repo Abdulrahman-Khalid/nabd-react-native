@@ -106,7 +106,7 @@ class AddIncident extends Component {
         .then(response => {
           console.log(response.status);
           console.log(response.data.id);
-          this.setState({ media: response.data.id });
+          this.setState({ media: response.data.url });
         })
 
         .catch(err => {
@@ -146,7 +146,6 @@ class AddIncident extends Component {
     if (this.state.photo === null) {
       axios
         .post('/incident', {
-          userID: this.props.userID,
           description: this.state.text,
           date: new Date(),
           image: null,
