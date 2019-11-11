@@ -90,9 +90,10 @@ class AmbulanceHome extends Component {
         phoneNumber: this.props.phoneNumber
       });
       this.socket.on('send live location', data => {
+        console.log(data)
         this.setState({
           patientName: data.name,
-          patientPhoneNumber: data.phoneNumber,
+          patientPhoneNumber: '+' + data.phoneNumber,
           patientLocation: data.location,
           startLocationTracking: true
         });
@@ -109,7 +110,8 @@ class AmbulanceHome extends Component {
     ) {
       this.socket.emit('location', {
         latitude: this.props.position.coords.latitude,
-        longitude: this.props.position.coords.longitude
+        longitude: this.props.position.coords.longitude,
+        heading: this.props.position.coords.heading
       });
     }
   }
@@ -169,9 +171,10 @@ class AmbulanceHome extends Component {
         phoneNumber: this.props.phoneNumber
       });
       this.socket.on('send live location', data => {
+        console.log(data)
         this.setState({
           patientName: data.name,
-          patientPhoneNumber: data.phoneNumber,
+          patientPhoneNumber: '+' + data.phoneNumber,
           patientLocation: data.location,
           startLocationTracking: true
         });
@@ -186,9 +189,12 @@ class AmbulanceHome extends Component {
       this.socket.connected &&
       this.state.startLocationTracking
     ) {
+        console.log(this.props.position)
+
       this.socket.emit('location', {
         latitude: this.props.position.coords.latitude,
-        longitude: this.props.position.coords.longitude
+        longitude: this.props.position.coords.longitude,
+        heading: this.props.position.coords.heading
       });
     }
   }
@@ -247,7 +253,7 @@ class AmbulanceHome extends Component {
                 ]}
               >
                 <Text style={{ color: '#d76674', fontFamily: 'Jaldi-Bold' }}>
-                  Refresh
+                  {t.Refresh}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -428,7 +434,7 @@ class AmbulanceHome extends Component {
                   size={17}
                 />
                 <Text style={{ color: '#d76674', fontFamily: 'Jaldi-Bold' }}>
-                  التواصل عبر الخط
+                  {t.CarrierCall}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -454,7 +460,7 @@ class AmbulanceHome extends Component {
                   size={17}
                 />
                 <Text style={{ color: '#57a25b', fontFamily: 'Jaldi-Bold' }}>
-                  التواصل عن طريق الفديو
+                  {t.MakeVideoCall}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -485,6 +491,7 @@ class AmbulanceHome extends Component {
                 <TouchableOpacity
                   style={{ width: '50%', height: 50 }}
                   onPress={() => {
+                    this.socket.close();
                     this.setState({
                       patientName: null,
                       patientPhoneNumber: null,
@@ -514,7 +521,7 @@ class AmbulanceHome extends Component {
                       size={17}
                     />
                     <Text style={{ color: 'white', fontFamily: 'Jaldi-Bold' }}>
-                      لقد وصلت
+                      {t.Arrived}
                     </Text>
                   </View>
                 </TouchableOpacity>
