@@ -8,6 +8,7 @@ import LanguageReducer from './LanguageReducer';
 import LocationReducer from './LocationReducer';
 import IncidentsReducer from './IncidentsReducer';
 import CallReducer from './CallReducer';
+import AmbulanceRequestReducer from './AmbulanceRequestReducer';
 
 export default combineReducers({
   signup: SignUpReducer,
@@ -18,5 +19,6 @@ export default combineReducers({
   language: LanguageReducer,
   location: LocationReducer,
   incidents: IncidentsReducer,
-  call: CallReducer
+  call: CallReducer,
+  ambulanceRequest: AmbulanceRequestReducer
 });

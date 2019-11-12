@@ -1,10 +1,19 @@
 import React, { Component, createRef } from 'react';
-import { Alert, Animated, Image, Text, View } from 'react-native';
+import {
+  Alert,
+  Animated,
+  TouchableOpacity,
+  Image,
+  Text,
+  View
+} from 'react-native';
+
 import { Block } from 'galio-framework';
 import { Button } from '../../../../components';
 import axios from 'axios';
 import CodeInput from 'react-native-confirmation-code-field';
 import { info } from '../../../../constants';
+import t from '../../../../I18n';
 import styles, {
   ACTIVE_CELL_BG_COLOR,
   CELL_BORDER_RADIUS,
@@ -92,9 +101,9 @@ class AnimatedExample extends Component {
             console.log('error voximplant signup');
           });
         return Alert.alert(
-          'Confirmation Code',
-          'Successful!',
-          [{ text: 'OK', onPress: () => Actions.whoRU() }],
+          t.ConfirmationCode,
+          t.Success,
+          [{ text: t.OK, onPress: () => Actions.whoRU() }],
           {
             cancelable: false
           }
@@ -103,11 +112,11 @@ class AnimatedExample extends Component {
       .catch(error => {
         console.log('confirmation failed with error: ', error);
         return Alert.alert(
-          'Confirmation Code',
-          'Failed!',
+          t.ConfirmationCode,
+          t.Failed,
           [
             {
-              text: 'OK',
+              text: t.OK,
               onPress: () => {
                 this.clearCode();
               }
@@ -174,6 +183,19 @@ class AnimatedExample extends Component {
     };
   };
 
+  resendCode() {
+    axios
+      .put('resend_code', {
+        phoneNo: this.props.phoneNum.substring(1)
+      })
+      .then(response => {
+        console.log('success resend code');
+      })
+      .catch(error => {
+        console.log('error resend code');
+      });
+  }
+
   containerProps = { style: styles.inputWrapStyle };
 
   render() {
@@ -203,10 +225,12 @@ class AnimatedExample extends Component {
               onFulfill={this.handlerOnFulfill}
               CellComponent={Animated.Text}
             />
-            {/* <Text style={{ fontSize: 20 }}>Veri4124124142fy</Text> */}
-            <Button>
-              {/* <Text style={styles.nextButtonText}>Verify</Text> */}
-            </Button>
+            <TouchableOpacity
+              style={styles.resendCodeButton}
+              onPress={this.resendCode}
+            >
+              <Text style={styles.resendCodeText}>{t.ResendCode}</Text>
+            </TouchableOpacity>
           </Block>
         </View>
       </Block>

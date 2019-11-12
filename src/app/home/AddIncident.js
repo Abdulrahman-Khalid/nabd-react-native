@@ -106,7 +106,7 @@ class AddIncident extends Component {
         .then(response => {
           console.log(response.status);
           console.log(response.data.id);
-          this.setState({ media: response.data.id });
+          this.setState({ media: response.data.url });
         })
 
         .catch(err => {
@@ -120,7 +120,6 @@ class AddIncident extends Component {
           // always executed
           axios
             .post('/incident', {
-              userID: this.props.userID,
               description: this.state.text,
               date: new Date(),
               image: this.state.media,
@@ -147,7 +146,6 @@ class AddIncident extends Component {
     if (this.state.photo === null) {
       axios
         .post('/incident', {
-          userID: this.props.userID,
           description: this.state.text,
           date: new Date(),
           image: null,
@@ -188,7 +186,8 @@ class AddIncident extends Component {
         resetScrollToCoords={{ x: 0, y: 0 }}
         contentContainerStyle={{
           paddingTop: 20,
-          flexDirection: 'column'
+          flexDirection: 'column',
+          flex: 1
         }}
         behavior={Platform.OS == 'ios' ? 'padding' : null}
         // enabled

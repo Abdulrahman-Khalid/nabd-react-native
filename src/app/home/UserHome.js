@@ -14,7 +14,8 @@ import {
   selectHelperType,
   requestHelp,
   requestLocationPermission,
-  updateLocation
+  updateLocation,
+  updateAmbulanceNumber
 } from '../../actions';
 import {
   Alert,
@@ -226,14 +227,9 @@ class UserHome extends Component {
   }
 
   renderField(settings) {
-    // const { selectedItem, defaultText, getLabel, clear } = settings;
     return (
       <View
         style={{
-          // paddingTop: theme.SIZES.BASE,
-          // paddingLeft: theme.SIZES.BASE / 2,
-          // paddingRight: theme.SIZES.BASE,
-          // paddingBottom: theme.SIZES.BASE / 2,
           width: width / 2 - 20,
           height: height / 2 - 125,
           borderRadius: 30
@@ -429,6 +425,9 @@ class UserHome extends Component {
         },
         { enableHighAccuracy: true }
       );
+    }
+    if (this.props.position && this.props.ambulancePhoneNumber) {
+      Actions.waitForAmbulance();
     }
   }
 
@@ -700,18 +699,28 @@ class UserHome extends Component {
     });
   };
 
-  sendAmbulanceRequest = (sendCurrentLocation = false) => {
+  sendAmbulanceRequest = (sendCurrentLocation) => {
     if (sendCurrentLocation) {
       axios
         .post('request/ambulance', {
-          userID: this.props.phoneNumber,
-          pickupLocation: this.props.position.coords
+          location: this.props.position.coords
         })
         .then(response => {
           this.setState({
             loadingModalVisible: false
           });
-          Actions.WaitForAmbulance({ channelName: response.data.channelName });
+          if (response.data.ambulanceNumber) {
+            this.props.updateAmbulanceNumber(response.data.ambulanceNumber);
+            setTimeout(() => {
+              Actions.waitForAmbulance();
+            }, 500);
+          } else {
+            Alert.alert('', 'No ambulance was found', [
+              {
+                text: t.OK
+              }
+            ]);
+          }
         })
         .catch(err => {
           let error = JSON.stringify(err);
@@ -727,52 +736,63 @@ class UserHome extends Component {
         });
     } else {
       this.setState({
-        loading: true
+        loading: true,
+        locationPickerModalVisible: false
       });
       axios
         .post('request/ambulance', {
-          userID: this.props.phoneNumber,
-          pickupLocation: this.state.ambulanceRequestLocation
+          location: this.state.ambulanceRequestLocation
         })
         .then(response => {
-          Actions.WaitForAmbulance({ channelName: response.data.channelName });
+          if (response.data.ambulanceNumber) {
+            this.props.updateAmbulanceNumber(response.data.ambulanceNumber);
+            setTimeout(() => {
+              Actions.waitForAmbulance();
+            }, 500);
+          } else {
+            Alert.alert('', 'No ambulance was found', [
+              {
+                text: t.OK
+              }
+            ]);
+          }
         })
         .catch(err => {
           let error = JSON.stringify(err);
           error = JSON.parse(error);
           this.setState({
             loading: false,
-            locationPickerModalVisible: false
           });
         })
         .then(() => {
           this.setState({
             loading: false,
-            locationPickerModalVisible: false
           });
         });
     }
   };
 
   renderLocationPicker() {
-    <Modal
-      visible={this.state.locationPickerModalVisible}
-      onRequestClose={this.modalCancelOnPress}
-    >
-      <LocationPicker
-        onValueChange={region => {
-          this.setState({
-            ambulanceRequestLocation: {
-              latitude: ambulanceRequestLocation.latitude,
-              longitude: ambulanceRequestLocation.longitude
-            }
-          });
-        }}
-        cancelOnPress={this.modalCancelOnPress}
-        onPressSubmit={this.sendAmbulanceRequest}
-        loading={this.state.loading}
-      />
-    </Modal>;
+    return (
+      <Modal
+        visible={this.state.locationPickerModalVisible}
+        onRequestClose={this.modalCancelOnPress}
+      >
+        <LocationPicker
+          onValueChange={region => {
+            this.setState({
+              ambulanceRequestLocation: {
+                latitude: region.latitude,
+                longitude: region.longitude
+              }
+            });
+          }}
+          cancelOnPress={this.modalCancelOnPress}
+          onPressSubmit={() => {this.sendAmbulanceRequest(false)}}
+          loading={this.state.loading}
+        />
+      </Modal>
+    );
   }
 
   renderLoadingModal() {
@@ -986,11 +1006,19 @@ const mapStateToProps = state => {
     helperName,
     permissionGranted,
     position,
-    phoneNumber: state.signin.phone.substring(1)
+    phoneNumber: state.signin.phone.substring(1),
+    name: state.signin.userName,
+    ambulancePhoneNumber: state.ambulanceRequest.ambulancePhoneNumber
   };
 };
 
 export default connect(
   mapStateToProps,
-  { selectHelperType, requestHelp, requestLocationPermission, updateLocation }
+  {
+    selectHelperType,
+    requestHelp,
+    requestLocationPermission,
+    updateLocation,
+    updateAmbulanceNumber
+  }
 )(UserHome);

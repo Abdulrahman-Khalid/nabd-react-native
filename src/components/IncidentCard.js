@@ -58,36 +58,6 @@ class IncidentCard extends React.Component {
     if (this.props.location.position !== null) {
       this.caclulateDistance();
     }
-    if (this.props.item.image != null) {
-      axios
-        .get('/media', {
-          params: {
-            id: this.props.item.image
-          }
-        })
-        .then(res => {
-          this.setState({
-            imageURI: res.request._url
-          });
-          console.log('GET MEDIA RESPONSE', res.request._url);
-        })
-        .catch(err => {
-          console.log('error in request', err);
-        });
-      // axios({
-      //   method: 'GET',
-      //   url: '/media',
-      //   data: {
-      //     id: this.props.item.image
-      //   }
-      // })
-      //   .then(res => {
-      //     console.log('GET MEDIA RESPONSE', res);
-      //   })
-      //   .catch(err => {
-      //     console.log('error in request', err);
-      //   });
-    }
   }
 
   handleGetDirections = () => {
@@ -235,7 +205,7 @@ class IncidentCard extends React.Component {
             {item.image ? (
               <View>
                 <Image
-                  source={{ uri: item.image}}
+                  source={{ uri: item.image }}
                   style={styles.fullImage}
                   resizeMode="cover"
                 />

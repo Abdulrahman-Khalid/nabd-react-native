@@ -9,6 +9,10 @@ export default en = {
   Error6: 'Please try again',
   AutFailed: 'Authentication failed',
   GeneralRequestError: 'Request error happended',
+  Failed: 'Failed',
+  Success: 'Succeess',
+  ConfirmationCode: 'Confirmation code',
+  ResendCode: 'Resend code',
 
   InternalMedicine: ' Internal Medicine',
   Cardiology: 'Cardiology',
@@ -58,6 +62,10 @@ export default en = {
   searchForHelp: 'Searching for who needs help',
   notAvailableText:
     "You seem like you want to take a break, change switch to available to recue someone's life",
+  CarrierCall: 'Make a Carrier Call',
+  MakeVideoCall: 'Make a Video Call',
+  Arrived: "I've Arrived",
+  AmbulanceArrived: 'Ambulance car has arrived!',
   Refresh: 'Refresh',
   AllFine: 'Looks like everything is fine!',
   RequiredField: 'This field is required',
@@ -160,6 +168,7 @@ export default en = {
   PVWeak: 'Password is very weak',
   PWeak: 'Password is weak',
 
+  SearchForAPlace: 'Search',
   Call: 'Call',
   CallFrom: 'Incoming call from:',
   Incidents: 'Incidents',
