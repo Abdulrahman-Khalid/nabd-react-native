@@ -8,7 +8,9 @@ import {
   Picker,
   TouchableOpacity,
   TouchableNativeFeedback,
-  NativeModules
+  NativeModules,
+  ActivityIndicator,
+  Platform
 } from 'react-native';
 import axios from 'axios';
 import { connect } from 'react-redux';
@@ -22,13 +24,24 @@ import { Button, SwitchButton } from '../../components';
 import { theme } from 'galio-framework';
 import { FAB } from 'react-native-paper';
 
+const deviceLanguage =
+  Platform.OS === 'ios'
+    ? NativeModules.SettingsManager.settings.AppleLocale.substring(0, 1)
+    : NativeModules.I18nManager.localeIdentifier.substring(0, 1);
+
 class LanguageSelection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isRtl: 'rtl',
+      isRtl:
+        deviceLanguage == 'ar'
+          ? 'rtl'
+          : this.props.language.lang === 'ar'
+          ? 'rtl'
+          : 'ltr',
       switchText1: this.props.language.lang === 'en' ? 'English' : 'العربية',
-      switchText2: this.props.language.lang === 'ar' ? 'English' : 'العربية'
+      switchText2: this.props.language.lang === 'ar' ? 'English' : 'العربية',
+      loading: true
     };
   }
 
@@ -38,20 +51,23 @@ class LanguageSelection extends Component {
         axios.defaults.headers.common['TOKEN'] = this.props.token;
         switch (this.props.userType) {
           case 'user':
-            Actions.userHome();
+            Actions.reset('userHome');
             break;
           case 'doctor':
-            Actions.paramedicHome();
+            Actions.reset('paramedicHome');
             break;
           case 'paramedic':
-            Actions.paramedicHome();
+            Actions.reset('paramedicHome');
             break;
           case 'ambulance':
-            Actions.ambulanceHome();
+            Actions.reset('ambulanceHome');
             break;
         }
       } else {
         console.log('No token');
+        this.setState({
+          loading: false
+        });
       }
     }, 0);
   }
@@ -71,6 +87,13 @@ class LanguageSelection extends Component {
   };
 
   render() {
+    if (this.state.loading) {
+      return (
+        <View style={styles.loadingContainer}>
+          <ActivityIndicator size="large" color="#ffff" />
+        </View>
+      );
+    }
     return (
       <View style={styles.mainContainer}>
         <Image
@@ -98,12 +121,20 @@ class LanguageSelection extends Component {
         </View>
         <FAB
           style={
-            this.props.language.lang === 'ar'
-              ? styles.nextButtonAr
+            deviceLanguage == 'ar'
+              ? this.props.language.lang === 'ar'
+                ? styles.nextButtonAr
+                : styles.nextButtonEn
               : styles.nextButtonEn
           }
           icon={
-            this.props.language.lang === 'ar' ? 'chevron-right' : 'chevron-left'
+            deviceLanguage == 'ar'
+              ? this.props.language.lang === 'ar'
+                ? 'chevron-right'
+                : 'chevron-left'
+              : this.props.language.lang === 'ar'
+              ? 'chevron-left'
+              : 'chevron-right'
           }
           onPress={() => {
             console.log('here');
@@ -163,6 +194,14 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     backgroundColor: Colors.APP
+  },
+  loadingContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: Colors.APP,
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    padding: 10
   }
 });
 

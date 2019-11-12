@@ -42,3 +42,5 @@ export const SET_REMOTE_VIDEO_STREAM_ID = 'set_remote_video_stream_id';
 export const SET_CALLING_COUNTER = 'set_calling_counter';
 export const DEC_CALLING_COUNTER = 'dec_calling_counter';
 export const RESET_CALL_OPTIONS = 'reset_call_options';
+// Ambulance Request
+export const UPDATE_AMBULANCE_NUMBER = 'update_ambulance_number';

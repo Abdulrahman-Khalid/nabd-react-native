@@ -58,6 +58,10 @@ export default ar = {
   searchForHelp: 'جاري البحث علي من يحتاج المساعدة',
   notAvailableText:
     'يبدو انك تأخذ قسطًا من الراحة. حول الزر إلي متاح و انقذ حياة الناس!',
+  CarrierCall: 'التواصل عبر الخط',
+  MakeVideoCall: 'التواصل عن طريق الفديو',
+  Arrived: 'لقد وصلت',
+  AmbulanceArrived: 'لقد وصلت عربة الاسعاف!',
   Refresh: 'إعادة التحميل',
   AllFine: 'يبدو أن كل شيءٍ على ما يرام!',
   RequiredField: 'هذا الحقل مطلوب',

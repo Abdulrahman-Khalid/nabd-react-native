@@ -394,6 +394,12 @@ class RouterComponent extends Component {
             component={IncomingCallScreen}
             hideNavBar={true}
           />
+          <Scene
+            key="waitForAmbulance"
+            component={WaitForAmbulance}
+            hideNavBar={true}
+            renderBackButton={() => null}
+          />
         </Scene>
       </Router>
     );

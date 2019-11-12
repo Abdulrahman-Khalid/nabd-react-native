@@ -7,7 +7,7 @@ import rootReducer from '../reducers'
 const persistConfig = {
   key: 'root',
   storage,
-  whitelist: ['language']
+  whitelist: ['language', 'ambulanceRequest']
 }
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

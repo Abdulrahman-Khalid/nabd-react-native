@@ -35,7 +35,12 @@ class ParamedicHome extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isRtl: this.props.language.lang === 'ar' ? 'rtl' : 'ltr',
+      isRtl:
+        deviceLanguage == 'ar'
+          ? 'rtl'
+          : this.props.language.lang === 'ar'
+          ? 'rtl'
+          : 'ltr',
       switchValue: false,
       gpsOffModal: false,
       available: false
@@ -141,6 +146,9 @@ class ParamedicHome extends Component {
         },
         { enableHighAccuracy: true }
       );
+    }
+    if(this.props.position && this.props.ambulancePhoneNumber) {
+      Actions.waitForAmbulance()
     }
     if (this.state.available && !this.socket.connected) {
       this.socket.open();
@@ -290,7 +298,7 @@ class ParamedicHome extends Component {
                 ]}
               >
                 <Text style={{ color: '#d76674', fontFamily: 'Jaldi-Bold' }}>
-                  Refresh
+                  {t.Refresh}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -357,7 +365,7 @@ class ParamedicHome extends Component {
                 fontColor="#817d84"
                 switchWidth={250}
                 activeFontColor="black"
-                switchdirection="rtl"
+                switchdirection={this.state.isRtl}
               />
             </View>
           </View>
@@ -526,7 +534,8 @@ const mapStateToProps = state => ({
   token: state.signin.token,
   position: state.location.position,
   permissionGranted: state.location.permissionGranted,
-  language: state.language
+  language: state.language,
+  ambulancePhoneNumber: state.ambulanceRequest.ambulancePhoneNumber
 });
 
 export default connect(

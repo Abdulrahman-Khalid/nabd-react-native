@@ -62,6 +62,10 @@ export default en = {
   searchForHelp: 'Searching for who needs help',
   notAvailableText:
     "You seem like you want to take a break, change switch to available to recue someone's life",
+  CarrierCall: 'Make a Carrier Call',
+  MakeVideoCall: 'Make a Video Call',
+  Arrived: "I've Arrived",
+  AmbulanceArrived: 'Ambulance car has arrived!',
   Refresh: 'Refresh',
   AllFine: 'Looks like everything is fine!',
   RequiredField: 'This field is required',

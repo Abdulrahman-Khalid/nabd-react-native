@@ -7,3 +7,4 @@ export * from './RequestHelpActions';
 export * from './LocationActions';
 export * from './IncidentsActions';
 export * from './CallActions';
+export * from './AmbulanceRequestActions';

@@ -34,6 +34,8 @@ import { Stopwatch } from 'react-native-stopwatch-timer';
 
 const { width, height } = Dimensions.get('screen');
 
+var locationEmitterID = null;
+
 const stopWatchOptions = {
   container: {
     backgroundColor: Colors.LIGHT,
@@ -55,21 +57,25 @@ class AmbulanceHome extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isRtl: this.props.language.lang === 'ar' ? 'rtl' : 'ltr',
+      isRtl:
+        deviceLanguage == 'ar'
+          ? 'rtl'
+          : this.props.language.lang === 'ar'
+          ? 'rtl'
+          : 'ltr',
       stopwatchStart: true,
       stopwatchReset: false,
       gpsOffModal: false,
       available: false,
       startLocationTracking: false,
-      patientName: "عبدالرحمن خالد شافعي",
-      patientPhoneNumber: '+201001796904',
-      patientLocation: {
-        latitude: 31.05795,
-        longitude: 32.038479
-      }
+      patientName: null,
+      patientPhoneNumber: null,
+      patientLocation: null
     };
+    this.sendLiveLocation = this.sendLiveLocation.bind(this);
     this.socket = io(
-      axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4),
+      axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4) +
+        'available/ambulances',
       { autoConnect: false }
     );
   }
@@ -89,33 +95,22 @@ class AmbulanceHome extends Component {
     if (this.state.available && !this.socket.connected) {
       this.socket.open();
       this.socket.emit('available', {
-        phoneNumber: this.props.phoneNumber,
-        userType: this.props.userType
+        phoneNumber: this.props.phoneNumber
       });
-      this.socket.on(this.props.phoneNumber, data => {
-        if (!this.state.startLocationTracking) {
-          this.setState({
-            patientName: data.name,
-            patientPhoneNumber: data.phone,
-            patientLocation: data.location,
-            startLocationTracking: true
-          });
-        }
+      this.socket.on('send live location', data => {
+        console.log(data);
+        this.setState({
+          patientName: data.name,
+          patientPhoneNumber: '+' + data.phoneNumber,
+          patientLocation: data.location,
+          startLocationTracking: true
+        });
+        locationEmitterID = setInterval(this.sendLiveLocation, 1000);
       });
     } else {
       if (!this.state.available && this.socket.connected) {
         this.socket.close();
       }
-    }
-    if (
-      this.state.available &&
-      this.socket.connected &&
-      this.state.startLocationTracking
-    ) {
-      this.socket.emit(this.props.phoneNumber, {
-        latitude: this.props.position.coords.latitude,
-        longitude: this.props.position.coords.longitude
-      });
     }
   }
 
@@ -171,34 +166,30 @@ class AmbulanceHome extends Component {
     if (this.state.available && !this.socket.connected) {
       this.socket.open();
       this.socket.emit('available', {
-        phoneNumber: this.props.phoneNumber,
-        userType: this.props.userType
+        phoneNumber: this.props.phoneNumber
       });
-      this.socket.on(this.props.phoneNumber, data => {
-        if (!this.state.startLocationTracking) {
-          this.setState({
-            patientName: data.name,
-            patientPhoneNumber: data.phone,
-            patientLocation: data.location,
-            startLocationTracking: true
-          });
-        }
+      this.socket.on('send live location', data => {
+        this.setState({
+          patientName: data.name,
+          patientPhoneNumber: '+' + data.phoneNumber,
+          patientLocation: data.location,
+          startLocationTracking: true
+        });
+        locationEmitterID = setInterval(this.sendLiveLocation, 1000);
       });
     } else {
       if (!this.state.available && this.socket.connected) {
         this.socket.close();
       }
     }
-    if (
-      this.state.available &&
-      this.socket.connected &&
-      this.state.startLocationTracking
-    ) {
-      this.socket.emit(this.props.phoneNumber, {
-        latitude: this.props.position.coords.latitude,
-        longitude: this.props.position.coords.longitude
-      });
-    }
+  }
+
+  sendLiveLocation() {
+    this.socket.emit('location', {
+      latitude: this.props.position.coords.latitude,
+      longitude: this.props.position.coords.longitude,
+      heading: this.props.position.coords.heading
+    });
   }
 
   renderLocationPermissionRequestModal() {
@@ -255,7 +246,7 @@ class AmbulanceHome extends Component {
                 ]}
               >
                 <Text style={{ color: '#d76674', fontFamily: 'Jaldi-Bold' }}>
-                  Refresh
+                  {t.Refresh}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -291,7 +282,10 @@ class AmbulanceHome extends Component {
         latitude: this.props.position.coords.latitude,
         longitude: this.props.position.coords.longitude
       },
-      destination: this.state.patientLocation,
+      destination: {
+        latitude: this.state.patientLocation.latitude,
+        longitude: this.state.patientLocation.longitude
+      },
       params: [
         {
           key: 'travelmode',
@@ -323,9 +317,7 @@ class AmbulanceHome extends Component {
               textAlign: 'center'
             }}
           >
-            {/* Looks like you are taking a break. Turn the switch to "Available" to
-            start saving lives! */}
-            يبدو انك تأخذ قسطًا من الراحة. حول الزر إلي متاح و انقذ حياة الناس!
+            {t.notAvailableText}
           </Text>
         </View>
       );
@@ -333,7 +325,9 @@ class AmbulanceHome extends Component {
     if (this.state.available && !this.state.startLocationTracking) {
       return (
         <View>
-          <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+          <View
+            style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}
+          >
             <Image
               source={Images.loupe}
               style={{ width: 140, height: 140 }}
@@ -347,9 +341,7 @@ class AmbulanceHome extends Component {
                 textAlign: 'center'
               }}
             >
-              {/* Looks like you are taking a break. Turn the switch to "Available" to
-            start saving lives! */}
-              جاري البحث علي من يحتاج المساعدة
+              {t.searchForHelp}
             </Text>
           </View>
           <Pulse
@@ -435,7 +427,7 @@ class AmbulanceHome extends Component {
                   size={17}
                 />
                 <Text style={{ color: '#d76674', fontFamily: 'Jaldi-Bold' }}>
-                  التواصل عبر الخط
+                  {t.CarrierCall}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -461,7 +453,7 @@ class AmbulanceHome extends Component {
                   size={17}
                 />
                 <Text style={{ color: '#57a25b', fontFamily: 'Jaldi-Bold' }}>
-                  التواصل عن طريق الفديو
+                  {t.MakeVideoCall}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -490,8 +482,15 @@ class AmbulanceHome extends Component {
               {this.renderAmbulanceStates()}
               {this.state.startLocationTracking ? (
                 <TouchableOpacity
-                  style={{ width: '50%', height: 50 }}
+                  style={{
+                    width: '50%',
+                    height: 50,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginBottom: 20
+                  }}
                   onPress={() => {
+                    this.socket.close();
                     this.setState({
                       patientName: null,
                       patientPhoneNumber: null,
@@ -500,6 +499,7 @@ class AmbulanceHome extends Component {
                       startLocationTracking: false,
                       available: false
                     });
+                    clearInterval(locationEmitterID);
                   }}
                 >
                   <View
@@ -509,8 +509,8 @@ class AmbulanceHome extends Component {
                       alignItems: 'center',
                       borderRadius: 30,
                       flexDirection: 'row',
-                      marginBottom: 10,
-                      flex: 1
+                      flex: 1,
+                      width: '100%'
                     }}
                   >
                     <Icon
@@ -521,7 +521,7 @@ class AmbulanceHome extends Component {
                       size={17}
                     />
                     <Text style={{ color: 'white', fontFamily: 'Jaldi-Bold' }}>
-                      لقد وصلت
+                      {t.Arrived}
                     </Text>
                   </View>
                 </TouchableOpacity>
