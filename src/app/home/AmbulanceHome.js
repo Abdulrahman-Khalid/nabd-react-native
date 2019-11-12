@@ -57,7 +57,12 @@ class AmbulanceHome extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isRtl: this.props.language.lang === 'ar' ? 'rtl' : 'ltr',
+      isRtl:
+        deviceLanguage == 'ar'
+          ? 'rtl'
+          : this.props.language.lang === 'ar'
+          ? 'rtl'
+          : 'ltr',
       stopwatchStart: true,
       stopwatchReset: false,
       gpsOffModal: false,
