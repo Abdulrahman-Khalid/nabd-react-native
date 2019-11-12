@@ -5,7 +5,8 @@ import {
   Image,
   TouchableOpacity,
   Text,
-  ActivityIndicator
+  ActivityIndicator,
+  NativeModules
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import { connect } from 'react-redux';
@@ -15,6 +16,12 @@ import { FAB, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
 import LinearGradient from 'react-native-linear-gradient';
+import mapStyle from '../config/GoogleMapsCustomStyle';
+
+const deviceLanguage =
+  Platform.OS === 'ios'
+    ? NativeModules.SettingsManager.settings.AppleLocale.substring(0, 1)
+    : NativeModules.I18nManager.localeIdentifier.substring(0, 1);
 
 class LocationPicker extends Component {
   constructor(props) {
@@ -63,6 +70,7 @@ class LocationPicker extends Component {
       <View style={{ flex: 1 }}>
         <MapView
           style={{ flex: 1, marginBottom: this.state.mapMarginBottom }}
+          customMapStyle={mapStyle}
           initialRegion={this.state.region}
           onRegionChangeComplete={this.onRegionChange}
           provider={MapView.PROVIDER_GOOGLE}
@@ -70,13 +78,6 @@ class LocationPicker extends Component {
           showsMyLocationButton={false}
           onMapReady={() => this.setState({ mapMarginBottom: 0 })}
           ref={ref => (this.mapView = ref)}
-        />
-        <LinearGradient
-          start={{ x: 1.0, y: 1.0 }}
-          end={{ x: 1.0, y: 0.0 }}
-          locations={[0.1, 1.0]}
-          colors={['transparent', 'rgba(0, 0, 0, 0.5)']}
-          style={styles.linearGradient}
         />
         {/* <MapSearch onLocationSelected={this.handleSearchedLocationSelected} /> */}
         <View style={styles.markerFixed}>
@@ -139,7 +140,15 @@ class LocationPicker extends Component {
           onPress={this.props.cancelOnPress}
         >
           <Icon
-            name="chevron-left"
+            name={
+              deviceLanguage == 'ar'
+                ? this.props.language.lang === 'ar'
+                  ? 'chevron-left'
+                  : 'chevron-right'
+                : this.props.language.lang === 'ar'
+                ? 'chevron-right'
+                : 'chevron-left'
+            }
             size={25}
             color="white"
             style={{ alignSelf: 'center' }}
@@ -197,7 +206,10 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => ({ position: state.location.position });
+const mapStateToProps = state => ({
+  position: state.location.position,
+  language: state.language
+});
 
 export default connect(
   mapStateToProps,
