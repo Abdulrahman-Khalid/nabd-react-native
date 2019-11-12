@@ -65,6 +65,7 @@ export default en = {
   CarrierCall: 'Make a Carrier Call',
   MakeVideoCall: 'Make a Video Call',
   Arrived: "I've Arrived",
+  AmbulanceArrived: 'Ambulance car has arrived!',
   Refresh: 'Refresh',
   AllFine: 'Looks like everything is fine!',
   RequiredField: 'This field is required',

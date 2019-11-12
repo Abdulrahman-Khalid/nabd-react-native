@@ -61,6 +61,7 @@ export default ar = {
   CarrierCall: 'التواصل عبر الخط',
   MakeVideoCall: 'التواصل عن طريق الفديو',
   Arrived: 'لقد وصلت',
+  AmbulanceArrived: 'لقد وصلت عربة الاسعاف!',
   Refresh: 'إعادة التحميل',
   AllFine: 'يبدو أن كل شيءٍ على ما يرام!',
   RequiredField: 'هذا الحقل مطلوب',
