@@ -105,7 +105,7 @@ class AmbulanceHome extends Component {
           patientLocation: data.location,
           startLocationTracking: true
         });
-        locationEmitterID = setInterval(this.sendLiveLocation, 1000);
+        locationEmitterID = setInterval(this.sendLiveLocation, 2000);
       });
     } else {
       if (!this.state.available && this.socket.connected) {
@@ -175,7 +175,7 @@ class AmbulanceHome extends Component {
           patientLocation: data.location,
           startLocationTracking: true
         });
-        locationEmitterID = setInterval(this.sendLiveLocation, 1000);
+        locationEmitterID = setInterval(this.sendLiveLocation, 2000);
       });
     } else {
       if (!this.state.available && this.socket.connected) {
