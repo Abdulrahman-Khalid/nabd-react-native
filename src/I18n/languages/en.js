@@ -168,6 +168,7 @@ export default en = {
   PVWeak: 'Password is very weak',
   PWeak: 'Password is weak',
 
+  SearchForAPlace: 'Search',
   Call: 'Call',
   CallFrom: 'Incoming call from:',
   Incidents: 'Incidents',
