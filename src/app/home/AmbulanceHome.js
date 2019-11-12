@@ -34,6 +34,8 @@ import { Stopwatch } from 'react-native-stopwatch-timer';
 
 const { width, height } = Dimensions.get('screen');
 
+var locationEmitterID = null;
+
 const stopWatchOptions = {
   container: {
     backgroundColor: Colors.LIGHT,
@@ -65,6 +67,7 @@ class AmbulanceHome extends Component {
       patientPhoneNumber: null,
       patientLocation: null
     };
+    this.sendLiveLocation = this.sendLiveLocation.bind(this);
     this.socket = io(
       axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4) +
         'available/ambulances',
@@ -90,29 +93,19 @@ class AmbulanceHome extends Component {
         phoneNumber: this.props.phoneNumber
       });
       this.socket.on('send live location', data => {
-        console.log(data)
+        console.log(data);
         this.setState({
           patientName: data.name,
           patientPhoneNumber: '+' + data.phoneNumber,
           patientLocation: data.location,
           startLocationTracking: true
         });
+        locationEmitterID = setInterval(this.sendLiveLocation, 1000);
       });
     } else {
       if (!this.state.available && this.socket.connected) {
         this.socket.close();
       }
-    }
-    if (
-      this.state.available &&
-      this.socket.connected &&
-      this.state.startLocationTracking
-    ) {
-      this.socket.emit('location', {
-        latitude: this.props.position.coords.latitude,
-        longitude: this.props.position.coords.longitude,
-        heading: this.props.position.coords.heading
-      });
     }
   }
 
@@ -171,32 +164,27 @@ class AmbulanceHome extends Component {
         phoneNumber: this.props.phoneNumber
       });
       this.socket.on('send live location', data => {
-        console.log(data)
         this.setState({
           patientName: data.name,
           patientPhoneNumber: '+' + data.phoneNumber,
           patientLocation: data.location,
           startLocationTracking: true
         });
+        locationEmitterID = setInterval(this.sendLiveLocation, 1000);
       });
     } else {
       if (!this.state.available && this.socket.connected) {
         this.socket.close();
       }
     }
-    if (
-      this.state.available &&
-      this.socket.connected &&
-      this.state.startLocationTracking
-    ) {
-        console.log(this.props.position)
+  }
 
-      this.socket.emit('location', {
-        latitude: this.props.position.coords.latitude,
-        longitude: this.props.position.coords.longitude,
-        heading: this.props.position.coords.heading
-      });
-    }
+  sendLiveLocation() {
+    this.socket.emit('location', {
+      latitude: this.props.position.coords.latitude,
+      longitude: this.props.position.coords.longitude,
+      heading: this.props.position.coords.heading
+    });
   }
 
   renderLocationPermissionRequestModal() {
@@ -489,7 +477,13 @@ class AmbulanceHome extends Component {
               {this.renderAmbulanceStates()}
               {this.state.startLocationTracking ? (
                 <TouchableOpacity
-                  style={{ width: '50%', height: 50 }}
+                  style={{
+                    width: '50%',
+                    height: 50,
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    marginBottom: 20
+                  }}
                   onPress={() => {
                     this.socket.close();
                     this.setState({
@@ -500,6 +494,7 @@ class AmbulanceHome extends Component {
                       startLocationTracking: false,
                       available: false
                     });
+                    clearInterval(locationEmitterID);
                   }}
                 >
                   <View
@@ -509,8 +504,8 @@ class AmbulanceHome extends Component {
                       alignItems: 'center',
                       borderRadius: 30,
                       flexDirection: 'row',
-                      marginBottom: 10,
-                      flex: 1
+                      flex: 1,
+                      width: '100%'
                     }}
                   >
                     <Icon
