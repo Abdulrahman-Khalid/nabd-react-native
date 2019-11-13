@@ -8,9 +8,10 @@ import { resetSignInReducerState } from './actions';
 class Err extends Component {
   errorHandler = ({ response }) => {
     if (response) {
+      console.log(JSON.stringify(response.status));
       switch (response.status) {
         case 403:
-          return Alert.alert(
+          Alert.alert(
             t.ErrorHappend,
             t.UnAuthorized,
             [
@@ -27,12 +28,17 @@ class Err extends Component {
               cancelable: false
             }
           );
+          break;
+        case 400:
+          Alert.alert('', t.WrongPassword, [
+            {
+              text: t.OK
+            }
+          ]);
+          break;
       }
     }
   };
 }
 
-export default connect(
-  null,
-  { resetSignInReducerState }
-)(Err);
+export default connect(null, { resetSignInReducerState })(Err);

@@ -158,7 +158,7 @@ export class Incidents extends Component {
         }
       })
       .catch(error => {
-        Err.errorHandler(error);
+        // Err.errorHandler(error);
         console.log(error);
       })
       .then(() => {});
@@ -175,7 +175,7 @@ export class Incidents extends Component {
         this.pullRefresh();
       })
       .catch(error => {
-        Err.errorHandler(error);
+        // Err.errorHandler(error);
       })
       .then(() => {});
   }
@@ -508,7 +508,4 @@ const mapStateToProps = state => ({
   userID: state.signin.phone.substring(1)
 });
 
-export default connect(
-  mapStateToProps,
-  { addedNewIncident }
-)(Incidents);
+export default connect(mapStateToProps, { addedNewIncident })(Incidents);

@@ -33,16 +33,13 @@ class LanguageSelection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isRtl:
-        deviceLanguage == 'ar'
-          ? 'rtl'
-          : this.props.language.lang === 'ar'
-          ? 'rtl'
-          : 'ltr',
+      isRtl: 'rtl',
       switchText1: this.props.language.lang === 'en' ? 'English' : 'العربية',
       switchText2: this.props.language.lang === 'ar' ? 'English' : 'العربية',
       loading: true
     };
+    if (deviceLanguage === 'en' && this.props.language.lang === 'en')
+      this.setState({ isRtl: 'ltr' });
   }
 
   componentDidMount() {
@@ -211,7 +208,4 @@ const mapStateToProps = state => ({
   token: state.signin.token
 });
 
-export default connect(
-  mapStateToProps,
-  { switchLanguage }
-)(LanguageSelection);
+export default connect(mapStateToProps, { switchLanguage })(LanguageSelection);

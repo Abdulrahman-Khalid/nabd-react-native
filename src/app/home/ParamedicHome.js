@@ -30,20 +30,23 @@ import Geolocation from 'react-native-geolocation-service';
 
 const { width, height } = Dimensions.get('screen');
 
+const deviceLanguage =
+  Platform.OS === 'ios'
+    ? NativeModules.SettingsManager.settings.AppleLocale.substring(0, 1)
+    : NativeModules.I18nManager.localeIdentifier.substring(0, 1);
+
 class ParamedicHome extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isRtl:
-        deviceLanguage == 'ar'
-          ? 'rtl'
-          : this.props.language.lang === 'ar'
-          ? 'rtl'
-          : 'ltr',
+      isRtl: 'rtl',
       switchValue: false,
       gpsOffModal: false,
       available: false
     };
+    if (deviceLanguage === 'en' && this.props.language.lang === 'en')
+      this.setState({ isRtl: 'ltr' });
+
     this.socket = io.connect(
       axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4) +
         `available/${this.props.userType}s`,
@@ -537,7 +540,7 @@ const mapStateToProps = state => ({
   ambulancePhoneNumber: state.ambulanceRequest.ambulancePhoneNumber
 });
 
-export default connect(
-  mapStateToProps,
-  { requestLocationPermission, updateLocation }
-)(ParamedicHome);
+export default connect(mapStateToProps, {
+  requestLocationPermission,
+  updateLocation
+})(ParamedicHome);

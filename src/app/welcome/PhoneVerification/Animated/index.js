@@ -201,9 +201,9 @@ class AnimatedExample extends Component {
   render() {
     /*concept : https://dribbble.com/shots/5476562-Forgot-Password-Verification/attachments */
     return (
-      <Block flex>
+      <View>
         <View style={styles.inputWrapper}>
-          <Text style={styles.inputLabel}>Verification</Text>
+          <Text style={styles.inputLabel}>{t.Verification}</Text>
           <Image
             style={styles.icon}
             source={Images.verification}
@@ -225,15 +225,17 @@ class AnimatedExample extends Component {
               onFulfill={this.handlerOnFulfill}
               CellComponent={Animated.Text}
             />
-            <TouchableOpacity
-              style={styles.resendCodeButton}
-              onPress={this.resendCode}
-            >
-              <Text style={styles.resendCodeText}>{t.ResendCode}</Text>
-            </TouchableOpacity>
           </Block>
         </View>
-      </Block>
+        <View>
+          <TouchableOpacity
+            style={styles.resendCodeButton}
+            onPress={this.resendCode}
+          >
+            <Text style={styles.resendCodeText}>{t.ResendCode}</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     );
   }
 }

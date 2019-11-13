@@ -10,6 +10,8 @@ export default en = {
     'Location service is not enabled or location mode is not appropriate for the current request',
   Error6: 'Please try again',
   AuthFailed: 'Authentication failed',
+  Verification: 'Verification',
+  WrongPassword: 'Wrong password',
   logoutFailed: 'Logout failed',
   GeneralRequestError: 'Request error happended',
   Failed: 'Failed',

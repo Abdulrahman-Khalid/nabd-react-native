@@ -10,6 +10,8 @@ export default ar = {
   AuthFailed: 'فشل تسجيل الدخول',
   logoutFailed: 'فشل تسجيل الخروج',
   GeneralRequestError: 'حدث خطأ بالطلب',
+  Verification: 'تأكيد رقم الهاتف',
+  WrongPassword: 'كلمة مرور خاطئة',
   Failed: 'فشل',
   Success: 'نجح',
   ConfirmationCode: 'كود التأكيد',

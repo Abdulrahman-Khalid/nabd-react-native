@@ -126,22 +126,24 @@ class Register extends React.Component {
     // console.log('hi', this.state);
     return (
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={this.createAccountPressed}
-        >
-          <View style={styles.button}>
-            {this.props.loading ? (
-              <Spinner color={Colors.WHITE} size="small" />
-            ) : (
+        {this.props.loading ? (
+          <View style={[styles.buttonContainer, styles.button]}>
+            <Spinner color={Colors.WHITE} size="small" />
+          </View>
+        ) : (
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={this.createAccountPressed}
+          >
+            <View style={styles.button}>
               <Text
                 style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
               >
                 {t.CreateAccount}
               </Text>
-            )}
-          </View>
-        </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+        )}
       </View>
     );
   }
@@ -891,14 +893,11 @@ const mapSateToProps = state => {
   };
 };
 
-export default connect(
-  mapSateToProps,
-  {
-    signUpAttempt,
-    fillSignUpForm,
-    validateName,
-    validateConfirmPassword,
-    validateBirthday,
-    validatePhone
-  }
-)(Register);
+export default connect(mapSateToProps, {
+  signUpAttempt,
+  fillSignUpForm,
+  validateName,
+  validateConfirmPassword,
+  validateBirthday,
+  validatePhone
+})(Register);

@@ -196,7 +196,7 @@ class UserHome extends Component {
       })
       .catch(error => {
         console.log(error);
-        Err.errorHandler(error);
+        // Err.errorHandler(error);
         Alert.alert(t.CallFailed, t.ServerError, [
           {
             text: t.OK
@@ -723,7 +723,7 @@ class UserHome extends Component {
           }
         })
         .catch(err => {
-          Err.errorHandler(error);
+          // Err.errorHandler(error);
           let error = JSON.stringify(err);
           error = JSON.parse(error);
           this.setState({
@@ -759,7 +759,7 @@ class UserHome extends Component {
           }
         })
         .catch(err => {
-          Err.errorHandler(error);
+          // Err.errorHandler(error);
           let error = JSON.stringify(err);
           error = JSON.parse(error);
           this.setState({
@@ -1016,13 +1016,10 @@ const mapStateToProps = state => {
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    selectHelperType,
-    requestHelp,
-    requestLocationPermission,
-    updateLocation,
-    updateAmbulanceNumber
-  }
-)(UserHome);
+export default connect(mapStateToProps, {
+  selectHelperType,
+  requestHelp,
+  requestLocationPermission,
+  updateLocation,
+  updateAmbulanceNumber
+})(UserHome);
