@@ -110,6 +110,8 @@ class AmbulanceHome extends Component {
     } else {
       if (!this.state.available && this.socket.connected) {
         this.socket.close();
+        clearInterval(locationEmitterID);
+        locationEmitterID = null;
       }
     }
   }
@@ -180,6 +182,8 @@ class AmbulanceHome extends Component {
     } else {
       if (!this.state.available && this.socket.connected) {
         this.socket.close();
+        clearInterval(locationEmitterID);
+        locationEmitterID = null;
       }
     }
   }
@@ -500,6 +504,7 @@ class AmbulanceHome extends Component {
                       available: false
                     });
                     clearInterval(locationEmitterID);
+                    locationEmitterID = null;
                   }}
                 >
                   <View
@@ -717,7 +722,7 @@ const mapStateToProps = state => ({
   language: state.language
 });
 
-export default connect(
-  mapStateToProps,
-  { requestLocationPermission, updateLocation }
-)(AmbulanceHome);
+export default connect(mapStateToProps, {
+  requestLocationPermission,
+  updateLocation
+})(AmbulanceHome);
