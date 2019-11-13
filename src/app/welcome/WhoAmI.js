@@ -3,14 +3,12 @@ import { Image, TouchableOpacity, Text } from 'react-native';
 import { Button, Icon } from '../../components';
 import { theme } from 'galio-framework';
 import { Actions } from 'react-native-router-flux';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Colors, Images } from '../../constants';
 import { connect } from 'react-redux';
 import { setUserType, getWelcomeInfo } from '../../actions';
-import axios from 'axios';
 import t from '../../I18n';
 
-const { width, height } = Dimensions.get('screen');
 class WhoAmI extends Component {
   ambulance() {
     this.props.setUserType('ambulance');
