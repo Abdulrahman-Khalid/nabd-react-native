@@ -13,7 +13,6 @@ import UserHome from './app/home/UserHome';
 import WaitForAmbulance from './app/home/WaitForAmbulance';
 import ParamedicHome from './app/home/ParamedicHome';
 import AmbulanceHome from './app/home/AmbulanceHome';
-import MainScreen from './app/videoCall/screens/MainScreen';
 import UserSettings from './app/settings/UserSettings';
 import AddIncident from './app/home/AddIncident';
 import { Colors } from './constants';
@@ -381,12 +380,7 @@ class RouterComponent extends Component {
               hideNavBar={false}
             />
           </Scene>
-          <Scene
-            key="main"
-            component={MainScreen}
-            title={t.Incidents}
-            icon={() => <Icon name="lifebuoy" size={25} />}
-          />
+
           <Scene key="CallScreen" component={CallScreen} hideNavBar={true} />
 
           <Scene

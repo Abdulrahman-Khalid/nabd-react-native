@@ -13,7 +13,6 @@ import { View, Picker } from 'react-native';
 import t from '../../I18n';
 import email from 'react-native-email';
 import axios from 'axios';
-import Err from '../../ErrorHandler';
 
 class UserSettings extends Component {
   constructor(props) {

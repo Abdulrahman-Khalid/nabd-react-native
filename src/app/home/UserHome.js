@@ -115,9 +115,6 @@ class UserHome extends Component {
   };
 
   async makeCall(isVideoCall, helperNumber) {
-    console.log(
-      'MainScreen: make call: ' + helperNumber + ', isVideo:' + isVideoCall
-    );
     try {
       if (Platform.OS === 'android') {
         let permissions = [PermissionsAndroid.PERMISSIONS.RECORD_AUDIO];
