@@ -15,6 +15,7 @@ export default ar = {
   Failed: 'فشل',
   Success: 'نجح',
   ConfirmationCode: 'كود التأكيد',
+  EnterVerificationCode: 'من فضلك ادخل كود التأكيد\n المرسل الى',
   ResendCode: 'اعادة ارسال',
 
   InternalMedicine: 'الباطنة والأمراض الصدرية',
@@ -151,7 +152,7 @@ export default ar = {
   PrivacyPolicy: 'سياسة الخصوصية',
   ForgotPassword: 'هل نسيت كلمة المرور؟',
   LogIn: 'تسجيل الدخول',
-  PasswordStrength: ' :قوة كلمة المرور',
+  PasswordStrength: ' : قوة كلمة المرور',
   SpecializationEmptyError: 'يجب عليك اختيار تخصصك الطبي',
   NameEmpty: 'خانة اسم المستخدم فارغة',
   SignUpFailed: 'فشل في إنشاءالحساب',

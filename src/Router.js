@@ -400,7 +400,7 @@ class RouterComponent extends Component {
   }
 }
 
-export default connect(
-  null,
-  { resetSignUpReducerState, resetSignInReducerState }
-)(RouterComponent);
+export default connect(null, {
+  resetSignUpReducerState,
+  resetSignInReducerState
+})(RouterComponent);

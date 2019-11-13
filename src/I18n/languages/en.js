@@ -11,6 +11,7 @@ export default en = {
   Error6: 'Please try again',
   AuthFailed: 'Authentication failed',
   Verification: 'Verification',
+  EnterVerificationCode: 'Please enter the verification code\nwe sent to ',
   WrongPassword: 'Wrong password',
   logoutFailed: 'Logout failed',
   GeneralRequestError: 'Request error happended',
