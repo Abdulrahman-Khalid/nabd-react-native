@@ -22,7 +22,6 @@ import CustomIcon from './Icon';
 import LinearGradient from 'react-native-linear-gradient';
 import { Images } from '../constants';
 import t from '../I18n';
-import axios from 'axios';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -279,7 +278,7 @@ class IncidentCard extends React.Component {
                   size={17}
                 />
                 <Text style={{ color: '#d76674', fontFamily: 'IstokWeb-Bold' }}>
-                 {t.Call}
+                  {t.Call}
                 </Text>
               </View>
             </TouchableOpacity>
