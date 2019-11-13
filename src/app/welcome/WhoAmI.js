@@ -12,29 +12,6 @@ import t from '../../I18n';
 
 const { width, height } = Dimensions.get('screen');
 class WhoAmI extends Component {
-  componentDidMount() {
-    if (this.props.token) {
-      axios.defaults.headers.common['TOKEN'] = this.props.token;
-      switch (this.props.userType) {
-        case 'user':
-          Actions.userHome();
-          break;
-        case 'doctor':
-          Actions.paramedicHome();
-          break;
-        case 'paramedic':
-          Actions.paramedicHome();
-          break;
-        case 'ambulance':
-          Actions.ambulanceHome();
-          break;
-      }
-    } else {
-      console.log('No token');
-      // this.props.getWelcomeInfo();
-    }
-  }
-
   ambulance() {
     this.props.setUserType('ambulance');
     Actions.iAmbulance();
