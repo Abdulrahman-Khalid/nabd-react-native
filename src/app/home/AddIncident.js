@@ -111,7 +111,7 @@ class AddIncident extends Component {
 
         .catch(err => {
           // handle error
-          Err.errorHandler(err);
+          // Err.errorHandler(err);
           let error = JSON.stringify(err);
           error = JSON.parse(error);
           console.log(error);
@@ -132,7 +132,7 @@ class AddIncident extends Component {
             })
             .catch(err => {
               // handle error
-              Err.errorHandler(err);
+              // Err.errorHandler(err);
               let error = JSON.stringify(err);
               error = JSON.parse(error);
               console.log(error);
@@ -157,7 +157,7 @@ class AddIncident extends Component {
         .then(response => {})
         .catch(err => {
           // handle error
-          Err.errorHandler(err);
+          // Err.errorHandler(err);
           let error = JSON.stringify(err);
           error = JSON.parse(error);
           Actions.Incidents();
@@ -407,7 +407,4 @@ const mapStateToProps = state => ({
   userID: state.signin.phone.substring(1)
 });
 
-export default connect(
-  mapStateToProps,
-  { addedNewIncident }
-)(AddIncident);
+export default connect(mapStateToProps, { addedNewIncident })(AddIncident);
