@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Linking,
-  Share,
-  NativeModules,
-  I18nManager,
-  TouchableOpacity
-} from 'react-native';
+import { Linking, Share, NativeModules, Alert } from 'react-native';
 import ReactNativeSettingsPage, {
   SectionRow,
   NavigateRow
@@ -44,16 +38,29 @@ class UserSettings extends Component {
   logoutButtonPressed() {
     axios.defaults.headers.common['TOKEN'] = '';
     this.props.resetSignInReducerState();
-    Actions.welcome();
+    Actions.reset('languageSelection');
+  }
+
+  userTypeDisplay() {
+    switch (this.props.userType) {
+      case 'user':
+        return <TextDisplay iconName="user" text={t.User} />;
+      case 'doctor':
+        return <TextDisplay iconName="user" text={t.Doctor} />;
+      case 'paramedic':
+        return <TextDisplay iconName="user" text={t.Paramedic} />;
+      case 'ambulance':
+        return <TextDisplay iconName="user" text={t.Ambulance} />;
+    }
   }
 
   render() {
     return (
       <ReactNativeSettingsPage>
         <SectionRow text={t.Profile}>
-          <TextDisplay iconName="user" text={this.props.userType} />
           <TextDisplay iconName="user" text={this.props.userName} />
           <TextDisplay iconName="phone" text={this.props.phone} />
+          {this.userTypeDisplay()}
         </SectionRow>
         <SectionRow text={t.Language}>
           <View style={{ flex: 1 }}>

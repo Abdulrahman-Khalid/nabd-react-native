@@ -21,7 +21,6 @@ import {
 } from 'react-native';
 import { requestLocationPermission, updateLocation } from '../../actions';
 import { Icon, SwitchButton } from '../../components';
-import RadioForm, { RadioButton } from 'react-native-simple-radio-button';
 import axios from 'axios';
 import t from '../../I18n';
 import io from 'socket.io-client';
@@ -147,8 +146,8 @@ class ParamedicHome extends Component {
         { enableHighAccuracy: true }
       );
     }
-    if(this.props.position && this.props.ambulancePhoneNumber) {
-      Actions.waitForAmbulance()
+    if (this.props.position && this.props.ambulancePhoneNumber) {
+      Actions.waitForAmbulance();
     }
     if (this.state.available && !this.socket.connected) {
       this.socket.open();

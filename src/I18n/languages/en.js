@@ -1,5 +1,7 @@
 export default en = {
   // toast error
+  ErrorHappened: 'Error happened',
+  UnAuthorized: 'Token expired, please signin again',
   Error1: 'Location permission is not granted',
   Error2: 'Location provider not available',
   Error3: 'Location request timed out',
@@ -7,7 +9,8 @@ export default en = {
   Error5:
     'Location service is not enabled or location mode is not appropriate for the current request',
   Error6: 'Please try again',
-  AutFailed: 'Authentication failed',
+  AuthFailed: 'Authentication failed',
+  logoutFailed: 'Logout failed',
   GeneralRequestError: 'Request error happended',
   Failed: 'Failed',
   Success: 'Succeess',
