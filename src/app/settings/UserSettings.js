@@ -36,20 +36,9 @@ class UserSettings extends Component {
   };
 
   logoutButtonPressed() {
-    axios
-      .delete(`logout/${this.props.userType}`)
-      .then(() => {
-        axios.defaults.headers.common['TOKEN'] = '';
-        this.props.resetSignInReducerState();
-        Actions.welcome();
-      })
-      .catch(response => {
-        Alert.alert(t.logoutFailed, t.ServerError, [
-          {
-            text: t.OK
-          }
-        ]);
-      });
+    axios.defaults.headers.common['TOKEN'] = '';
+    this.props.resetSignInReducerState();
+    Actions.reset('languageSelection');
   }
 
   userTypeDisplay() {

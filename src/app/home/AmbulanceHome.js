@@ -19,7 +19,6 @@ import {
   ActivityIndicator
 } from 'react-native';
 import { Icon, SwitchButton } from '../../components';
-import RadioForm, { RadioButton } from 'react-native-simple-radio-button';
 import { requestLocationPermission, updateLocation } from '../../actions';
 import axios from 'axios';
 import t from '../../I18n';

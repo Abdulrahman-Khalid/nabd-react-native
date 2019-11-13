@@ -24,6 +24,7 @@ import { isIphoneX } from 'react-native-iphone-x-helper';
 import axios from 'axios';
 import { addedNewIncident } from '../../actions';
 import t from '../../I18n';
+import Err from '../../ErrorHandler';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -32,7 +33,8 @@ const incidentsDummyData = [
     userID: '01001796904',
     description: 'حادثة علي الدائري مطلوب مساعدة',
     date: new Date(+new Date() - Math.floor(Math.random() * 10000000000)),
-    image: "https://www.europarl.europa.eu/resources/library/images/20190308PHT30931/20190308PHT30931_original.jpg",
+    image:
+      'https://www.europarl.europa.eu/resources/library/images/20190308PHT30931/20190308PHT30931_original.jpg',
     location: {
       latitude: 30.027757,
       longitude: 31.200701
@@ -54,7 +56,8 @@ const incidentsDummyData = [
     userID: '201001796904',
     description: 'طلب كيس دم ضروري في مستشفي الدفاع الجوي التخصصي',
     date: new Date(+new Date() - Math.floor(Math.random() * 10000000000)),
-    image: "https://www.usnews.com/dims4/USNEWS/c490d87/2147483647/thumbnail/1280x853/quality/85/?url=http%3A%2F%2Fcom-usnews-beam-media.s3.amazonaws.com%2Fd3%2F23%2Fdfb649b847439f73d4c8c72739e1%2F141024-eicupatient-stock.jpg",
+    image:
+      'https://www.usnews.com/dims4/USNEWS/c490d87/2147483647/thumbnail/1280x853/quality/85/?url=http%3A%2F%2Fcom-usnews-beam-media.s3.amazonaws.com%2Fd3%2F23%2Fdfb649b847439f73d4c8c72739e1%2F141024-eicupatient-stock.jpg',
     location: {
       latitude: 30.057757,
       longitude: 30.100701
@@ -65,13 +68,14 @@ const incidentsDummyData = [
     userID: '01001796906',
     description: 'الكاوتش نام مني علي الصحراوي. مطلوب مساعدة',
     date: new Date(+new Date() - Math.floor(Math.random() * 10000000000)),
-    image: "https://static.carsdn.co/cldstatic/wp-content/uploads/img1745547593-1466620128965.jpg",
+    image:
+      'https://static.carsdn.co/cldstatic/wp-content/uploads/img1745547593-1466620128965.jpg',
     location: {
       latitude: 31.057757,
       longitude: 30.100701
     },
     numberToCall: '01001796904'
-  },
+  }
 ];
 
 export class Incidents extends Component {
@@ -153,12 +157,11 @@ export class Incidents extends Component {
           }
         }
       })
-      .catch((error) => {
+      .catch(error => {
+        Err.errorHandler(error);
         console.log(error);
       })
-      .then(() => {
-        
-      });
+      .then(() => {});
   }
 
   removeIncident(id) {
@@ -172,6 +175,7 @@ export class Incidents extends Component {
         this.pullRefresh();
       })
       .catch(error => {
+        Err.errorHandler(error);
       })
       .then(() => {});
   }
@@ -299,7 +303,9 @@ export class Incidents extends Component {
                 <IncidentCard
                   key={index}
                   item={item}
-                  onPressRemove={() => {this.removeIncident(item._id)}}
+                  onPressRemove={() => {
+                    this.removeIncident(item._id);
+                  }}
                   renderRemove={this.props.userID === item.userID}
                   style={styles.incidents}
                 />
@@ -333,9 +339,7 @@ export class Incidents extends Component {
                     }
                   ]}
                 >
-                  <Text
-                    style={{ color: 'white', fontFamily: 'Jaldi-Bold' }}
-                  >
+                  <Text style={{ color: 'white', fontFamily: 'Jaldi-Bold' }}>
                     {t.Refresh}
                   </Text>
                 </View>
