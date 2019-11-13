@@ -1,12 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Linking,
-  Share,
-  NativeModules,
-  I18nManager,
-  TouchableOpacity,
-  Alert
-} from 'react-native';
+import { Linking, Share, NativeModules, Alert } from 'react-native';
 import ReactNativeSettingsPage, {
   SectionRow,
   NavigateRow
