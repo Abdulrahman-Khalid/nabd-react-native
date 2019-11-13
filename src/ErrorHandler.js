@@ -19,7 +19,7 @@ class Err extends Component {
                 onPress: () => {
                   axios.defaults.headers.common['TOKEN'] = '';
                   this.props.resetSignInReducerState();
-                  Actions.reset('languageSelection');
+                  Actions.reset('welcome');
                 }
               }
             ],
