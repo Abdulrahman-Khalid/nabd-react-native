@@ -72,7 +72,7 @@ export const signInAttempt = signInInfo => {
         console.log(error);
         dispatch({
           type: SIGNIN_FAIL,
-          payload: t.AutFailed
+          payload: t.AuthFailed
         });
       });
   };

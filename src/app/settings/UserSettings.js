@@ -4,7 +4,8 @@ import {
   Share,
   NativeModules,
   I18nManager,
-  TouchableOpacity
+  TouchableOpacity,
+  Alert
 } from 'react-native';
 import ReactNativeSettingsPage, {
   SectionRow,
@@ -42,18 +43,42 @@ class UserSettings extends Component {
   };
 
   logoutButtonPressed() {
-    axios.defaults.headers.common['TOKEN'] = '';
-    this.props.resetSignInReducerState();
-    Actions.welcome();
+    axios
+      .delete(`logout/${this.props.userType}`)
+      .then(() => {
+        axios.defaults.headers.common['TOKEN'] = '';
+        this.props.resetSignInReducerState();
+        Actions.welcome();
+      })
+      .catch(response => {
+        Alert.alert(t.logoutFailed, t.ServerError, [
+          {
+            text: t.OK
+          }
+        ]);
+      });
+  }
+
+  userTypeDisplay() {
+    switch (this.props.userType) {
+      case 'user':
+        return <TextDisplay iconName="user" text={t.User} />;
+      case 'doctor':
+        return <TextDisplay iconName="user" text={t.Doctor} />;
+      case 'paramedic':
+        return <TextDisplay iconName="user" text={t.Paramedic} />;
+      case 'ambulance':
+        return <TextDisplay iconName="user" text={t.Ambulance} />;
+    }
   }
 
   render() {
     return (
       <ReactNativeSettingsPage>
         <SectionRow text={t.Profile}>
-          <TextDisplay iconName="user" text={this.props.userType} />
           <TextDisplay iconName="user" text={this.props.userName} />
           <TextDisplay iconName="phone" text={this.props.phone} />
+          {this.userTypeDisplay()}
         </SectionRow>
         <SectionRow text={t.Language}>
           <View style={{ flex: 1 }}>
