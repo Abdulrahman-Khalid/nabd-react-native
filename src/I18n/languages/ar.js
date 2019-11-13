@@ -173,6 +173,7 @@ export default ar = {
   PWeak: 'كلمة السر ضعيفة',
   Cancel: 'اغلاق',
 
+  ProceedCarefully: 'استكمل بحذر',
   SearchForAPlace: 'ابحث',
   Incidents: 'الحوادث',
   AddIncident: 'إضافة حادثة',

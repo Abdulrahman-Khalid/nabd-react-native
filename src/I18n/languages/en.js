@@ -92,7 +92,7 @@ export default en = {
   Password: 'Password',
   PhoneNumber: 'Phone Number',
   Language: 'Language',
-  ContactWithUs: 'Contact with us',
+  ContactWithUs: 'Contact us',
   Facebook: 'Facebook',
   Twitter: 'Twitter',
   HelpUs: 'Help us grow',
@@ -174,6 +174,7 @@ export default en = {
   PVWeak: 'Password is very weak',
   PWeak: 'Password is weak',
 
+  ProceedCarefully: 'Proceed carefully',
   SearchForAPlace: 'Search',
   Call: 'Call',
   CallFrom: 'Incoming call from:',
