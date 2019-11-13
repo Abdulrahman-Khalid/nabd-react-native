@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Image, TouchableOpacity, Text } from 'react-native';
-import { Button, Icon } from '../../components';
 import { theme } from 'galio-framework';
 import { Actions } from 'react-native-router-flux';
 import { View, StyleSheet } from 'react-native';
