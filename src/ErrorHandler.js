@@ -1,3 +1,4 @@
+import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { Alert } from 'react-native';
 import t from './I18n';
