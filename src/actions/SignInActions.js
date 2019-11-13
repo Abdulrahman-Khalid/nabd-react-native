@@ -55,16 +55,16 @@ export const signInAttempt = signInInfo => {
         });
         switch (userType) {
           case 'user':
-            Actions.userHome();
+            Actions.reset('userHome');
             break;
           case 'doctor':
-            Actions.doctorHome();
+            Actions.reset('doctorHome');
             break;
           case 'paramedic':
-            Actions.paramedicHome();
+            Actions.reset('paramedicHome');
             break;
           case 'ambulance':
-            Actions.ambulanceHome();
+            Actions.reset('ambulanceHome');
             break;
         }
       })

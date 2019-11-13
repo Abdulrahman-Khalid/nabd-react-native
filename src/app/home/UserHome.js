@@ -32,6 +32,7 @@ import {
   NativeModules,
   PermissionsAndroid
 } from 'react-native';
+import Err from '../../ErrorHandler';
 import {
   Card,
   Modal as CustomModal,
@@ -83,6 +84,7 @@ class UserHome extends Component {
       loading: false,
       loadingModalVisible: false
     };
+
     this.requestAmbulance = this.requestAmbulance.bind(this);
   }
 
@@ -197,6 +199,7 @@ class UserHome extends Component {
       })
       .catch(error => {
         console.log(error);
+        Err.errorHandler(error);
         Alert.alert(t.CallFailed, t.ServerError, [
           {
             text: t.OK
@@ -699,7 +702,7 @@ class UserHome extends Component {
     });
   };
 
-  sendAmbulanceRequest = (sendCurrentLocation) => {
+  sendAmbulanceRequest = sendCurrentLocation => {
     if (sendCurrentLocation) {
       axios
         .post('request/ambulance', {
@@ -723,6 +726,7 @@ class UserHome extends Component {
           }
         })
         .catch(err => {
+          Err.errorHandler(error);
           let error = JSON.stringify(err);
           error = JSON.parse(error);
           this.setState({
@@ -758,15 +762,16 @@ class UserHome extends Component {
           }
         })
         .catch(err => {
+          Err.errorHandler(error);
           let error = JSON.stringify(err);
           error = JSON.parse(error);
           this.setState({
-            loading: false,
+            loading: false
           });
         })
         .then(() => {
           this.setState({
-            loading: false,
+            loading: false
           });
         });
     }
@@ -788,7 +793,9 @@ class UserHome extends Component {
             });
           }}
           cancelOnPress={this.modalCancelOnPress}
-          onPressSubmit={() => {this.sendAmbulanceRequest(false)}}
+          onPressSubmit={() => {
+            this.sendAmbulanceRequest(false);
+          }}
           loading={this.state.loading}
         />
       </Modal>

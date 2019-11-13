@@ -13,6 +13,7 @@ import { View, Picker } from 'react-native';
 import t from '../../I18n';
 import email from 'react-native-email';
 import axios from 'axios';
+import Err from '../../ErrorHandler';
 
 class UserSettings extends Component {
   constructor(props) {
@@ -41,9 +42,10 @@ class UserSettings extends Component {
       .then(() => {
         axios.defaults.headers.common['TOKEN'] = '';
         this.props.resetSignInReducerState();
-        Actions.welcome();
+        Actions.reset('languageSelection');
       })
-      .catch(response => {
+      .catch(err => {
+        Err.errorHandler(err);
         Alert.alert(t.logoutFailed, t.ServerError, [
           {
             text: t.OK
