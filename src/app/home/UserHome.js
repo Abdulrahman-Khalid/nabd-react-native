@@ -140,8 +140,7 @@ class UserHome extends Component {
         const useCallKitString = await AsyncStorage.getItem('useCallKit');
         callSettings.setupCallKit = JSON.parse(useCallKitString);
       }
-      console.log('abdo god1');
-      LoginManager.getInstance().loginWithPassword(
+      await LoginManager.getInstance().loginWithPassword(
         this.props.phoneNumber + info.voxAccount,
         info.userPass
       );
@@ -149,12 +148,8 @@ class UserHome extends Component {
         helperNumber,
         callSettings
       );
-      console.log('abdo god2');
-
       let callManager = CallManager.getInstance();
-      console.log('abdo god3');
       callManager.addCall(call);
-      console.log('abdo god4');
       Actions.CallScreen({
         callId: call.callId,
         isVideo: isVideoCall,
