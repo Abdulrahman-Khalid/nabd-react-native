@@ -7,7 +7,8 @@ import {
   StyleSheet,
   Modal,
   KeyboardAvoidingView,
-  Platform
+  Platform,
+  Keyboard
 } from 'react-native';
 import axios from 'axios';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
@@ -24,20 +25,26 @@ import Err from '../../ErrorHandler';
 const actionSheetButtons = t.ActionSheetButtons;
 
 class AddIncident extends Component {
-  state = {
-    text: '',
-    numberToCall: null,
-    location: {
-      latitude: this.props.position.coords.latitude,
-      longitude: this.props.position.coords.longitude
-    },
-    photo: null,
-    media: null,
-    modalVisible: false,
-    descriptionFieldError: false,
-    numberFieldError: false,
-    loading: false
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      text: '',
+      numberToCall: null,
+      location: {
+        latitude: this.props.position.coords.latitude,
+        longitude: this.props.position.coords.longitude
+      },
+      photo: null,
+      media: null,
+      modalVisible: false,
+      descriptionFieldError: false,
+      numberFieldError: false,
+      loading: false,
+      showIcon: true
+    };
+    this._keyboardDidShow = this._keyboardDidShow.bind(this);
+    this._keyboardDidHide = this._keyboardDidHide.bind(this);
+  }
 
   componentDidUpdate(prevProps, prevState) {
     if (this.state.text != '' && this.state.descriptionFieldError) {
@@ -50,6 +57,34 @@ class AddIncident extends Component {
         numberFieldError: false
       });
     }
+  }
+
+  componentDidMount() {
+    this.keyboardDidShowListener = Keyboard.addListener(
+      'keyboardDidShow',
+      this._keyboardDidShow
+    );
+    this.keyboardDidHideListener = Keyboard.addListener(
+      'keyboardDidHide',
+      this._keyboardDidHide
+    );
+  }
+
+  componentWillUnmount() {
+    this.keyboardDidShowListener.remove();
+    this.keyboardDidHideListener.remove();
+  }
+
+  _keyboardDidShow() {
+    this.setState({
+      showIcon: false
+    });
+  }
+
+  _keyboardDidHide() {
+    this.setState({
+      showIcon: true
+    });
   }
 
   /**
@@ -185,20 +220,16 @@ class AddIncident extends Component {
   render() {
     const maxLength = 240;
     return (
-      <KeyboardAwareScrollView
-        resetScrollToCoords={{ x: 0, y: 0 }}
-        contentContainerStyle={{
-          paddingTop: 20,
+      <View
+        style={{
           flexDirection: 'column',
           flex: 1
         }}
-        behavior={Platform.OS == 'ios' ? 'padding' : null}
-        // enabled
-        scrollEnabled={true}
       >
         <Modal
           visible={this.state.modalVisible}
           onRequestClose={this.modalCancelOnPress}
+          translucent={false}
         >
           <LocationPicker
             onValueChange={region => {
@@ -218,8 +249,6 @@ class AddIncident extends Component {
           style={{
             flex: 1,
             flexDirection: 'column',
-            justifyContent: 'space-around',
-            alignItems: 'stretch',
             padding: 20
           }}
         >
@@ -253,7 +282,14 @@ class AddIncident extends Component {
             }}
           >
             {this.state.photo === null ? (
-              <Icon name="add-image" family="flaticon" size={80} color="gray" />
+              this.state.showIcon ? (
+                <Icon
+                  name="add-image"
+                  family="flaticon"
+                  size={80}
+                  color="gray"
+                />
+              ) : null
             ) : (
               <View
                 style={{
@@ -273,9 +309,7 @@ class AddIncident extends Component {
               </View>
             )}
           </TouchableOpacity>
-          <View
-            style={{ flex: 0.5, marginVertical: 20, justifyContent: 'center' }}
-          >
+          <View style={{ marginTop: 20 }}>
             <TextInput
               label={t.NumberToCallOpt}
               mode="flat"
@@ -288,7 +322,13 @@ class AddIncident extends Component {
               style={{ fontSize: 18 }}
               theme={{
                 colors: { background: '#EAE9EF', primary: Colors.WARNING },
-                roundness: 30
+                roundness: 30,
+                fonts: {
+                  regular:
+                    this.props.language.lang == 'en'
+                      ? 'Quicksand-Regular'
+                      : 'Tajawal-Regular'
+                }
               }}
               keyboardType="phone-pad"
               textContentType="telephoneNumber"
@@ -299,7 +339,7 @@ class AddIncident extends Component {
               {t.NumberUnvalid}
             </HelperText>
           </View>
-          <View style={{ flex: 2, marginBottom: 10, justifyContent: 'center' }}>
+          <View style={{ marginBottom: 10, justifyContent: 'center' }}>
             <TextInput
               label={t.IncidentDescriptionReq}
               mode="flat"
@@ -308,12 +348,17 @@ class AddIncident extends Component {
                 this.setState({ text });
               }}
               placeholder={t.IncidentDescription}
-              style={{ fontSize: 18, height: '70%' }}
+              style={{ fontSize: 18 }}
               theme={{
                 colors: { background: '#EAE9EF', primary: Colors.WARNING },
-                roundness: 30
+                roundness: 30,
+                fonts: {
+                  regular:
+                    this.props.language.lang == 'en'
+                      ? 'Quicksand-Regular'
+                      : 'Tajawal-Regular'
+                }
               }}
-              multiline
               maxLength={maxLength}
               error={this.state.descriptionFieldError}
               underlineColor={Colors.BLACK}
@@ -345,7 +390,13 @@ class AddIncident extends Component {
             >
               <View style={styles.button}>
                 <Text
-                  style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
+                  style={{
+                    color: Colors.WHITE,
+                    fontFamily:
+                      this.props.language.lang == 'en'
+                        ? 'Quicksand-SemiBold'
+                        : 'Tajawal-Medium'
+                  }}
                 >
                   {t.Next}
                 </Text>
@@ -353,14 +404,13 @@ class AddIncident extends Component {
             </TouchableOpacity>
           </View>
         </View>
-      </KeyboardAwareScrollView>
+      </View>
     );
   }
 }
 
 const styles = StyleSheet.create({
   buttonsContainer: {
-    flex: 1,
     justifyContent: 'flex-end',
     alignItems: 'center'
   },
@@ -385,7 +435,6 @@ const styles = StyleSheet.create({
   },
   imageInputContainerEmpty: {
     flex: 3,
-    marginBottom: 30,
     borderStyle: 'dashed',
     borderWidth: 2.5,
     borderRadius: 20,
@@ -395,7 +444,6 @@ const styles = StyleSheet.create({
   },
   imageInputContainerFull: {
     flex: 3,
-    marginBottom: 30,
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center'
@@ -404,7 +452,8 @@ const styles = StyleSheet.create({
 
 const mapStateToProps = state => ({
   position: state.location.position,
-  userID: state.signin.phone.substring(1)
+  userID: state.signin.phone.substring(1),
+  language: state.language
 });
 
 export default connect(mapStateToProps, { addedNewIncident })(AddIncident);

@@ -44,13 +44,13 @@ class UserSettings extends Component {
   userTypeDisplay() {
     switch (this.props.userType) {
       case 'user':
-        return <TextDisplay iconName="user" text={t.User} />;
+        return <TextDisplay iconName="address-card" text={t.User} />;
       case 'doctor':
-        return <TextDisplay iconName="user" text={t.Doctor} />;
+        return <TextDisplay iconName="address-card" text={t.Doctor} />;
       case 'paramedic':
-        return <TextDisplay iconName="user" text={t.Paramedic} />;
+        return <TextDisplay iconName="address-card" text={t.Paramedic} />;
       case 'ambulance':
-        return <TextDisplay iconName="user" text={t.Ambulance} />;
+        return <TextDisplay iconName="address-card" text={t.Ambulance} />;
     }
   }
 
@@ -117,7 +117,7 @@ class UserSettings extends Component {
             }}
           />
         </SectionRow>
-        <View style={{ backgroundColor: '#fff', marginBottom: 10 }}>
+        <View style={{ backgroundColor: '#E8E8EE', marginBottom: 10 }}>
           <NavigateRow
             onPressCallback={this.logoutButtonPressed.bind(this)}
             iconName="sign-out"

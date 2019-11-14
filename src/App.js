@@ -49,7 +49,7 @@ class App extends Component {
         case 'en':
           customProps = {
             style: {
-              fontFamily: 'IstokWeb-Regular'
+              fontFamily: 'Quicksand-Regular'
             }
           };
           break;
@@ -70,7 +70,7 @@ class App extends Component {
       setCustomTextInput(customProps);
       setCustomView(customProps);
 
-      const fontName = language.lang == 'en' ? 'IstokWeb-Regular' : 'Tajawal-Regular';
+      const fontName = language.lang == 'en' ? 'Quicksand-Regular' : 'Tajawal-Regular';
       GlobalFont.applyGlobal(fontName)
 
       this.setState({ rehydrated: true });

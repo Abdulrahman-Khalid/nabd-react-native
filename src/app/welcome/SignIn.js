@@ -84,7 +84,13 @@ class SignIn extends Component {
           >
             <View style={styles.button}>
               <Text
-                style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
+                style={{
+                  color: Colors.WHITE,
+                  fontFamily:
+                    this.props.language == 'en'
+                      ? 'Quicksand-SemiBold'
+                      : 'Tajawal-Medium'
+                }}
               >
                 {t.LogIn}
               </Text>
@@ -134,10 +140,10 @@ class SignIn extends Component {
             style={{
               textAlign: 'left',
               fontSize: 50,
-              fontWeight: 'bold',
               marginLeft: 20,
-              lineHeight: 50,
-              marginBottom: 25
+              marginBottom: 25,
+              fontFamily:
+                this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium'
             }}
           >
             {t.Welcome}
@@ -323,9 +329,10 @@ const styles = StyleSheet.create({
 
 const mapSateToProps = state => {
   // console.log('state', state);
+  const language = state.language.lang;
   const { userType } = state.openApp;
   const { phone, password, loading } = state.signin;
-  return { phone, password, loading, userType };
+  return { phone, password, loading, userType, language };
 };
 
 export default connect(mapSateToProps, { signInAttempt, fillSignInReducer })(

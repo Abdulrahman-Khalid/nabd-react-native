@@ -66,20 +66,23 @@ class LocationPicker extends Component {
   }
 
   handleSearchedLocationSelected = (data, { geometry }) => {
-    console.log(data)
-    console.log(geometry)
+    console.log(data);
+    console.log(geometry);
     this.setState({
       region: {
         latitude: geometry.location.lat,
         longitude: geometry.location.lng
       }
     });
-    this.mapView.animateToRegion({
-      latitude: this.state.region.latitude,
-      longitude: this.state.region.longitude,
-      latitudeDelta: 0.004,
-      longitudeDelta: 0.004
-    }, 1000);
+    this.mapView.animateToRegion(
+      {
+        latitude: this.state.region.latitude,
+        longitude: this.state.region.longitude,
+        latitudeDelta: 0.004,
+        longitudeDelta: 0.004
+      },
+      1000
+    );
   };
 
   render() {
@@ -96,7 +99,6 @@ class LocationPicker extends Component {
           onMapReady={() => this.setState({ mapMarginBottom: 0 })}
           ref={ref => (this.mapView = ref)}
         />
-        <MapSearch onLocationSelected={this.handleSearchedLocationSelected} />
         <View style={styles.markerFixed}>
           <Image style={styles.marker} source={Images.locationMarker} />
         </View>
@@ -171,6 +173,7 @@ class LocationPicker extends Component {
             style={{ alignSelf: 'center' }}
           />
         </TouchableOpacity>
+        <MapSearch onLocationSelected={this.handleSearchedLocationSelected} />
       </View>
     );
   }
@@ -228,7 +231,4 @@ const mapStateToProps = state => ({
   language: state.language
 });
 
-export default connect(
-  mapStateToProps,
-  null
-)(LocationPicker);
+export default connect(mapStateToProps, null)(LocationPicker);
