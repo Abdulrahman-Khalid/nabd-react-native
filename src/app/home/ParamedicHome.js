@@ -309,7 +309,7 @@ class ParamedicHome extends Component {
                   }
                 ]}
               >
-                <Text style={{ color: '#b3b3b2', fontFamily: 'Jaldi-Bold' }}>
+                <Text style={{ color: '#b3b3b2', fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}>
                   {t.OpenSettings}
                 </Text>
               </View>
@@ -328,7 +328,7 @@ class ParamedicHome extends Component {
                   }
                 ]}
               >
-                <Text style={{ color: '#d76674', fontFamily: 'Jaldi-Bold' }}>
+                <Text style={{ color: '#d76674', fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}>
                   {t.Refresh}
                 </Text>
               </View>
@@ -477,7 +477,6 @@ const styles = StyleSheet.create({
   locationPermissionModalTitle: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'Jaldi-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -486,7 +485,6 @@ const styles = StyleSheet.create({
     color: 'gray',
     textAlign: 'center',
     flex: 1,
-    fontFamily: 'Jaldi-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -509,7 +507,6 @@ const styles = StyleSheet.create({
   gpsOffModalTitle: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'Jaldi-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
