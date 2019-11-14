@@ -45,6 +45,7 @@ class MapSearch extends Component {
           },
           textInputContainer: {
             flex: 1,
+            borderTopWidth: 0,
             height: 54,
             marginHorizontal: 20,
             borderRadius: 30,
@@ -77,7 +78,7 @@ class MapSearch extends Component {
           },
           row: {
             padding: 20,
-            height: 58
+            height: 65
           }
         }}
       />
