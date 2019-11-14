@@ -222,7 +222,7 @@ class IncidentCard extends React.Component {
             </Text>
           </Block>
         </View>
-        <Text style={styles.dateAndDistance}>
+        <Text style={[styles.dateAndDistance, { textAlign: 'left'}]}>
           {this.calculateDateAndTime() +
             ' • ' +
             t.Away +
@@ -250,7 +250,7 @@ class IncidentCard extends React.Component {
                 color="#b3b3b2"
                 size={17}
               />
-              <Text style={{ color: '#b3b3b2', fontFamily: 'IstokWeb-Bold' }}>
+              <Text style={{ color: '#b3b3b2', fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}>
                 {t.GetDirections}
               </Text>
             </View>
@@ -277,7 +277,7 @@ class IncidentCard extends React.Component {
                   color="#d76674"
                   size={17}
                 />
-                <Text style={{ color: '#d76674', fontFamily: 'IstokWeb-Bold' }}>
+                <Text style={{ color: '#d76674', fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}>
                   {t.Call}
                 </Text>
               </View>
@@ -365,6 +365,7 @@ const styles = StyleSheet.create({
   dateAndDistance: {
     color: 'gray',
     marginLeft: theme.SIZES.BASE,
+    marginRight: theme.SIZES.BASE,
     marginBottom: theme.SIZES.BASE
   },
   linearGradient: {
@@ -379,7 +380,7 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = state => ({ location: state.location });
+const mapStateToProps = state => ({ location: state.location, language: state.language.lang });
 
 export default connect(
   mapStateToProps,

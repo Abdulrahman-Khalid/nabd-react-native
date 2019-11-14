@@ -1,10 +1,22 @@
 import React, { Component } from 'react';
-import { FlatList, StyleSheet, Text, View, Image } from 'react-native';
+import {
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  NativeModules
+} from 'react-native';
 import Steps from 'react-native-steps';
 import metadata from './metadata.json';
 import t from '../../I18n';
 import { Colors } from '../../constants';
 import { connect } from 'react-redux';
+
+const deviceLanguage =
+  Platform.OS === 'ios'
+    ? NativeModules.SettingsManager.settings.AppleLocale.substring(0, 1)
+    : NativeModules.I18nManager.localeIdentifier.substring(0, 1);
 
 const { APP, BACKGROUND } = Colors;
 const stepIndicatorStyles = {
@@ -67,9 +79,11 @@ class StepIndicator extends Component {
       <View style={styles.rowItem}>
         <Text
           style={[
-            this.props.language === 'ar'
-              ? { textAlign: 'left', padding: 10 }
-              : { textAlign: 'right', paddingLeft: 20 },
+            deviceLanguage == 'ar'
+              ? this.props.language === 'ar'
+                ? { textAlign: 'left', padding: 10 }
+                : { textAlign: 'right', paddingLeft: 20 }
+              : null,
             styles.body
           ]}
         >

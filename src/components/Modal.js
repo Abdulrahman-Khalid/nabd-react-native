@@ -6,6 +6,7 @@ import {
   StyleSheet,
   TouchableWithoutFeedback
 } from 'react-native';
+import { connect } from 'react-redux';
 
 const CustomModal = props => {
   const {
@@ -28,7 +29,19 @@ const CustomModal = props => {
       </TouchableWithoutFeedback>
       <View style={styles.modalBackground}>
         <View style={styles.modalViewWrapper}>
-          <Text style={styles.headerText}>{title}</Text>
+          <Text
+            style={[
+              styles.headerText,
+              {
+                fontFamily:
+                  props.language == 'en'
+                    ? 'Quicksand-SemiBold'
+                    : 'Tajawal-Medium'
+              }
+            ]}
+          >
+            {title}
+          </Text>
           {children}
         </View>
       </View>
@@ -48,7 +61,7 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(0,0,0,0)',
+    backgroundColor: 'rgba(0,0,0,0)'
   },
   modalViewWrapper: {
     backgroundColor: '#FFFFFF',
@@ -67,12 +80,12 @@ const styles = StyleSheet.create({
   headerText: {
     fontSize: 23,
     textAlign: 'left',
-    fontFamily: 'IstokWeb-Bold',
-    fontWeight: '900',
-    paddingTop: 20,
-    paddingBottom: 10,
-    paddingLeft: 20
+    padding: 20
   }
 });
 
-export default CustomModal;
+const mapStateToProps = state => ({
+  language: state.language.lang
+});
+
+export default connect(mapStateToProps, null)(CustomModal);
