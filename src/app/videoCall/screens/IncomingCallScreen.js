@@ -50,6 +50,10 @@ class IncomingCallScreen extends React.Component {
     }
   }
 
+  onBackPress() {
+    return true;
+  }
+
   componentWillUnmount() {
     KeepAwake.deactivate();
     BackHandler.removeEventListener(
