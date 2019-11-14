@@ -161,28 +161,6 @@ class UserHome extends Component {
   }
 
   async videoCall(helperType, specialization) {
-    // const client = Voximplant.getInstance();
-    // try {
-    //   let state = await client.getClientState();
-    //   if (state === Voximplant.ClientState.DISCONNECTED) {
-    //     await client.connect();
-    //   }
-    //   LoginManager.getInstance()
-    //     .loginWithPassword(
-    //       this.props.phoneNumber + info.voxAccount,
-    //       info.userPass
-    //     )
-    //     .then(() => {
-    //       console.log('login voximplant successfully first time ');
-    //     });
-    //   let authResult = await client.login(
-    //     this.props.phoneNumber,
-    //     info.userPass
-    //   );
-    // } catch (e) {
-    //   console.log(e.name + e.message);
-    // }
-
     console.log(helperType, ', specialization ', specialization);
     axios
       .post(
