@@ -100,7 +100,10 @@ class UserHome extends Component {
   }
 
   _connectionClosed = () => {
-    // Actions.welcome();
+    LoginManager.getInstance().loginWithPassword(
+      this.props.phoneNumber + info.voxAccount,
+      info.userPass
+    );
   };
 
   async makeCall(isVideoCall, helperNumber) {
