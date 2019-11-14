@@ -82,10 +82,18 @@ class RouterComponent extends Component {
     return (
       <Router
         titleStyle={{
-          fontFamily: this.props.language.lang == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium'
+          fontFamily:
+            this.props.language.lang == 'en'
+              ? 'Quicksand-SemiBold'
+              : 'Tajawal-Medium'
         }}
         tintColor="white"
-        sceneStyle={{ fontFamily: this.props.language.lang == 'en' ? 'Quicksand-Regular' : 'Tajawal-Regular' }}
+        sceneStyle={{
+          fontFamily:
+            this.props.language.lang == 'en'
+              ? 'Quicksand-Regular'
+              : 'Tajawal-Regular'
+        }}
       >
         <Scene
           key="root"
