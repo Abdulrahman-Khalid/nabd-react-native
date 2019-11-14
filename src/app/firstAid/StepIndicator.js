@@ -15,8 +15,8 @@ import { connect } from 'react-redux';
 
 const deviceLanguage =
   Platform.OS === 'ios'
-    ? NativeModules.SettingsManager.settings.AppleLocale.substring(0, 1)
-    : NativeModules.I18nManager.localeIdentifier.substring(0, 1);
+    ? NativeModules.SettingsManager.settings.AppleLocale.substring(0, 2)
+    : NativeModules.I18nManager.localeIdentifier.substring(0, 2);
 
 const { APP, BACKGROUND } = Colors;
 const stepIndicatorStyles = {

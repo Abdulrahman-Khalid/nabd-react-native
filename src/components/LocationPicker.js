@@ -20,8 +20,8 @@ import mapStyle from '../config/GoogleMapsCustomStyle';
 
 const deviceLanguage =
   Platform.OS === 'ios'
-    ? NativeModules.SettingsManager.settings.AppleLocale.substring(0, 1)
-    : NativeModules.I18nManager.localeIdentifier.substring(0, 1);
+    ? NativeModules.SettingsManager.settings.AppleLocale.substring(0, 2)
+    : NativeModules.I18nManager.localeIdentifier.substring(0, 2);
 
 class LocationPicker extends Component {
   constructor(props) {
