@@ -117,6 +117,7 @@ class LanguageSelection extends Component {
             fontColor="#817d84"
             activeFontColor="black"
             switchdirection={this.state.isRtl}
+            intro={true}
           />
         </View>
         <FAB
