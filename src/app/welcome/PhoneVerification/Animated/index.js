@@ -6,7 +6,8 @@ import {
   Image,
   Text,
   View,
-  Platform
+  Platform,
+  KeyboardAvoidingView
 } from 'react-native';
 
 import { Block } from 'galio-framework';
@@ -23,8 +24,9 @@ import styles, {
   NOT_EMPTY_CELL_BG_COLOR
 } from './styles';
 import { Actions } from 'react-native-router-flux';
-import { Images } from '../../../../constants';
+import { Images, Colors } from '../../../../constants';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
+import { connect } from 'react-redux';
 
 const codeLength = 4;
 
@@ -203,18 +205,7 @@ class AnimatedExample extends Component {
   render() {
     /*concept : https://dribbble.com/shots/5476562-Forgot-Password-Verification/attachments */
     return (
-      <View>
-        {/* <KeyboardAwareScrollView
-          resetScrollToCoords={{ x: 0, y: 0 }}
-          contentContainerStyle={{
-            paddingTop: 20,
-            flexDirection: 'column',
-            flex: 1
-          }}
-          behavior={Platform.OS == 'ios' ? 'padding' : null}
-          // enabled
-          scrollEnabled={true}
-        > */}
+      <View style={{ flex: 1 }}>
         <View style={styles.inputWrapper}>
           <Text style={styles.inputLabel}>{t.Verification}</Text>
           <Image
@@ -224,9 +215,17 @@ class AnimatedExample extends Component {
           />
           <Text style={styles.inputSubLabel}>
             {t.EnterVerificationCode}
-            {this.props.phoneNum}
+            {this.props.language == 'en'
+              ? '+' + this.props.phoneNum.substring(1)
+              : this.props.phoneNum.substring(1) + '+'}
           </Text>
-          <View style={{ alignItems: 'center', position: 'relative' }}>
+          <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+            <Text style={{ color: 'gray', fontSize: 17 }}>{t.DidntReceiveCode}</Text>
+            <TouchableOpacity onPress={this.resendCode.bind(this)}>
+              <Text style={{ color: Colors.APP, fontSize: 17 }}>{' '}{t.ResendCode}</Text>
+            </TouchableOpacity>
+          </View>
+          <Block flex center>
             <CodeInput
               maskSymbol=" "
               variant="clear"
@@ -238,18 +237,15 @@ class AnimatedExample extends Component {
               onFulfill={this.handlerOnFulfill}
               CellComponent={Animated.Text}
             />
-          </View>
+          </Block>
         </View>
-        {/* </KeyboardAwareScrollView> */}
-        <TouchableOpacity
-          style={styles.resendCodeButton}
-          onPress={this.resendCode.bind(this)}
-        >
-          <Text style={styles.resendCodeText}>{t.ResendCode}</Text>
-        </TouchableOpacity>
       </View>
     );
   }
 }
 
-export default AnimatedExample;
+const mapStateToProps = state => ({
+  language: state.language.lang
+});
+
+export default connect(mapStateToProps, null)(AnimatedExample);
