@@ -176,11 +176,15 @@ class UserHome extends Component {
           console.log('calling helper....');
           this.makeCall(true, response.data.helperNumber);
         } else {
-          Alert.alert(t.CallFailed, t.NoHelperFound, [
-            {
-              text: t.OK
-            }
-          ]);
+          Alert.alert(
+            t.CallFailed,
+            specialization ? t.NoDoctorFound : t.NoParamedicFound,
+            [
+              {
+                text: t.OK
+              }
+            ]
+          );
         }
       })
       .catch(error => {

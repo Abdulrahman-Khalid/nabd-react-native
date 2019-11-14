@@ -9,7 +9,7 @@ export default en = {
   Error5:
     'Location service is not enabled or location mode is not appropriate for the current request',
   Error6: 'Please try again',
-  AuthFailed: 'Authentication failed',
+  AuthFailed: 'Authentication failed, wrong credentials',
   Verification: 'Verification',
   EnterVerificationCode: 'Please enter the verification code\nwe sent to ',
   WrongPassword: 'Wrong password',
@@ -19,6 +19,8 @@ export default en = {
   Success: 'Succeess',
   ConfirmationCode: 'Confirmation code',
   ResendCode: 'Resend code',
+  NoDoctorFound: 'No Doctor is available right now, try again later',
+  NoParamedicFound: 'No Paramedic is available right now, try again later',
 
   InternalMedicine: ' Internal Medicine',
   Cardiology: 'Cardiology',

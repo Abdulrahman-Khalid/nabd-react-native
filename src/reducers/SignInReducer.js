@@ -14,7 +14,8 @@ const INTIAL_STATE = {
   userName: '',
   userType: '',
   specialization: null,
-  token: ''
+  token: '',
+  error: ''
 };
 
 signInReducer = (state = INTIAL_STATE, action) => {
@@ -27,6 +28,7 @@ signInReducer = (state = INTIAL_STATE, action) => {
     case SIGNIN_ATTEMPT:
       return {
         ...state,
+        error: '',
         loading: true
       };
     case SIGNIN_SUCCESS:

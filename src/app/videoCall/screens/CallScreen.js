@@ -55,7 +55,6 @@ class CallScreen extends React.Component {
       audioDevices: [],
       audioDeviceIcon: 'hearing'
     };
-
     this.call = CallManager.getInstance().getCallById(this.callId);
 
     console.log(
