@@ -339,6 +339,7 @@ export class Incidents extends Component {
                     justifyContent: 'center',
                     alignItems: 'center',
                     color: 'white',
+                    textAlign: 'center',
                     fontFamily:
                       this.props.language.lang == 'en'
                         ? 'Quicksand-SemiBold'
@@ -416,7 +417,7 @@ export class Incidents extends Component {
                 })
               }}
             >
-              Incidents
+              {t.Incidents}
             </Animated.Text>
             <TouchableOpacity
               onPress={() => Actions.UserSettings()}
@@ -499,7 +500,7 @@ const styles = StyleSheet.create({
     backgroundColor: Colors.APP,
     height: 50,
     borderRadius: 30,
-    width: 100
+    width: 130
   },
   emptyScreenButton: {
     padding: 20,
