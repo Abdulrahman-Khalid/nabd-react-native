@@ -154,7 +154,7 @@ export default ar = {
   PrivacyPolicy: 'سياسة الخصوصية',
   ForgotPassword: 'هل نسيت كلمة المرور؟',
   LogIn: 'تسجيل الدخول',
-  PasswordStrength: ' : قوة كلمة المرور',
+  PasswordStrength: ' قوة كلمة المرور',
   SpecializationEmptyError: 'يجب عليك اختيار تخصصك الطبي',
   NameEmpty: 'خانة اسم المستخدم فارغة',
   SignUpFailed: 'فشل في إنشاءالحساب',
