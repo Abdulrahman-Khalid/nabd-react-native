@@ -10,18 +10,16 @@ export const ACTIVE_CELL_BG_COLOR = '#f7fafe';
 
 export default StyleSheet.create({
   inputWrapper: {
-    paddingHorizontal: 20
+    paddingHorizontal: 20,
+    flex: 1
   },
-
   inputLabel: {
-    paddingTop: 50,
+    paddingTop: 10,
     color: '#000',
     fontSize: 25,
-    fontWeight: '700',
     textAlign: 'center',
     paddingBottom: 30
   },
-
   icon: {
     width: 100,
     height: 100,
@@ -29,17 +27,15 @@ export default StyleSheet.create({
     marginRight: 'auto'
   },
   inputSubLabel: {
-    paddingTop: 30,
-    color: '#000',
+    paddingTop: 10,
+    fontSize: 17,
+    color: 'gray',
     textAlign: 'center'
   },
   inputWrapStyle: {
-    height: CELL_SIZE,
     marginTop: 30,
-    paddingHorizontal: 20,
-    justifyContent: 'space-between'
+    marginBottom: 120,
   },
-
   input: {
     margin: 0,
     height: CELL_SIZE,
@@ -68,7 +64,6 @@ export default StyleSheet.create({
     // Android
     elevation: 3
   },
-
   nextButton: {
     borderRadius: 80,
     minHeight: 80,
@@ -80,23 +75,25 @@ export default StyleSheet.create({
     maxWidth: 350,
     marginBottom: 50
   },
-
   nextButtonText: {
     textAlign: 'center',
     fontSize: 20,
     color: '#fff',
     fontWeight: '700'
   },
+  resendCodeButtonContainer: {
+    width: '100%',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 20
+  },
   resendCodeButton: {
-    marginRight: 40,
-    marginLeft: 40,
-    marginTop: 10,
     paddingTop: 20,
     paddingBottom: 20,
     backgroundColor: Colors.APP,
     borderRadius: 40,
     borderWidth: 1,
-    borderColor: '#fff'
+    width: 200
   },
   resendCodeText: {
     color: '#fff',

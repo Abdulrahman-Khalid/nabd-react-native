@@ -11,7 +11,7 @@ import {
 import MapView, { Marker } from 'react-native-maps';
 import { connect } from 'react-redux';
 import { Images, Colors } from '../constants';
-import { MapSearch } from './MapSearch';
+import MapSearch from './MapSearch';
 import { FAB, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
@@ -20,8 +20,8 @@ import mapStyle from '../config/GoogleMapsCustomStyle';
 
 const deviceLanguage =
   Platform.OS === 'ios'
-    ? NativeModules.SettingsManager.settings.AppleLocale.substring(0, 1)
-    : NativeModules.I18nManager.localeIdentifier.substring(0, 1);
+    ? NativeModules.SettingsManager.settings.AppleLocale.substring(0, 2)
+    : NativeModules.I18nManager.localeIdentifier.substring(0, 2);
 
 class LocationPicker extends Component {
   constructor(props) {
@@ -65,6 +65,26 @@ class LocationPicker extends Component {
     this.mapView.animateToRegion(userRegion, 1000);
   }
 
+  handleSearchedLocationSelected = (data, { geometry }) => {
+    console.log(data);
+    console.log(geometry);
+    this.setState({
+      region: {
+        latitude: geometry.location.lat,
+        longitude: geometry.location.lng
+      }
+    });
+    this.mapView.animateToRegion(
+      {
+        latitude: this.state.region.latitude,
+        longitude: this.state.region.longitude,
+        latitudeDelta: 0.004,
+        longitudeDelta: 0.004
+      },
+      1000
+    );
+  };
+
   render() {
     return (
       <View style={{ flex: 1 }}>
@@ -79,7 +99,6 @@ class LocationPicker extends Component {
           onMapReady={() => this.setState({ mapMarginBottom: 0 })}
           ref={ref => (this.mapView = ref)}
         />
-        {/* <MapSearch onLocationSelected={this.handleSearchedLocationSelected} /> */}
         <View style={styles.markerFixed}>
           <Image style={styles.marker} source={Images.locationMarker} />
         </View>
@@ -154,6 +173,7 @@ class LocationPicker extends Component {
             style={{ alignSelf: 'center' }}
           />
         </TouchableOpacity>
+        <MapSearch onLocationSelected={this.handleSearchedLocationSelected} />
       </View>
     );
   }
@@ -211,7 +231,4 @@ const mapStateToProps = state => ({
   language: state.language
 });
 
-export default connect(
-  mapStateToProps,
-  null
-)(LocationPicker);
+export default connect(mapStateToProps, null)(LocationPicker);

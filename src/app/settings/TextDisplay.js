@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { View, Text, TouchableOpacity, Switch, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
+import { connect } from 'react-redux';
 
 class TextDisplay extends Component {
   render() {
@@ -8,7 +9,7 @@ class TextDisplay extends Component {
       <View style={styles.containerInSection}>
         <View style={styles.containerInnerSection}>
           <Icon name={this.props.iconName} size={24} style={styles.iconLeft} />
-          <Text style={styles.text} numberOfLines={1} ellipsizeMode={'tail'}>
+          <Text style={[styles.text, {fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium'}]} numberOfLines={1} ellipsizeMode={'tail'}>
             {this.props.text}
           </Text>
           <Text style={styles.value} numberOfLines={1} ellipsizeMode={'tail'}>
@@ -35,13 +36,13 @@ const styles = StyleSheet.create({
   iconLeft: {
     flex: 1,
     textAlign: 'center',
+    color: 'gray'
   },
   text: {
     flex: 6,
     flexDirection: 'row',
     fontSize: 15,
-    color: 'black',
-    fontWeight: 'bold'
+    color: 'black'
   },
   value: {
     flex: 1,
@@ -49,4 +50,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default TextDisplay;
+const mapStateToProps = state => ({
+  language: state.language.lang
+});
+
+export default connect(mapStateToProps, null)(TextDisplay);

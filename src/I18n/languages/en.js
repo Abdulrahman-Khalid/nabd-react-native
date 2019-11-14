@@ -1,5 +1,7 @@
 export default en = {
   // toast error
+  ErrorHappened: 'Error',
+  UnAuthorized: 'Your login session has expired. Press "Ok" to sign in again',
   Error1: 'Location permission is not granted',
   Error2: 'Location provider not available',
   Error3: 'Location request timed out',
@@ -7,12 +9,18 @@ export default en = {
   Error5:
     'Location service is not enabled or location mode is not appropriate for the current request',
   Error6: 'Please try again',
-  AutFailed: 'Authentication failed',
+  AuthFailed: 'Authentication failed, wrong credentials',
+  Verification: 'Verification',
+  EnterVerificationCode: 'Please enter the verification code\nwe sent to ',
+  WrongPassword: 'Wrong password',
+  logoutFailed: 'Logout failed',
   GeneralRequestError: 'Request error happended',
   Failed: 'Failed',
   Success: 'Succeess',
   ConfirmationCode: 'Confirmation code',
   ResendCode: 'Resend code',
+  NoDoctorFound: 'No Doctor is available right now, try again later',
+  NoParamedicFound: 'No Paramedic is available right now, try again later',
 
   InternalMedicine: ' Internal Medicine',
   Cardiology: 'Cardiology',
@@ -86,7 +94,7 @@ export default en = {
   Password: 'Password',
   PhoneNumber: 'Phone Number',
   Language: 'Language',
-  ContactWithUs: 'Contact with us',
+  ContactWithUs: 'Contact us',
   Facebook: 'Facebook',
   Twitter: 'Twitter',
   HelpUs: 'Help us grow',
@@ -104,8 +112,8 @@ export default en = {
   Cuts: 'Cuts',
   EyeInjury: 'Eye Injury',
   Fractures: 'Fractures',
-  HeadInjury: 'HeadInjury',
-  Nosebleed: 'Nosebleed',
+  HeadInjury: 'Head Injury',
+  Nosebleed: 'Nose Bleeding',
   ToothInjury: 'Tooth Injury',
   EyeInjury_Puncture: 'Eye Puncture',
   EyeInjury_Scratch: 'Eye Scratch',
@@ -118,6 +126,8 @@ export default en = {
   RequestHelp: 'Request Help',
   LogOut: 'Log out',
   Home: 'Home',
+  DidntReceiveCode: "Didn't receive a code?",
+  NoAmbulance: 'No ambulance was found',
 
   // Paramedic Home
   DoctorSpecialization: 'Doctor Specialization',
@@ -168,6 +178,8 @@ export default en = {
   PVWeak: 'Password is very weak',
   PWeak: 'Password is weak',
 
+  ProceedCarefully: 'Proceed carefully',
+  SearchForAPlace: 'Search',
   Call: 'Call',
   CallFrom: 'Incoming call from:',
   Incidents: 'Incidents',

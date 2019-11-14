@@ -10,7 +10,8 @@ import {
   SafeAreaView,
   StatusBar,
   FlatList,
-  PermissionsAndroid
+  PermissionsAndroid,
+  BackHandler
 } from 'react-native';
 
 import { Colors } from '../../../constants';
@@ -25,6 +26,7 @@ import VIForegroundService from '@voximplant/react-native-foreground-service';
 import { Actions } from 'react-native-router-flux';
 import t from '../../../I18n';
 import { connect } from 'react-redux';
+import KeepAwake from 'react-native-keep-awake';
 
 const CALL_STATES = {
   DISCONNECTED: 'disconnected',
@@ -53,7 +55,6 @@ class CallScreen extends React.Component {
       audioDevices: [],
       audioDeviceIcon: 'hearing'
     };
-
     this.call = CallManager.getInstance().getCallById(this.callId);
 
     console.log(
@@ -69,6 +70,11 @@ class CallScreen extends React.Component {
   }
 
   componentDidMount() {
+    KeepAwake.activate();
+    BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.onBackPress.bind(this)
+    );
     if (this.call) {
       Object.keys(Voximplant.CallEvents).forEach(eventName => {
         const callbackName = `_onCall${eventName}`;
@@ -123,7 +129,16 @@ class CallScreen extends React.Component {
     })();
   }
 
+  onBackPress() {
+    return true;
+  }
+
   componentWillUnmount() {
+    KeepAwake.deactivate();
+    BackHandler.removeEventListener(
+      'hardwareBackPress',
+      this.onBackPress.bind(this)
+    );
     console.log('CallScreen: componentWillUnmount ' + this.call.callId);
     if (this.call) {
       Object.keys(Voximplant.CallEvents).forEach(eventName => {

@@ -126,22 +126,28 @@ class Register extends React.Component {
     // console.log('hi', this.state);
     return (
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={this.createAccountPressed}
-        >
-          <View style={styles.button}>
-            {this.props.loading ? (
-              <Spinner color={Colors.WHITE} size="small" />
-            ) : (
-              <Text
-                style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
-              >
-                {t.CreateAccount}
-              </Text>
-            )}
+        {this.props.loading ? (
+          <View style={[styles.buttonContainer, styles.button]}>
+            <Spinner color={Colors.WHITE} size="small" />
           </View>
-        </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={[styles.buttonContainer, styles.button]}
+            onPress={this.createAccountPressed}
+          >
+            <Text
+              style={{
+                color: Colors.WHITE,
+                fontFamily:
+                  this.props.language == 'en'
+                    ? 'SemiBold-Bold'
+                    : 'Tajawal-Medium'
+              }}
+            >
+              {t.CreateAccount}
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
     );
   }
@@ -408,6 +414,7 @@ class Register extends React.Component {
               });
             }
           }}
+          style={{ flex: 1 }}
         />
       );
     }
@@ -440,9 +447,11 @@ class Register extends React.Component {
               style={{
                 textAlign: 'left',
                 fontSize: 40,
-                fontWeight: 'bold',
                 marginLeft: 10,
-                lineHeight: 50,
+                fontFamily:
+                  this.props.language == 'en'
+                    ? 'Quicksand-SemiBold'
+                    : 'Tajawal-Medium',
                 alignSelf: 'flex-start'
               }}
             >
@@ -773,15 +782,10 @@ const styles = StyleSheet.create({
     borderColor: Colors.INPUT_ERROR
   },
   buttonsContainer: {
+    flex: 1,
     flexDirection: 'row',
-    margin: 10,
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'flex-end'
-  },
-  buttonContainer: {
-    flex: 1,
-    padding: 10,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -791,13 +795,13 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5
   },
-  button: {
-    height: 44,
-    width: '100%',
-    alignItems: 'center',
+  buttonContainer: {
+    flex: 1,
+    height: 60,
     justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 30,
-    flexDirection: 'row',
+    marginHorizontal: 20,
     backgroundColor: Colors.APP
   },
   container: {
@@ -843,6 +847,7 @@ const styles = StyleSheet.create({
 });
 
 const mapSateToProps = state => {
+  const language = state.language.lang;
   // console.log('Register State: ', state);
   const { userType } = state.openApp;
   //add in the reducer signup (birthday)
@@ -887,18 +892,16 @@ const mapSateToProps = state => {
     isSuccessPass,
     isErrorPass,
     isSuccessPassMatch,
-    isErrorPassMatch
+    isErrorPassMatch,
+    language
   };
 };
 
-export default connect(
-  mapSateToProps,
-  {
-    signUpAttempt,
-    fillSignUpForm,
-    validateName,
-    validateConfirmPassword,
-    validateBirthday,
-    validatePhone
-  }
-)(Register);
+export default connect(mapSateToProps, {
+  signUpAttempt,
+  fillSignUpForm,
+  validateName,
+  validateConfirmPassword,
+  validateBirthday,
+  validatePhone
+})(Register);

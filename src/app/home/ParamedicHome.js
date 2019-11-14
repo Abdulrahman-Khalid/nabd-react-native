@@ -21,15 +21,20 @@ import {
 } from 'react-native';
 import { requestLocationPermission, updateLocation } from '../../actions';
 import { Icon, SwitchButton } from '../../components';
-import RadioForm, { RadioButton } from 'react-native-simple-radio-button';
 import axios from 'axios';
 import t from '../../I18n';
 import io from 'socket.io-client';
 import Pulse from 'react-native-pulse';
 import RNSettings from 'react-native-settings';
 import Geolocation from 'react-native-geolocation-service';
+import KeepAwake from 'react-native-keep-awake';
 
 const { width, height } = Dimensions.get('screen');
+
+const deviceLanguage =
+  Platform.OS === 'ios'
+    ? NativeModules.SettingsManager.settings.AppleLocale.substring(0, 2)
+    : NativeModules.I18nManager.localeIdentifier.substring(0, 2);
 
 class ParamedicHome extends Component {
   constructor(props) {
@@ -45,6 +50,7 @@ class ParamedicHome extends Component {
       gpsOffModal: false,
       available: false
     };
+
     this.socket = io.connect(
       axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4) +
         `available/${this.props.userType}s`,
@@ -67,12 +73,21 @@ class ParamedicHome extends Component {
   }
 
   componentDidMount() {
-    LoginManager.getInstance()
-      .loginWithPassword(
-        this.props.phoneNumber + '@nabd.abdulrahman.elshafei98.voximplant.com',
-        info.userPass
-      )
-      .then(() => console.log('success login vox'));
+    KeepAwake.activate();
+    LoginManager.getInstance().loginWithPassword(
+      this.props.phoneNumber + info.voxAccount,
+      info.userPass
+    );
+    LoginManager.getInstance().on('onConnectionClosed', this._connectionClosed);
+    // LoginManager.getInstance()
+    //   .loginWithPassword(
+    //     this.props.phoneNumber + info.voxAccount,
+    //     info.userPass
+    //   )
+    //   .then(() => {
+    //     console.log('login voximplant successfully');
+    //   });
+
     this.setState({ gpsOffModal: true });
     RNSettings.getSetting(RNSettings.LOCATION_SETTING).then(result => {
       if (result == RNSettings.ENABLED) {
@@ -92,6 +107,10 @@ class ParamedicHome extends Component {
         ',user type: ',
         this.props.userType
       );
+      LoginManager.getInstance().loginWithPassword(
+        this.props.phoneNumber + info.voxAccount,
+        info.userPass
+      );
       this.socket.emit('available', {
         phoneNumber: this.props.phoneNumber,
         specialization: this.props.specialization
@@ -104,11 +123,19 @@ class ParamedicHome extends Component {
   }
 
   componentWillUnmount() {
+    KeepAwake.deactivate();
     LoginManager.getInstance().off(
       'onConnectionClosed',
       this._connectionClosed
     );
     this.socket.close();
+  }
+
+  _connectionClosed() {
+    LoginManager.getInstance().loginWithPassword(
+      this.props.phoneNumber + info.voxAccount,
+      info.userPass
+    );
   }
 
   componentDidUpdate() {
@@ -147,8 +174,8 @@ class ParamedicHome extends Component {
         { enableHighAccuracy: true }
       );
     }
-    if(this.props.position && this.props.ambulancePhoneNumber) {
-      Actions.waitForAmbulance()
+    if (this.props.position && this.props.ambulancePhoneNumber) {
+      Actions.waitForAmbulance();
     }
     if (this.state.available && !this.socket.connected) {
       this.socket.open();
@@ -157,6 +184,10 @@ class ParamedicHome extends Component {
         this.props.phoneNumber,
         ',user type: ',
         this.props.userType
+      );
+      LoginManager.getInstance().loginWithPassword(
+        this.props.phoneNumber + info.voxAccount,
+        info.userPass
       );
       this.socket.emit('available', {
         phoneNumber: this.props.phoneNumber,
@@ -278,7 +309,7 @@ class ParamedicHome extends Component {
                   }
                 ]}
               >
-                <Text style={{ color: '#b3b3b2', fontFamily: 'Jaldi-Bold' }}>
+                <Text style={{ color: '#b3b3b2', fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}>
                   {t.OpenSettings}
                 </Text>
               </View>
@@ -297,7 +328,7 @@ class ParamedicHome extends Component {
                   }
                 ]}
               >
-                <Text style={{ color: '#d76674', fontFamily: 'Jaldi-Bold' }}>
+                <Text style={{ color: '#d76674', fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}>
                   {t.Refresh}
                 </Text>
               </View>
@@ -446,7 +477,6 @@ const styles = StyleSheet.create({
   locationPermissionModalTitle: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'Jaldi-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -455,7 +485,6 @@ const styles = StyleSheet.create({
     color: 'gray',
     textAlign: 'center',
     flex: 1,
-    fontFamily: 'Jaldi-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -478,7 +507,6 @@ const styles = StyleSheet.create({
   gpsOffModalTitle: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'Jaldi-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -538,7 +566,7 @@ const mapStateToProps = state => ({
   ambulancePhoneNumber: state.ambulanceRequest.ambulancePhoneNumber
 });
 
-export default connect(
-  mapStateToProps,
-  { requestLocationPermission, updateLocation }
-)(ParamedicHome);
+export default connect(mapStateToProps, {
+  requestLocationPermission,
+  updateLocation
+})(ParamedicHome);

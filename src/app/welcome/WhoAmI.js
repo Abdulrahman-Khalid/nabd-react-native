@@ -1,40 +1,14 @@
 import React, { Component } from 'react';
 import { Image, TouchableOpacity, Text } from 'react-native';
-import { Button, Icon } from '../../components';
 import { theme } from 'galio-framework';
 import { Actions } from 'react-native-router-flux';
-import { View, StyleSheet, Dimensions } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Colors, Images } from '../../constants';
 import { connect } from 'react-redux';
 import { setUserType, getWelcomeInfo } from '../../actions';
-import axios from 'axios';
 import t from '../../I18n';
 
-const { width, height } = Dimensions.get('screen');
 class WhoAmI extends Component {
-  componentDidMount() {
-    if (this.props.token) {
-      axios.defaults.headers.common['TOKEN'] = this.props.token;
-      switch (this.props.userType) {
-        case 'user':
-          Actions.userHome();
-          break;
-        case 'doctor':
-          Actions.paramedicHome();
-          break;
-        case 'paramedic':
-          Actions.paramedicHome();
-          break;
-        case 'ambulance':
-          Actions.ambulanceHome();
-          break;
-      }
-    } else {
-      console.log('No token');
-      // this.props.getWelcomeInfo();
-    }
-  }
-
   ambulance() {
     this.props.setUserType('ambulance');
     Actions.iAmbulance();
@@ -74,7 +48,7 @@ class WhoAmI extends Component {
           >
             <View style={styles.button}>
               <Text
-                style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
+                style={{ color: Colors.WHITE, fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}
               >
                 {t.User}
               </Text>
@@ -86,7 +60,7 @@ class WhoAmI extends Component {
           >
             <View style={styles.button}>
               <Text
-                style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
+                style={{ color: Colors.WHITE, fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}
               >
                 {t.Doctor}
               </Text>
@@ -98,7 +72,7 @@ class WhoAmI extends Component {
           >
             <View style={styles.button}>
               <Text
-                style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
+                style={{ color: Colors.WHITE, fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}
               >
                 {t.Paramedic}
               </Text>
@@ -110,7 +84,7 @@ class WhoAmI extends Component {
           >
             <View style={styles.button}>
               <Text
-                style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
+                style={{ color: Colors.WHITE, fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}
               >
                 {t.AmbulanceDriver}
               </Text>
@@ -142,7 +116,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -150,7 +123,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'gray',
     textAlign: 'center',
-    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -189,7 +161,8 @@ const mapStateToProps = state => ({
   numberAmbulance: state.openApp.numberAmbulance,
   numberDoctors: state.openApp.numberDoctors,
   userType: state.signin.userType,
-  token: state.signin.token
+  token: state.signin.token,
+  language: state.language.lang
 });
 
 export default connect(

@@ -13,7 +13,6 @@ import UserHome from './app/home/UserHome';
 import WaitForAmbulance from './app/home/WaitForAmbulance';
 import ParamedicHome from './app/home/ParamedicHome';
 import AmbulanceHome from './app/home/AmbulanceHome';
-import MainScreen from './app/videoCall/screens/MainScreen';
 import UserSettings from './app/settings/UserSettings';
 import AddIncident from './app/home/AddIncident';
 import { Colors } from './constants';
@@ -83,11 +82,18 @@ class RouterComponent extends Component {
     return (
       <Router
         titleStyle={{
-          fontWeight: 'bold',
-          fontSize: 20,
-          color: 'white'
+          fontFamily:
+            this.props.language.lang == 'en'
+              ? 'Quicksand-SemiBold'
+              : 'Tajawal-Medium'
         }}
         tintColor="white"
+        sceneStyle={{
+          fontFamily:
+            this.props.language.lang == 'en'
+              ? 'Quicksand-Regular'
+              : 'Tajawal-Regular'
+        }}
       >
         <Scene
           key="root"
@@ -257,7 +263,6 @@ class RouterComponent extends Component {
               component={UserSettings}
               title={t.Settings}
               // renderLeftButton={this._renderBackButton}
-              title={t.Settings}
               hideNavBar={false}
             />
             <Scene
@@ -313,8 +318,7 @@ class RouterComponent extends Component {
               key="settings"
               component={UserSettings}
               title={t.Settings}
-              renderLeftButton={this._renderBackButton}
-              title={t.Settings}
+              // renderLeftButton={this._renderBackButton}
               hideNavBar={false}
             />
             <Scene
@@ -370,8 +374,7 @@ class RouterComponent extends Component {
               key="settings"
               component={UserSettings}
               title={t.Settings}
-              renderLeftButton={this._renderBackButton}
-              title={t.Settings}
+              // renderLeftButton={this._renderBackButton}
               hideNavBar={false}
             />
             <Scene
@@ -381,12 +384,7 @@ class RouterComponent extends Component {
               hideNavBar={false}
             />
           </Scene>
-          <Scene
-            key="main"
-            component={MainScreen}
-            title={t.Incidents}
-            icon={() => <Icon name="lifebuoy" size={25} />}
-          />
+
           <Scene key="CallScreen" component={CallScreen} hideNavBar={true} />
 
           <Scene
@@ -406,7 +404,11 @@ class RouterComponent extends Component {
   }
 }
 
-export default connect(
-  null,
-  { resetSignUpReducerState, resetSignInReducerState }
-)(RouterComponent);
+const mapStateToProps = state => ({
+  language: state.language
+});
+
+export default connect(mapStateToProps, {
+  resetSignUpReducerState,
+  resetSignInReducerState
+})(RouterComponent);

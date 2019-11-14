@@ -13,8 +13,11 @@ import { Voximplant } from 'react-native-voximplant';
 import LoginManager from '../app/videoCall/manager/LoginManager';
 
 export const resetSignInReducerState = () => {
-  return {
-    type: RESET_SIGNIN_REDUCER_STATE
+  return dispatch => {
+    dispatch({
+      type: RESET_SIGNIN_REDUCER_STATE
+    });
+    Actions.reset('welcome');
   };
 };
 
@@ -55,16 +58,16 @@ export const signInAttempt = signInInfo => {
         });
         switch (userType) {
           case 'user':
-            Actions.userHome();
+            Actions.reset('userHome');
             break;
           case 'doctor':
-            Actions.doctorHome();
+            Actions.reset('doctorHome');
             break;
           case 'paramedic':
-            Actions.paramedicHome();
+            Actions.reset('paramedicHome');
             break;
           case 'ambulance':
-            Actions.ambulanceHome();
+            Actions.reset('ambulanceHome');
             break;
         }
       })
@@ -72,7 +75,7 @@ export const signInAttempt = signInInfo => {
         console.log(error);
         dispatch({
           type: SIGNIN_FAIL,
-          payload: t.AutFailed
+          payload: t.AuthFailed
         });
       });
   };

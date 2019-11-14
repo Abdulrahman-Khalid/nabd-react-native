@@ -57,8 +57,9 @@ import {
   Animated
 } from 'react-native';
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
-export default class SwitchButton extends Component {
+class SwitchButton extends Component {
   static propTypes = {
     onValueChange: PropTypes.func
   };
@@ -107,8 +108,7 @@ export default class SwitchButton extends Component {
       );
 
       Animated.timing(this.state.offsetX, {
-        toValue:
-          ((this.props.switchWidth || this.state.sbWidth) / 2) * dirsign,
+        toValue: ((this.props.switchWidth || this.state.sbWidth) / 2) * dirsign,
         duration: this.props.switchSpeedChange || 100
       }).start();
     } else {
@@ -188,11 +188,22 @@ export default class SwitchButton extends Component {
                 ]}
               >
                 <Text
-                  style={[
-                    this.state.activeSwitch === 1
-                      ? { color: this.props.activeFontColor || '#000' }
-                      : { color: this.props.fontColor || '#817d84' }
-                  ], { fontWeight: 'bold' }}
+                  style={
+                    ([
+                      this.state.activeSwitch === 1
+                        ? { color: this.props.activeFontColor || '#000' }
+                        : { color: this.props.fontColor || '#817d84' }
+                    ],
+                    {
+                      fontFamily: this.props.intro
+                        ? this.props.language == 'en'
+                          ? 'Quicksand-SemiBold'
+                          : 'Tajawal-Medium'
+                        : this.props.language == 'en'
+                        ? 'Quicksand-SemiBold'
+                        : 'Tajawal-Medium'
+                    })
+                  }
                 >
                   {this.props.text1 || 'ON'}
                 </Text>
@@ -210,11 +221,22 @@ export default class SwitchButton extends Component {
                 ]}
               >
                 <Text
-                  style={[
-                    this.state.activeSwitch === 2
-                      ? { color: this.props.activeFontColor || '#000' }
-                      : { color: this.props.fontColor || '#817d84' }
-                  ], { fontWeight: 'bold' }}
+                  style={
+                    ([
+                      this.state.activeSwitch === 2
+                        ? { color: this.props.activeFontColor || '#000' }
+                        : { color: this.props.fontColor || '#817d84' }
+                    ],
+                    {
+                      fontFamily: this.props.intro
+                        ? this.props.language == 'ar'
+                          ? 'Quicksand-SemiBold'
+                          : 'Tajawal-Medium'
+                        : this.props.language == 'en'
+                        ? 'Quicksand-SemiBold'
+                        : 'Tajawal-Medium'
+                    })
+                  }
                 >
                   {this.props.text2 || 'OFF'}
                 </Text>
@@ -251,3 +273,9 @@ const switchStyles = StyleSheet.create({
     elevation: 7
   }
 });
+
+const mapStateToProps = state => ({
+  language: state.language.lang
+});
+
+export default connect(mapStateToProps, null)(SwitchButton);

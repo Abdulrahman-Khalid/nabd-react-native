@@ -19,7 +19,6 @@ import {
   ActivityIndicator
 } from 'react-native';
 import { Icon, SwitchButton } from '../../components';
-import RadioForm, { RadioButton } from 'react-native-simple-radio-button';
 import { requestLocationPermission, updateLocation } from '../../actions';
 import axios from 'axios';
 import t from '../../I18n';
@@ -31,8 +30,14 @@ import Geolocation from 'react-native-geolocation-service';
 import LinearGradient from 'react-native-linear-gradient';
 import getDirections from 'react-native-google-maps-directions';
 import { Stopwatch } from 'react-native-stopwatch-timer';
+import KeepAwake from 'react-native-keep-awake';
 
 const { width, height } = Dimensions.get('screen');
+
+const deviceLanguage =
+  Platform.OS === 'ios'
+    ? NativeModules.SettingsManager.settings.AppleLocale.substring(0, 2)
+    : NativeModules.I18nManager.localeIdentifier.substring(0, 2);
 
 var locationEmitterID = null;
 
@@ -81,6 +86,7 @@ class AmbulanceHome extends Component {
   }
 
   componentDidMount() {
+    KeepAwake.activate();
     this.setState({ gpsOffModal: true });
     RNSettings.getSetting(RNSettings.LOCATION_SETTING).then(result => {
       if (result == RNSettings.ENABLED) {
@@ -101,17 +107,23 @@ class AmbulanceHome extends Component {
         console.log(data);
         this.setState({
           patientName: data.name,
-          patientPhoneNumber: '+' + data.phoneNumber,
+          patientPhoneNumber: data.phoneNumber,
           patientLocation: data.location,
           startLocationTracking: true
         });
-        locationEmitterID = setInterval(this.sendLiveLocation, 1000);
+        locationEmitterID = setInterval(this.sendLiveLocation, 2000);
       });
     } else {
       if (!this.state.available && this.socket.connected) {
         this.socket.close();
+        clearInterval(locationEmitterID);
+        locationEmitterID = null;
       }
     }
+  }
+
+  componentWillUnmount() {
+    KeepAwake.deactivate();
   }
 
   handleGPSProviderEvent = e => {
@@ -175,16 +187,18 @@ class AmbulanceHome extends Component {
           patientLocation: data.location,
           startLocationTracking: true
         });
-        locationEmitterID = setInterval(this.sendLiveLocation, 1000);
+        locationEmitterID = setInterval(this.sendLiveLocation, 2000);
       });
     } else {
       if (!this.state.available && this.socket.connected) {
         this.socket.close();
+        clearInterval(locationEmitterID);
+        locationEmitterID = null;
       }
     }
   }
 
-  sendLiveLocation() {
+  async sendLiveLocation() {
     this.socket.emit('location', {
       latitude: this.props.position.coords.latitude,
       longitude: this.props.position.coords.longitude,
@@ -226,7 +240,7 @@ class AmbulanceHome extends Component {
                   }
                 ]}
               >
-                <Text style={{ color: '#b3b3b2', fontFamily: 'Jaldi-Bold' }}>
+                <Text style={{ color: '#b3b3b2', fontFamily: this.props.language.lang == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}>
                   {t.OpenSettings}
                 </Text>
               </View>
@@ -245,7 +259,7 @@ class AmbulanceHome extends Component {
                   }
                 ]}
               >
-                <Text style={{ color: '#d76674', fontFamily: 'Jaldi-Bold' }}>
+                <Text style={{ color: '#d76674', fontFamily: this.props.language.lang == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}>
                   {t.Refresh}
                 </Text>
               </View>
@@ -400,7 +414,7 @@ class AmbulanceHome extends Component {
                   color="#b3b3b2"
                   size={17}
                 />
-                <Text style={{ color: '#b3b3b2', fontFamily: 'Jaldi-Bold' }}>
+                <Text style={{ color: '#b3b3b2', fontFamily: this.props.language.lang == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}>
                   {t.GetDirections}
                 </Text>
               </View>
@@ -408,7 +422,7 @@ class AmbulanceHome extends Component {
             <TouchableOpacity
               style={styles.buttonContainer}
               onPress={() => {
-                Linking.openURL(`tel:${this.state.patientPhoneNumber}`);
+                Linking.openURL(`tel:${'+' + this.state.patientPhoneNumber}`);
               }}
             >
               <View
@@ -426,34 +440,8 @@ class AmbulanceHome extends Component {
                   color="#d76674"
                   size={17}
                 />
-                <Text style={{ color: '#d76674', fontFamily: 'Jaldi-Bold' }}>
+                <Text style={{ color: '#d76674', fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}>
                   {t.CarrierCall}
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.buttonContainer}
-              onPress={() => {
-                Linking.openURL(`tel:${this.state.patientPhoneNumber}`);
-              }}
-            >
-              <View
-                style={[
-                  styles.button,
-                  {
-                    backgroundColor: '#b9dabb'
-                  }
-                ]}
-              >
-                <Icon
-                  name="camera-video"
-                  family="LinearIcon"
-                  style={{ marginRight: 5 }}
-                  color="#57a25b"
-                  size={17}
-                />
-                <Text style={{ color: '#57a25b', fontFamily: 'Jaldi-Bold' }}>
-                  {t.MakeVideoCall}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -500,6 +488,7 @@ class AmbulanceHome extends Component {
                       available: false
                     });
                     clearInterval(locationEmitterID);
+                    locationEmitterID = null;
                   }}
                 >
                   <View
@@ -520,7 +509,7 @@ class AmbulanceHome extends Component {
                       color="white"
                       size={17}
                     />
-                    <Text style={{ color: 'white', fontFamily: 'Jaldi-Bold' }}>
+                    <Text style={{ color: 'white', fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}>
                       {t.Arrived}
                     </Text>
                   </View>
@@ -628,7 +617,6 @@ const styles = StyleSheet.create({
   locationPermissionModalTitle: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'Jaldi-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -637,7 +625,6 @@ const styles = StyleSheet.create({
     color: 'gray',
     textAlign: 'center',
     flex: 1,
-    fontFamily: 'Jaldi-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -660,7 +647,6 @@ const styles = StyleSheet.create({
   gpsOffModalTitle: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'Jaldi-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -717,7 +703,7 @@ const mapStateToProps = state => ({
   language: state.language
 });
 
-export default connect(
-  mapStateToProps,
-  { requestLocationPermission, updateLocation }
-)(AmbulanceHome);
+export default connect(mapStateToProps, {
+  requestLocationPermission,
+  updateLocation
+})(AmbulanceHome);

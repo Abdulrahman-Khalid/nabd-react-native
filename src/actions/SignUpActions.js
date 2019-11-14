@@ -153,11 +153,22 @@ export const signUpAttempt = signUpInfo => {
         });
       })
       .catch(error => {
-        console.log(error);
-        dispatch({
-          type: SIGNUP_FAIL,
-          payload: t.SignUpFailed
-        });
+        console.log(JSON.stringify(error));
+        console.log('status error: ', JSON.stringify(error.response.status));
+        if (error.response.status === 409) {
+          dispatch({
+            type: SIGNUP_SUCCESS
+          });
+          Actions.verifySignup({
+            phoneNum: phone,
+            userName: name
+          });
+        } else {
+          dispatch({
+            type: SIGNUP_FAIL,
+            payload: t.SignUpFailed
+          });
+        }
       });
   };
 };

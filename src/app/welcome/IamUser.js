@@ -41,15 +41,13 @@ const styles = {
   title: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
   description: {
-    fontSize: 15,
+    fontSize: 18,
     color: 'gray',
     textAlign: 'center',
-    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   }

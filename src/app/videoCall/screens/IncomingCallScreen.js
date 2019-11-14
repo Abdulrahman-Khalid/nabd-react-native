@@ -6,7 +6,8 @@ import {
   View,
   SafeAreaView,
   PermissionsAndroid,
-  Platform
+  Platform,
+  BackHandler
 } from 'react-native';
 import CallButton from '../components/CallButton';
 import CallManager from '../manager/CallManager';
@@ -17,6 +18,7 @@ import { Actions } from 'react-native-router-flux';
 import { Colors } from '../../../constants';
 import { connect } from 'react-redux';
 import t from '../../../I18n';
+import KeepAwake from 'react-native-keep-awake';
 
 class IncomingCallScreen extends React.Component {
   constructor(props) {
@@ -33,6 +35,11 @@ class IncomingCallScreen extends React.Component {
   }
 
   componentDidMount() {
+    KeepAwake.activate();
+    BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.onBackPress.bind(this)
+    );
     if (this.call) {
       Object.keys(Voximplant.CallEvents).forEach(eventName => {
         const callbackName = `_onCall${eventName}`;
@@ -43,7 +50,16 @@ class IncomingCallScreen extends React.Component {
     }
   }
 
+  onBackPress() {
+    return true;
+  }
+
   componentWillUnmount() {
+    KeepAwake.deactivate();
+    BackHandler.removeEventListener(
+      'hardwareBackPress',
+      this.onBackPress.bind(this)
+    );
     if (this.call) {
       Object.keys(Voximplant.CallEvents).forEach(eventName => {
         const callbackName = `_onCall${eventName}`;

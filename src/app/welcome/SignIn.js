@@ -61,42 +61,61 @@ class SignIn extends Component {
     // console.log('hi', this.state);
     return (
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={() => {
-            if (!this.phone.isValidNumber()) {
-              this.setState({ isValidNumber: false });
-              this.showAlert();
-            } else {
-              const { signInAttempt, phone, password, userType } = this.props;
-              signInAttempt({
-                phone,
-                password,
-                userType
-              });
-            }
-          }}
-        >
-          <View style={styles.button}>
-            {this.props.loading ? (
-              <Spinner color={Colors.WHITE} size="small" />
-            ) : (
-              <Text
-                style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
-              >
-                {t.LogIn}
-              </Text>
-            )}
+        {this.props.loading ? (
+          <View style={[styles.buttonContainer, styles.button]}>
+            <Spinner color={Colors.WHITE} size="small" />
           </View>
-        </TouchableOpacity>
+        ) : (
+          <TouchableOpacity
+            style={[styles.buttonContainer, styles.button]}
+            onPress={() => {
+              if (!this.phone.isValidNumber()) {
+                this.setState({ isValidNumber: false });
+                console.log('is valid: ', this.phone.isValidNumber());
+                this.showAlert();
+              } else {
+                this.setState({ isValidNumber: true });
+                const { signInAttempt, phone, password, userType } = this.props;
+                signInAttempt({
+                  phone,
+                  password,
+                  userType
+                });
+                setTimeout(() => {
+                  this.showAlert();
+                }, 3000);
+              }
+            }}
+          >
+            <Text
+              style={{
+                color: Colors.WHITE,
+                fontFamily:
+                  this.props.language == 'en'
+                    ? 'Quicksand-SemiBold'
+                    : 'Tajawal-Medium'
+              }}
+            >
+              {t.LogIn}
+            </Text>
+          </TouchableOpacity>
+        )}
       </View>
     );
   }
 
   errorMessage(isValidNumber) {
     var message = '';
+    const { error } = this.props;
+    console.log(`error is ${error}`);
+    var num = 1;
     if (!isValidNumber) {
-      message += t.PhoneNotValid;
+      message += `${num}) ${t.PhoneNotValid}\n`;
+      num++;
+    }
+    if (error) {
+      message += `${num}) ${error}\n`;
+      num++;
     }
     console.log(message);
     return message;
@@ -132,10 +151,12 @@ class SignIn extends Component {
             style={{
               textAlign: 'left',
               fontSize: 50,
-              fontWeight: 'bold',
               marginLeft: 20,
-              lineHeight: 50,
-              marginBottom: 25
+              marginBottom: 25,
+              fontFamily:
+                this.props.language == 'en'
+                  ? 'Quicksand-SemiBold'
+                  : 'Tajawal-Medium'
             }}
           >
             {t.Welcome}
@@ -198,18 +219,7 @@ class SignIn extends Component {
           </View>
           {this.isLoading()}
         </KeyboardAwareScrollView>
-        {/* <TouchableOpacity
-          style={styles.textButtonContainer}
-          onPress={() => console.log('restore_password')}
-        >
-          <Text>{t.ForgotPassword}</Text>
-        </TouchableOpacity>
-        <TouchableOpacity
-          style={styles.textButtonContainer}
-          onPress={() => Actions.signup()}
-        >
-          <Text>{t.SignUp}</Text>
-        </TouchableOpacity> */}
+
         <AwesomeAlert
           show={this.state.showAlert}
           showProgress={false}
@@ -321,12 +331,12 @@ const styles = StyleSheet.create({
 
 const mapSateToProps = state => {
   // console.log('state', state);
+  const language = state.language.lang;
   const { userType } = state.openApp;
-  const { phone, password, loading } = state.signin;
-  return { phone, password, loading, userType };
+  const { phone, password, loading, error } = state.signin;
+  return { phone, password, loading, userType, language, error };
 };
 
-export default connect(
-  mapSateToProps,
-  { signInAttempt, fillSignInReducer }
-)(SignIn);
+export default connect(mapSateToProps, { signInAttempt, fillSignInReducer })(
+  SignIn
+);

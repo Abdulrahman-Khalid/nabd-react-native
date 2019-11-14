@@ -1,11 +1,5 @@
 import React, { Component } from 'react';
-import {
-  Linking,
-  Share,
-  NativeModules,
-  I18nManager,
-  TouchableOpacity
-} from 'react-native';
+import { Linking, Share, NativeModules, Alert } from 'react-native';
 import ReactNativeSettingsPage, {
   SectionRow,
   NavigateRow
@@ -19,6 +13,7 @@ import { View, Picker } from 'react-native';
 import t from '../../I18n';
 import email from 'react-native-email';
 import axios from 'axios';
+import LoginManager from '../videoCall/manager/LoginManager';
 
 class UserSettings extends Component {
   constructor(props) {
@@ -43,17 +38,30 @@ class UserSettings extends Component {
 
   logoutButtonPressed() {
     axios.defaults.headers.common['TOKEN'] = '';
+    LoginManager.getInstance().logout();
     this.props.resetSignInReducerState();
-    Actions.welcome();
+  }
+
+  userTypeDisplay() {
+    switch (this.props.userType) {
+      case 'user':
+        return <TextDisplay iconName="address-card" text={t.User} />;
+      case 'doctor':
+        return <TextDisplay iconName="address-card" text={t.Doctor} />;
+      case 'paramedic':
+        return <TextDisplay iconName="address-card" text={t.Paramedic} />;
+      case 'ambulance':
+        return <TextDisplay iconName="address-card" text={t.Ambulance} />;
+    }
   }
 
   render() {
     return (
       <ReactNativeSettingsPage>
         <SectionRow text={t.Profile}>
-          <TextDisplay iconName="user" text={this.props.userType} />
           <TextDisplay iconName="user" text={this.props.userName} />
           <TextDisplay iconName="phone" text={this.props.phone} />
+          {this.userTypeDisplay()}
         </SectionRow>
         <SectionRow text={t.Language}>
           <View style={{ flex: 1 }}>
@@ -110,7 +118,7 @@ class UserSettings extends Component {
             }}
           />
         </SectionRow>
-        <View style={{ backgroundColor: '#fff', marginBottom: 10 }}>
+        <View style={{ backgroundColor: '#E8E8EE', marginBottom: 10, paddingHorizontal: 20 }}>
           <NavigateRow
             onPressCallback={this.logoutButtonPressed.bind(this)}
             iconName="sign-out"
@@ -127,7 +135,7 @@ const mapStateToProps = state => {
   return { userType, userName, phone, language: state.language };
 };
 
-export default connect(
-  mapStateToProps,
-  { switchLanguage, resetSignInReducerState }
-)(UserSettings);
+export default connect(mapStateToProps, {
+  switchLanguage,
+  resetSignInReducerState
+})(UserSettings);

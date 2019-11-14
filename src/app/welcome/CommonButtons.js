@@ -3,9 +3,11 @@ import { Actions } from 'react-native-router-flux';
 import { Colors } from '../../constants';
 import { Dimensions, View, TouchableOpacity, Text } from 'react-native';
 import t from '../../I18n';
+import { connect } from 'react-redux';
+
 const { width, height } = Dimensions.get('screen');
 
-export default class CommonButtons extends Component {
+class CommonButtons extends Component {
   render() {
     return (
       <View style={styles.buttonsContainer}>
@@ -14,7 +16,13 @@ export default class CommonButtons extends Component {
           onPress={() => Actions.signup()}
         >
           <View style={styles.button}>
-            <Text style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}>
+            <Text
+              style={{
+                color: Colors.WHITE,
+                fontFamily:
+                  this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium'
+              }}
+            >
               {t.CreateAccount}
             </Text>
           </View>
@@ -27,7 +35,8 @@ export default class CommonButtons extends Component {
             <Text
               style={{
                 color: Colors.SECONDARY_DARK,
-                fontFamily: 'IstokWeb-Bold'
+                fontFamily:
+                  this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium'
               }}
             >
               {t.SignIn}
@@ -70,3 +79,9 @@ const styles = {
     backgroundColor: Colors.APP
   }
 };
+
+const mapStateToProps = state => ({
+  language: state.language.lang
+});
+
+export default connect(mapStateToProps, null)(CommonButtons);
