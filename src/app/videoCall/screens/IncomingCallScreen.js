@@ -6,7 +6,8 @@ import {
   View,
   SafeAreaView,
   PermissionsAndroid,
-  Platform
+  Platform,
+  BackHandler
 } from 'react-native';
 import CallButton from '../components/CallButton';
 import CallManager from '../manager/CallManager';
@@ -33,6 +34,10 @@ class IncomingCallScreen extends React.Component {
   }
 
   componentDidMount() {
+    BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.onBackPress.bind(this)
+    );
     if (this.call) {
       Object.keys(Voximplant.CallEvents).forEach(eventName => {
         const callbackName = `_onCall${eventName}`;
@@ -44,6 +49,10 @@ class IncomingCallScreen extends React.Component {
   }
 
   componentWillUnmount() {
+    BackHandler.removeEventListener(
+      'hardwareBackPress',
+      this.onBackPress.bind(this)
+    );
     if (this.call) {
       Object.keys(Voximplant.CallEvents).forEach(eventName => {
         const callbackName = `_onCall${eventName}`;

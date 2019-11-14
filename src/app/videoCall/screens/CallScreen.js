@@ -10,7 +10,8 @@ import {
   SafeAreaView,
   StatusBar,
   FlatList,
-  PermissionsAndroid
+  PermissionsAndroid,
+  BackHandler
 } from 'react-native';
 
 import { Colors } from '../../../constants';
@@ -69,6 +70,10 @@ class CallScreen extends React.Component {
   }
 
   componentDidMount() {
+    BackHandler.addEventListener(
+      'hardwareBackPress',
+      this.onBackPress.bind(this)
+    );
     if (this.call) {
       Object.keys(Voximplant.CallEvents).forEach(eventName => {
         const callbackName = `_onCall${eventName}`;
@@ -123,7 +128,15 @@ class CallScreen extends React.Component {
     })();
   }
 
+  onBackPress() {
+    return true;
+  }
+
   componentWillUnmount() {
+    BackHandler.removeEventListener(
+      'hardwareBackPress',
+      this.onBackPress.bind(this)
+    );
     console.log('CallScreen: componentWillUnmount ' + this.call.callId);
     if (this.call) {
       Object.keys(Voximplant.CallEvents).forEach(eventName => {
