@@ -9,7 +9,7 @@ export default en = {
   Error5:
     'Location service is not enabled or location mode is not appropriate for the current request',
   Error6: 'Please try again',
-  AuthFailed: 'Authentication failed',
+  AuthFailed: 'Authentication failed, wrong credentials',
   Verification: 'Verification',
   EnterVerificationCode: 'Please enter the verification code\nwe sent to ',
   WrongPassword: 'Wrong password',
