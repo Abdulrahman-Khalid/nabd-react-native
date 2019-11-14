@@ -3,6 +3,7 @@ import axios from 'axios';
 import App from './src/App';
 import { name as appName } from './app.json';
 import Config from 'react-native-config';
+import KeepAwake from 'react-native-keep-awake';
 
 YellowBox.ignoreWarnings([
   'Warning: componentWillMount is deprecated',
@@ -17,6 +18,8 @@ axios.defaults.baseURL = Config.API_URL;
 // axios.defaults.baseURL = 'http://192.168.1.2:3000/api/';
 console.log('Config.API_URL: ', axios.defaults.baseURL);
 axios.defaults.timeout = 5000;
+
+KeepAwake.activate();
 
 global.deepLinking = true;
 
