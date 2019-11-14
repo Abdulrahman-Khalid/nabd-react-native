@@ -100,6 +100,8 @@ export default ar = {
   FirstAid: 'الإسعافات الأولية',
   AmbulanceDriver: 'سائق عربة الإسعاف',
   Aide: 'مساعدة عاجلة',
+  DidntReceiveCode: 'لم يصل إليك كود التفعيل؟',
+  NoAmbulance: 'لا يوجد سيارات اسعاف في الوقت الحالي',
 
   Bleeding: ' النزيف الحاد ',
   Burns: 'الحروق',

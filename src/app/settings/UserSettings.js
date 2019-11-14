@@ -119,7 +119,7 @@ class UserSettings extends Component {
             }}
           />
         </SectionRow>
-        <View style={{ backgroundColor: '#E8E8EE', marginBottom: 10 }}>
+        <View style={{ backgroundColor: '#E8E8EE', marginBottom: 10, paddingHorizontal: 20 }}>
           <NavigateRow
             onPressCallback={this.logoutButtonPressed.bind(this)}
             iconName="sign-out"

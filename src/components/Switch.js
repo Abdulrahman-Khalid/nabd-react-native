@@ -108,8 +108,7 @@ class SwitchButton extends Component {
       );
 
       Animated.timing(this.state.offsetX, {
-        toValue:
-          ((this.props.switchWidth || this.state.sbWidth) / 2) * dirsign,
+        toValue: ((this.props.switchWidth || this.state.sbWidth) / 2) * dirsign,
         duration: this.props.switchSpeedChange || 100
       }).start();
     } else {
@@ -189,11 +188,22 @@ class SwitchButton extends Component {
                 ]}
               >
                 <Text
-                  style={[
-                    this.state.activeSwitch === 1
-                      ? { color: this.props.activeFontColor || '#000' }
-                      : { color: this.props.fontColor || '#817d84' }
-                  ], { fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}
+                  style={
+                    ([
+                      this.state.activeSwitch === 1
+                        ? { color: this.props.activeFontColor || '#000' }
+                        : { color: this.props.fontColor || '#817d84' }
+                    ],
+                    {
+                      fontFamily: this.props.intro
+                        ? this.props.language == 'en'
+                          ? 'Quicksand-SemiBold'
+                          : 'Tajawal-Medium'
+                        : this.props.language == 'en'
+                        ? 'Quicksand-SemiBold'
+                        : 'Tajawal-Medium'
+                    })
+                  }
                 >
                   {this.props.text1 || 'ON'}
                 </Text>
@@ -211,11 +221,22 @@ class SwitchButton extends Component {
                 ]}
               >
                 <Text
-                  style={[
-                    this.state.activeSwitch === 2
-                      ? { color: this.props.activeFontColor || '#000' }
-                      : { color: this.props.fontColor || '#817d84' }
-                  ], { fontFamily: this.props.language == 'ar' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}
+                  style={
+                    ([
+                      this.state.activeSwitch === 2
+                        ? { color: this.props.activeFontColor || '#000' }
+                        : { color: this.props.fontColor || '#817d84' }
+                    ],
+                    {
+                      fontFamily: this.props.intro
+                        ? this.props.language == 'ar'
+                          ? 'Quicksand-SemiBold'
+                          : 'Tajawal-Medium'
+                        : this.props.language == 'en'
+                        ? 'Quicksand-SemiBold'
+                        : 'Tajawal-Medium'
+                    })
+                  }
                 >
                   {this.props.text2 || 'OFF'}
                 </Text>

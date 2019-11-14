@@ -132,22 +132,20 @@ class Register extends React.Component {
           </View>
         ) : (
           <TouchableOpacity
-            style={styles.buttonContainer}
+            style={[styles.buttonContainer, styles.button]}
             onPress={this.createAccountPressed}
           >
-            <View style={styles.button}>
-              <Text
-                style={{
-                  color: Colors.WHITE,
-                  fontFamily:
-                    this.props.language == 'en'
-                      ? 'SemiBold-Bold'
-                      : 'Tajawal-Medium'
-                }}
-              >
-                {t.CreateAccount}
-              </Text>
-            </View>
+            <Text
+              style={{
+                color: Colors.WHITE,
+                fontFamily:
+                  this.props.language == 'en'
+                    ? 'SemiBold-Bold'
+                    : 'Tajawal-Medium'
+              }}
+            >
+              {t.CreateAccount}
+            </Text>
           </TouchableOpacity>
         )}
       </View>
@@ -416,6 +414,7 @@ class Register extends React.Component {
               });
             }
           }}
+          style={{ flex: 1 }}
         />
       );
     }
@@ -783,15 +782,10 @@ const styles = StyleSheet.create({
     borderColor: Colors.INPUT_ERROR
   },
   buttonsContainer: {
+    flex: 1,
     flexDirection: 'row',
-    margin: 10,
     width: '100%',
     justifyContent: 'center',
-    alignItems: 'flex-end'
-  },
-  buttonContainer: {
-    flex: 1,
-    padding: 10,
     shadowColor: '#000',
     shadowOffset: {
       width: 0,
@@ -801,13 +795,13 @@ const styles = StyleSheet.create({
     shadowRadius: 3.84,
     elevation: 5
   },
-  button: {
-    height: 44,
-    width: '100%',
-    alignItems: 'center',
+  buttonContainer: {
+    flex: 1,
+    height: 60,
     justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: 30,
-    flexDirection: 'row',
+    marginHorizontal: 20,
     backgroundColor: Colors.APP
   },
   container: {
