@@ -21,7 +21,6 @@ import { Colors } from '../../constants';
 import { connect } from 'react-redux';
 import t from '../../I18n';
 import { addedNewIncident } from '../../actions';
-import Err from '../../ErrorHandler';
 const actionSheetButtons = t.ActionSheetButtons;
 
 class AddIncident extends Component {
@@ -146,7 +145,6 @@ class AddIncident extends Component {
 
         .catch(err => {
           // handle error
-          // Err.errorHandler(err);
           let error = JSON.stringify(err);
           error = JSON.parse(error);
           console.log(error);
@@ -167,7 +165,6 @@ class AddIncident extends Component {
             })
             .catch(err => {
               // handle error
-              // Err.errorHandler(err);
               let error = JSON.stringify(err);
               error = JSON.parse(error);
               console.log(error);
@@ -192,7 +189,6 @@ class AddIncident extends Component {
         .then(response => {})
         .catch(err => {
           // handle error
-          // Err.errorHandler(err);
           let error = JSON.stringify(err);
           error = JSON.parse(error);
           Actions.Incidents();

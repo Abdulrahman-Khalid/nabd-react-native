@@ -1,7 +1,7 @@
 export default en = {
   // toast error
-  ErrorHappened: 'Error happened',
-  UnAuthorized: 'Token expired, please signin again',
+  ErrorHappened: 'Error',
+  UnAuthorized: 'Your login session has expired. Press "Ok" to sign in again',
   Error1: 'Location permission is not granted',
   Error2: 'Location provider not available',
   Error3: 'Location request timed out',
