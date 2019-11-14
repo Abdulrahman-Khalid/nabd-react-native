@@ -30,6 +30,7 @@ import Geolocation from 'react-native-geolocation-service';
 import LinearGradient from 'react-native-linear-gradient';
 import getDirections from 'react-native-google-maps-directions';
 import { Stopwatch } from 'react-native-stopwatch-timer';
+import KeepAwake from 'react-native-keep-awake';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -85,6 +86,7 @@ class AmbulanceHome extends Component {
   }
 
   componentDidMount() {
+    KeepAwake.activate();
     this.setState({ gpsOffModal: true });
     RNSettings.getSetting(RNSettings.LOCATION_SETTING).then(result => {
       if (result == RNSettings.ENABLED) {
@@ -118,6 +120,10 @@ class AmbulanceHome extends Component {
         locationEmitterID = null;
       }
     }
+  }
+
+  componentWillUnmount() {
+    KeepAwake.deactivate();
   }
 
   handleGPSProviderEvent = e => {
