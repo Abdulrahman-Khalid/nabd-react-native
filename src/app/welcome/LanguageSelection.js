@@ -26,20 +26,23 @@ import { FAB } from 'react-native-paper';
 
 const deviceLanguage =
   Platform.OS === 'ios'
-    ? NativeModules.SettingsManager.settings.AppleLocale.substring(0, 1)
-    : NativeModules.I18nManager.localeIdentifier.substring(0, 1);
+    ? NativeModules.SettingsManager.settings.AppleLocale.substring(0, 2)
+    : NativeModules.I18nManager.localeIdentifier.substring(0, 2);
 
 class LanguageSelection extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isRtl: 'rtl',
+      isRtl:
+        deviceLanguage == 'ar'
+          ? 'rtl'
+          : this.props.language.lang === 'ar'
+          ? 'rtl'
+          : 'ltr',
       switchText1: this.props.language.lang === 'en' ? 'English' : 'العربية',
       switchText2: this.props.language.lang === 'ar' ? 'English' : 'العربية',
       loading: true
     };
-    if (deviceLanguage === 'en' && this.props.language.lang === 'en')
-      this.setState({ isRtl: 'ltr' });
   }
 
   componentDidMount() {
@@ -164,7 +167,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     textAlign: 'center',
     marginLeft: theme.SIZES.BASE * 2,
-    marginRight: theme.SIZES.BASE * 2,
+    marginRight: theme.SIZES.BASE * 2
   },
   description: {
     fontSize: 15,
