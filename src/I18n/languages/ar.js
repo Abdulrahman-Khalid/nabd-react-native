@@ -18,7 +18,8 @@ export default ar = {
   ConfirmationCode: 'كود التأكيد',
   EnterVerificationCode: 'من فضلك ادخل كود التأكيد\n المرسل الى',
   ResendCode: 'اعادة ارسال',
-
+  NoDoctorFound: 'لا يوجد طبيب متاح الان حاول مجددا لاحقا',
+  NoParamedicFound: 'لا يوجد مسعف متاح الان حاول مجددا لاحقا',
   InternalMedicine: 'الباطنة والأمراض الصدرية',
   Cardiology: 'أمراض القلب والأوعية الدموية',
   Neurology: 'مخ و أعصاب',

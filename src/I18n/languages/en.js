@@ -19,6 +19,8 @@ export default en = {
   Success: 'Succeess',
   ConfirmationCode: 'Confirmation code',
   ResendCode: 'Resend code',
+  NoDoctorFound: 'No Doctor is available right now, try again later',
+  NoParamedicFound: 'No Paramedic is available right now, try again later',
 
   InternalMedicine: ' Internal Medicine',
   Cardiology: 'Cardiology',
