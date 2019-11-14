@@ -27,6 +27,7 @@ import io from 'socket.io-client';
 import Pulse from 'react-native-pulse';
 import RNSettings from 'react-native-settings';
 import Geolocation from 'react-native-geolocation-service';
+import KeepAwake from 'react-native-keep-awake';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -72,6 +73,7 @@ class ParamedicHome extends Component {
   }
 
   componentDidMount() {
+    KeepAwake.activate();
     LoginManager.getInstance().loginWithPassword(
       this.props.phoneNumber + info.voxAccount,
       info.userPass
@@ -121,6 +123,7 @@ class ParamedicHome extends Component {
   }
 
   componentWillUnmount() {
+    KeepAwake.deactivate();
     LoginManager.getInstance().off(
       'onConnectionClosed',
       this._connectionClosed

@@ -140,8 +140,7 @@ class UserHome extends Component {
         const useCallKitString = await AsyncStorage.getItem('useCallKit');
         callSettings.setupCallKit = JSON.parse(useCallKitString);
       }
-      console.log('abdo god1');
-      LoginManager.getInstance().loginWithPassword(
+      await LoginManager.getInstance().loginWithPassword(
         this.props.phoneNumber + info.voxAccount,
         info.userPass
       );
@@ -149,12 +148,8 @@ class UserHome extends Component {
         helperNumber,
         callSettings
       );
-      console.log('abdo god2');
-
       let callManager = CallManager.getInstance();
-      console.log('abdo god3');
       callManager.addCall(call);
-      console.log('abdo god4');
       Actions.CallScreen({
         callId: call.callId,
         isVideo: isVideoCall,
@@ -166,28 +161,6 @@ class UserHome extends Component {
   }
 
   async videoCall(helperType, specialization) {
-    // const client = Voximplant.getInstance();
-    // try {
-    //   let state = await client.getClientState();
-    //   if (state === Voximplant.ClientState.DISCONNECTED) {
-    //     await client.connect();
-    //   }
-    //   LoginManager.getInstance()
-    //     .loginWithPassword(
-    //       this.props.phoneNumber + info.voxAccount,
-    //       info.userPass
-    //     )
-    //     .then(() => {
-    //       console.log('login voximplant successfully first time ');
-    //     });
-    //   let authResult = await client.login(
-    //     this.props.phoneNumber,
-    //     info.userPass
-    //   );
-    // } catch (e) {
-    //   console.log(e.name + e.message);
-    // }
-
     console.log(helperType, ', specialization ', specialization);
     axios
       .post(
@@ -806,7 +779,7 @@ class UserHome extends Component {
               Actions.waitForAmbulance();
             }, 500);
           } else {
-            Alert.alert('', 'No ambulance was found', [
+            Alert.alert('', t.NoAmbulance, [
               {
                 text: t.OK
               }

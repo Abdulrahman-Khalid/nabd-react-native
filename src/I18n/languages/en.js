@@ -124,6 +124,8 @@ export default en = {
   RequestHelp: 'Request Help',
   LogOut: 'Log out',
   Home: 'Home',
+  DidntReceiveCode: "Didn't receive a code?",
+  NoAmbulance: 'No ambulance was found',
 
   // Paramedic Home
   DoctorSpecialization: 'Doctor Specialization',
