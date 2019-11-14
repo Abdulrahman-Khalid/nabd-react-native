@@ -29,13 +29,6 @@ class Err extends Component {
             }
           );
           break;
-        case 400:
-          Alert.alert('', t.WrongPassword, [
-            {
-              text: t.OK
-            }
-          ]);
-          break;
       }
     }
   };

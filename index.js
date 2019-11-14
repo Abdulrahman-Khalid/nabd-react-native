@@ -15,6 +15,7 @@ YellowBox.ignoreWarnings([
 console.disableYellowBox = true;
 axios.defaults.baseURL = Config.API_URL;
 // axios.defaults.baseURL = 'http://192.168.1.2:3000/api/';
+console.log('Config.API_URL: ', axios.defaults.baseURL);
 axios.defaults.timeout = 5000;
 
 global.deepLinking = true;
