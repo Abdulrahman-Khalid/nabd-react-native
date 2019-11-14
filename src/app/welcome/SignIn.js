@@ -71,14 +71,19 @@ class SignIn extends Component {
             onPress={() => {
               if (!this.phone.isValidNumber()) {
                 this.setState({ isValidNumber: false });
+                console.log('is valid: ', this.phone.isValidNumber());
                 this.showAlert();
               } else {
+                this.setState({ isValidNumber: true });
                 const { signInAttempt, phone, password, userType } = this.props;
                 signInAttempt({
                   phone,
                   password,
                   userType
                 });
+                setTimeout(() => {
+                  this.showAlert();
+                }, 3000);
               }
             }}
           >
@@ -102,6 +107,7 @@ class SignIn extends Component {
   errorMessage(isValidNumber) {
     var message = '';
     const { error } = this.props;
+    console.log(`error is ${error}`);
     var num = 1;
     if (!isValidNumber) {
       message += `${num}) ${t.PhoneNotValid}\n`;
