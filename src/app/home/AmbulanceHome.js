@@ -33,6 +33,11 @@ import { Stopwatch } from 'react-native-stopwatch-timer';
 
 const { width, height } = Dimensions.get('screen');
 
+const deviceLanguage =
+  Platform.OS === 'ios'
+    ? NativeModules.SettingsManager.settings.AppleLocale.substring(0, 2)
+    : NativeModules.I18nManager.localeIdentifier.substring(0, 2);
+
 var locationEmitterID = null;
 
 const stopWatchOptions = {
@@ -100,7 +105,7 @@ class AmbulanceHome extends Component {
         console.log(data);
         this.setState({
           patientName: data.name,
-          patientPhoneNumber: '+' + data.phoneNumber,
+          patientPhoneNumber: data.phoneNumber,
           patientLocation: data.location,
           startLocationTracking: true
         });
@@ -187,7 +192,7 @@ class AmbulanceHome extends Component {
     }
   }
 
-  sendLiveLocation() {
+  async sendLiveLocation() {
     this.socket.emit('location', {
       latitude: this.props.position.coords.latitude,
       longitude: this.props.position.coords.longitude,
@@ -411,7 +416,7 @@ class AmbulanceHome extends Component {
             <TouchableOpacity
               style={styles.buttonContainer}
               onPress={() => {
-                Linking.openURL(`tel:${this.state.patientPhoneNumber}`);
+                Linking.openURL(`tel:${'+' + this.state.patientPhoneNumber}`);
               }}
             >
               <View
@@ -431,32 +436,6 @@ class AmbulanceHome extends Component {
                 />
                 <Text style={{ color: '#d76674', fontFamily: 'Jaldi-Bold' }}>
                   {t.CarrierCall}
-                </Text>
-              </View>
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={styles.buttonContainer}
-              onPress={() => {
-                Linking.openURL(`tel:${this.state.patientPhoneNumber}`);
-              }}
-            >
-              <View
-                style={[
-                  styles.button,
-                  {
-                    backgroundColor: '#b9dabb'
-                  }
-                ]}
-              >
-                <Icon
-                  name="camera-video"
-                  family="LinearIcon"
-                  style={{ marginRight: 5 }}
-                  color="#57a25b"
-                  size={17}
-                />
-                <Text style={{ color: '#57a25b', fontFamily: 'Jaldi-Bold' }}>
-                  {t.MakeVideoCall}
                 </Text>
               </View>
             </TouchableOpacity>
