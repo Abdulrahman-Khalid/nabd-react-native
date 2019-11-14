@@ -18,7 +18,7 @@ export const resetSignInReducerState = () => {
       type: RESET_SIGNIN_REDUCER_STATE
     });
     Actions.reset('welcome');
-  }
+  };
 };
 
 export const fillSignInReducer = keyAndValue => {
