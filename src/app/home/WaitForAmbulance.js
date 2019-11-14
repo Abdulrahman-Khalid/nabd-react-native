@@ -22,6 +22,7 @@ import { Actions } from 'react-native-router-flux';
 import t from '../../I18n';
 import Config from 'react-native-config';
 import mapStyle from '../../config/GoogleMapsCustomStyle';
+import KeepAwake from 'react-native-keep-awake';
 
 class WaitForAmbulance extends Component {
   constructor(props) {
@@ -49,6 +50,7 @@ class WaitForAmbulance extends Component {
   }
 
   componentDidMount() {
+    KeepAwake.activate();
     BackHandler.addEventListener(
       'hardwareBackPress',
       this.onBackPress.bind(this)
@@ -113,6 +115,7 @@ class WaitForAmbulance extends Component {
   }
 
   componentWillUnmount() {
+    KeepAwake.deactivate();
     BackHandler.removeEventListener(
       'hardwareBackPress',
       this.onBackPress.bind(this)

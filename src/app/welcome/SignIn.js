@@ -67,7 +67,7 @@ class SignIn extends Component {
           </View>
         ) : (
           <TouchableOpacity
-            style={styles.buttonContainer}
+            style={[styles.buttonContainer, styles.button]}
             onPress={() => {
               if (!this.phone.isValidNumber()) {
                 this.setState({ isValidNumber: false });
@@ -82,7 +82,6 @@ class SignIn extends Component {
               }
             }}
           >
-            <View style={styles.button}>
               <Text
                 style={{
                   color: Colors.WHITE,
@@ -94,7 +93,6 @@ class SignIn extends Component {
               >
                 {t.LogIn}
               </Text>
-            </View>
           </TouchableOpacity>
         )}
       </View>
