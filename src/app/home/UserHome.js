@@ -741,7 +741,7 @@ class UserHome extends Component {
               Actions.waitForAmbulance();
             }, 500);
           } else {
-            Alert.alert('', 'No ambulance was found', [
+            Alert.alert('', t.NoAmbulance, [
               {
                 text: t.OK
               }
