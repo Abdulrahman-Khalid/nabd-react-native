@@ -53,7 +53,7 @@ class CallScreen extends React.Component {
       remoteVideoStreamId: null,
       audioDeviceSelectionVisible: false,
       audioDevices: [],
-      audioDeviceIcon: 'hearing'
+      audioDeviceIcon: this.props.isVideo ? 'volume-up' : 'hearing'
     };
 
     this.call = CallManager.getInstance().getCallById(this.callId);
