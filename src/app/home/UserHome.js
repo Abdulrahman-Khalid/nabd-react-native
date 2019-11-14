@@ -88,14 +88,19 @@ class UserHome extends Component {
     this.requestAmbulance = this.requestAmbulance.bind(this);
   }
 
-  componentDidMount() {
-    LoginManager.getInstance()
-      .loginWithPassword(
-        this.props.phoneNumber + '@nabd.abdulrahman.elshafei98.voximplant.com',
-        info.userPass
-      )
-      .then(() => console.log('success login vox'));
+  _connectionClosed() {
+    LoginManager.getInstance().loginWithPassword(
+      this.props.phoneNumber + info.voxAccount,
+      info.userPass
+    );
+  }
 
+  componentDidMount() {
+    LoginManager.getInstance().loginWithPassword(
+      this.props.phoneNumber + info.voxAccount,
+      info.userPass
+    );
+    LoginManager.getInstance().on('onConnectionClosed', this._connectionClosed);
     this.setState({ gpsOffModal: true });
     RNSettings.getSetting(RNSettings.LOCATION_SETTING).then(result => {
       if (result == RNSettings.ENABLED) {
@@ -150,16 +155,21 @@ class UserHome extends Component {
         const useCallKitString = await AsyncStorage.getItem('useCallKit');
         callSettings.setupCallKit = JSON.parse(useCallKitString);
       }
-
+      console.log('abdo god1');
+      LoginManager.getInstance().loginWithPassword(
+        this.props.phoneNumber + info.voxAccount,
+        info.userPass
+      );
       let call = await Voximplant.getInstance().call(
         helperNumber,
         callSettings
       );
+      console.log('abdo god2');
+
       let callManager = CallManager.getInstance();
+      console.log('abdo god3');
       callManager.addCall(call);
-      // if (callSettings.setupCallKit) {
-      //   callManager.startOutgoingCallViaCallKit(isVideoCall, helperNumber);
-      // }
+      console.log('abdo god4');
       Actions.CallScreen({
         callId: call.callId,
         isVideo: isVideoCall,
@@ -171,6 +181,28 @@ class UserHome extends Component {
   }
 
   async videoCall(helperType, specialization) {
+    // const client = Voximplant.getInstance();
+    // try {
+    //   let state = await client.getClientState();
+    //   if (state === Voximplant.ClientState.DISCONNECTED) {
+    //     await client.connect();
+    //   }
+    //   LoginManager.getInstance()
+    //     .loginWithPassword(
+    //       this.props.phoneNumber + info.voxAccount,
+    //       info.userPass
+    //     )
+    //     .then(() => {
+    //       console.log('login voximplant successfully first time ');
+    //     });
+    //   let authResult = await client.login(
+    //     this.props.phoneNumber,
+    //     info.userPass
+    //   );
+    // } catch (e) {
+    //   console.log(e.name + e.message);
+    // }
+
     console.log(helperType, ', specialization ', specialization);
     axios
       .post(
@@ -432,11 +464,11 @@ class UserHome extends Component {
   }
 
   componentWillUnmount() {
-    Geolocation.clearWatch(this.watchID);
     LoginManager.getInstance().off(
       'onConnectionClosed',
       this._connectionClosed
     );
+    Geolocation.clearWatch(this.watchID);
   }
 
   setModalVisible(visible) {

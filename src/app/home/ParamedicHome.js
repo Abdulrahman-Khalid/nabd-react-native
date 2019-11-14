@@ -69,12 +69,20 @@ class ParamedicHome extends Component {
   }
 
   componentDidMount() {
-    LoginManager.getInstance()
-      .loginWithPassword(
-        this.props.phoneNumber + '@nabd.abdulrahman.elshafei98.voximplant.com',
-        info.userPass
-      )
-      .then(() => console.log('success login vox'));
+    LoginManager.getInstance().loginWithPassword(
+      this.props.phoneNumber + info.voxAccount,
+      info.userPass
+    );
+    LoginManager.getInstance().on('onConnectionClosed', this._connectionClosed);
+    // LoginManager.getInstance()
+    //   .loginWithPassword(
+    //     this.props.phoneNumber + info.voxAccount,
+    //     info.userPass
+    //   )
+    //   .then(() => {
+    //     console.log('login voximplant successfully');
+    //   });
+
     this.setState({ gpsOffModal: true });
     RNSettings.getSetting(RNSettings.LOCATION_SETTING).then(result => {
       if (result == RNSettings.ENABLED) {
@@ -94,6 +102,10 @@ class ParamedicHome extends Component {
         ',user type: ',
         this.props.userType
       );
+      LoginManager.getInstance().loginWithPassword(
+        this.props.phoneNumber + info.voxAccount,
+        info.userPass
+      );
       this.socket.emit('available', {
         phoneNumber: this.props.phoneNumber,
         specialization: this.props.specialization
@@ -111,6 +123,13 @@ class ParamedicHome extends Component {
       this._connectionClosed
     );
     this.socket.close();
+  }
+
+  _connectionClosed() {
+    LoginManager.getInstance().loginWithPassword(
+      this.props.phoneNumber + info.voxAccount,
+      info.userPass
+    );
   }
 
   componentDidUpdate() {
@@ -159,6 +178,10 @@ class ParamedicHome extends Component {
         this.props.phoneNumber,
         ',user type: ',
         this.props.userType
+      );
+      LoginManager.getInstance().loginWithPassword(
+        this.props.phoneNumber + info.voxAccount,
+        info.userPass
       );
       this.socket.emit('available', {
         phoneNumber: this.props.phoneNumber,

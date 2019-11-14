@@ -13,6 +13,7 @@ import { View, Picker } from 'react-native';
 import t from '../../I18n';
 import email from 'react-native-email';
 import axios from 'axios';
+import LoginManager from '../videoCall/manager/LoginManager';
 
 class UserSettings extends Component {
   constructor(props) {
@@ -38,6 +39,7 @@ class UserSettings extends Component {
   logoutButtonPressed() {
     axios.defaults.headers.common['TOKEN'] = '';
     this.props.resetSignInReducerState();
+    LoginManager.getInstance().logout();
     Actions.reset('welcome');
   }
 
@@ -134,7 +136,7 @@ const mapStateToProps = state => {
   return { userType, userName, phone, language: state.language };
 };
 
-export default connect(
-  mapStateToProps,
-  { switchLanguage, resetSignInReducerState }
-)(UserSettings);
+export default connect(mapStateToProps, {
+  switchLanguage,
+  resetSignInReducerState
+})(UserSettings);
