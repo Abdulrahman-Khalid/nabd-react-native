@@ -99,10 +99,6 @@ class UserHome extends Component {
     );
   }
 
-  _connectionClosed = () => {
-    // Actions.welcome();
-  };
-
   async makeCall(isVideoCall, helperNumber) {
     try {
       if (Platform.OS === 'android') {
