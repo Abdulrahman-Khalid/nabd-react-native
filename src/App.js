@@ -11,7 +11,8 @@ import {
   View,
   StyleSheet,
   StatusBar,
-  NativeModules
+  NativeModules,
+  Alert
 } from 'react-native';
 import CreateStore from './config/CreateStore';
 import { Colors } from './constants';
@@ -23,6 +24,9 @@ import {
 import { Provider as PaperProvider } from 'react-native-paper';
 import RNRestart from 'react-native-restart';
 import GlobalFont from 'react-native-global-font';
+import t from './I18n';
+import axios from 'axios';
+import { resetSignInReducerState } from './actions';
 
 const { store } = CreateStore();
 let persistor;
@@ -70,14 +74,47 @@ class App extends Component {
       setCustomTextInput(customProps);
       setCustomView(customProps);
 
-      const fontName = language.lang == 'en' ? 'Quicksand-Regular' : 'Tajawal-Regular';
-      GlobalFont.applyGlobal(fontName)
+      const fontName =
+        language.lang == 'en' ? 'Quicksand-Regular' : 'Tajawal-Regular';
+      GlobalFont.applyGlobal(fontName);
 
       this.setState({ rehydrated: true });
     });
   }
   componentDidUpdate() {
     if (this.state.rehydrated) {
+      axios.interceptors.response.use(
+        function(response) {
+          // Any status code that lie within the range of 2xx cause this function to trigger
+          // Do something with response data
+          return response;
+        },
+        function(error) {
+          // Any status codes that falls outside the range of 2xx cause this function to trigger
+          // Do something with response error
+          switch (error.response.status) {
+            case 403:
+              Alert.alert(
+                t.ErrorHappened,
+                t.UnAuthorized,
+                [
+                  {
+                    text: t.OK,
+                    onPress: () => {
+                      axios.defaults.headers.common['TOKEN'] = '';
+                      store.dispatch(resetSignInReducerState())
+                    }
+                  }
+                ],
+                {
+                  cancelable: false
+                }
+              );
+              break;
+          }
+          return Promise.reject(error);
+        }
+      );
       SplashScreen.hide();
     }
   }

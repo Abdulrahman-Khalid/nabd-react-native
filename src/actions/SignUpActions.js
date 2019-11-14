@@ -13,7 +13,6 @@ import {
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 import t from '../I18n';
-import Err from '../ErrorHandler';
 
 export const resetSignUpReducerState = () => {
   return {
@@ -165,8 +164,6 @@ export const signUpAttempt = signUpInfo => {
             userName: name
           });
         } else {
-          // obj = new Err();
-          // obj.errorHandler(error);
           dispatch({
             type: SIGNUP_FAIL,
             payload: t.SignUpFailed

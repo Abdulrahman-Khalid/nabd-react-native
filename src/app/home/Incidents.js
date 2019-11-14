@@ -24,7 +24,6 @@ import { isIphoneX } from 'react-native-iphone-x-helper';
 import axios from 'axios';
 import { addedNewIncident } from '../../actions';
 import t from '../../I18n';
-import Err from '../../ErrorHandler';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -158,7 +157,6 @@ export class Incidents extends Component {
         }
       })
       .catch(error => {
-        // Err.errorHandler(error);
         console.log(error);
       })
       .then(() => {});
@@ -175,7 +173,6 @@ export class Incidents extends Component {
         this.pullRefresh();
       })
       .catch(error => {
-        // Err.errorHandler(error);
       })
       .then(() => {});
   }

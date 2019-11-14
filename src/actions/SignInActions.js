@@ -13,9 +13,12 @@ import { Voximplant } from 'react-native-voximplant';
 import LoginManager from '../app/videoCall/manager/LoginManager';
 
 export const resetSignInReducerState = () => {
-  return {
-    type: RESET_SIGNIN_REDUCER_STATE
-  };
+  return dispatch => {
+    dispatch({
+      type: RESET_SIGNIN_REDUCER_STATE
+    });
+    Actions.reset('welcome');
+  }
 };
 
 export const fillSignInReducer = keyAndValue => {

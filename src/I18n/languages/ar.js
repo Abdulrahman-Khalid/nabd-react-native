@@ -1,6 +1,6 @@
 export default ar = {
   ErrorHappened: 'حدث خطأ',
-  UnAuthorized: 'انتهت صلاحية التوكن الخاص بك سجل الدخول مرة اخرة من فضلك',
+  UnAuthorized: 'انتهت جلسة تسجيل الدخول الخاصة بك. اضفط علي "حسنًا" حتي تسجل الدخول مجددًا',
   Error1: 'لم يتم منح إذن الموقع',
   Error2: 'مزود الموقع غير متوفر',
   Error3: 'انتهت مهلة طلب الموقع',
@@ -154,7 +154,7 @@ export default ar = {
   PrivacyPolicy: 'سياسة الخصوصية',
   ForgotPassword: 'هل نسيت كلمة المرور؟',
   LogIn: 'تسجيل الدخول',
-  PasswordStrength: ' : قوة كلمة المرور',
+  PasswordStrength: ' قوة كلمة المرور',
   SpecializationEmptyError: 'يجب عليك اختيار تخصصك الطبي',
   NameEmpty: 'خانة اسم المستخدم فارغة',
   SignUpFailed: 'فشل في إنشاءالحساب',

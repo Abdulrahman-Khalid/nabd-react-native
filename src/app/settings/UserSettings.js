@@ -38,9 +38,8 @@ class UserSettings extends Component {
 
   logoutButtonPressed() {
     axios.defaults.headers.common['TOKEN'] = '';
-    this.props.resetSignInReducerState();
     LoginManager.getInstance().logout();
-    Actions.reset('welcome');
+    this.props.resetSignInReducerState();
   }
 
   userTypeDisplay() {
