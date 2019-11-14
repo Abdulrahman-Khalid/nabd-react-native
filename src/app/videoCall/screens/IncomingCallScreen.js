@@ -18,6 +18,7 @@ import { Actions } from 'react-native-router-flux';
 import { Colors } from '../../../constants';
 import { connect } from 'react-redux';
 import t from '../../../I18n';
+import KeepAwake from 'react-native-keep-awake';
 
 class IncomingCallScreen extends React.Component {
   constructor(props) {
@@ -34,6 +35,7 @@ class IncomingCallScreen extends React.Component {
   }
 
   componentDidMount() {
+    KeepAwake.activate();
     BackHandler.addEventListener(
       'hardwareBackPress',
       this.onBackPress.bind(this)
@@ -49,6 +51,7 @@ class IncomingCallScreen extends React.Component {
   }
 
   componentWillUnmount() {
+    KeepAwake.deactivate();
     BackHandler.removeEventListener(
       'hardwareBackPress',
       this.onBackPress.bind(this)
