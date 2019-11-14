@@ -79,15 +79,6 @@ class ParamedicHome extends Component {
       info.userPass
     );
     LoginManager.getInstance().on('onConnectionClosed', this._connectionClosed);
-    // LoginManager.getInstance()
-    //   .loginWithPassword(
-    //     this.props.phoneNumber + info.voxAccount,
-    //     info.userPass
-    //   )
-    //   .then(() => {
-    //     console.log('login voximplant successfully');
-    //   });
-
     this.setState({ gpsOffModal: true });
     RNSettings.getSetting(RNSettings.LOCATION_SETTING).then(result => {
       if (result == RNSettings.ENABLED) {
@@ -309,7 +300,15 @@ class ParamedicHome extends Component {
                   }
                 ]}
               >
-                <Text style={{ color: '#b3b3b2', fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}>
+                <Text
+                  style={{
+                    color: '#b3b3b2',
+                    fontFamily:
+                      this.props.language == 'en'
+                        ? 'Quicksand-SemiBold'
+                        : 'Tajawal-Medium'
+                  }}
+                >
                   {t.OpenSettings}
                 </Text>
               </View>
@@ -328,7 +327,15 @@ class ParamedicHome extends Component {
                   }
                 ]}
               >
-                <Text style={{ color: '#d76674', fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}>
+                <Text
+                  style={{
+                    color: '#d76674',
+                    fontFamily:
+                      this.props.language == 'en'
+                        ? 'Quicksand-SemiBold'
+                        : 'Tajawal-Medium'
+                  }}
+                >
                   {t.Refresh}
                 </Text>
               </View>

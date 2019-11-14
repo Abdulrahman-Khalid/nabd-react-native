@@ -179,8 +179,8 @@ export default ar = {
 
   ProceedCarefully: 'استكمل بحذر',
   SearchForAPlace: 'ابحث',
-  Incidents: 'الحوادث',
-  AddIncident: 'إضافة حادثة',
+  Incidents: 'الأحداث',
+  AddIncident: 'إضافة حدث',
   Call: 'الاتصال',
   GetDirections: 'الحصول على الموقع',
   IncidentDescription: 'وصف الحادثة',
