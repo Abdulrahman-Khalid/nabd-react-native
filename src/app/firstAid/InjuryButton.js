@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
 import { Colors, Images } from '../../constants';
 import { theme } from 'galio-framework';
+import { connect } from 'react-redux';
 
 const InjuryButton = props => {
   return (
@@ -15,7 +16,17 @@ const InjuryButton = props => {
     >
       <Image style={styles.image} source={Images[props.src]} />
       <View style={styles.textContainer}>
-        <Text style={styles.text}>{props.txt}</Text>
+        <Text
+          style={[
+            styles.text,
+            {
+              fontFamily:
+                props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium'
+            }
+          ]}
+        >
+          {props.txt}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -40,7 +51,6 @@ const styles = StyleSheet.create({
     fontSize: 35,
     color: 'white',
     textAlign: 'center',
-    fontWeight: 'bold',
     margin: 10
   },
   button: {
@@ -64,4 +74,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default InjuryButton;
+const mapStateToProps = state => ({
+  language: state.language.lang
+});
+
+export default connect(mapStateToProps, null)(InjuryButton);

@@ -1,3 +1,4 @@
+import React, { Component } from 'react';
 import { Actions } from 'react-native-router-flux';
 import { Alert } from 'react-native';
 import t from './I18n';
@@ -7,9 +8,10 @@ import { resetSignInReducerState } from './actions';
 class Err extends Component {
   errorHandler = ({ response }) => {
     if (response) {
+      console.log(JSON.stringify(response.status));
       switch (response.status) {
         case 403:
-          return Alert.alert(
+          Alert.alert(
             t.ErrorHappend,
             t.UnAuthorized,
             [
@@ -18,7 +20,7 @@ class Err extends Component {
                 onPress: () => {
                   axios.defaults.headers.common['TOKEN'] = '';
                   this.props.resetSignInReducerState();
-                  Actions.reset('languageSelection');
+                  Actions.reset('welcome');
                 }
               }
             ],
@@ -26,12 +28,10 @@ class Err extends Component {
               cancelable: false
             }
           );
+          break;
       }
     }
   };
 }
 
-export default connect(
-  null,
-  { resetSignInReducerState }
-)(Err);
+export default connect(null, { resetSignInReducerState })(Err);

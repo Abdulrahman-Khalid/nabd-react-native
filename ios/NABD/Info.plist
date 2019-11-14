@@ -96,6 +96,58 @@
 		<string>IstokWeb-BoldItalic.ttf</string>
 		<string>IstokWeb-Italic.ttf</string>
 		<string>IstokWeb-Regular.ttf</string>
+		<string>Nunito-Black.ttf</string>
+		<string>Nunito-BlackItalic.ttf</string>
+		<string>Nunito-Bold.ttf</string>
+		<string>Nunito-BoldItalic.ttf</string>
+		<string>Nunito-ExtraBold.ttf</string>
+		<string>Nunito-ExtraBoldItalic.ttf</string>
+		<string>Nunito-ExtraLight.ttf</string>
+		<string>Nunito-ExtraLightItalic.ttf</string>
+		<string>Nunito-Italic.ttf</string>
+		<string>Nunito-Light.ttf</string>
+		<string>Nunito-LightItalic.ttf</string>
+		<string>Nunito-Regular.ttf</string>
+		<string>Nunito-SemiBold.ttf</string>
+		<string>Nunito-SemiBoldItalic.ttf</string>
+		<string>Cabin-Bold.ttf</string>
+		<string>Cabin-BoldItalic.ttf</string>
+		<string>Cabin-Italic.ttf</string>
+		<string>Cabin-Medium.ttf</string>
+		<string>Cabin-MediumItalic.ttf</string>
+		<string>Cabin-Regular.ttf</string>
+		<string>Cabin-SemiBold.ttf</string>
+		<string>Cabin-SemiBoldItalic.ttf</string>
+		<string>Dosis-Bold.ttf</string>
+		<string>Dosis-ExtraBold.ttf</string>
+		<string>Dosis-ExtraLight.ttf</string>
+		<string>Dosis-Light.ttf</string>
+		<string>Dosis-Medium.ttf</string>
+		<string>Dosis-Regular.ttf</string>
+		<string>Dosis-SemiBold.ttf</string>
+		<string>Quicksand-Bold.ttf</string>
+		<string>Quicksand-Light.ttf</string>
+		<string>Quicksand-Medium.ttf</string>
+		<string>Quicksand-Regular.ttf</string>
+		<string>Quicksand-SemiBold.ttf</string>
+		<string>Raleway-Black.ttf</string>
+		<string>Raleway-BlackItalic.ttf</string>
+		<string>Raleway-Bold.ttf</string>
+		<string>Raleway-BoldItalic.ttf</string>
+		<string>Raleway-ExtraBold.ttf</string>
+		<string>Raleway-ExtraBoldItalic.ttf</string>
+		<string>Raleway-ExtraLight.ttf</string>
+		<string>Raleway-ExtraLightItalic.ttf</string>
+		<string>Raleway-Italic.ttf</string>
+		<string>Raleway-Light.ttf</string>
+		<string>Raleway-LightItalic.ttf</string>
+		<string>Raleway-Medium.ttf</string>
+		<string>Raleway-MediumItalic.ttf</string>
+		<string>Raleway-Regular.ttf</string>
+		<string>Raleway-SemiBold.ttf</string>
+		<string>Raleway-SemiBoldItalic.ttf</string>
+		<string>Raleway-Thin.ttf</string>
+		<string>Raleway-ThinItalic.ttf</string>
 	</array>
 	<key>UIBackgroundModes</key>
 	<array>

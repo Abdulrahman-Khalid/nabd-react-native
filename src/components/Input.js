@@ -3,7 +3,7 @@ import { StyleSheet } from "react-native";
 import PropTypes from 'prop-types';
 
 import { Input } from "galio-framework";
-
+import { connect } from 'react-redux';
 import Icon from './Icon';
 import { Colors } from "../constants";
 
@@ -16,13 +16,15 @@ class ArInput extends React.Component {
       !shadowless && styles.shadow,
       success && styles.success,
       error && styles.error,
-      {...this.props.style}
+      {...this.props.style},
+      { fontFamily: this.props.language == 'en' ? 'Quicksand-Regular' : 'Tajawal-Regular' }
     ];
 
     return (
       <Input
         placeholder="write something here"
         placeholderTextColor={Colors.MUTED}
+        placeholderStyle={{ fontFamily: this.props.language == 'en' ? 'Quicksand-Regular' : 'Tajawal-Regular' }}
         style={inputStyles}
         color={Colors.HEADER}
         iconContent={
@@ -75,4 +77,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ArInput;
+const mapStateToProps = state => ({
+  language: state.language.lang
+});
+
+export default connect(mapStateToProps, null)(ArInput);

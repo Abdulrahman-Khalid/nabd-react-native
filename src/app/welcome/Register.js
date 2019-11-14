@@ -126,22 +126,30 @@ class Register extends React.Component {
     // console.log('hi', this.state);
     return (
       <View style={styles.buttonsContainer}>
-        <TouchableOpacity
-          style={styles.buttonContainer}
-          onPress={this.createAccountPressed}
-        >
-          <View style={styles.button}>
-            {this.props.loading ? (
-              <Spinner color={Colors.WHITE} size="small" />
-            ) : (
+        {this.props.loading ? (
+          <View style={[styles.buttonContainer, styles.button]}>
+            <Spinner color={Colors.WHITE} size="small" />
+          </View>
+        ) : (
+          <TouchableOpacity
+            style={styles.buttonContainer}
+            onPress={this.createAccountPressed}
+          >
+            <View style={styles.button}>
               <Text
-                style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
+                style={{
+                  color: Colors.WHITE,
+                  fontFamily:
+                    this.props.language == 'en'
+                      ? 'SemiBold-Bold'
+                      : 'Tajawal-Medium'
+                }}
               >
                 {t.CreateAccount}
               </Text>
-            )}
-          </View>
-        </TouchableOpacity>
+            </View>
+          </TouchableOpacity>
+        )}
       </View>
     );
   }
@@ -440,9 +448,11 @@ class Register extends React.Component {
               style={{
                 textAlign: 'left',
                 fontSize: 40,
-                fontWeight: 'bold',
                 marginLeft: 10,
-                lineHeight: 50,
+                fontFamily:
+                  this.props.language == 'en'
+                    ? 'Quicksand-SemiBold'
+                    : 'Tajawal-Medium',
                 alignSelf: 'flex-start'
               }}
             >
@@ -843,6 +853,7 @@ const styles = StyleSheet.create({
 });
 
 const mapSateToProps = state => {
+  const language = state.language.lang;
   // console.log('Register State: ', state);
   const { userType } = state.openApp;
   //add in the reducer signup (birthday)
@@ -887,18 +898,16 @@ const mapSateToProps = state => {
     isSuccessPass,
     isErrorPass,
     isSuccessPassMatch,
-    isErrorPassMatch
+    isErrorPassMatch,
+    language
   };
 };
 
-export default connect(
-  mapSateToProps,
-  {
-    signUpAttempt,
-    fillSignUpForm,
-    validateName,
-    validateConfirmPassword,
-    validateBirthday,
-    validatePhone
-  }
-)(Register);
+export default connect(mapSateToProps, {
+  signUpAttempt,
+  fillSignUpForm,
+  validateName,
+  validateConfirmPassword,
+  validateBirthday,
+  validatePhone
+})(Register);

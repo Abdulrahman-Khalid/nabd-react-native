@@ -13,6 +13,7 @@ import {
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 import t from '../I18n';
+import Err from '../ErrorHandler';
 
 export const resetSignUpReducerState = () => {
   return {
@@ -153,11 +154,24 @@ export const signUpAttempt = signUpInfo => {
         });
       })
       .catch(error => {
-        console.log(error);
-        dispatch({
-          type: SIGNUP_FAIL,
-          payload: t.SignUpFailed
-        });
+        console.log(JSON.stringify(error));
+        console.log('status error: ', JSON.stringify(error.response.status));
+        if (error.response.status === 409) {
+          dispatch({
+            type: SIGNUP_SUCCESS
+          });
+          Actions.verifySignup({
+            phoneNum: phone,
+            userName: name
+          });
+        } else {
+          // obj = new Err();
+          // obj.errorHandler(error);
+          dispatch({
+            type: SIGNUP_FAIL,
+            payload: t.SignUpFailed
+          });
+        }
       });
   };
 };

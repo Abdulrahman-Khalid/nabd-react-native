@@ -30,6 +30,11 @@ import Geolocation from 'react-native-geolocation-service';
 
 const { width, height } = Dimensions.get('screen');
 
+const deviceLanguage =
+  Platform.OS === 'ios'
+    ? NativeModules.SettingsManager.settings.AppleLocale.substring(0, 2)
+    : NativeModules.I18nManager.localeIdentifier.substring(0, 2);
+
 class ParamedicHome extends Component {
   constructor(props) {
     super(props);
@@ -44,6 +49,7 @@ class ParamedicHome extends Component {
       gpsOffModal: false,
       available: false
     };
+
     this.socket = io.connect(
       axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4) +
         `available/${this.props.userType}s`,
@@ -66,12 +72,20 @@ class ParamedicHome extends Component {
   }
 
   componentDidMount() {
-    LoginManager.getInstance()
-      .loginWithPassword(
-        this.props.phoneNumber + '@nabd.abdulrahman.elshafei98.voximplant.com',
-        info.userPass
-      )
-      .then(() => console.log('success login vox'));
+    LoginManager.getInstance().loginWithPassword(
+      this.props.phoneNumber + info.voxAccount,
+      info.userPass
+    );
+    LoginManager.getInstance().on('onConnectionClosed', this._connectionClosed);
+    // LoginManager.getInstance()
+    //   .loginWithPassword(
+    //     this.props.phoneNumber + info.voxAccount,
+    //     info.userPass
+    //   )
+    //   .then(() => {
+    //     console.log('login voximplant successfully');
+    //   });
+
     this.setState({ gpsOffModal: true });
     RNSettings.getSetting(RNSettings.LOCATION_SETTING).then(result => {
       if (result == RNSettings.ENABLED) {
@@ -91,6 +105,10 @@ class ParamedicHome extends Component {
         ',user type: ',
         this.props.userType
       );
+      LoginManager.getInstance().loginWithPassword(
+        this.props.phoneNumber + info.voxAccount,
+        info.userPass
+      );
       this.socket.emit('available', {
         phoneNumber: this.props.phoneNumber,
         specialization: this.props.specialization
@@ -108,6 +126,13 @@ class ParamedicHome extends Component {
       this._connectionClosed
     );
     this.socket.close();
+  }
+
+  _connectionClosed() {
+    LoginManager.getInstance().loginWithPassword(
+      this.props.phoneNumber + info.voxAccount,
+      info.userPass
+    );
   }
 
   componentDidUpdate() {
@@ -156,6 +181,10 @@ class ParamedicHome extends Component {
         this.props.phoneNumber,
         ',user type: ',
         this.props.userType
+      );
+      LoginManager.getInstance().loginWithPassword(
+        this.props.phoneNumber + info.voxAccount,
+        info.userPass
       );
       this.socket.emit('available', {
         phoneNumber: this.props.phoneNumber,
@@ -537,7 +566,7 @@ const mapStateToProps = state => ({
   ambulancePhoneNumber: state.ambulanceRequest.ambulancePhoneNumber
 });
 
-export default connect(
-  mapStateToProps,
-  { requestLocationPermission, updateLocation }
-)(ParamedicHome);
+export default connect(mapStateToProps, {
+  requestLocationPermission,
+  updateLocation
+})(ParamedicHome);

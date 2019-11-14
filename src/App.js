@@ -22,6 +22,7 @@ import {
 } from 'react-native-global-props';
 import { Provider as PaperProvider } from 'react-native-paper';
 import RNRestart from 'react-native-restart';
+import GlobalFont from 'react-native-global-font';
 
 const { store } = CreateStore();
 let persistor;
@@ -48,7 +49,7 @@ class App extends Component {
         case 'en':
           customProps = {
             style: {
-              fontFamily: 'IstokWeb-Regular'
+              fontFamily: 'Quicksand-Regular'
             }
           };
           break;
@@ -68,6 +69,10 @@ class App extends Component {
       setCustomText(customProps);
       setCustomTextInput(customProps);
       setCustomView(customProps);
+
+      const fontName = language.lang == 'en' ? 'Quicksand-Regular' : 'Tajawal-Regular';
+      GlobalFont.applyGlobal(fontName)
+
       this.setState({ rehydrated: true });
     });
   }

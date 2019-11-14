@@ -51,21 +51,6 @@ import LinearGradient from 'react-native-linear-gradient';
 
 const { width, height } = Dimensions.get('screen');
 
-const buttons = [
-  {
-    title: t.RequestHelp,
-    image: Images.aideCard
-  },
-  {
-    title: t.RequestDoctor,
-    image: Images.doctorCard
-  },
-  {
-    title: t.RequestAmbulance,
-    image: Images.ambulanceCard
-  }
-];
-
 class UserHome extends Component {
   constructor(props) {
     super();
@@ -88,14 +73,19 @@ class UserHome extends Component {
     this.requestAmbulance = this.requestAmbulance.bind(this);
   }
 
-  componentDidMount() {
-    LoginManager.getInstance()
-      .loginWithPassword(
-        this.props.phoneNumber + '@nabd.abdulrahman.elshafei98.voximplant.com',
-        info.userPass
-      )
-      .then(() => console.log('success login vox'));
+  _connectionClosed() {
+    LoginManager.getInstance().loginWithPassword(
+      this.props.phoneNumber + info.voxAccount,
+      info.userPass
+    );
+  }
 
+  componentDidMount() {
+    LoginManager.getInstance().loginWithPassword(
+      this.props.phoneNumber + info.voxAccount,
+      info.userPass
+    );
+    LoginManager.getInstance().on('onConnectionClosed', this._connectionClosed);
     this.setState({ gpsOffModal: true });
     RNSettings.getSetting(RNSettings.LOCATION_SETTING).then(result => {
       if (result == RNSettings.ENABLED) {
@@ -150,16 +140,21 @@ class UserHome extends Component {
         const useCallKitString = await AsyncStorage.getItem('useCallKit');
         callSettings.setupCallKit = JSON.parse(useCallKitString);
       }
-
+      console.log('abdo god1');
+      LoginManager.getInstance().loginWithPassword(
+        this.props.phoneNumber + info.voxAccount,
+        info.userPass
+      );
       let call = await Voximplant.getInstance().call(
         helperNumber,
         callSettings
       );
+      console.log('abdo god2');
+
       let callManager = CallManager.getInstance();
+      console.log('abdo god3');
       callManager.addCall(call);
-      // if (callSettings.setupCallKit) {
-      //   callManager.startOutgoingCallViaCallKit(isVideoCall, helperNumber);
-      // }
+      console.log('abdo god4');
       Actions.CallScreen({
         callId: call.callId,
         isVideo: isVideoCall,
@@ -171,6 +166,28 @@ class UserHome extends Component {
   }
 
   async videoCall(helperType, specialization) {
+    // const client = Voximplant.getInstance();
+    // try {
+    //   let state = await client.getClientState();
+    //   if (state === Voximplant.ClientState.DISCONNECTED) {
+    //     await client.connect();
+    //   }
+    //   LoginManager.getInstance()
+    //     .loginWithPassword(
+    //       this.props.phoneNumber + info.voxAccount,
+    //       info.userPass
+    //     )
+    //     .then(() => {
+    //       console.log('login voximplant successfully first time ');
+    //     });
+    //   let authResult = await client.login(
+    //     this.props.phoneNumber,
+    //     info.userPass
+    //   );
+    // } catch (e) {
+    //   console.log(e.name + e.message);
+    // }
+
     console.log(helperType, ', specialization ', specialization);
     axios
       .post(
@@ -196,7 +213,7 @@ class UserHome extends Component {
       })
       .catch(error => {
         console.log(error);
-        Err.errorHandler(error);
+        // Err.errorHandler(error);
         Alert.alert(t.CallFailed, t.ServerError, [
           {
             text: t.OK
@@ -221,7 +238,7 @@ class UserHome extends Component {
           action.close();
         }}
       >
-        <Text>{t.Cancel}</Text>
+        <Text style={{ fontSize: 20 }}>{t.Cancel}</Text>
       </TouchableOpacity>
     );
   }
@@ -230,7 +247,7 @@ class UserHome extends Component {
     return (
       <View
         style={{
-          width: width / 2 - 20,
+          width: width / 2 - 25,
           height: height / 2 - 125,
           borderRadius: 30
         }}
@@ -268,8 +285,6 @@ class UserHome extends Component {
             fontSize: 35,
             zIndex: 2,
             color: 'white',
-            fontWeight: '900',
-            fontFamily: 'IstokWeb-Bold',
             marginLeft: 15,
             marginBottom: 12
           }}
@@ -432,11 +447,11 @@ class UserHome extends Component {
   }
 
   componentWillUnmount() {
-    Geolocation.clearWatch(this.watchID);
     LoginManager.getInstance().off(
       'onConnectionClosed',
       this._connectionClosed
     );
+    Geolocation.clearWatch(this.watchID);
   }
 
   setModalVisible(visible) {
@@ -474,7 +489,7 @@ class UserHome extends Component {
   renderModal() {
     return (
       <CustomModal
-        title="Proceed carefully"
+        title={t.ProceedCarefully}
         modalVisible={this.state.modalVisible}
         onRequestClose={() => {
           this.setModalVisible(false);
@@ -489,6 +504,7 @@ class UserHome extends Component {
         >
           <Text style={{ fontSize: 18 }}>{t.SendCurrentLocation}</Text>
           <Switch
+            thumbColor={this.state.switchValue ? Colors.LIGHT : 'gray'}
             value={this.state.switchValue}
             onValueChange={value => {
               this.setState({ switchValue: value });
@@ -513,7 +529,15 @@ class UserHome extends Component {
                 }
               ]}
             >
-              <Text style={{ color: '#d76674', fontFamily: 'IstokWeb-Bold' }}>
+              <Text
+                style={{
+                  color: '#d76674',
+                  fontFamily:
+                    this.props.language == 'en'
+                      ? 'Quicksand-SemiBold'
+                      : 'Tajawal-Medium'
+                }}
+              >
                 {t.Confirm}
               </Text>
             </View>
@@ -572,7 +596,15 @@ class UserHome extends Component {
                   }
                 ]}
               >
-                <Text style={{ color: '#b3b3b2', fontFamily: 'IstokWeb-Bold' }}>
+                <Text
+                  style={{
+                    color: '#b3b3b2',
+                    fontFamily:
+                      this.props.language == 'en'
+                        ? 'Quicksand-SemiBold'
+                        : 'Tajawal-Medium'
+                  }}
+                >
                   {t.OpenSettings}
                 </Text>
               </View>
@@ -591,8 +623,16 @@ class UserHome extends Component {
                   }
                 ]}
               >
-                <Text style={{ color: '#d76674', fontFamily: 'IstokWeb-Bold' }}>
-                  Refresh
+                <Text
+                  style={{
+                    color: '#d76674',
+                    fontFamily:
+                      this.props.language == 'en'
+                        ? 'Quicksand-SemiBold'
+                        : 'Tajawal-Medium'
+                  }}
+                >
+                  {t.Refresh}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -623,6 +663,21 @@ class UserHome extends Component {
   }
 
   renderButtons() {
+    const buttons = [
+      {
+        title: this.props.language == 'en' ? 'Request Help' : 'طلب مساعدة',
+        image: Images.aideCard
+      },
+      {
+        title: this.props.language == 'en' ? 'Call a Doctor' : 'اتصل بطبيب',
+        image: Images.doctorCard
+      },
+      {
+        title:
+          this.props.language == 'en' ? 'Request an Ambulance' : 'طلب إسعاف',
+        image: Images.ambulanceCard
+      }
+    ];
     return this.props.position ? (
       <View
         style={{
@@ -723,7 +778,7 @@ class UserHome extends Component {
           }
         })
         .catch(err => {
-          Err.errorHandler(error);
+          // Err.errorHandler(error);
           let error = JSON.stringify(err);
           error = JSON.parse(error);
           this.setState({
@@ -759,7 +814,7 @@ class UserHome extends Component {
           }
         })
         .catch(err => {
-          Err.errorHandler(error);
+          // Err.errorHandler(error);
           let error = JSON.stringify(err);
           error = JSON.parse(error);
           this.setState({
@@ -884,7 +939,6 @@ const styles = StyleSheet.create({
   locationPermissionModalTitle: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -893,7 +947,6 @@ const styles = StyleSheet.create({
     color: 'gray',
     textAlign: 'center',
     flex: 1,
-    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -916,7 +969,6 @@ const styles = StyleSheet.create({
   gpsOffModalTitle: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -1012,17 +1064,15 @@ const mapStateToProps = state => {
     position,
     phoneNumber: state.signin.phone.substring(1),
     name: state.signin.userName,
-    ambulancePhoneNumber: state.ambulanceRequest.ambulancePhoneNumber
+    ambulancePhoneNumber: state.ambulanceRequest.ambulancePhoneNumber,
+    language: state.language.lang
   };
 };
 
-export default connect(
-  mapStateToProps,
-  {
-    selectHelperType,
-    requestHelp,
-    requestLocationPermission,
-    updateLocation,
-    updateAmbulanceNumber
-  }
-)(UserHome);
+export default connect(mapStateToProps, {
+  selectHelperType,
+  requestHelp,
+  requestLocationPermission,
+  updateLocation,
+  updateAmbulanceNumber
+})(UserHome);

@@ -26,8 +26,8 @@ import { FAB } from 'react-native-paper';
 
 const deviceLanguage =
   Platform.OS === 'ios'
-    ? NativeModules.SettingsManager.settings.AppleLocale.substring(0, 1)
-    : NativeModules.I18nManager.localeIdentifier.substring(0, 1);
+    ? NativeModules.SettingsManager.settings.AppleLocale.substring(0, 2)
+    : NativeModules.I18nManager.localeIdentifier.substring(0, 2);
 
 class LanguageSelection extends Component {
   constructor(props) {
@@ -166,7 +166,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -174,7 +173,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'gray',
     textAlign: 'center',
-    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -211,7 +209,4 @@ const mapStateToProps = state => ({
   token: state.signin.token
 });
 
-export default connect(
-  mapStateToProps,
-  { switchLanguage }
-)(LanguageSelection);
+export default connect(mapStateToProps, { switchLanguage })(LanguageSelection);

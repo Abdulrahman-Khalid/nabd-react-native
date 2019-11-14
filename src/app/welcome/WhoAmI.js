@@ -48,7 +48,7 @@ class WhoAmI extends Component {
           >
             <View style={styles.button}>
               <Text
-                style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
+                style={{ color: Colors.WHITE, fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}
               >
                 {t.User}
               </Text>
@@ -60,7 +60,7 @@ class WhoAmI extends Component {
           >
             <View style={styles.button}>
               <Text
-                style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
+                style={{ color: Colors.WHITE, fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}
               >
                 {t.Doctor}
               </Text>
@@ -72,7 +72,7 @@ class WhoAmI extends Component {
           >
             <View style={styles.button}>
               <Text
-                style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
+                style={{ color: Colors.WHITE, fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}
               >
                 {t.Paramedic}
               </Text>
@@ -84,7 +84,7 @@ class WhoAmI extends Component {
           >
             <View style={styles.button}>
               <Text
-                style={{ color: Colors.WHITE, fontFamily: 'IstokWeb-Bold' }}
+                style={{ color: Colors.WHITE, fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}
               >
                 {t.AmbulanceDriver}
               </Text>
@@ -116,7 +116,6 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -124,7 +123,6 @@ const styles = StyleSheet.create({
     fontSize: 15,
     color: 'gray',
     textAlign: 'center',
-    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -163,7 +161,8 @@ const mapStateToProps = state => ({
   numberAmbulance: state.openApp.numberAmbulance,
   numberDoctors: state.openApp.numberDoctors,
   userType: state.signin.userType,
-  token: state.signin.token
+  token: state.signin.token,
+  language: state.language.lang
 });
 
 export default connect(

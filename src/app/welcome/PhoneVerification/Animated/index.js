@@ -5,7 +5,8 @@ import {
   TouchableOpacity,
   Image,
   Text,
-  View
+  View,
+  Platform
 } from 'react-native';
 
 import { Block } from 'galio-framework';
@@ -23,6 +24,7 @@ import styles, {
 } from './styles';
 import { Actions } from 'react-native-router-flux';
 import { Images } from '../../../../constants';
+import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 
 const codeLength = 4;
 
@@ -201,19 +203,30 @@ class AnimatedExample extends Component {
   render() {
     /*concept : https://dribbble.com/shots/5476562-Forgot-Password-Verification/attachments */
     return (
-      <Block flex>
+      <View>
+        {/* <KeyboardAwareScrollView
+          resetScrollToCoords={{ x: 0, y: 0 }}
+          contentContainerStyle={{
+            paddingTop: 20,
+            flexDirection: 'column',
+            flex: 1
+          }}
+          behavior={Platform.OS == 'ios' ? 'padding' : null}
+          // enabled
+          scrollEnabled={true}
+        > */}
         <View style={styles.inputWrapper}>
-          <Text style={styles.inputLabel}>Verification</Text>
+          <Text style={styles.inputLabel}>{t.Verification}</Text>
           <Image
             style={styles.icon}
             source={Images.verification}
             resizeMode="contain"
           />
           <Text style={styles.inputSubLabel}>
-            {'Please enter the verification code\nwe sent to '}
+            {t.EnterVerificationCode}
             {this.props.phoneNum}
           </Text>
-          <Block center>
+          <View style={{ alignItems: 'center', position: 'relative' }}>
             <CodeInput
               maskSymbol=" "
               variant="clear"
@@ -225,15 +238,16 @@ class AnimatedExample extends Component {
               onFulfill={this.handlerOnFulfill}
               CellComponent={Animated.Text}
             />
-            <TouchableOpacity
-              style={styles.resendCodeButton}
-              onPress={this.resendCode}
-            >
-              <Text style={styles.resendCodeText}>{t.ResendCode}</Text>
-            </TouchableOpacity>
-          </Block>
+          </View>
         </View>
-      </Block>
+        {/* </KeyboardAwareScrollView> */}
+        <TouchableOpacity
+          style={styles.resendCodeButton}
+          onPress={this.resendCode.bind(this)}
+        >
+          <Text style={styles.resendCodeText}>{t.ResendCode}</Text>
+        </TouchableOpacity>
+      </View>
     );
   }
 }
