@@ -99,13 +99,6 @@ class UserHome extends Component {
     );
   }
 
-  _connectionClosed = () => {
-    LoginManager.getInstance().loginWithPassword(
-      this.props.phoneNumber + info.voxAccount,
-      info.userPass
-    );
-  };
-
   async makeCall(isVideoCall, helperNumber) {
     try {
       if (Platform.OS === 'android') {
