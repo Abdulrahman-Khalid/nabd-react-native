@@ -47,7 +47,9 @@ class MapSearch extends Component {
             flex: 1,
             height: 54,
             marginHorizontal: 20,
-            borderRadius: 30
+            borderRadius: 30,
+            fontFamily:
+              this.props.language.lang == 'en' ? 'Quicksand-Regular' : 'Tajawal-Regular'
           },
           textInput: {
             height: 54,
@@ -60,10 +62,11 @@ class MapSearch extends Component {
             marginTop: 0,
             marginLeft: 0,
             marginRight: 0,
-            fontSize: 18
+            fontSize: 18,
+            fontFamily:
+              this.props.language.lang == 'en' ? 'Quicksand-Regular' : 'Tajawal-Regular'
           },
           listView: {
-            borderBottomLRightRadius: 30,
             backgroundColor: '#FFF',
             marginHorizontal: 20,
             borderRadius: 30,
@@ -84,7 +87,4 @@ class MapSearch extends Component {
 
 const mapStateToProps = state => ({ language: state.language });
 
-export default connect(
-  mapStateToProps,
-  null
-)(MapSearch);
+export default connect(mapStateToProps, null)(MapSearch);

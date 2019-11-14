@@ -156,7 +156,7 @@ class InjuriesList extends Component {
               }
             }}
             style={{
-              fontWeight: 'bold',
+              fontFamily: this.props.language.lang == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium',
               fontSize: scrollOffset.interpolate({
                 inputRange: [0, 200],
                 outputRange: [26, 20],
@@ -309,10 +309,11 @@ const styles = StyleSheet.create({
   }
 });
 
-const mapStateToProps = ({ firstAid }) => {
+const mapStateToProps = ({ firstAid, language }) => {
   const { injury } = firstAid;
   return {
-    injury
+    injury,
+    language
   };
 };
 

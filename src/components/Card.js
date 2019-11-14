@@ -11,6 +11,7 @@ import { Colors } from '../constants';
 import { theme } from 'galio-framework';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import { connect } from 'react-redux';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -45,9 +46,9 @@ class Card extends React.Component {
               color: 'white',
               position: 'absolute',
               bottom: 0,
-              fontWeight: '900',
-              fontFamily: 'IstokWeb-Bold',
+              fontFamily: this.props.language == 'en' ? 'Quicksand-Regular' : 'Tajawal-Regular',
               marginLeft: 15,
+              marginRight: 15,
               marginBottom: 12
             }}
           >
@@ -102,4 +103,8 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Card;
+const mapStateToProps = state => ({
+  language: state.language.lang
+});
+
+export default connect(mapStateToProps, null)(Card);

@@ -229,7 +229,10 @@ export class Incidents extends Component {
                 }
               }}
               style={{
-                fontWeight: 'bold',
+                fontFamily:
+                  this.props.language.lang == 'en'
+                    ? 'Quicksand-SemiBold'
+                    : 'Tajawal-Medium',
                 fontSize: scrollOffset.interpolate({
                   inputRange: [0, 200],
                   outputRange: [26, 20],
@@ -331,18 +334,19 @@ export class Incidents extends Component {
                 style={styles.emptyScreenButtonContainer}
                 onPress={this.updateIncidentCards}
               >
-                <View
-                  style={[
-                    styles.emptyScreenButton,
-                    {
-                      backgroundColor: Colors.APP
-                    }
-                  ]}
+                <Text
+                  style={{
+                    justifyContent: 'center',
+                    alignItems: 'center',
+                    color: 'white',
+                    fontFamily:
+                      this.props.language.lang == 'en'
+                        ? 'Quicksand-SemiBold'
+                        : 'Tajawal-Medium'
+                  }}
                 >
-                  <Text style={{ color: 'white', fontFamily: 'Jaldi-Bold' }}>
-                    {t.Refresh}
-                  </Text>
-                </View>
+                  {t.Refresh}
+                </Text>
               </TouchableOpacity>
             </View>
           )}
@@ -488,14 +492,18 @@ const styles = StyleSheet.create({
     paddingTop: isIphoneX() ? 44 : 0
   },
   emptyScreenButtonContainer: {
-    flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     paddingLeft: 10,
-    paddingRight: 10
+    paddingRight: 10,
+    backgroundColor: Colors.APP,
+    height: 50,
+    borderRadius: 30,
+    width: 100
   },
   emptyScreenButton: {
     padding: 20,
-    height: 40,
+    height: 50,
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: 30
@@ -505,7 +513,8 @@ const styles = StyleSheet.create({
 const mapStateToProps = state => ({
   location: state.location,
   addedNewIncidentFlag: state.incidents.addedNewIncidentFlag,
-  userID: state.signin.phone.substring(1)
+  userID: state.signin.phone.substring(1),
+  language: state.language
 });
 
 export default connect(mapStateToProps, { addedNewIncident })(Incidents);

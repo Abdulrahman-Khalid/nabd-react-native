@@ -82,11 +82,10 @@ class RouterComponent extends Component {
     return (
       <Router
         titleStyle={{
-          fontWeight: 'bold',
-          fontSize: 20,
-          color: 'white'
+          fontFamily: this.props.language.lang == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium'
         }}
         tintColor="white"
+        sceneStyle={{ fontFamily: this.props.language.lang == 'en' ? 'Quicksand-Regular' : 'Tajawal-Regular' }}
       >
         <Scene
           key="root"
@@ -400,7 +399,11 @@ class RouterComponent extends Component {
   }
 }
 
-export default connect(null, {
+const mapStateToProps = state => ({
+  language: state.language
+});
+
+export default connect(mapStateToProps, {
   resetSignUpReducerState,
   resetSignInReducerState
 })(RouterComponent);

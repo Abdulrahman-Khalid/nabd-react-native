@@ -51,21 +51,6 @@ import LinearGradient from 'react-native-linear-gradient';
 
 const { width, height } = Dimensions.get('screen');
 
-const buttons = [
-  {
-    title: t.RequestHelp,
-    image: Images.aideCard
-  },
-  {
-    title: t.RequestDoctor,
-    image: Images.doctorCard
-  },
-  {
-    title: t.RequestAmbulance,
-    image: Images.ambulanceCard
-  }
-];
-
 class UserHome extends Component {
   constructor(props) {
     super();
@@ -253,7 +238,7 @@ class UserHome extends Component {
           action.close();
         }}
       >
-        <Text>{t.Cancel}</Text>
+        <Text style={{ fontSize: 20 }}>{t.Cancel}</Text>
       </TouchableOpacity>
     );
   }
@@ -262,7 +247,7 @@ class UserHome extends Component {
     return (
       <View
         style={{
-          width: width / 2 - 20,
+          width: width / 2 - 25,
           height: height / 2 - 125,
           borderRadius: 30
         }}
@@ -300,8 +285,6 @@ class UserHome extends Component {
             fontSize: 35,
             zIndex: 2,
             color: 'white',
-            fontWeight: '900',
-            fontFamily: 'IstokWeb-Bold',
             marginLeft: 15,
             marginBottom: 12
           }}
@@ -506,7 +489,7 @@ class UserHome extends Component {
   renderModal() {
     return (
       <CustomModal
-        title="Proceed carefully"
+        title={t.ProceedCarefully}
         modalVisible={this.state.modalVisible}
         onRequestClose={() => {
           this.setModalVisible(false);
@@ -521,6 +504,7 @@ class UserHome extends Component {
         >
           <Text style={{ fontSize: 18 }}>{t.SendCurrentLocation}</Text>
           <Switch
+            thumbColor={this.state.switchValue ? Colors.LIGHT : 'gray'}
             value={this.state.switchValue}
             onValueChange={value => {
               this.setState({ switchValue: value });
@@ -545,7 +529,15 @@ class UserHome extends Component {
                 }
               ]}
             >
-              <Text style={{ color: '#d76674', fontFamily: 'IstokWeb-Bold' }}>
+              <Text
+                style={{
+                  color: '#d76674',
+                  fontFamily:
+                    this.props.language == 'en'
+                      ? 'Quicksand-SemiBold'
+                      : 'Tajawal-Medium'
+                }}
+              >
                 {t.Confirm}
               </Text>
             </View>
@@ -604,7 +596,15 @@ class UserHome extends Component {
                   }
                 ]}
               >
-                <Text style={{ color: '#b3b3b2', fontFamily: 'IstokWeb-Bold' }}>
+                <Text
+                  style={{
+                    color: '#b3b3b2',
+                    fontFamily:
+                      this.props.language == 'en'
+                        ? 'Quicksand-SemiBold'
+                        : 'Tajawal-Medium'
+                  }}
+                >
                   {t.OpenSettings}
                 </Text>
               </View>
@@ -623,8 +623,16 @@ class UserHome extends Component {
                   }
                 ]}
               >
-                <Text style={{ color: '#d76674', fontFamily: 'IstokWeb-Bold' }}>
-                  Refresh
+                <Text
+                  style={{
+                    color: '#d76674',
+                    fontFamily:
+                      this.props.language == 'en'
+                        ? 'Quicksand-SemiBold'
+                        : 'Tajawal-Medium'
+                  }}
+                >
+                  {t.Refresh}
                 </Text>
               </View>
             </TouchableOpacity>
@@ -655,6 +663,21 @@ class UserHome extends Component {
   }
 
   renderButtons() {
+    const buttons = [
+      {
+        title: this.props.language == 'en' ? 'Request Help' : 'طلب مساعدة',
+        image: Images.aideCard
+      },
+      {
+        title: this.props.language == 'en' ? 'Call a Doctor' : 'اتصل بطبيب',
+        image: Images.doctorCard
+      },
+      {
+        title:
+          this.props.language == 'en' ? 'Request an Ambulance' : 'طلب إسعاف',
+        image: Images.ambulanceCard
+      }
+    ];
     return this.props.position ? (
       <View
         style={{
@@ -916,7 +939,6 @@ const styles = StyleSheet.create({
   locationPermissionModalTitle: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -925,7 +947,6 @@ const styles = StyleSheet.create({
     color: 'gray',
     textAlign: 'center',
     flex: 1,
-    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -948,7 +969,6 @@ const styles = StyleSheet.create({
   gpsOffModalTitle: {
     fontSize: 30,
     textAlign: 'center',
-    fontFamily: 'IstokWeb-Regular',
     marginLeft: theme.SIZES.BASE * 2,
     marginRight: theme.SIZES.BASE * 2
   },
@@ -1044,7 +1064,8 @@ const mapStateToProps = state => {
     position,
     phoneNumber: state.signin.phone.substring(1),
     name: state.signin.userName,
-    ambulancePhoneNumber: state.ambulanceRequest.ambulancePhoneNumber
+    ambulancePhoneNumber: state.ambulanceRequest.ambulancePhoneNumber,
+    language: state.language.lang
   };
 };
 
