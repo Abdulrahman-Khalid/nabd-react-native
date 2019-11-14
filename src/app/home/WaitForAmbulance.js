@@ -59,31 +59,29 @@ class WaitForAmbulance extends Component {
     this.socket.emit('track location', {
       ambulancePhoneNumber: this.props.ambulancePhoneNumber
     });
-    this.socket.on('disconnect', reason => {
-      if (reason != 'io client disconnect') {
-        this.props.updateAmbulanceNumber(null);
-        Alert.alert('', t.AmbulanceArrived, [
-          {
-            text: t.OK
-          }
-        ]);
-        setTimeout(() => {
-          switch (this.props.userType) {
-            case 'user':
-              Actions.reset('userHome');
-              break;
-            case 'doctor':
-              Actions.reset('paramedicHome');
-              break;
-            case 'paramedic':
-              Actions.reset('paramedicHome');
-              break;
-            case 'ambulance':
-              Actions.reset('ambulanceHome');
-              break;
-          }
-        }, 500);
-      }
+    this.socket.on('arrived', () => {
+      this.props.updateAmbulanceNumber(null);
+      Alert.alert('', t.AmbulanceArrived, [
+        {
+          text: t.OK
+        }
+      ]);
+      setTimeout(() => {
+        switch (this.props.userType) {
+          case 'user':
+            Actions.reset('userHome');
+            break;
+          case 'doctor':
+            Actions.reset('paramedicHome');
+            break;
+          case 'paramedic':
+            Actions.reset('paramedicHome');
+            break;
+          case 'ambulance':
+            Actions.reset('ambulanceHome');
+            break;
+        }
+      }, 500);
     });
   }
 
@@ -258,7 +256,6 @@ const mapStateToProps = state => ({
   userType: state.signin.userType
 });
 
-export default connect(
-  mapStateToProps,
-  { getLocation, updateAmbulanceNumber }
-)(WaitForAmbulance);
+export default connect(mapStateToProps, { getLocation, updateAmbulanceNumber })(
+  WaitForAmbulance
+);
