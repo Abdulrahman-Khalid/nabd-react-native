@@ -32,7 +32,6 @@ import {
   NativeModules,
   PermissionsAndroid
 } from 'react-native';
-import Err from '../../ErrorHandler';
 import {
   Card,
   Modal as CustomModal,
@@ -186,7 +185,6 @@ class UserHome extends Component {
       })
       .catch(error => {
         console.log(error);
-        // Err.errorHandler(error);
         Alert.alert(t.CallFailed, t.ServerError, [
           {
             text: t.OK
@@ -751,7 +749,6 @@ class UserHome extends Component {
           }
         })
         .catch(err => {
-          // Err.errorHandler(error);
           let error = JSON.stringify(err);
           error = JSON.parse(error);
           this.setState({
@@ -787,7 +784,6 @@ class UserHome extends Component {
           }
         })
         .catch(err => {
-          // Err.errorHandler(error);
           let error = JSON.stringify(err);
           error = JSON.parse(error);
           this.setState({
