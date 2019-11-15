@@ -412,7 +412,8 @@ class UserHome extends Component {
         { enableHighAccuracy: true }
       );
     }
-    if (this.props.position && this.props.ambulancePhoneNumber) {
+    if (this.props.position && this.props.ambulancePhoneNumber && this.props.continueAmbulanceTracking) {
+      console.log('navigating to waitforambulance1')
       Actions.waitForAmbulance();
     }
   }
@@ -738,6 +739,8 @@ class UserHome extends Component {
           if (response.data.ambulanceNumber) {
             this.props.updateAmbulanceNumber(response.data.ambulanceNumber);
             setTimeout(() => {
+              console.log('navigating to waitforambulance2')
+
               Actions.waitForAmbulance();
             }, 500);
           } else {
@@ -773,6 +776,8 @@ class UserHome extends Component {
           if (response.data.ambulanceNumber) {
             this.props.updateAmbulanceNumber(response.data.ambulanceNumber);
             setTimeout(() => {
+              console.log('navigating to waitforambulance3')
+
               Actions.waitForAmbulance();
             }, 500);
           } else {
@@ -1034,6 +1039,7 @@ const mapStateToProps = state => {
     phoneNumber: state.signin.phone.substring(1),
     name: state.signin.userName,
     ambulancePhoneNumber: state.ambulanceRequest.ambulancePhoneNumber,
+    continueAmbulanceTracking: state.ambulanceRequest.continueAmbulanceTracking,
     language: state.language.lang
   };
 };
