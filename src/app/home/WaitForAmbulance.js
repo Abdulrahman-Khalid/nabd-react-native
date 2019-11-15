@@ -9,7 +9,7 @@ import {
   Alert
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import { getLocation, updateAmbulanceNumber } from '../../actions';
+import { getLocation, updateAmbulanceNumber, setAmbulanceTracking } from '../../actions';
 import { connect } from 'react-redux';
 import { Images } from '../../constants';
 import { FAB, Button } from 'react-native-paper';
@@ -50,6 +50,10 @@ class WaitForAmbulance extends Component {
   }
 
   componentDidMount() {
+    setTimeout(() => {
+      this.props.setAmbulanceTracking(true);
+    }, 500);
+    console.log('waitforambulance componentDidMount')
     KeepAwake.activate();
     BackHandler.addEventListener(
       'hardwareBackPress',
@@ -61,6 +65,7 @@ class WaitForAmbulance extends Component {
     });
     this.socket.on('arrived', () => {
       this.props.updateAmbulanceNumber(null);
+      this.props.setAmbulanceTracking(false);
       Alert.alert('', t.AmbulanceArrived, [
         {
           text: t.OK
@@ -86,6 +91,7 @@ class WaitForAmbulance extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
+    console.log(this.state.ambulanceLocation)
     if (
       prevState.ambulanceLocation != this.state.ambulanceLocation &&
       !this.state.calibratedOnce
@@ -113,6 +119,8 @@ class WaitForAmbulance extends Component {
   }
 
   componentWillUnmount() {
+    console.log('componentWillUnmount')
+    this.socket.close();
     KeepAwake.deactivate();
     BackHandler.removeEventListener(
       'hardwareBackPress',
@@ -200,7 +208,7 @@ class WaitForAmbulance extends Component {
             >
               <Image
                 source={Images.ambulanceTopView}
-                style={{ width: 60, height: 60, margin: 30 }}
+                style={{ width: 60, height: 60 }}
                 resizeMode="contain"
               />
             </Marker.Animated>
@@ -256,6 +264,6 @@ const mapStateToProps = state => ({
   userType: state.signin.userType
 });
 
-export default connect(mapStateToProps, { getLocation, updateAmbulanceNumber })(
+export default connect(mapStateToProps, { getLocation, updateAmbulanceNumber, setAmbulanceTracking })(
   WaitForAmbulance
 );
