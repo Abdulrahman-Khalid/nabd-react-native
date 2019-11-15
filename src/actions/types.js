@@ -44,3 +44,4 @@ export const DEC_CALLING_COUNTER = 'dec_calling_counter';
 export const RESET_CALL_OPTIONS = 'reset_call_options';
 // Ambulance Request
 export const UPDATE_AMBULANCE_NUMBER = 'update_ambulance_number';
+export const SET_AMBULANCE_TRACKING = 'set_ambulance_tracking';
