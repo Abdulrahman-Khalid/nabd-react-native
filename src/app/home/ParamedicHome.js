@@ -129,6 +129,7 @@ class ParamedicHome extends Component {
       this._connectionClosed
     );
     this.socket.close();
+    Geolocation.clearWatch(this.watchID);
   }
 
   _connectionClosed() {
