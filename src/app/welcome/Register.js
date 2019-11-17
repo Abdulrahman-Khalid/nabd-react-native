@@ -447,7 +447,8 @@ class Register extends React.Component {
                   this.props.language == 'en'
                     ? 'Quicksand-SemiBold'
                     : 'Tajawal-Medium',
-                alignSelf: 'flex-start'
+                alignSelf: 'flex-start',
+                lineHeight: 47
               }}
             >
               {t.Create}

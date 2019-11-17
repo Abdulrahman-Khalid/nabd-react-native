@@ -13,9 +13,18 @@ import t from '../../I18n';
 import { Colors } from '../../constants';
 import { connect } from 'react-redux';
 
+let locale = NativeModules.SettingsManager.settings.AppleLocale // "fr_FR"
+if (locale === undefined) {
+    // iOS 13 workaround, take first of AppleLanguages array  ["en", "en-NZ"]
+    locale = NativeModules.SettingsManager.settings.AppleLanguages[1]
+    if (locale == undefined) {
+          locale = "en-GB" // default language
+    }
+}
+
 const deviceLanguage =
   Platform.OS === 'ios'
-    ? NativeModules.SettingsManager.settings.AppleLocale.substring(0, 2)
+    ? locale.substring(0, 2)
     : NativeModules.I18nManager.localeIdentifier.substring(0, 2);
 
 const { APP, BACKGROUND } = Colors;

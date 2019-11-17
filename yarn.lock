@@ -6148,6 +6148,14 @@ react-native-modal-selector@^1.1.2:
   dependencies:
     prop-types "^15.5.10"
 
+react-native-notifications@^2.1.5:
+  version "2.1.5"
+  resolved "https://registry.yarnpkg.com/react-native-notifications/-/react-native-notifications-2.1.5.tgz#2d7521a684bdf0aad3fecbe1090da2e2a16096be"
+  integrity sha512-5jlttdLOh7p7OFKpqn4290C3Zy6TPI93Cg5vt3vmx42yxRjLQim/Iu5PrDYW41rAbiz+VNtByhIhw1A4o+oVbg==
+  dependencies:
+    core-js "^1.0.0"
+    uuid "^2.0.3"
+
 react-native-paper@^2.16.0:
   version "2.16.0"
   resolved "https://registry.yarnpkg.com/react-native-paper/-/react-native-paper-2.16.0.tgz#5a9edd5615bb010ec0d29cbfd5524c2944b2505d"
@@ -7693,6 +7701,11 @@ utils-merge@1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/utils-merge/-/utils-merge-1.0.1.tgz#9f95710f50a267947b2ccc124741c1028427e713"
   integrity sha1-n5VxD1CiZ5R7LMwSR0HBAoQn5xM=
+
+uuid@^2.0.3:
+  version "2.0.3"
+  resolved "https://registry.yarnpkg.com/uuid/-/uuid-2.0.3.tgz#67e2e863797215530dff318e5bf9dcebfd47b21a"
+  integrity sha1-Z+LoY3lyFVMN/zGOW/nc6/1Hsho=
 
 uuid@^3.3.2, uuid@^3.3.3:
   version "3.3.3"

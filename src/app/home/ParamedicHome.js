@@ -30,9 +30,18 @@ import KeepAwake from 'react-native-keep-awake';
 
 const { width, height } = Dimensions.get('screen');
 
+let locale = NativeModules.SettingsManager.settings.AppleLocale // "fr_FR"
+if (locale === undefined) {
+    // iOS 13 workaround, take first of AppleLanguages array  ["en", "en-NZ"]
+    locale = NativeModules.SettingsManager.settings.AppleLanguages[1]
+    if (locale == undefined) {
+          locale = "en-GB" // default language
+    }
+}
+
 const deviceLanguage =
   Platform.OS === 'ios'
-    ? NativeModules.SettingsManager.settings.AppleLocale.substring(0, 2)
+    ? locale.substring(0, 2)
     : NativeModules.I18nManager.localeIdentifier.substring(0, 2);
 
 class ParamedicHome extends Component {
@@ -256,10 +265,10 @@ class ParamedicHome extends Component {
           <Pulse
             color={Colors.APP}
             numPulses={3}
-            diameter={400}
+            diameter={800}
             speed={20}
             duration={2000}
-            style={{ position: 'absolute', bottom: '-55%' }}
+            style={{ position: 'absolute', bottom: '-68%' }}
           />
         </View>
       );

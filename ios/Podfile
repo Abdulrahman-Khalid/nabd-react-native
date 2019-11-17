@@ -34,6 +34,8 @@ target 'NABD' do
   pod 'Permission-LocationAlways', :path => "#{permissions_path}/LocationAlways.podspec"
   pod 'Permission-LocationWhenInUse', :path => "#{permissions_path}/LocationWhenInUse.podspec"
   pod 'React-ART', :path => '../node_modules/react-native/Libraries/ART'
+  pod 'react-native-notifications', :path => '../node_modules/react-native-notifications'
+  pod 'RCTRestart', :path => '../node_modules/react-native-restart/ios'
   
   pod 'DoubleConversion', :podspec => '../node_modules/react-native/third-party-podspecs/DoubleConversion.podspec'
   pod 'glog', :podspec => '../node_modules/react-native/third-party-podspecs/glog.podspec'
@@ -45,6 +47,7 @@ target 'NABD' do
 
 
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
+
 
   target 'NABDTests' do
     inherit! :search_paths
@@ -69,3 +72,18 @@ target 'NABD-tvOS' do
   end
 
 end
+
+post_install do |installer|
+  installer.pods_project.targets.each do |target|
+    if target.name == 'react-native-config'
+      phase = target.project.new(Xcodeproj::Project::Object::PBXShellScriptBuildPhase)
+      phase.shell_script = "cd ../../"\
+      " && RNC_ROOT=./node_modules/react-native-config/"\
+      " && export SYMROOT=$RNC_ROOT/ios/ReactNativeConfig"\
+      " && ruby $RNC_ROOT/ios/ReactNativeConfig/BuildDotenvConfig.ruby"
+      
+      target.build_phases << phase
+      target.build_phases.move(phase,0)
+    end
+  end
+ end

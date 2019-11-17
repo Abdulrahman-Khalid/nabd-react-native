@@ -11,5 +11,10 @@ module.exports = {
         ios: null
       },
     },
+    'react-native-config': {
+      platforms: {
+        ios: null
+      },
+    },
   },
 };
