@@ -28,10 +28,7 @@ export default class SettingsScreen extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.safearea}>
-        <StatusBar
-          barStyle={COLOR_SCHEME.LIGHT}
-          backgroundColor={COLOR.PRIMARY_DARK}
-        />
+        <StatusBar backgroundColor={Colors.APP} barStyle="light-content" />
         <ScrollView style={{ flex: 1 }}>
           {Platform.OS === 'ios' && parseInt(Platform.Version, 10) >= 10 ? (
             <SettingsSwitch

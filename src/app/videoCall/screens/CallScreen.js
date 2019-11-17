@@ -458,12 +458,7 @@ class CallScreen extends React.Component {
   render() {
     return (
       <SafeAreaView style={styles.safearea}>
-        <StatusBar
-          barStyle={
-            Platform.OS === 'ios' ? COLOR_SCHEME.DARK : COLOR_SCHEME.LIGHT
-          }
-          backgroundColor={COLOR.PRIMARY_DARK}
-        />
+        <StatusBar backgroundColor={Colors.APP} barStyle="light-content" />
         <View style={styles.useragent}>
           <View style={styles.videoPanel}>
             <Voximplant.VideoView
