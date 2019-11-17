@@ -68,7 +68,7 @@ class UserHome extends Component {
       loading: false,
       loadingModalVisible: false
     };
-
+    this.navigatedToWaitForAmbulance = false;
     this.requestAmbulance = this.requestAmbulance.bind(this);
   }
 
@@ -412,7 +412,14 @@ class UserHome extends Component {
         { enableHighAccuracy: true }
       );
     }
-    if (this.props.position && this.props.ambulancePhoneNumber) {
+    console.log('continueAmbulanceTracking', this.props.continueAmbulanceTracking)
+    if (
+      this.props.position &&
+      this.props.ambulancePhoneNumber &&
+      this.props.continueAmbulanceTracking &&
+      !this.navigatedToWaitForAmbulance
+    ) {
+      console.log('navigating to waitforambulance1');
       Actions.waitForAmbulance();
     }
   }
@@ -736,10 +743,10 @@ class UserHome extends Component {
             loadingModalVisible: false
           });
           if (response.data.ambulanceNumber) {
+            this.navigatedToWaitForAmbulance = true;
             this.props.updateAmbulanceNumber(response.data.ambulanceNumber);
-            setTimeout(() => {
-              Actions.waitForAmbulance();
-            }, 500);
+            console.log('navigating to waitforambulance2');
+            Actions.waitForAmbulance();
           } else {
             Alert.alert('', t.NoAmbulance, [
               {
@@ -771,10 +778,10 @@ class UserHome extends Component {
         })
         .then(response => {
           if (response.data.ambulanceNumber) {
+            this.navigatedToWaitForAmbulance = true;
             this.props.updateAmbulanceNumber(response.data.ambulanceNumber);
-            setTimeout(() => {
-              Actions.waitForAmbulance();
-            }, 500);
+            console.log('navigating to waitforambulance3');
+            Actions.waitForAmbulance();
           } else {
             Alert.alert('', t.NoAmbulance, [
               {
@@ -1034,6 +1041,7 @@ const mapStateToProps = state => {
     phoneNumber: state.signin.phone.substring(1),
     name: state.signin.userName,
     ambulancePhoneNumber: state.ambulanceRequest.ambulancePhoneNumber,
+    continueAmbulanceTracking: state.ambulanceRequest.continueAmbulanceTracking,
     language: state.language.lang
   };
 };
