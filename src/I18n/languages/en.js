@@ -69,7 +69,7 @@ export default en = {
   UnAvailable: 'Unavailable',
   searchForHelp: 'Searching for who needs help',
   notAvailableText:
-    "You seem like you want to take a break, change switch to available to recue someone's life",
+    "Seems like you are having a break, turn the switch to 'available' and rescue lives!",
   CarrierCall: 'Make a Carrier Call',
   MakeVideoCall: 'Make a Video Call',
   Arrived: "I've Arrived",
