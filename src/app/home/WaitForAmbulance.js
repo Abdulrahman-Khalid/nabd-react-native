@@ -3,24 +3,23 @@ import {
   View,
   StyleSheet,
   Image,
-  TouchableOpacity,
-  Text,
   BackHandler,
   Alert
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import { getLocation, updateAmbulanceNumber } from '../../actions';
+import {
+  getLocation,
+  updateAmbulanceNumber,
+  setAmbulanceTracking
+} from '../../actions';
 import { connect } from 'react-redux';
 import { Images } from '../../constants';
 import { FAB, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
-import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
-import { Icon as CustomIcon } from '../../components';
 import io from 'socket.io-client';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 import t from '../../I18n';
-import Config from 'react-native-config';
 import mapStyle from '../../config/GoogleMapsCustomStyle';
 import KeepAwake from 'react-native-keep-awake';
 
@@ -50,6 +49,8 @@ class WaitForAmbulance extends Component {
   }
 
   componentDidMount() {
+    this.props.setAmbulanceTracking(true);
+    console.log('waitforambulance componentDidMount');
     KeepAwake.activate();
     BackHandler.addEventListener(
       'hardwareBackPress',
@@ -59,35 +60,35 @@ class WaitForAmbulance extends Component {
     this.socket.emit('track location', {
       ambulancePhoneNumber: this.props.ambulancePhoneNumber
     });
-    this.socket.on('disconnect', reason => {
-      if (reason != 'io client disconnect') {
-        this.props.updateAmbulanceNumber(null);
-        Alert.alert('', t.AmbulanceArrived, [
-          {
-            text: t.OK
-          }
-        ]);
-        setTimeout(() => {
-          switch (this.props.userType) {
-            case 'user':
-              Actions.reset('userHome');
-              break;
-            case 'doctor':
-              Actions.reset('paramedicHome');
-              break;
-            case 'paramedic':
-              Actions.reset('paramedicHome');
-              break;
-            case 'ambulance':
-              Actions.reset('ambulanceHome');
-              break;
-          }
-        }, 500);
-      }
+    this.socket.on('arrived', () => {
+      this.props.updateAmbulanceNumber(null);
+      this.props.setAmbulanceTracking(false);
+      Alert.alert('', t.AmbulanceArrived, [
+        {
+          text: t.OK
+        }
+      ]);
+      setTimeout(() => {
+        switch (this.props.userType) {
+          case 'user':
+            Actions.reset('userHome');
+            break;
+          case 'doctor':
+            Actions.reset('paramedicHome');
+            break;
+          case 'paramedic':
+            Actions.reset('paramedicHome');
+            break;
+          case 'ambulance':
+            Actions.reset('ambulanceHome');
+            break;
+        }
+      }, 500);
     });
   }
 
   componentDidUpdate(prevProps, prevState) {
+    console.log(this.state.ambulanceLocation);
     if (
       prevState.ambulanceLocation != this.state.ambulanceLocation &&
       !this.state.calibratedOnce
@@ -115,6 +116,8 @@ class WaitForAmbulance extends Component {
   }
 
   componentWillUnmount() {
+    console.log('componentWillUnmount');
+    this.socket.close();
     KeepAwake.deactivate();
     BackHandler.removeEventListener(
       'hardwareBackPress',
@@ -198,11 +201,12 @@ class WaitForAmbulance extends Component {
                 latitude: this.state.ambulanceLocation.latitude,
                 longitude: this.state.ambulanceLocation.longitude
               }}
-              rotation={this.state.ambulanceLocation.heading - 70}
+              rotation={this.state.ambulanceLocation.heading - 90}
+              anchor={{ x: 0.5, y: 0.5 }}
             >
               <Image
                 source={Images.ambulanceTopView}
-                style={{ width: 60, height: 60, margin: 30 }}
+                style={{ width: 40, height: 40 }}
                 resizeMode="contain"
               />
             </Marker.Animated>
@@ -258,7 +262,8 @@ const mapStateToProps = state => ({
   userType: state.signin.userType
 });
 
-export default connect(
-  mapStateToProps,
-  { getLocation, updateAmbulanceNumber }
-)(WaitForAmbulance);
+export default connect(mapStateToProps, {
+  getLocation,
+  updateAmbulanceNumber,
+  setAmbulanceTracking
+})(WaitForAmbulance);

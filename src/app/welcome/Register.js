@@ -1,11 +1,8 @@
 import React from 'react';
 import {
   StyleSheet,
-  ImageBackground,
   Dimensions,
-  StatusBar,
   View,
-  KeyboardAvoidingView,
   Platform,
   Text,
   TouchableOpacity,
@@ -15,9 +12,8 @@ import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view
 import PhoneInput from 'react-native-phone-input';
 import ModalPickerImage from './ModalPickerImage';
 import { RadioGroup, RadioButton } from 'react-native-flexi-radio-button';
-import { theme } from 'galio-framework';
 import { CustomPicker } from 'react-native-custom-picker';
-import { Button, Icon, Input } from '../../components';
+import { Icon, Input } from '../../components';
 import { Images, Colors } from '../../constants';
 import DatePicker from 'react-native-datepicker';
 import { connect } from 'react-redux';
@@ -32,7 +28,6 @@ import {
 } from '../../actions';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import t from '../../I18n';
-import { TextInput } from 'react-native-paper';
 
 const { width, height } = Dimensions.get('screen');
 

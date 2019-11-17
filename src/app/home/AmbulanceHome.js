@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { theme, Block } from 'galio-framework';
-import { Actions } from 'react-native-router-flux';
+import { theme } from 'galio-framework';
 import { Colors, Images } from '../../constants';
 import { connect } from 'react-redux';
 import {
@@ -11,12 +10,12 @@ import {
   Dimensions,
   Image,
   Text,
-  TouchableHighlight,
   NativeModules,
   Modal,
   DeviceEventEmitter,
   Linking,
-  ActivityIndicator
+  ActivityIndicator,
+  AppState
 } from 'react-native';
 import { Icon, SwitchButton } from '../../components';
 import { requestLocationPermission, updateLocation } from '../../actions';
@@ -31,6 +30,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import getDirections from 'react-native-google-maps-directions';
 import { Stopwatch } from 'react-native-stopwatch-timer';
 import KeepAwake from 'react-native-keep-awake';
+import BackgroundTimer from 'react-native-background-timer';
 
 const { width, height } = Dimensions.get('screen');
 
@@ -59,6 +59,7 @@ const stopWatchOptions = {
 };
 
 class AmbulanceHome extends Component {
+  currentAppState = undefined;
   constructor(props) {
     super(props);
     this.state = {
@@ -75,17 +76,56 @@ class AmbulanceHome extends Component {
       startLocationTracking: false,
       patientName: null,
       patientPhoneNumber: null,
-      patientLocation: null
+      patientLocation: null,
+      forceDisconnection: false,
+      reconnection: false,
+      backgroundPosition: {
+        latitude: null,
+        longitude: null
+      }
     };
+    this.currentAppState = AppState.currentState;
     this.sendLiveLocation = this.sendLiveLocation.bind(this);
     this.socket = io(
       axios.defaults.baseURL.substring(0, axios.defaults.baseURL.length - 4) +
         'available/ambulances',
       { autoConnect: false }
     );
+    this.socket.on('send live location', data => {
+      console.log('send live location');
+      this.setState({
+        patientName: data.name,
+        patientPhoneNumber: '+' + data.phoneNumber,
+        patientLocation: data.location,
+        startLocationTracking: true
+      });
+      locationEmitterID = setInterval(this.sendLiveLocation, 2000);
+      console.log('setInterval');
+    });
+    this.socket.on('disconnect', reason => {
+      console.log('SOCKET DISCONNECT', reason);
+      if (!this.state.forceDisconnection && reason != 'io client disconnect') {
+        console.log('Reconnecting...');
+        this.socket.open();
+        this.socket.emit('ambulance reconnect', {
+          phoneNumber: this.props.phoneNumber.substring(1)
+        });
+      } else {
+        this.setState({
+          patientName: null,
+          patientPhoneNumber: null,
+          patientLocation: null,
+          requestDate: null,
+          startLocationTracking: false,
+          available: false,
+          forceDisconnection: false
+        });
+      }
+    });
   }
 
   componentDidMount() {
+    AppState.addEventListener('change', this._handleAppStateChange);
     KeepAwake.activate();
     this.setState({ gpsOffModal: true });
     RNSettings.getSetting(RNSettings.LOCATION_SETTING).then(result => {
@@ -98,32 +138,29 @@ class AmbulanceHome extends Component {
       RNSettings.GPS_PROVIDER_EVENT,
       this.handleGPSProviderEvent
     );
-    if (this.state.available && !this.socket.connected) {
-      this.socket.open();
-      this.socket.emit('available', {
-        phoneNumber: this.props.phoneNumber
-      });
-      this.socket.on('send live location', data => {
-        console.log(data);
-        this.setState({
-          patientName: data.name,
-          patientPhoneNumber: data.phoneNumber,
-          patientLocation: data.location,
-          startLocationTracking: true
-        });
-        locationEmitterID = setInterval(this.sendLiveLocation, 2000);
-      });
-    } else {
-      if (!this.state.available && this.socket.connected) {
-        this.socket.close();
-        clearInterval(locationEmitterID);
-        locationEmitterID = null;
+  }
+
+  _handleAppStateChange = newState => {
+    console.log(
+      `AmbulanceHome: _handleAppStateChange: Current app state changed to ${newState}`
+    );
+    if (this.state.startLocationTracking) {
+      if (this.currentAppState == 'background' && newState == 'active') {
+        console.log('clearBackgroundInterval');
+        BackgroundTimer.stopBackgroundTimer();
+      }
+      this.currentAppState = newState;
+      if (this.currentAppState == 'background') {
+        console.log('setBackgroundInterval');
+        BackgroundTimer.runBackgroundTimer(this.sendLiveLocation, 2000);
       }
     }
-  }
+  };
 
   componentWillUnmount() {
     KeepAwake.deactivate();
+    AppState.removeEventListener('change', this._handleAppStateChange);
+    Geolocation.clearWatch(this.watchID);
   }
 
   handleGPSProviderEvent = e => {
@@ -175,30 +212,24 @@ class AmbulanceHome extends Component {
         { enableHighAccuracy: true }
       );
     }
-    if (this.state.available && !this.socket.connected) {
+    if (
+      this.state.available &&
+      !this.socket.connected &&
+      !this.state.reconnection
+    ) {
+      console.log('emitted on available');
       this.socket.open();
       this.socket.emit('available', {
-        phoneNumber: this.props.phoneNumber
+        phoneNumber: this.props.phoneNumber.substring(1)
       });
-      this.socket.on('send live location', data => {
-        this.setState({
-          patientName: data.name,
-          patientPhoneNumber: '+' + data.phoneNumber,
-          patientLocation: data.location,
-          startLocationTracking: true
-        });
-        locationEmitterID = setInterval(this.sendLiveLocation, 2000);
+      this.setState({
+        reconnection: true
       });
-    } else {
-      if (!this.state.available && this.socket.connected) {
-        this.socket.close();
-        clearInterval(locationEmitterID);
-        locationEmitterID = null;
-      }
     }
   }
 
-  async sendLiveLocation() {
+  sendLiveLocation() {
+    console.log('sendLiveLocation');
     this.socket.emit('location', {
       latitude: this.props.position.coords.latitude,
       longitude: this.props.position.coords.longitude,
@@ -240,7 +271,15 @@ class AmbulanceHome extends Component {
                   }
                 ]}
               >
-                <Text style={{ color: '#b3b3b2', fontFamily: this.props.language.lang == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}>
+                <Text
+                  style={{
+                    color: '#b3b3b2',
+                    fontFamily:
+                      this.props.language.lang == 'en'
+                        ? 'Quicksand-SemiBold'
+                        : 'Tajawal-Medium'
+                  }}
+                >
                   {t.OpenSettings}
                 </Text>
               </View>
@@ -259,7 +298,15 @@ class AmbulanceHome extends Component {
                   }
                 ]}
               >
-                <Text style={{ color: '#d76674', fontFamily: this.props.language.lang == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}>
+                <Text
+                  style={{
+                    color: '#d76674',
+                    fontFamily:
+                      this.props.language.lang == 'en'
+                        ? 'Quicksand-SemiBold'
+                        : 'Tajawal-Medium'
+                  }}
+                >
                   {t.Refresh}
                 </Text>
               </View>
@@ -414,7 +461,15 @@ class AmbulanceHome extends Component {
                   color="#b3b3b2"
                   size={17}
                 />
-                <Text style={{ color: '#b3b3b2', fontFamily: this.props.language.lang == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}>
+                <Text
+                  style={{
+                    color: '#b3b3b2',
+                    fontFamily:
+                      this.props.language.lang == 'en'
+                        ? 'Quicksand-SemiBold'
+                        : 'Tajawal-Medium'
+                  }}
+                >
                   {t.GetDirections}
                 </Text>
               </View>
@@ -440,7 +495,15 @@ class AmbulanceHome extends Component {
                   color="#d76674"
                   size={17}
                 />
-                <Text style={{ color: '#d76674', fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}>
+                <Text
+                  style={{
+                    color: '#d76674',
+                    fontFamily:
+                      this.props.language == 'en'
+                        ? 'Quicksand-SemiBold'
+                        : 'Tajawal-Medium'
+                  }}
+                >
                   {t.CarrierCall}
                 </Text>
               </View>
@@ -478,17 +541,16 @@ class AmbulanceHome extends Component {
                     marginBottom: 20
                   }}
                   onPress={() => {
-                    this.socket.close();
+                    this.socket.emit('arrived', {});
                     this.setState({
-                      patientName: null,
-                      patientPhoneNumber: null,
-                      patientLocation: null,
-                      requestDate: null,
-                      startLocationTracking: false,
-                      available: false
+                      forceDisconnection: true,
+                      available: false,
+                      reconnection: false
                     });
                     clearInterval(locationEmitterID);
                     locationEmitterID = null;
+                    console.log('clearInterval');
+                    this.socket.close();
                   }}
                 >
                   <View
@@ -509,7 +571,15 @@ class AmbulanceHome extends Component {
                       color="white"
                       size={17}
                     />
-                    <Text style={{ color: 'white', fontFamily: this.props.language == 'en' ? 'Quicksand-SemiBold' : 'Tajawal-Medium' }}>
+                    <Text
+                      style={{
+                        color: 'white',
+                        fontFamily:
+                          this.props.language == 'en'
+                            ? 'Quicksand-SemiBold'
+                            : 'Tajawal-Medium'
+                      }}
+                    >
                       {t.Arrived}
                     </Text>
                   </View>

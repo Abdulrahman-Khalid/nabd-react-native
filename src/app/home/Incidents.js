@@ -7,15 +7,12 @@ import {
   RefreshControl,
   StyleSheet,
   Dimensions,
-  Alert,
-  ActivityIndicator,
   Text,
   Animated
 } from 'react-native';
 import IncidentCard from '../../components/IncidentCard';
 import { Colors, Images } from '../../constants';
-import { theme, Block } from 'galio-framework';
-import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import { theme } from 'galio-framework';
 import { connect } from 'react-redux';
 import { Actions } from 'react-native-router-flux';
 import { FAB } from 'react-native-paper';

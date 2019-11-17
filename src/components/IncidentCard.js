@@ -6,13 +6,10 @@ import {
   Image,
   View,
   TouchableOpacity,
-  Alert,
   Share,
-  ActivityIndicator
 } from 'react-native';
 import { Block, Text, theme } from 'galio-framework';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
-import { Colors } from '../constants';
 import getDirections from 'react-native-google-maps-directions';
 import { Linking } from 'react-native';
 import { getDistance, convertDistance } from 'geolib';
@@ -20,7 +17,6 @@ import { connect } from 'react-redux';
 import Menu, { MenuItem } from 'react-native-material-menu';
 import CustomIcon from './Icon';
 import LinearGradient from 'react-native-linear-gradient';
-import { Images } from '../constants';
 import t from '../I18n';
 
 const { width, height } = Dimensions.get('screen');

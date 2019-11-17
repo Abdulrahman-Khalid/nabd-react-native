@@ -13,14 +13,13 @@ import {
   Dimensions,
   Image,
   Text,
-  TouchableHighlight,
   NativeModules,
   Modal,
   DeviceEventEmitter,
   ActivityIndicator
 } from 'react-native';
 import { requestLocationPermission, updateLocation } from '../../actions';
-import { Icon, SwitchButton } from '../../components';
+import { SwitchButton } from '../../components';
 import axios from 'axios';
 import t from '../../I18n';
 import io from 'socket.io-client';
@@ -120,6 +119,7 @@ class ParamedicHome extends Component {
       this._connectionClosed
     );
     this.socket.close();
+    Geolocation.clearWatch(this.watchID);
   }
 
   _connectionClosed() {

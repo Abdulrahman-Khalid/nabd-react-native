@@ -4,10 +4,6 @@ import {
   View,
   Text,
   Image,
-  I18nManager,
-  Picker,
-  TouchableOpacity,
-  TouchableNativeFeedback,
   NativeModules,
   ActivityIndicator,
   Platform
@@ -17,10 +13,9 @@ import { connect } from 'react-redux';
 import RNRestart from 'react-native-restart';
 import { Colors, Images } from '../../constants';
 import { switchLanguage } from '../../actions';
-import { Icon } from '../../components';
 import t from '../../I18n';
 import { Actions } from 'react-native-router-flux';
-import { Button, SwitchButton } from '../../components';
+import { SwitchButton } from '../../components';
 import { theme } from 'galio-framework';
 import { FAB } from 'react-native-paper';
 

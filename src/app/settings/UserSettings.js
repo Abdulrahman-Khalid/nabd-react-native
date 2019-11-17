@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Linking, Share, NativeModules, Alert } from 'react-native';
+import { Linking, Share, NativeModules } from 'react-native';
 import ReactNativeSettingsPage, {
   SectionRow,
   NavigateRow
@@ -7,7 +7,6 @@ import ReactNativeSettingsPage, {
 import { connect } from 'react-redux';
 import RNRestart from 'react-native-restart';
 import { switchLanguage, resetSignInReducerState } from '../../actions';
-import { Actions } from 'react-native-router-flux';
 import TextDisplay from './TextDisplay';
 import { View, Picker } from 'react-native';
 import t from '../../I18n';

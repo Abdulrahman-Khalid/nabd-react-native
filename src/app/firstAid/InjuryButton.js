@@ -1,6 +1,6 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
-import { Colors, Images } from '../../constants';
+import { Images } from '../../constants';
 import { theme } from 'galio-framework';
 import { connect } from 'react-redux';
 

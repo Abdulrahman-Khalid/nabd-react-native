@@ -1,7 +1,6 @@
 import React from "react";
 import { StyleSheet } from "react-native";
 import PropTypes from 'prop-types';
-
 import { Input } from "galio-framework";
 import { connect } from 'react-redux';
 import Icon from './Icon';

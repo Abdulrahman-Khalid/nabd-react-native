@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Image, View, Text, TouchableOpacity } from 'react-native';
+import { Image, View, Text } from 'react-native';
 import CommonButtons from './CommonButtons';
 import { theme } from 'galio-framework';
-import { Colors, Images } from '../../constants';
+import { Images } from '../../constants';
 import t from '../../I18n';
 
 class IamDoctor extends Component {

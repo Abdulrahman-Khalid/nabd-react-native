@@ -3,28 +3,20 @@ import {
   StyleSheet,
   View,
   TextInput,
-  Button,
-  TouchableHighlight,
   TouchableOpacity,
-  Image,
   Dimensions,
-  KeyboardAvoidingView,
-  ActivityIndicator,
-  StatusBar,
-  Alert,
   Platform
 } from 'react-native';
 import AwesomeAlert from 'react-native-awesome-alerts';
 import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { Icon } from '../../components';
-import { Block, Text } from 'galio-framework';
+import { Text } from 'galio-framework';
 import { Colors } from '../../constants';
 import PhoneInput from 'react-native-phone-input';
 import ModalPickerImage from './ModalPickerImage';
 import { signInAttempt, fillSignInReducer } from '../../actions';
 import { connect } from 'react-redux';
 import t from '../../I18n';
-import { Actions } from 'react-native-router-flux';
 import { Spinner } from '../../components/Spinner';
 
 const { width, height } = Dimensions.get('screen');
