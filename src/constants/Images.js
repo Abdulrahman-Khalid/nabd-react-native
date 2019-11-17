@@ -1,15 +1,4 @@
 // local imgs
-const Onboarding = require('../assets/imgs/bg.png');
-const Logo = require('../assets/imgs/argon-logo.png');
-const LogoOnboarding = require('../assets/imgs/argon-logo-onboarding.png');
-const ProfileBackground = require('../assets/imgs/profile-screen-bg.png');
-const RegisterBackground = require('../assets/imgs/register-bg.png');
-const Pro = require('../assets/imgs/getPro-bg.png');
-const ArgonLogo = require('../assets/imgs/argonlogo.png');
-const iOSLogo = require('../assets/imgs/ios.png');
-const androidLogo = require('../assets/imgs/android.png');
-
-const welcome = require('../assets/imgs/heart.png');
 const user = require('../assets/imgs/user.png');
 const accountType = require('../assets/imgs/account-type.png');
 const doctor = require('../assets/imgs/doctor.png');
@@ -62,16 +51,6 @@ const loupe = require('../assets/imgs/loupe.png');
 const ambulanceTopView = require('../assets/imgs/ambulance-top-view.png');
 
 export default {
-  Onboarding,
-  Logo,
-  LogoOnboarding,
-  ProfileBackground,
-  RegisterBackground,
-  Pro,
-  ArgonLogo,
-  iOSLogo,
-  androidLogo,
-  welcome,
   user,
   paramedic,
   doctor,
