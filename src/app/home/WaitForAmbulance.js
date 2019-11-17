@@ -9,7 +9,11 @@ import {
   Alert
 } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import { getLocation, updateAmbulanceNumber, setAmbulanceTracking } from '../../actions';
+import {
+  getLocation,
+  updateAmbulanceNumber,
+  setAmbulanceTracking
+} from '../../actions';
 import { connect } from 'react-redux';
 import { Images } from '../../constants';
 import { FAB, Button } from 'react-native-paper';
@@ -50,10 +54,8 @@ class WaitForAmbulance extends Component {
   }
 
   componentDidMount() {
-    setTimeout(() => {
-      this.props.setAmbulanceTracking(true);
-    }, 500);
-    console.log('waitforambulance componentDidMount')
+    this.props.setAmbulanceTracking(true);
+    console.log('waitforambulance componentDidMount');
     KeepAwake.activate();
     BackHandler.addEventListener(
       'hardwareBackPress',
@@ -91,7 +93,7 @@ class WaitForAmbulance extends Component {
   }
 
   componentDidUpdate(prevProps, prevState) {
-    console.log(this.state.ambulanceLocation)
+    console.log(this.state.ambulanceLocation);
     if (
       prevState.ambulanceLocation != this.state.ambulanceLocation &&
       !this.state.calibratedOnce
@@ -119,7 +121,7 @@ class WaitForAmbulance extends Component {
   }
 
   componentWillUnmount() {
-    console.log('componentWillUnmount')
+    console.log('componentWillUnmount');
     this.socket.close();
     KeepAwake.deactivate();
     BackHandler.removeEventListener(
@@ -204,11 +206,12 @@ class WaitForAmbulance extends Component {
                 latitude: this.state.ambulanceLocation.latitude,
                 longitude: this.state.ambulanceLocation.longitude
               }}
-              rotation={this.state.ambulanceLocation.heading - 70}
+              rotation={this.state.ambulanceLocation.heading - 90}
+              anchor={{ x: 0.5, y: 0.5 }}
             >
               <Image
                 source={Images.ambulanceTopView}
-                style={{ width: 60, height: 60 }}
+                style={{ width: 40, height: 40 }}
                 resizeMode="contain"
               />
             </Marker.Animated>
@@ -264,6 +267,8 @@ const mapStateToProps = state => ({
   userType: state.signin.userType
 });
 
-export default connect(mapStateToProps, { getLocation, updateAmbulanceNumber, setAmbulanceTracking })(
-  WaitForAmbulance
-);
+export default connect(mapStateToProps, {
+  getLocation,
+  updateAmbulanceNumber,
+  setAmbulanceTracking
+})(WaitForAmbulance);
