@@ -1,9 +1,8 @@
 import React from 'react';
 import { View, StyleSheet } from 'react-native';
-import { Colors } from '../constants';
 import { theme } from 'galio-framework';
 import SvgAnimatedLinearGradient from 'react-native-svg-animated-linear-gradient';
-import Svg, { Circle, Rect } from 'react-native-svg';
+import Svg, { Rect } from 'react-native-svg';
 
 class SkeletonCard extends React.Component {
   render() {

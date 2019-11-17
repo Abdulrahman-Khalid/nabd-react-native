@@ -3,7 +3,7 @@ import AsyncStorage from '@react-native-community/async-storage';
 import LoginManager from '../videoCall/manager/LoginManager';
 import CallManager from '../videoCall/manager/CallManager';
 import { Voximplant } from 'react-native-voximplant';
-import { Block, Text, Button, theme } from 'galio-framework';
+import { Text, theme } from 'galio-framework';
 import { Actions } from 'react-native-router-flux';
 import { Colors, Images } from '../../constants';
 import { connect } from 'react-redux';
@@ -29,23 +29,19 @@ import {
   Switch,
   DeviceEventEmitter,
   ActivityIndicator,
-  NativeModules,
   PermissionsAndroid
 } from 'react-native';
 import {
   Card,
   Modal as CustomModal,
-  Icon as CustomIcon,
   LocationPicker
 } from '../../components';
 import axios from 'axios';
-import RNSwipeVerify from 'react-native-swipe-verify';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { openSettings } from 'react-native-permissions';
 import t from '../../I18n';
 import RNSettings from 'react-native-settings';
 import Geolocation from 'react-native-geolocation-service';
-import ModalSelector from 'react-native-modal-selector';
 import LinearGradient from 'react-native-linear-gradient';
 
 const { width, height } = Dimensions.get('screen');

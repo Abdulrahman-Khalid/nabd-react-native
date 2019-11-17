@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Provider } from 'react-redux';
 import RouterComponent from './Router';
-import { Block } from 'galio-framework';
 import SplashScreen from 'react-native-splash-screen';
 import { PersistGate } from 'redux-persist/es/integration/react';
 import { persistStore } from 'redux-persist';

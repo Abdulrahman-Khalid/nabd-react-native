@@ -3,8 +3,6 @@ import {
   View,
   StyleSheet,
   Image,
-  TouchableOpacity,
-  Text,
   BackHandler,
   Alert
 } from 'react-native';
@@ -18,13 +16,10 @@ import { connect } from 'react-redux';
 import { Images } from '../../constants';
 import { FAB, Button } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
-import { Bubbles, DoubleBounce, Bars, Pulse } from 'react-native-loader';
-import { Icon as CustomIcon } from '../../components';
 import io from 'socket.io-client';
 import axios from 'axios';
 import { Actions } from 'react-native-router-flux';
 import t from '../../I18n';
-import Config from 'react-native-config';
 import mapStyle from '../../config/GoogleMapsCustomStyle';
 import KeepAwake from 'react-native-keep-awake';
 

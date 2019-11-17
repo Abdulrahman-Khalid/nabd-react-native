@@ -2,7 +2,6 @@ import React from 'react';
 import { StyleSheet } from 'react-native';
 import PropTypes from 'prop-types';
 import { Button } from 'galio-framework';
-
 import { Colors } from '../constants';
 
 class ArButton extends React.Component {

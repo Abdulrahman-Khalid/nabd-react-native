@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-import { theme, Block } from 'galio-framework';
-import { Actions } from 'react-native-router-flux';
+import { theme } from 'galio-framework';
 import { Colors, Images } from '../../constants';
 import { connect } from 'react-redux';
 import {
@@ -11,12 +10,10 @@ import {
   Dimensions,
   Image,
   Text,
-  TouchableHighlight,
   NativeModules,
   Modal,
   DeviceEventEmitter,
   Linking,
-  BackHandler,
   ActivityIndicator,
   AppState
 } from 'react-native';

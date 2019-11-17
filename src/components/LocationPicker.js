@@ -4,18 +4,16 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  Text,
   ActivityIndicator,
   NativeModules
 } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import MapView from 'react-native-maps';
 import { connect } from 'react-redux';
 import { Images, Colors } from '../constants';
 import MapSearch from './MapSearch';
-import { FAB, Button } from 'react-native-paper';
+import { FAB } from 'react-native-paper';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import PropTypes from 'prop-types';
-import LinearGradient from 'react-native-linear-gradient';
 import mapStyle from '../config/GoogleMapsCustomStyle';
 
 const deviceLanguage =

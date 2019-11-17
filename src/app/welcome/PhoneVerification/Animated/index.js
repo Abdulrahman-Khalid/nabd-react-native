@@ -6,12 +6,9 @@ import {
   Image,
   Text,
   View,
-  Platform,
-  KeyboardAvoidingView
 } from 'react-native';
 
 import { Block } from 'galio-framework';
-import { Button } from '../../../../components';
 import axios from 'axios';
 import CodeInput from 'react-native-confirmation-code-field';
 import { info } from '../../../../constants';
@@ -25,7 +22,6 @@ import styles, {
 } from './styles';
 import { Actions } from 'react-native-router-flux';
 import { Images, Colors } from '../../../../constants';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import { connect } from 'react-redux';
 
 const codeLength = 4;

@@ -1,5 +1,4 @@
 import React, { Component, createRef } from 'react';
-import CodeInput from 'react-native-confirmation-code-field';
 import AnimatedVerification from './PhoneVerification/Animated';
 
 class VerifySignup extends Component {
@@ -30,7 +29,6 @@ class VerifySignup extends Component {
   }
 
   render() {
-    // return <CodeInput ref={this.field} onFulfill={this.handlerOnFulfill} />;
     return <AnimatedVerification />;
   }
 }

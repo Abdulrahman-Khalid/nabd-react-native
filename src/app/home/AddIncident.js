@@ -6,15 +6,12 @@ import {
   Image,
   StyleSheet,
   Modal,
-  KeyboardAvoidingView,
-  Platform,
   Keyboard
 } from 'react-native';
 import axios from 'axios';
-import { KeyboardAwareScrollView } from 'react-native-keyboard-aware-scroll-view';
 import ImagePicker from 'react-native-image-picker';
 import { Actions } from 'react-native-router-flux';
-import { HelperText, TextInput, Button } from 'react-native-paper';
+import { HelperText, TextInput } from 'react-native-paper';
 import ActionSheet from 'react-native-action-sheet';
 import { LocationPicker, Icon } from '../../components';
 import { Colors } from '../../constants';

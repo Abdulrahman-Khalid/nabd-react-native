@@ -12,11 +12,9 @@ import { connect } from 'react-redux';
 import { InjuryButtonPressed } from '../../actions';
 import InjuryButton from './InjuryButton';
 import t from '../../I18n';
-import data from './metadata.json';
 import { Colors } from '../../constants';
 import { theme } from 'galio-framework';
 import { Icon as CustomIcon } from '../../components';
-import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { isIphoneX } from 'react-native-iphone-x-helper';
 
 const { width, height } = Dimensions.get('screen');

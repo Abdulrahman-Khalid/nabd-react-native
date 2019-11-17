@@ -7,8 +7,6 @@ import {
   Image,
   TouchableOpacity
 } from 'react-native';
-import { Colors } from '../constants';
-import { theme } from 'galio-framework';
 import LinearGradient from 'react-native-linear-gradient';
 import Icon from 'react-native-vector-icons/dist/MaterialCommunityIcons';
 import { connect } from 'react-redux';

@@ -3,7 +3,6 @@ import icoMoonConfigArgon from '../config/ArgonFontConfig.json';
 import icoMoonConfigLinear from '../config/LinearFontConfig.json';
 import icoMoonConfigFlat from '../config/FlatIconConfig.json';
 import { createIconSetFromIcoMoon } from 'react-native-vector-icons';
-import { Animated } from 'react-native';
 import { Icon } from 'galio-framework';
 import * as Animatable from 'react-native-animatable';
 
