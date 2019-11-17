@@ -68,7 +68,7 @@ class UserHome extends Component {
       loading: false,
       loadingModalVisible: false
     };
-
+    this.navigatedToWaitForAmbulance = false;
     this.requestAmbulance = this.requestAmbulance.bind(this);
   }
 
@@ -412,8 +412,14 @@ class UserHome extends Component {
         { enableHighAccuracy: true }
       );
     }
-    if (this.props.position && this.props.ambulancePhoneNumber && this.props.continueAmbulanceTracking) {
-      console.log('navigating to waitforambulance1')
+    console.log('continueAmbulanceTracking', this.props.continueAmbulanceTracking)
+    if (
+      this.props.position &&
+      this.props.ambulancePhoneNumber &&
+      this.props.continueAmbulanceTracking &&
+      !this.navigatedToWaitForAmbulance
+    ) {
+      console.log('navigating to waitforambulance1');
       Actions.waitForAmbulance();
     }
   }
@@ -737,12 +743,10 @@ class UserHome extends Component {
             loadingModalVisible: false
           });
           if (response.data.ambulanceNumber) {
+            this.navigatedToWaitForAmbulance = true;
             this.props.updateAmbulanceNumber(response.data.ambulanceNumber);
-            setTimeout(() => {
-              console.log('navigating to waitforambulance2')
-
-              Actions.waitForAmbulance();
-            }, 500);
+            console.log('navigating to waitforambulance2');
+            Actions.waitForAmbulance();
           } else {
             Alert.alert('', t.NoAmbulance, [
               {
@@ -774,12 +778,10 @@ class UserHome extends Component {
         })
         .then(response => {
           if (response.data.ambulanceNumber) {
+            this.navigatedToWaitForAmbulance = true;
             this.props.updateAmbulanceNumber(response.data.ambulanceNumber);
-            setTimeout(() => {
-              console.log('navigating to waitforambulance3')
-
-              Actions.waitForAmbulance();
-            }, 500);
+            console.log('navigating to waitforambulance3');
+            Actions.waitForAmbulance();
           } else {
             Alert.alert('', t.NoAmbulance, [
               {
