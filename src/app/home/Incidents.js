@@ -193,7 +193,7 @@ export class Incidents extends Component {
                     })
                   : scrollOffset.interpolate({
                       inputRange: [0, 200],
-                      outputRange: [80, 60],
+                      outputRange: [100, 80],
                       extrapolate: 'clamp'
                     }),
                 backgroundColor: scrollOffset.interpolate({
@@ -223,13 +223,14 @@ export class Incidents extends Component {
                 }
               }}
               style={{
+              paddingTop: 20,
                 fontFamily:
                   this.props.language.lang == 'en'
                     ? 'Quicksand-SemiBold'
                     : 'Tajawal-Medium',
                 fontSize: scrollOffset.interpolate({
                   inputRange: [0, 200],
-                  outputRange: [26, 20],
+                  outputRange: [23, 17],
                   extrapolate: 'clamp'
                 }),
                 color: scrollOffset.interpolate({

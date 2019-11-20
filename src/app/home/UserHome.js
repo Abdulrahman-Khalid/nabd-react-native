@@ -214,8 +214,8 @@ class UserHome extends Component {
     return (
       <View
         style={{
-          width: width / 2 - 25,
-          height: height / 2 - 125,
+          width: width / 2 - 24,
+          height: height / 2 - 100,
           borderRadius: 30
         }}
       >

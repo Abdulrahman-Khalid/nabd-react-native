@@ -6,7 +6,8 @@ import {
   Image,
   NativeModules,
   ActivityIndicator,
-  Platform
+  Platform,
+  StatusBar
 } from 'react-native';
 import axios from 'axios';
 import { connect } from 'react-redux';
@@ -100,6 +101,7 @@ class LanguageSelection extends Component {
     }
     return (
       <View style={styles.mainContainer}>
+        {/* <StatusBar backgroundColor={Colors.APP} barStyle="dark-content" /> */}
         <Image
           style={styles.image}
           source={Images.language}

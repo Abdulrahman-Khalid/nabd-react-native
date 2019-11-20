@@ -145,6 +145,7 @@ class SignIn extends Component {
               fontSize: 50,
               marginLeft: 20,
               marginBottom: 25,
+              lineHeight: 65,
               fontFamily:
                 this.props.language == 'en'
                   ? 'Quicksand-SemiBold'

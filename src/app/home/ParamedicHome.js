@@ -265,10 +265,10 @@ class ParamedicHome extends Component {
           <Pulse
             color={Colors.APP}
             numPulses={3}
-            diameter={800}
+            diameter={400}
             speed={20}
             duration={2000}
-            style={{ position: 'absolute', bottom: '-68%' }}
+            style={{ position: 'absolute', bottom: '-55%' }}
           />
         </View>
       );
