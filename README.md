@@ -2,9 +2,9 @@
 
 <br />
 <p align="center">
-  <div>
+  <a href="https://github.com/Abdulrahman-Khalid/nabd-react-native">
     <img src="src/assets/imgs/app-logo.png" alt="Logo" width="80" height="80">
-  </div>
+  </a>
 
   <h3 align="center">Nabd - نبض</h3>
 
@@ -101,4 +101,4 @@ Nader AbdAlGhani - nader_abdelghani@hotmail.com
 
 <!-- MARKDOWN LINKS & IMAGES -->
 
-[product-screenshot](src/assets/imgs/app-showcase-image.png)
+[product-screenshot]: src/assets/imgs/app-showcase-image.png
