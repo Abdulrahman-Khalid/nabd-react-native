@@ -99,7 +99,7 @@
     "socket.io-client": "^2.3.0",
     "uuid": "^3.3.3",
     "ws": "^7.1.2",
-    "yarn": "^1.17.3"
+    "yarn": "^1.22.0"
   },
   "devDependencies": {
     "@babel/core": "^7.6.2",
