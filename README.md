@@ -13,6 +13,19 @@
   </p>
 </p>
 
+</div>
+
+<h3 align="center">✔ Algorithmic Toolbox</h3>
+<div align="center">
+
+[![GitHub issues](https://img.shields.io/github/contributors/Abdulrahman-Khalid/nabd-react-native)](https://github.com/Abdulrahman-Khalid/nabd-react-native/contributors)
+[![GitHub issues](https://img.shields.io/github/issues/Abdulrahman-Khalid/nabd-react-native)](https://github.com/Abdulrahman-Khalid/nabd-react-native/issues)
+[![GitHub forks](https://img.shields.io/github/forks/Abdulrahman-Khalid/nabd-react-native)](https://github.com/Abdulrahman-Khalid/nabd-react-native/network)
+[![GitHub stars](https://img.shields.io/github/stars/Abdulrahman-Khalid/nabd-react-native)](https://github.com/Abdulrahman-Khalid/nabd-react-native/stargazers)
+[![GitHub license](https://img.shields.io/github/license/Abdulrahman-Khalid/nabd-react-native)](https://github.com/Abdulrahman-Khalid/nabd-react-native/blob/master/LICENSE)
+
+</div>
+
 <!-- TABLE OF CONTENTS -->
 
 ## Table of Contents
