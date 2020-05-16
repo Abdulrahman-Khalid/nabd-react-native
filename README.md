@@ -15,7 +15,7 @@
 
 </div>
 
-<h3 align="center">✔ Algorithmic Toolbox</h3>
+<h3 align="center">:heartpulse: :ambulance: :rotating_light: :hospital: </h3>
 <div align="center">
 
 [![GitHub issues](https://img.shields.io/github/contributors/Abdulrahman-Khalid/nabd-react-native)](https://github.com/Abdulrahman-Khalid/nabd-react-native/contributors)
