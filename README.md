@@ -98,6 +98,7 @@ Check out the [user manual](/docs/user_manual.pdf) for app usage instructions
 
 - Abdulrahman Khalid  - abdulrahman.elshafei98@gmail.com
 - Nader AbdAlGhani    - nader_abdelghani@hotmail.com
+- Nada Ashraf         - nadaashraf11@icloud.com
 
 <!-- ACKNOWLEDGEMENTS -->
 
