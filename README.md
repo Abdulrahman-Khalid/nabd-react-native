@@ -6,7 +6,7 @@
     <img src="src/assets/imgs/app-logo.png" alt="Logo" width="80" height="80">
   </a>
 
-  <h3 align="center">Nabd - نبض</h3>
+  <h3 align="center">:heartpulse: Nabd - نبض :heartpulse:</h3>
 
   <p align="center">
     An app for spreading first-aid awareness and helping people in critical situations
@@ -15,7 +15,7 @@
 
 </div>
 
-<h3 align="center">:heartpulse: :ambulance: :rotating_light: :hospital: </h3>
+<h3 align="center">:ambulance: :rotating_light: :hospital:</h3>
 <div align="center">
 
 [![GitHub issues](https://img.shields.io/github/contributors/Abdulrahman-Khalid/nabd-react-native)](https://github.com/Abdulrahman-Khalid/nabd-react-native/contributors)
@@ -94,11 +94,14 @@ Check out the [user manual](/docs/user_manual.pdf) for app usage instructions
 
 <!-- CONTACT -->
 
-## Contact
+## Developers
 
-- Abdulrahman Khalid  - abdulrahman.elshafei98@gmail.com
-- Nader AbdAlGhani    - nader_abdelghani@hotmail.com
-- Nada Ashraf         - nadaashraf11@icloud.com
+| Name                                |              Email               |
+| ----------------------------------- | :------------------------------: |
+| Abdulrahman Khalid Hassan           | abdulrahman.elshafei98@gmail.com |
+| Nada Ashraf                         |       nadaashraf11@icloud.com    |
+| Nader AbdAlGhani                    |    nader_abdelghani@hotmail.com  |
+
 
 <!-- ACKNOWLEDGEMENTS -->
 
