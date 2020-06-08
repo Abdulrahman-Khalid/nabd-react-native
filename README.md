@@ -9,7 +9,7 @@
   <h3 align="center">:heartpulse: Nabd - نبض :heartpulse:</h3>
 
   <p align="center">
-    An app for spreading first-aid awareness and helping people in critical situations
+    A mobile application for spreading first-aid awareness and helping people in critical situations
   </p>
 </p>
 
@@ -26,8 +26,18 @@
 
 </div>
 
-<!-- TABLE OF CONTENTS -->
+## Main Features
 
+- :heavy_check_mark: Platform to post your emergency.
+- :heavy_check_mark: You can use it to navigate through a lot of first aid instruction guides.
+- :heavy_check_mark: Video chat between paramedics/doctors and users.
+- :heavy_check_mark: Request an ambulance and track the location of both ambulance and user.
+
+## Nabd Showcase
+
+[![Nabd Showcase](https://img.youtube.com/vi/jIkkqqlbdu0/0.jpg)](https://www.youtube.com/watch?v=https://youtu.be/jIkkqqlbdu0)
+
+<!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
 * [About the Project](#about-the-project)
