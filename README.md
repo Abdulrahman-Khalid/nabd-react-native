@@ -35,7 +35,7 @@
 
 ## Nabd Showcase
 
-[![Nabd Showcase](https://img.youtube.com/vi/jIkkqqlbdu0/0.jpg)](https://www.youtube.com/watch?v=https://youtu.be/jIkkqqlbdu0)
+[![Nabd Showcase](https://img.youtube.com/vi/jIkkqqlbdu0/0.jpg)](https://youtu.be/jIkkqqlbdu0)
 
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
