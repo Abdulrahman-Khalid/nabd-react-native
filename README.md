@@ -35,7 +35,11 @@
 
 ## Nabd Showcase
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/jIkkqqlbdu0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<div align="center">
+  <a href="https://youtu.be/jIkkqqlbdu0">
+    <img src="https://img.youtube.com/vi/jIkkqqlbdu0/0.jpg" alt="Nabd Showcase" width="560" height="315">
+  </a>
+ </div>
 
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
