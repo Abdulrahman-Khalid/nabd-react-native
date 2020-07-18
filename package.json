@@ -36,7 +36,7 @@
     "galio-framework": "^0.5.4",
     "geolib": "^3.0.4",
     "jetifier": "^1.6.4",
-    "lodash": "^4.17.15",
+    "lodash": "^4.17.19",
     "react": "16.9.0",
     "react-native": "^0.61.4",
     "react-native-action-sheet": "^2.2.0",
