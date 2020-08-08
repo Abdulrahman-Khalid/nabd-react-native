@@ -101,10 +101,13 @@ Check out the [user manual](/docs/user_manual.pdf) for app usage instructions
 
 ### List of Proposed Features
 
-* Implementing a rewarding system for doctors and paramedics
-* Implementing an evalutation system for users
-* Integrating a forgot-password module
-* Adding customizable user profiles
+* Add first aid Gifs and step by step animatation.
+* Implementing a rewarding system for doctors and paramedics.
+* Dashboard which has the most contributing doctors and paramedics and their info.
+* Implementing an evalutation system for users.
+* Integrating a forgot-password module.
+* Adding customizable user profiles.
+* Implementing ourown video call service.
 
 <!-- CONTACT -->
 
