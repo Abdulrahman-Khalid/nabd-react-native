@@ -108,6 +108,7 @@ Check out the [user manual](/docs/user_manual.pdf) for app usage instructions
 * Integrating a forgot-password module.
 * Adding customizable user profiles.
 * Implementing ourown video call service.
+* Support more languages.
 
 <!-- CONTACT -->
 
