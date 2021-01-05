@@ -30,7 +30,7 @@
     "@react-native-community/async-storage": "^1.6.1",
     "@voximplant/react-native-foreground-service": "^2.0.0",
     "add": "^2.0.6",
-    "axios": "^0.19.0",
+    "axios": "^0.21.1",
     "config": "^3.2.4",
     "eslint-plugin-react": "^7.14.3",
     "galio-framework": "^0.5.4",
