@@ -98,7 +98,7 @@
     "rn-viewpager": "^1.2.9",
     "socket.io-client": "^2.3.0",
     "uuid": "^3.3.3",
-    "ws": "^7.1.2",
+    "ws": "^7.4.6",
     "yarn": "^1.17.3"
   },
   "devDependencies": {
