@@ -116,8 +116,7 @@ Check out the [user manual](/docs/user_manual.pdf) for app usage instructions
 
 | Name                                |              Email               |
 | ----------------------------------- | :------------------------------: |
-| Abdulrahman Khalid Hassan           | abdulrahman.elshafei98@gmail.com |
-| Nada Ashraf                         |       nadaashraf11@icloud.com    |
+| Abdulrahman Khalid Hassan           |    abdulrahman.elshafe@gmail.com |
 | Nader AbdAlGhani                    |    nader_abdelghani@hotmail.com  |
 
 
